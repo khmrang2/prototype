@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Note
   - Enemy
-  - Sona
+  - Pin
+  - Ball
   layers:
   - Default
   - TransparentFX

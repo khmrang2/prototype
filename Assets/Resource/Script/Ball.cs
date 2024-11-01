@@ -11,14 +11,15 @@ public class Ball : MonoBehaviour
         // GameManager 오브젝트를 찾거나 직접 할당할 수 있음
         gameManager = FindObjectOfType<GameManager>();
     }
+    
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // 충돌한 오브젝트가 Pin일 때만 실행
-        if (other.CompareTag("Pin"))
+        if (collision.gameObject.CompareTag("Pin"))
         {
-            Vector2 hitPosition = other.transform.position; // 충돌 위치 가져오기
-            //gameManager.IncreaseDamage(hitPosition); // GameManager에 위치 전달 및 데미지 증가
+            Debug.Log("Collision detected with Pin!");
         }
     }
+
 }
