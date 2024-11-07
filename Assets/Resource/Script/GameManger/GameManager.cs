@@ -92,7 +92,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator PlayerAtkTurn()
     {
         Debug.Log("player attacking...");
-        // Enemy attack logic goes here
+        //get damage score
+
+        //Instantiate projectile
+        
+        
         yield return new WaitUntil(() => enemyAtkEnded());
     }
 
@@ -133,7 +137,13 @@ public class GameManager : MonoBehaviour
     }
     private bool enemyAtkEnded()
     {
-        // 이하동문 
+        //projectie은 적과 충돌하거나 화면 밖으로 나가면 제거
+        //projectile이 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
+        // 아니면 false 반환
+
+        //if (projectileVariable == null){ return true;  }
+        //else { return false; }
+
         return true;
     }
 
