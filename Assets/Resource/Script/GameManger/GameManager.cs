@@ -36,6 +36,9 @@ struct buffState
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject prefPlayerAtkProjrctile;
+    private GameObject plAtkObj;
+
     public int damageSum = 0;
     //주석처리한 코드는 써도 되고 안써도되고..
     //public List<Ball> Balls; 
@@ -92,9 +95,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator PlayerAtkTurn()
     {
         Debug.Log("player attacking...");
-        //get damage score
 
-        //Instantiate projectile
+        //플레이어 공격 투사체 생성
+        //투사체는 스스로 나아가며 적과 접촉하거나 지정한 범위 밖으로 나가면 스스로 제거
+        plAtkObj = Instantiate(prefPlayerAtkProjrctile);
+        plAtkObj.transform.position = new Vector3(-2.4f, 4.85f, 0);
         
         
         yield return new WaitUntil(() => enemyAtkEnded());
@@ -137,14 +142,13 @@ public class GameManager : MonoBehaviour
     }
     private bool enemyAtkEnded()
     {
-        //projectie은 적과 충돌하거나 화면 밖으로 나가면 제거
-        //projectile이 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
+        //투사체 적과 충돌하거나 화면 밖으로 나가면 제거
+        //투사체 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
         // 아니면 false 반환
 
-        //if (projectileVariable == null){ return true;  }
-        //else { return false; }
+        if (plAtkObj == null){ return true;  }
+        else { return false; }
 
-        return true;
     }
 
     private bool buffChosen()
