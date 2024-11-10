@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject prefPlayerAtkProjrctile;
     private GameObject plAtkObj;
+    public EnemyListManager enemyListManager;
+    public Transform playerTransform;
 
     public int damageSum = 0;
     //주석처리한 코드는 써도 되고 안써도되고..
@@ -46,6 +48,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        if (enemyListManager == null)
+        {
+            enemyListManager = FindObjectOfType<EnemyListManager>();
+        }
         // 게임을 시작할 프레임 워크의 시작.
         StartCoroutine(GameLoop());
     }
@@ -109,14 +115,28 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Enemy Behavior...");
         // Logic for enemy movement
+        if (playerTransform == null)
+        {
+            Debug.LogError("Player reference is not set in GameManager!");
+            yield break;
+        }
+
+        enemyListManager.ExecuteEnemyBehavior(playerTransform);
+
         yield return new WaitUntil(() => enemyMoveEnded());
+        currentTurn = GameTurn.SpawnEnemyState;
     }
 
     private IEnumerator SpawnEnemyTurn()
     {
         Debug.Log("Spawning enemy...");
         // Logic for spawning enemy units
+        int enemyCount = 5; // 생성할 적의 수 (필요에 따라 조정 가능)
+        Vector3 spawnCenter = new Vector3(0, 0, 0); // 스폰 중심 위치
+        float spawnRadius = 10f; // 스폰 영역 반지름
+        enemyListManager.SpawnEnemies(enemyCount, spawnCenter, spawnRadius);
         yield return new WaitUntil(() => spawnEnemyEnded());
+        currentTurn = GameTurn.ChooseBuffState;
     }
 
     private IEnumerator ChooseBuffTurn()
