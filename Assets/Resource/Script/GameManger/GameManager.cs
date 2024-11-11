@@ -24,16 +24,6 @@ public enum GameTurn
     EndChkState,            // 스테이지가 끝났는지(모든 적이 죽었는지) 체크하는 상태
     ChooseBuffState,        // 플레이어의 턴으로 버프를 선택하는 상태->>
 }
-
-
-// 버프 상황을 제어하기 위해 만든 구조체.
-struct buffState
-{
-    int numberOfBalls;
-    //int spawnOffset;
-    int damageOfBall;
-};
-
 public class GameManager : MonoBehaviour
 {
     public int damageSum = 0;
