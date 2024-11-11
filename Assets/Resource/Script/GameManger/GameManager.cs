@@ -30,12 +30,20 @@ public class GameManager : MonoBehaviour
     private GameObject plAtkObj;
     public Transform playerTransform;  // 플레이어의 Transform
     public EnemyListManager enemyListManager;  // EnemyListManager 참조
+    // 현민 - 
+    // 게임할 state들을 불러옴.
+    // 플레이어가 기본적으로 불러오는 state. 
+    // 버프를 받아서 갱신될 cur_state.
+    BuffState curState = null;
+    BuffManager buffManager = null;
     public int damageSum = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
 
     void Start()
     {
-        // 게임 루프 시작
+        curState = new BuffState();
+        buffManager = new BuffManager();
+        // 게임을 시작할 프레임 워크의 시작.
         StartCoroutine(GameLoop());
     }
 
@@ -129,7 +137,6 @@ public class GameManager : MonoBehaviour
         //투사체 적과 충돌하거나 화면 밖으로 나가면 제거
         //투사체 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
         // 아니면 false 반환
-
         if (plAtkObj == null)
         {
             return true;
@@ -152,7 +159,13 @@ public class GameManager : MonoBehaviour
 
     private bool chooseBuffEnded()
     {
-        return true;  // 버프가 선택됐는지를 체크하는 로직
+        // 이하동문 
+        // 유저가 클릭하는 패널이 생성되고
+        // 패널에서 선택한 버튼대로 버프 매니저에서 update가 될거임.
+        // 그럼 이제 버트매니저에서 가져오는 것이 필요하네?
+        // 즉, 버튼이 클릭되고 updateBuffState()가 실행되면 return 으로 1 아니면 0 
+        curState = buffManager.getBuffState();
+        return true;
     }
 
     private bool chkStageEnded()

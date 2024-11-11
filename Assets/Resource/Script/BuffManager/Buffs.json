@@ -1,0 +1,14 @@
+{
+    "buffs": [
+        {
+            "BuffID": 1,
+            "Name": "Increase Ball Size",
+            "Description": "Makes the ball larger"
+        },
+        {
+            "BuffID": 2,
+            "Name": "Increase Ball Power",
+            "Description": "Increases ball's power"
+        }
+    ]
+}
