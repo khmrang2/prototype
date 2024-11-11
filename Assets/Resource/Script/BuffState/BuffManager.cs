@@ -37,20 +37,16 @@ public class BuffManager : MonoBehaviour
 {
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
     [SerializeField] private TextAsset buffDataJSON; // JSON 파일
-    private List<GameObject> buffSlots = new List<GameObject>(); // Buff 슬롯들 (SelectPanel 하위에 있는 Buff들)
     private Dictionary<int, BuffEffect> buffTable = new Dictionary<int, BuffEffect>(); // ID로 접근할 수 있는 버프 테이블
+    private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
+    private int selectedBuffId = -1; // 선택된 Buff ID
 
     private void Start()
     {
         LoadBuffDataFromJSON();
-        // SelectPanel 하위의 Buff 슬롯을 가져옴
-        for (int i = 0; i < selectPanel.transform.childCount; i++)
-        {
-            buffSlots.Add(selectPanel.transform.GetChild(i).gameObject);
-        }
-
-        ShowRandomBuffs();
+        selectPanel.SetActive(false); // 시작 시 UI 패널을 비활성화
     }
+
     // JSON 파일에서 모든 버프를 로드하고 테이블에 저장
     private void LoadBuffDataFromJSON()
     {
@@ -63,29 +59,33 @@ public class BuffManager : MonoBehaviour
         }
     }
 
+    // UI 패널을 활성화하고, 임의의 3개 버프를 표시
+    public void ShowBuffSelection()
+    {
+        isBuffSelected = false; // 초기화
+        selectPanel.SetActive(true); // 패널 활성화
+        ShowRandomBuffs();
+    }
+
     // 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
-        List<BuffEffect> selectedBuffs = GetRandomBuffs(3); // 임의의 3개의 버프를 선택
+        List<BuffEffect> selectedBuffs = GetRandomBuffs(3);
 
         for (int i = 0; i < selectedBuffs.Count; i++)
         {
             BuffEffect buff = selectedBuffs[i];
-            GameObject buffSlot = buffSlots[i];
+            GameObject buffSlot = selectPanel.transform.GetChild(i).gameObject;
 
-            // Buff 슬롯에 이미지와 텍스트를 설정
             Image buffImage = buffSlot.transform.Find("buffImage").GetComponent<Image>();
             TextMeshProUGUI buffText = buffSlot.transform.Find("buffToolTip").GetComponent<TextMeshProUGUI>();
 
-            // 버프 이미지와 텍스트 설정
             buffImage.sprite = LoadSpriteFromPath(buff.ImagePath);
             buffText.text = buff.Tooltip;
 
-            // 클릭 이벤트 설정
-            Button button = buffSlot.GetComponent<Button>();
-            int buffId = buff.ID; // 지역 변수에 ID를 저장하여 각 버튼에 할당
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => OnBuffSelected(buffId));
+            int buffId = buff.ID;
+            buffSlot.GetComponent<Button>().onClick.RemoveAllListeners();
+            buffSlot.GetComponent<Button>().onClick.AddListener(() => OnBuffSelected(buffId));
         }
     }
 
@@ -99,7 +99,7 @@ public class BuffManager : MonoBehaviour
         {
             int index = Random.Range(0, randomBuffs.Count);
             selectedBuffs.Add(randomBuffs[index]);
-            randomBuffs.RemoveAt(index); // 중복 선택을 방지하기 위해 선택된 항목을 제거
+            randomBuffs.RemoveAt(index);
         }
 
         return selectedBuffs;
@@ -108,10 +108,25 @@ public class BuffManager : MonoBehaviour
     // 버프가 선택되었을 때 호출되는 함수
     public void OnBuffSelected(int buffId)
     {
+        selectedBuffId = buffId;
+        isBuffSelected = true; // 선택 완료
+        selectPanel.SetActive(false); // 선택 완료 시 패널 비활성화
         Debug.Log("Selected Buff ID: " + buffId);
     }
 
-    // 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시)
+    // 버프 선택 완료 여부 확인 메서드
+    public bool IsBuffSelected()
+    {
+        return isBuffSelected;
+    }
+
+    // 선택된 Buff ID 반환
+    public int GetSelectedBuffId()
+    {
+        return selectedBuffId;
+    }
+
+    // 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시) -? 왜 안되지..ㅅㅂ
     private Sprite LoadSpriteFromPath(string path)
     {
         //Debug.Log(path);

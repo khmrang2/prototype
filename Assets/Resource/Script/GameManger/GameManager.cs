@@ -35,14 +35,15 @@ public class GameManager : MonoBehaviour
     // 플레이어가 기본적으로 불러오는 state. 
     // 버프를 받아서 갱신될 cur_state.
     BuffState curState = null;
-    BuffManager buffManager = null;
+    [SerializeField]
+    public BuffManager buffManager;
+
     public int damageSum = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
 
     void Start()
     {
         curState = new BuffState();
-        buffManager = new BuffManager();
         // 게임을 시작할 프레임 워크의 시작.
         StartCoroutine(GameLoop());
     }
@@ -116,7 +117,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator ChooseBuffTurn()
     {
         Debug.Log("Choosing a buff...");
-        yield return new WaitUntil(() => chooseBuffEnded());
+        buffManager.ShowBuffSelection(); // 버프 선택 UI 표시
+
+        // 버프가 선택될 때까지 대기
+        yield return new WaitUntil(() => buffManager.IsBuffSelected());
+
+        // 선택된 Buff ID 출력 (필요에 따라 추가 작업 수행 가능)
+        int selectedBuffId = buffManager.GetSelectedBuffId();
+        Debug.Log("Buff selected! ID: " + selectedBuffId);
     }
 
     private IEnumerator EndChkStage()
