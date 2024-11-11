@@ -2,85 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class BuffEffect : BaseState
-{
-    public int ID;
-}
-
 public class Buff : MonoBehaviour
 {
-    private Dictionary<int, BuffEffect> buffTable = new Dictionary<int, BuffEffect>();
+    //private Dictionary<int, BuffEffect> buffTable = new Dictionary<int, BuffEffect>();
 
-    [SerializeField] private TextAsset buffDataJSON; // JSON 파일을 Unity에 추가
-    private BuffEffect currentBuff;
-    public BuffManager buffManager;
+    //[SerializeField] private TextAsset buffDataJSON; // JSON 파일을 Unity에 추가
+    //private BuffEffect currentBuff;
+    //public BuffManager buffManager;
 
-    private void Start()
-    {
-        LoadBuffDataFromJSON();
-        buffManager.addBuff(currentBuff);
-    }
-
-    private void LoadBuffDataFromJSON()
-    {
-        BuffDataList dataList = JsonUtility.FromJson<BuffDataList>(buffDataJSON.text);
-        
-        // json 파일에서 모든 버프들을 로드해옴.
-        foreach (BuffEffect buff in dataList.buffs)
-        {
-            buffTable[buff.ID] = buff;
-        }
-    }
-
-    // 특정 ID에 해당하는 버프 데이터를 로드
-    // 즉 패널에서 클릭하면 이거를 호출하게 하면 됨. 이걸 온 클릭 메소드로.
-    public void LoadBuffById(int buffId)
-    {
-        buffTable.TryGetValue(buffId, out currentBuff);
-        
-    }
-
-    // buffState에 버프 적용
-    //public void ApplyBuff(BuffState buffState)
+    //private void Start()
     //{
-    //    if (currentBuffEffect == null) return;
+    //    LoadBuffDataFromJSON();
+    //}
 
-    //    // nullable 타입이기 때문에 이렇게 표현.
-    //    if (currentBuffEffect.Player_Damage.HasValue)
-    //        buffState.Player_Damage += currentBuffEffect.Player_Damage.Value;
+    //private void LoadBuffDataFromJSON()
+    //{
+    //    BuffDataList dataList = JsonUtility.FromJson<BuffDataList>(buffDataJSON.text);
+        
+    //    // json 파일에서 모든 버프들을 로드해옴.
+    //    foreach (BuffEffect buff in dataList.buffs)
+    //    {
+    //        buffTable[buff.ID] = buff;
+    //    }
+    //}
 
-    //    if (currentBuffEffect.Player_CriticalChance.HasValue)
-    //        buffState.Player_CriticalChance += currentBuffEffect.Player_CriticalChance.Value;
+    //// 특정 ID에 해당하는 버프 데이터를 로드
+    //// 즉 패널에서 클릭하면 이거를 호출하게 하면 됨. 이걸 온 클릭 메소드로.
+    //public void LoadBuffById(int buffId)
+    //{
+    //    buffTable.TryGetValue(buffId, out currentBuff);
+    //    buffManager.addBuff(currentBuff);
+    //}
 
-    //    if (currentBuffEffect.Player_HealthIncrease.HasValue)
-    //        buffState.Player_HealthIncrease += currentBuffEffect.Player_HealthIncrease.Value;
-
-    //    if (currentBuffEffect.Player_DoubleUpChance.HasValue)
-    //        buffState.Player_DoubleUpChance += currentBuffEffect.Player_DoubleUpChance.Value;
-
-    //    if (currentBuffEffect.Player_ShieldPower.HasValue)
-    //        buffState.Player_ShieldPower += currentBuffEffect.Player_ShieldPower.Value;
-
-    //    if (currentBuffEffect.Ball_Size.HasValue)
-    //        buffState.Ball_Size += currentBuffEffect.Ball_Size.Value;
-
-    //    if (currentBuffEffect.Ball_Count.HasValue)
-    //        buffState.Ball_Count += currentBuffEffect.Ball_Count.Value;
-
-    //    if (currentBuffEffect.Ball_Elasticity.HasValue)
-    //        buffState.Ball_Elasticity += currentBuffEffect.Ball_Elasticity.Value;
-
-    //    if (currentBuffEffect.Ball_PiercePower.HasValue)
-    //        buffState.Ball_PiercePower += currentBuffEffect.Ball_PiercePower.Value;
-
-    //    if (currentBuffEffect.Ball_BallSplitCount.HasValue)
-    //        buffState.Ball_BallSplitCount += currentBuffEffect.Ball_BallSplitCount.Value;
+    //// 버튼이 눌렸을 때 랜덤 ID로 LoadBuffById를 호출하는 메서드
+    //public void OnButtonPress()
+    //{
+    //    int randomId = Random.Range(1, 3); // 1에서 100 사이의 랜덤 ID 생성 (JSON의 ID 범위에 맞추기)
+    //    LoadBuffById(randomId);
     //}
 }
 
-[System.Serializable]
-public class BuffDataList
-{
-    public List<BuffEffect> buffs;
-}
+//[System.Serializable]
+//public class BuffDataList
+//{
+//    public List<BuffEffect> buffs;
+//}

@@ -2,24 +2,24 @@
   "buffs": [
     {
       "ID": 1,
-      "Tooltip": "기본 데미지 증가 + 20",
-      "ImagePath": "path/to/image1.png",
+      "Tooltip": "default player attack damage + 20",
+      "ImagePath": "Image/BuffImage/sword_icon",
       "buffEffect": {
         "Player_Damage": 20
       }
     },
     {
       "ID": 2,
-      "Tooltip": "기본 공 크기 증가 + 50%",
-      "ImagePath": "path/to/image2.png",
+      "Tooltip": "ball size + 50%",
+      "ImagePath": "Image/BuffImage/ballsize",
       "buffEffect": {
         "Player_HealthIncrease": 10
       }
     },
     {
       "ID": 3,
-      "Tooltip": "공 탄성 계수 증가 + 10%",
-      "ImagePath": "path/to/image2.png",
+      "Tooltip": "ball boundness + 10%",
+      "ImagePath": "Image/BuffImage/ball_elasticity",
       "buffEffect": {
         "Player_HealthIncrease": 10
       }
