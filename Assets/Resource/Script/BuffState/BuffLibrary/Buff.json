@@ -1,0 +1,14 @@
+[
+    {
+        "ID": 1001,
+        "Player_Damage": 10
+    },
+    {
+        "ID": 1002,
+        "Ball_Size": 0.2
+    },
+    {
+        "ID": 1003,
+        "Ball_Elasticity": 0.80
+    }
+]

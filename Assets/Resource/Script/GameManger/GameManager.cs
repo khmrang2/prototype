@@ -26,6 +26,13 @@ public enum GameTurn
 }
 public class GameManager : MonoBehaviour
 {
+    // 현민 - 
+    // 게임할 state들을 불러옴.
+    // 플레이어가 기본적으로 불러오는 state. 
+    // 버프를 받아서 갱신될 cur_state.
+    BuffState curState = null;
+    BuffManager buffManager = null;
+
     public int damageSum = 0;
     //주석처리한 코드는 써도 되고 안써도되고..
     //public List<Ball> Balls; 
@@ -33,6 +40,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        curState = new BuffState();
+        buffManager = new BuffManager();
         // 게임을 시작할 프레임 워크의 시작.
         StartCoroutine(GameLoop());
     }
@@ -129,9 +138,6 @@ public class GameManager : MonoBehaviour
 
     private bool buffChosen()
     {
-        // 버프도 또한 버프가 선택되고 
-        // 아티팩트를 관리하는 코드에서 이 코드를 인보크 해주면
-        // 다음 상태로 넘어갈 수 있습니다. 
         return true;
     }
 
@@ -148,6 +154,11 @@ public class GameManager : MonoBehaviour
     private bool chooseBuffEnded()
     {
         // 이하동문 
+        // 유저가 클릭하는 패널이 생성되고
+        // 패널에서 선택한 버튼대로 버프 매니저에서 update가 될거임.
+        // 그럼 이제 버트매니저에서 가져오는 것이 필요하네?
+        // 즉, 버튼이 클릭되고 updateBuffState()가 실행되면 return 으로 1 아니면 0 
+        curState = buffManager.getBuffState();
         return true;
     }
 
