@@ -499,6 +499,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+--- !u!1 &310291378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 310291381}
+  - component: {fileID: 310291380}
+  - component: {fileID: 310291379}
+  m_Layer: 0
+  m_Name: EnemyTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &310291379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310291378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c213ded7725a64749ac39071dadc1419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  playerTransform: {fileID: 1341735179}
+  enemyTransform: {fileID: 310291381}
+  maxEnemies: 5
+  spawnInterval: 2
+--- !u!114 &310291380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310291378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f742101e0924534991ae3efbe896c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  attackRange: 5
+  moveSpeed: 3
+--- !u!4 &310291381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310291378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.14, y: 6.35, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &322251583
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1283,6 +1348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefPlayerAtkProjrctile: {fileID: 7426673575030302359, guid: 048c29155cfc39e469287a41f0a30278, type: 3}
+  playerTransform: {fileID: 1341735179}
+  enemyListManager: {fileID: 310291379}
   damageSum: 0
   currentTurn: 0
 --- !u!1 &987147354
@@ -1321,7 +1388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.79725623}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987147356
@@ -1759,6 +1826,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1286163080102271888, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
   m_PrefabInstance: {fileID: 322251583}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1341735178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1341735179}
+  m_Layer: 0
+  m_Name: PlayerTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1341735179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341735178}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.28, y: 6.26, z: 0.005654466}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1376435829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2772,3 +2870,5 @@ SceneRoots:
   - {fileID: 731121117}
   - {fileID: 3932902375658422669}
   - {fileID: 4524911787554149896}
+  - {fileID: 1341735179}
+  - {fileID: 310291381}
