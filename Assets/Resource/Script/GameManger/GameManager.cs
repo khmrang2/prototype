@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         // 패널에서 선택한 버튼대로 버프 매니저에서 update가 될거임.
         // 그럼 이제 버트매니저에서 가져오는 것이 필요하네?
         // 즉, 버튼이 클릭되고 updateBuffState()가 실행되면 return 으로 1 아니면 0 
-        curState = buffManager.getBuffState();
+        //curState = buffManager.getBuffState();
         return true;
     }
 
