@@ -140,13 +140,14 @@ public class GameManager : MonoBehaviour
         //투사체 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
         // 아니면 false 반환
 
-        if (plAtkObj == null) { 
-            return true; 
+        if (plAtkObj == null)
+        {
+            return true;
         }
-        else { 
-            return false; 
+        else
+        {
+            return false;
         }
-
     }
 
     private bool enemyMoveEnded()
