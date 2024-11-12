@@ -10,20 +10,26 @@ public enum GameTurn
     // 11일 (월) 비대면 회의 + 이슈 체크 회의
     // 
     // 13일 (수) 멘토님 컨펌
-                            // 태연
+    // 태연
     DropBallState,          // 플레이어의 턴으로 공을 떨어뜨리는 상태 - 태연
 
-                            // 정훈님 
+    // 정훈님 
     PlayerAtkState,         // 떨어뜨린 공으로 적을 공격하는 상태
-                            
-                            // 시우님
+
+    // 시우님
     EnemyBehaviorState,     // 적의 턴으로 적이 행동(공격 or 움직임)하는 상태
     SpawnEnemyState,        // 적이 생성되는 상태
 
-                            // 현민
+    // 현민
     EndChkState,            // 스테이지가 끝났는지(모든 적이 죽었는지) 체크하는 상태
     ChooseBuffState,        // 플레이어의 턴으로 버프를 선택하는 상태->>
 }
+struct buffState
+{
+    int numberOfBalls;
+    //int spawnOffset;
+    int damageOfBall;
+};
 public class GameManager : MonoBehaviour
 {
     public GameObject prefPlayerAtkProjrctile;
@@ -43,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public int damageSum = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
+    public PinManager pinManager; 
 
     void Start()
     {
@@ -137,11 +144,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => chkStageEnded());
     }
 
-    private bool ballHasDropped()
+    public bool ballHasDropped()
     {
-        // 이제 여기서 공이 모두 떨어졌는지를 체크하여 return 해주면 됩니다.
-        // balls[]라는 리스트를 구현해서 모든 볼이 사라지면 이 BallHasDropped를 invoke해주거나
-        // 아니면 마지막 공이 사라진다면 이 코드를 invoke 하는 형식으로 구현해주시면 됩니다.
         return true;
     }
     private bool enemyAtkEnded()
@@ -156,14 +160,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool buffChosen()
+    {
+        return true;
+    }
+
     private bool enemyMoveEnded()
     {
-        return true;  // 적의 이동이 끝났는지를 체크하는 로직
+        return true; 
     }
 
     private bool spawnEnemyEnded()
     {
-        return true;  // 적이 모두 소환됐는지를 체크하는 로직
+        return true;
     }
 
     private bool chooseBuffEnded()
