@@ -1369,6 +1369,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24dc082bbb06dbf49a40954eda8758b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player_Damage: 0
+  Player_CriticalChance: 0
+  Player_HealthIncrease: 0
+  Player_DoubleUpChance: 0
+  Player_ShieldPower: 0
+  Ball_Size: 0
+  Ball_Count: 0
+  Ball_Elasticity: 0
+  Ball_PiercePower: 0
+  Ball_BallSplitCount: 0
 --- !u!114 &776325242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1381,6 +1391,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d818270c5229a4393a6e2255d0ed19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player_Damage: 0
+  Player_CriticalChance: 0
+  Player_HealthIncrease: 0
+  Player_DoubleUpChance: 0
+  Player_ShieldPower: 0
+  Ball_Size: 0
+  Ball_Count: 0
+  Ball_Elasticity: 0
+  Ball_PiercePower: 0
+  Ball_BallSplitCount: 0
 --- !u!4 &776325243
 Transform:
   m_ObjectHideFlags: 0

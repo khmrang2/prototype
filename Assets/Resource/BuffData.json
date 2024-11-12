@@ -1,28 +1,28 @@
 {
   "buffs": [
     {
-      "ID": 1,
-      "Tooltip": "default player attack damage + 20",
-      "ImagePath": "Image/BuffImage/sword_icon",
-      "buffEffect": {
-        "Player_Damage": 20
-      }
+        "ID": 1,
+        "Tooltip": "default player attack damage + 20",
+        "ImagePath": "Image/BuffImage/sword_icon",
+        "buffState": {
+            "Player_Damage": 20
+        }
     },
     {
-      "ID": 2,
-      "Tooltip": "ball size + 50%",
-      "ImagePath": "Image/BuffImage/ballsize",
-      "buffEffect": {
-        "Player_HealthIncrease": 10
-      }
+        "ID": 2,
+        "Tooltip": "ball size + 50%",
+        "ImagePath": "Image/BuffImage/ballsize",
+        "buffState": {
+            "Ball_Size": 10
+        }
     },
     {
-      "ID": 3,
-      "Tooltip": "ball boundness + 10%",
-      "ImagePath": "Image/BuffImage/ball_elasticity",
-      "buffEffect": {
-        "Player_HealthIncrease": 10
-      }
+        "ID": 3,
+        "Tooltip": "ball boundness + 10%",
+        "ImagePath": "Image/BuffImage/ball_elasticity",
+        "buffState": {
+            "Ball_Elasticity": 10
+        }
     }
   ]
 }

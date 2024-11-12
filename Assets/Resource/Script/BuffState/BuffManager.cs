@@ -1,8 +1,9 @@
 using System.Collections.Generic;
-using System.Data;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 [System.Serializable]
 public class BuffStruct
@@ -10,7 +11,7 @@ public class BuffStruct
     public int ID;
     public string Tooltip;
     public string ImagePath;
-    public BuffState buffState;
+    public BaseState buffState;
 }
 
 [System.Serializable]
@@ -28,10 +29,14 @@ public class BuffManager : MonoBehaviour
     private int selectedBuffId = -1; // 선택된 Buff ID
     private List<BuffStruct> selectedBuffs; // 선택된 버프들.
 
-    
+    private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
+
+    // 최초의 버프들을 합해서 보여주는 버프 스테이트
+    private BaseState buffSumState;
 
     private void Start()
     {
+        buffSumState = new BaseState();
         LoadBuffDataFromJSON();
         selectPanel.SetActive(false); // 시작 시 UI 패널을 비활성화
     }
@@ -40,10 +45,12 @@ public class BuffManager : MonoBehaviour
     private void LoadBuffDataFromJSON()
     {
         string jsonText = buffDataJSON.text;
-        BuffDataList dataList = JsonUtility.FromJson<BuffDataList>(jsonText);
+        BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
+        // 데이터를 읽고 각 버프 속성을 출력
         foreach (BuffStruct buff in dataList.buffs)
         {
+            Debug.Log($"ID: {buff.ID}, Tooltip: {buff.Tooltip}");
             buffTable[buff.ID] = buff;
         }
     }
@@ -90,19 +97,19 @@ public class BuffManager : MonoBehaviour
         List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
         HashSet<int> selectedIndices = new HashSet<int>(); // 중복을 방지하기 위한 HashSet
 
-        //List<int> indices = new List<int>(3);
         int index;
         for (int i = 0; i < count; i++)
         {
-            // 최초 시행이거나, 포함하고 있으면 다시 뽑아라.
+            // 포함하고 있으면 다시 뽑아라.
             do
             {
-                index = Random.Range(0, keys.Count);
+                index = UnityEngine.Random.Range(0, keys.Count);
             }while(selectedIndices.Contains(index));
 
             selectedIndices.Add(index);
             int key = keys[index]; // 실제 키 값
 
+            // 실제 획득하는 버프 buffTable.TryGetValue(key, out BuffStruct effect)
             if (buffTable.TryGetValue(key, out BuffStruct effect))
             {
                 selectedBuffs.Add(effect);
@@ -115,10 +122,20 @@ public class BuffManager : MonoBehaviour
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;
+        BuffStruct selectedBuff;
         // 이제 여기에다가 버프를 적용하는 시퀀스를 넣자.
+        if (buffTable.TryGetValue(buffId, out selectedBuff))
+        {
+            // 선택된 버프의 buffState를 ApplyBuff에 전달
+            applyBuff(selectedBuff.buffState);
+        }
+        else
+        {
+            Debug.LogWarning("Buff with ID " + buffId + " not found.");
+        }
+        // 이제 게임매니저의 버프스테이트를 넣어주자.
         isBuffSelected = true; // 선택 완료
         selectPanel.SetActive(false); // 선택 완료시 버프 창을 비활성화.
-        Debug.Log("Selected Buff ID: " + buffId);
     }
 
     // 버프 선택 완료 여부 확인 메서드
@@ -131,6 +148,24 @@ public class BuffManager : MonoBehaviour
     public int GetSelectedBuffId()
     {
         return selectedBuffId;
+    }
+
+    private void applyBuff(BaseState effect)
+    {
+        buffSumState.AddState(effect);
+    }
+
+    public void PrintBuffSumState()
+    {
+        //Debug.Log("BuffSumState Fields:");
+
+        //// BuffSumState의 모든 public 인스턴스 필드를 순회
+        //foreach (FieldInfo field in typeof(BaseState).GetFields(BindingFlags.Public | BindingFlags.Instance))
+        //{
+        //    // 필드 이름과 해당 값을 가져와 출력
+        //    var value = field.GetValue(selectedBuffI);
+        //    Debug.Log($"{field.Name}: {value}");
+        //}
     }
 
     // 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시) -? 왜 안되지..ㅅㅂ
@@ -150,6 +185,11 @@ public class BuffManager : MonoBehaviour
         }
 
         return loadedSprite;
+    }
+
+    public BaseState getBuffSumState()
+    {
+        return buffSumState;
     }
 
     //private void ApplyBuffEffectToPlayer(BuffState buff)
@@ -303,4 +343,8 @@ public class BuffManager : MonoBehaviour
 //    {
 //        ui.SetActive(false);
 //    }
+
+// 왜 여기서 null ref error?
+//Debug.Log(selectedBuffs[buffId].buffState.Player_Damage);
+//ApplyBuff(selectedBuffs[buffId].buffState);
 //}
