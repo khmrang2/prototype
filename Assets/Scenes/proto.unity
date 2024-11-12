@@ -1164,7 +1164,6 @@ MonoBehaviour:
   - {fileID: 1109138602}
   - {fileID: 777551833}
   - {fileID: 2005002238}
-  gameManager: {fileID: 966862922}
 --- !u!1 &764101881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1382,7 @@ MonoBehaviour:
   damageSum: 0
   currentTurn: 0
   pinManager: {fileID: 745019941}
+  interactionArea: {fileID: 987147358}
 --- !u!1 &987147354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1473,7 +1473,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 7401994969355197580, guid: a7b9a3a2ac1c3f24ea422242da0ac9fd, type: 3}
-  numberOfBalls: 5
   spawnOffset: 0.1
 --- !u!1001 &989321697
 PrefabInstance:

@@ -24,4 +24,7 @@ public class Pin : MonoBehaviour
     public int hit_cnt(){
         return cnt;
     }
+    public void init_cnt(){
+        cnt = 0;
+    }
 }

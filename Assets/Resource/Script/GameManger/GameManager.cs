@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
     //�ּ�ó���� �ڵ�� �ᵵ �ǰ� �Ƚᵵ�ǰ�..
     //public List<Ball> Balls; 
     public GameTurn currentTurn = GameTurn.DropBallState;
-    public PinManager pinManager; 
+    public PinManager pinManager;
+    public InteractionArea interactionArea;
 
     void Start()
     {
@@ -120,14 +121,29 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndChkStage()
     {
         Debug.Log("Checking end conditions...");
+        damageSum = 0;
+        interactionArea.init_ball();
         // Logic to check if the game should end or continue
         yield return new WaitUntil(() => chkStageEnded());
     }
 
     public bool ballHasDropped()
+{
+    // 공이 떨어지고 있는 중이고, Ball 오브젝트가 더 이상 존재하지 않으면
+    if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
     {
+        // pinManager에서 합산된 hit count를 damageSum에 저장
+        damageSum = pinManager.hit_cnt_sum();
+        Debug.Log("Total hit count: " + damageSum);
+
+        // 모든 핀의 hit count 초기화
+        pinManager.init_pins_hit_cnt();
+
+        // true 반환
         return true;
     }
+    return false;
+}
     private bool enemyAtkEnded()
     {
         // ���ϵ��� 
