@@ -38,19 +38,17 @@ public class GameManager : MonoBehaviour
 {
     public GameObject prefPlayerAtkProjrctile;
     private GameObject plAtkObj;
-
+    public Transform playerTransform;  // 플레이어의 Transform
+    public EnemyListManager enemyListManager;  // EnemyListManager 참조
     public int damageSum = 0;
-    //주석처리한 코드는 써도 되고 안써도되고..
-    //public List<Ball> Balls; 
     public GameTurn currentTurn = GameTurn.DropBallState;
 
     void Start()
     {
-        // 게임을 시작할 프레임 워크의 시작.
+        // 게임 루프 시작
         StartCoroutine(GameLoop());
     }
 
-    // 
     private IEnumerator GameLoop()
     {
         while (true)
@@ -88,48 +86,44 @@ public class GameManager : MonoBehaviour
     private IEnumerator DropBallTurn()
     {
         Debug.Log("Dropping ball...");
-        // Drop ball logic goes here
         yield return new WaitUntil(() => ballHasDropped());
     }
 
     private IEnumerator PlayerAtkTurn()
     {
-        Debug.Log("player attacking...");
-
         //플레이어 공격 투사체 생성
         //투사체는 스스로 나아가며 적과 접촉하거나 지정한 범위 밖으로 나가면 스스로 제거
         plAtkObj = Instantiate(prefPlayerAtkProjrctile);
         plAtkObj.transform.position = new Vector3(-2.4f, 4.85f, 0);
-        
-        
+        Debug.Log("Player attacking...");
         yield return new WaitUntil(() => enemyAtkEnded());
     }
 
     private IEnumerator EnemyBehaviorTurn()
     {
         Debug.Log("Enemy Behavior...");
-        // Logic for enemy movement
+        // 적의 행동 (공격 또는 이동)을 처리하는 로직
+        enemyListManager.HandleEnemyBehavior();  // 적이 플레이어를 향해 이동하거나 공격하도록 처리
         yield return new WaitUntil(() => enemyMoveEnded());
     }
 
     private IEnumerator SpawnEnemyTurn()
     {
-        Debug.Log("Spawning enemy...");
-        // Logic for spawning enemy units
+        Debug.Log("Spawning enemies...");
+        // 5초 간격으로 적 5명을 소환
+        enemyListManager.SpawnEnemiesWithInterval();
         yield return new WaitUntil(() => spawnEnemyEnded());
     }
 
     private IEnumerator ChooseBuffTurn()
     {
         Debug.Log("Choosing a buff...");
-        // Logic for choosing a buff (e.g., wait for player interaction)
         yield return new WaitUntil(() => chooseBuffEnded());
     }
 
     private IEnumerator EndChkStage()
     {
         Debug.Log("Checking end conditions...");
-        // Logic to check if the game should end or continue
         yield return new WaitUntil(() => chkStageEnded());
     }
 
@@ -146,38 +140,33 @@ public class GameManager : MonoBehaviour
         //투사체 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
         // 아니면 false 반환
 
-        if (plAtkObj == null){ return true;  }
-        else { return false; }
-
-    }
-
-    private bool buffChosen()
-    {
-        // 버프도 또한 버프가 선택되고 
-        // 아티팩트를 관리하는 코드에서 이 코드를 인보크 해주면
-        // 다음 상태로 넘어갈 수 있습니다. 
-        return true;
+        if (plAtkObj == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private bool enemyMoveEnded()
     {
-        // 이하동문 
-        return true;
+        return true;  // 적의 이동이 끝났는지를 체크하는 로직
     }
+
     private bool spawnEnemyEnded()
     {
-        // 이하동문 
-        return true;
+        return true;  // 적이 모두 소환됐는지를 체크하는 로직
     }
+
     private bool chooseBuffEnded()
     {
-        // 이하동문 
-        return true;
+        return true;  // 버프가 선택됐는지를 체크하는 로직
     }
 
     private bool chkStageEnded()
     {
-        // 이하동문 
-        return true;
+        return true;  // 스테이지가 끝났는지를 체크하는 로직
     }
 }
