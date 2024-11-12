@@ -1,45 +1,34 @@
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class BuffEffectState
-{
-    public int? Player_Damage;
-    public float? Player_CriticalChance;
-    public int? Player_HealthIncrease;
-    public float? Player_DoubleUpChance;
-    public int? Player_ShieldPower;
-    public float? Ball_Size;
-    public int? Ball_Count;
-    public float? Ball_Elasticity;
-    public int? Ball_PiercePower;
-    public int? Ball_BallSplitCount;
-}
-
-[System.Serializable]
-public class BuffEffect
+public class BuffStruct
 {
     public int ID;
     public string Tooltip;
     public string ImagePath;
-    public BuffEffectState buffEffect;
+    public BuffState buffState;
 }
 
 [System.Serializable]
 public class BuffDataList
 {
-    public List<BuffEffect> buffs;
+    public List<BuffStruct> buffs;
 }
 
 public class BuffManager : MonoBehaviour
 {
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
     [SerializeField] private TextAsset buffDataJSON; // JSON 파일
-    private Dictionary<int, BuffEffect> buffTable = new Dictionary<int, BuffEffect>(); // ID로 접근할 수 있는 버프 테이블
+    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID로 접근할 수 있는 버프 테이블
     private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
     private int selectedBuffId = -1; // 선택된 Buff ID
+    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
+
+    
 
     private void Start()
     {
@@ -53,7 +42,7 @@ public class BuffManager : MonoBehaviour
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonUtility.FromJson<BuffDataList>(jsonText);
 
-        foreach (BuffEffect buff in dataList.buffs)
+        foreach (BuffStruct buff in dataList.buffs)
         {
             buffTable[buff.ID] = buff;
         }
@@ -70,17 +59,20 @@ public class BuffManager : MonoBehaviour
     // 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
-        List<BuffEffect> selectedBuffs = GetRandomBuffs(3);
+        // 3개의 선택된 버프를 출력해줌.
+        List<BuffStruct> selectedBuffs = GetRandomBuffs(3);
 
         for (int i = 0; i < selectedBuffs.Count; i++)
         {
-            BuffEffect buff = selectedBuffs[i];
+            BuffStruct buff = selectedBuffs[i];
             GameObject buffSlot = selectPanel.transform.GetChild(i).gameObject;
 
             Image buffImage = buffSlot.transform.Find("buffImage").GetComponent<Image>();
             TextMeshProUGUI buffText = buffSlot.transform.Find("buffToolTip").GetComponent<TextMeshProUGUI>();
 
-            buffImage.sprite = LoadSpriteFromPath(buff.ImagePath);
+            // [issue] ! !
+            // 버프 이미지 오류로 인한 주석처리..
+            //buffImage.sprite = LoadSpriteFromPath(buff.ImagePath);
             buffText.text = buff.Tooltip;
 
             int buffId = buff.ID;
@@ -88,29 +80,44 @@ public class BuffManager : MonoBehaviour
             buffSlot.GetComponent<Button>().onClick.AddListener(() => OnBuffSelected(buffId));
         }
     }
+    
 
     // 임의의 n개의 버프를 선택하는 함수
-    private List<BuffEffect> GetRandomBuffs(int count)
+    private List<BuffStruct> GetRandomBuffs(int count)
     {
-        List<BuffEffect> randomBuffs = new List<BuffEffect>(buffTable.Values);
-        List<BuffEffect> selectedBuffs = new List<BuffEffect>();
+        //모든 랜덤 버프들. 최초시행에는 이제 새로 만들자.
+        selectedBuffs = new List<BuffStruct>();
+        List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
+        HashSet<int> selectedIndices = new HashSet<int>(); // 중복을 방지하기 위한 HashSet
 
+        //List<int> indices = new List<int>(3);
+        int index;
         for (int i = 0; i < count; i++)
         {
-            int index = Random.Range(0, randomBuffs.Count);
-            selectedBuffs.Add(randomBuffs[index]);
-            randomBuffs.RemoveAt(index);
+            // 최초 시행이거나, 포함하고 있으면 다시 뽑아라.
+            do
+            {
+                index = Random.Range(0, keys.Count);
+            }while(selectedIndices.Contains(index));
+
+            selectedIndices.Add(index);
+            int key = keys[index]; // 실제 키 값
+
+            if (buffTable.TryGetValue(key, out BuffStruct effect))
+            {
+                selectedBuffs.Add(effect);
+            }
         }
 
         return selectedBuffs;
     }
-
     // 버프가 선택되었을 때 호출되는 함수
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;
+        // 이제 여기에다가 버프를 적용하는 시퀀스를 넣자.
         isBuffSelected = true; // 선택 완료
-        selectPanel.SetActive(false); // 선택 완료 시 패널 비활성화
+        selectPanel.SetActive(false); // 선택 완료시 버프 창을 비활성화.
         Debug.Log("Selected Buff ID: " + buffId);
     }
 
@@ -144,6 +151,39 @@ public class BuffManager : MonoBehaviour
 
         return loadedSprite;
     }
+
+    //private void ApplyBuffEffectToPlayer(BuffState buff)
+    //{
+    //    if (buff.Player_Damage.HasValue)
+    //        buffState.Player_Damage += buff.Player_Damage.Value;
+
+    //    if (buff.Player_CriticalChance.HasValue)
+    //        buffState.Player_CriticalChance += buff.Player_CriticalChance.Value;
+
+    //    if (buff.Player_HealthIncrease.HasValue)
+    //        buffState.Player_HealthIncrease += buff.Player_HealthIncrease.Value;
+
+    //    if (buff.Player_DoubleUpChance.HasValue)
+    //        buffState.Player_DoubleUpChance += buff.Player_DoubleUpChance.Value;
+
+    //    if (buff.Player_ShieldPower.HasValue)
+    //        buffState.Player_ShieldPower += buff.Player_ShieldPower.Value;
+
+    //    if (buff.Ball_Size.HasValue)
+    //        buffState.Ball_Size += buff.Ball_Size.Value;
+
+    //    if (buff.Ball_Count.HasValue)
+    //        buffState.Ball_Count += buff.Ball_Count.Value;
+
+    //    if (buff.Ball_Elasticity.HasValue)
+    //        buffState.Ball_Elasticity += buff.Ball_Elasticity.Value;
+
+    //    if (buff.Ball_PiercePower.HasValue)
+    //        buffState.Ball_PiercePower += buff.Ball_PiercePower.Value;
+
+    //    if (buff.Ball_BallSplitCount.HasValue)
+    //        buffState.Ball_BallSplitCount += buff.Ball_BallSplitCount.Value;
+    //}
 
 }
 
@@ -186,38 +226,7 @@ public class BuffManager : MonoBehaviour
 //}
 
 //// 인자로 들어온 버프를 계산하는 메소드
-//private void ApplyBuffEffectToPlayer(BuffEffect buff)
-//{
-//    if (buff.Player_Damage.HasValue)
-//        buffState.Player_Damage += buff.Player_Damage.Value;
-
-//    if (buff.Player_CriticalChance.HasValue)
-//        buffState.Player_CriticalChance += buff.Player_CriticalChance.Value;
-
-//    if (buff.Player_HealthIncrease.HasValue)
-//        buffState.Player_HealthIncrease += buff.Player_HealthIncrease.Value;
-
-//    if (buff.Player_DoubleUpChance.HasValue)
-//        buffState.Player_DoubleUpChance += buff.Player_DoubleUpChance.Value;
-
-//    if (buff.Player_ShieldPower.HasValue)
-//        buffState.Player_ShieldPower += buff.Player_ShieldPower.Value;
-
-//    if (buff.Ball_Size.HasValue)
-//        buffState.Ball_Size += buff.Ball_Size.Value;
-
-//    if (buff.Ball_Count.HasValue)
-//        buffState.Ball_Count += buff.Ball_Count.Value;
-
-//    if (buff.Ball_Elasticity.HasValue)
-//        buffState.Ball_Elasticity += buff.Ball_Elasticity.Value;
-
-//    if (buff.Ball_PiercePower.HasValue)
-//        buffState.Ball_PiercePower += buff.Ball_PiercePower.Value;
-
-//    if (buff.Ball_BallSplitCount.HasValue)
-//        buffState.Ball_BallSplitCount += buff.Ball_BallSplitCount.Value;
-//}
+//
 
 //public BuffState getBuffState()
 //{

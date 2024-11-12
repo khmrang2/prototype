@@ -18,7 +18,7 @@ public class Buff : MonoBehaviour
     //private void LoadBuffDataFromJSON()
     //{
     //    BuffDataList dataList = JsonUtility.FromJson<BuffDataList>(buffDataJSON.text);
-        
+
     //    // json 파일에서 모든 버프들을 로드해옴.
     //    foreach (BuffEffect buff in dataList.buffs)
     //    {
