@@ -12,15 +12,4 @@ public class Ball : MonoBehaviour
         // GameManager ������Ʈ�� ã�ų� ���� �Ҵ��� �� ����
         gameManager = FindObjectOfType<GameManager>();
     }
-    
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // �浹�� ������Ʈ�� Pin�� ���� ����
-        if (collision.gameObject.CompareTag("Pin"))
-        {
-            Debug.Log("Collision detected with Pin!");
-        }
-    }
-
 }

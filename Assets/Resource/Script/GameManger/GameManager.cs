@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// °ÔÀÓÀÇ °¢ »óÈ²À» Á¤ÀÇÇÏ°í Á¦¾îÇÏ±â À§ÇØ¼­
-// ±×³É ÀÌ¸§ ÁöÀº enum.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
+// ï¿½×³ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ enum.
 public enum GameTurn
 {
-    // 11ÀÏ (¿ù) ºñ´ë¸é È¸ÀÇ + ÀÌ½´ Ã¼Å© È¸ÀÇ
-    // 
     // 13ÀÏ (¼ö) ¸àÅä´Ô ÄÁÆß
     // ÅÂ¿¬
     DropBallState,          // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î °øÀ» ¶³¾î¶ß¸®´Â »óÅÂ - ÅÂ¿¬
@@ -148,22 +146,20 @@ public class GameManager : MonoBehaviour
     }
 
     public bool ballHasDropped()
-{
-    // ê³µì´ ?¨ì–´ì§€ê³??ˆëŠ” ì¤‘ì´ê³? Ball ?¤ë¸Œ?íŠ¸ê°€ ???´ìƒ ì¡´ì¬?˜ì? ?Šìœ¼ë©?
-    if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
     {
-        // pinManager?ì„œ ?©ì‚°??hit countë¥?damageSum???€??
-        damageSum = pinManager.hit_cnt_sum();
-        Debug.Log("Total hit count: " + damageSum);
+        if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
+        {
+            // pinManager?ì„œ ?©ì‚°??hit countë¥?damageSum???€??
+            damageSum = pinManager.hit_cnt_sum();
+            Debug.Log("Total hit count: " + damageSum);
 
-        // ëª¨ë“  ?€??hit count ì´ˆê¸°??
-        pinManager.init_pins_hit_cnt();
+            pinManager.init_pins_hit_cnt();
 
-        // true ë°˜í™˜
-        return true;
+            // true ë°˜í™˜
+            return true;
+        }
+        return false;
     }
-    return false;
-}
     private bool enemyAtkEnded()
     {
         if (plAtkObj == null)
