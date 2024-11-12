@@ -146,9 +146,6 @@ public class GameManager : MonoBehaviour
     }
     private bool enemyAtkEnded()
     {
-        //투사체 적과 충돌하거나 화면 밖으로 나가면 제거
-        //투사체 담긴 변수가 null이 되었다면 플레이어 공격 종료로 판단하고 true 반환
-        // 아니면 false 반환
         if (plAtkObj == null)
         {
             return true;
