@@ -103,11 +103,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Enemy Behavior...");
         // 적의 행동 (공격 또는 이동)을 처리하는 로직
-        enemyListManager.HandleEnemyBehavior();  // 적이 플레이어를 향해 이동하거나 공격하도록 처리
+        enemyListManager.Act(playerTransform);  // 적이 플레이어를 향해 이동하거나 공격하도록 처리
         yield return new WaitUntil(() => enemyMoveEnded());
     }
 
-    private IEnumerator SpawnEnemyTurn()
+    private IEnumerator SpawnEnemyTurn()    
     {
         Debug.Log("Spawning enemies...");
         // 5초 간격으로 적 5명을 소환

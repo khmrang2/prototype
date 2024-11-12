@@ -11,6 +11,8 @@ public class EnemyListManager : MonoBehaviour
     private List<Enemy> enemies = new List<Enemy>();
     public int maxEnemies = 5; // 최대 5마리
     public float spawnInterval = 5f; // 5초 간격으로 몬스터 생성
+    public float attackRange;
+    public int movementSpeed;
     void Start()
     {
         // 몬스터를 생성하는 코루틴 시작
@@ -30,14 +32,23 @@ public class EnemyListManager : MonoBehaviour
         }
     }
     // 모든 적의 행동을 처리하는 메서드
-    public void HandleEnemyBehavior()
+
+    public void Act(Transform playerTransform)
     {
-        foreach (var enemy in enemies)
+        if (Vector3.Distance(transform.position, playerTransform.position) > attackRange)
         {
-            if (enemy != null)
-            {
-                enemy.Act(playerTransform); // 각 적이 플레이어를 향해 이동하도록 함
-            }
+            // 플레이어 위치로 이동
+            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, movementSpeed * Time.deltaTime);
+        }   
+        else
+        {
+            AttackPlayer();
         }
+    }
+
+    private void AttackPlayer()
+    {
+        Debug.Log("Enemy is attacking the player!");
+        // 플레이어에게 피해를 주는 로직을 여기에 추가
     }
 }
