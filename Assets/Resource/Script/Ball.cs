@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Ball : MonoBehaviour
 {
     private GameManager gameManager;
 
     void Start()
     {
-        // GameManager ¿ÀºêÁ§Æ®¸¦ Ã£°Å³ª Á÷Á¢ ÇÒ´çÇÒ ¼ö ÀÖÀ½
+        // GameManager ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         gameManager = FindObjectOfType<GameManager>();
     }
     
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ PinÀÏ ¶§¸¸ ½ÇÇà
+        // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Pinï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (collision.gameObject.CompareTag("Pin"))
         {
             Debug.Log("Collision detected with Pin!");
