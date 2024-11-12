@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// °ÔÀÓÀÇ °¢ »óÈ²À» Á¤ÀÇÇÏ°í Á¦¾îÇÏ±â À§ÇØ¼­
-// ±×³É ÀÌ¸§ ÁöÀº enum.
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
+// ï¿½×³ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ enum.
 public enum GameTurn
 {
-    // 11ÀÏ (¿ù) ºñ´ë¸é È¸ÀÇ + ÀÌ½´ Ã¼Å© È¸ÀÇ
-    // 
     // 13ÀÏ (¼ö) ¸àÅä´Ô ÄÁÆß
-                            // ÅÂ¿¬
+    // ÅÂ¿¬
     DropBallState,          // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î °øÀ» ¶³¾î¶ß¸®´Â »óÅÂ - ÅÂ¿¬
 
-                            // Á¤ÈÆ´Ô 
+    // Á¤ÈÆ´Ô 
     PlayerAtkState,         // ¶³¾î¶ß¸° °øÀ¸·Î ÀûÀ» °ø°İÇÏ´Â »óÅÂ
-                            
-                            // ½Ã¿ì´Ô
+
+    // ½Ã¿ì´Ô
     EnemyBehaviorState,     // ÀûÀÇ ÅÏÀ¸·Î ÀûÀÌ Çàµ¿(°ø°İ or ¿òÁ÷ÀÓ)ÇÏ´Â »óÅÂ
     SpawnEnemyState,        // ÀûÀÌ »ı¼ºµÇ´Â »óÅÂ
 
-                            // Çö¹Î
+    // Çö¹Î
     EndChkState,            // ½ºÅ×ÀÌÁö°¡ ³¡³µ´ÂÁö(¸ğµç ÀûÀÌ Á×¾ú´ÂÁö) Ã¼Å©ÇÏ´Â »óÅÂ
     ChooseBuffState,        // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î ¹öÇÁ¸¦ ¼±ÅÃÇÏ´Â »óÅÂ->>
 }
+struct buffState
+{
+    int numberOfBalls;
+    //int spawnOffset;
+    int damageOfBall;
+};
 public class GameManager : MonoBehaviour
 {
     public GameObject prefPlayerAtkProjrctile;
@@ -43,6 +47,8 @@ public class GameManager : MonoBehaviour
 
     public int damageSum = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
+    public PinManager pinManager;
+    public InteractionArea interactionArea;
 
     void Start()
     {
@@ -134,15 +140,25 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndChkStage()
     {
         Debug.Log("Checking end conditions...");
+        damageSum = 0;
+        interactionArea.init_ball();
         yield return new WaitUntil(() => chkStageEnded());
     }
 
-    private bool ballHasDropped()
+    public bool ballHasDropped()
     {
-        // ÀÌÁ¦ ¿©±â¼­ °øÀÌ ¸ğµÎ ¶³¾îÁ³´ÂÁö¸¦ Ã¼Å©ÇÏ¿© return ÇØÁÖ¸é µË´Ï´Ù.
-        // balls[]¶ó´Â ¸®½ºÆ®¸¦ ±¸ÇöÇØ¼­ ¸ğµç º¼ÀÌ »ç¶óÁö¸é ÀÌ BallHasDropped¸¦ invokeÇØÁÖ°Å³ª
-        // ¾Æ´Ï¸é ¸¶Áö¸· °øÀÌ »ç¶óÁø´Ù¸é ÀÌ ÄÚµå¸¦ invoke ÇÏ´Â Çü½ÄÀ¸·Î ±¸ÇöÇØÁÖ½Ã¸é µË´Ï´Ù.
-        return true;
+        if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
+        {
+            // pinManager?ì„œ ?©ì‚°??hit countë¥?damageSum???€??
+            damageSum = pinManager.hit_cnt_sum();
+            Debug.Log("Total hit count: " + damageSum);
+
+            pinManager.init_pins_hit_cnt();
+
+            // true ë°˜í™˜
+            return true;
+        }
+        return false;
     }
     private bool enemyAtkEnded()
     {
@@ -156,14 +172,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool buffChosen()
+    {
+        return true;
+    }
+
     private bool enemyMoveEnded()
     {
-        return true;  // ÀûÀÇ ÀÌµ¿ÀÌ ³¡³µ´ÂÁö¸¦ Ã¼Å©ÇÏ´Â ·ÎÁ÷
+        return true; 
     }
 
     private bool spawnEnemyEnded()
     {
-        return true;  // ÀûÀÌ ¸ğµÎ ¼ÒÈ¯µÆ´ÂÁö¸¦ Ã¼Å©ÇÏ´Â ·ÎÁ÷
+        return true;
     }
 
     private bool chooseBuffEnded()

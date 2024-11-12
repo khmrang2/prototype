@@ -3,36 +3,38 @@ using UnityEngine.EventSystems;
 
 public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public GameObject ballPrefab; // µå·ÓÇÒ °ø ÇÁ¸®ÆÕ
-    public int numberOfBalls = 5; // ¶³¾î¶ß¸± °øÀÇ °³¼ö
-    public float spawnOffset = 0.1f; // °øÀÌ Á¶±Ý¾¿ ´Ù¸¥ À§Ä¡¿¡ »ý¼ºµÇµµ·Ï ÇÏ±â À§ÇÑ ¿ÀÇÁ¼Â
+    public GameObject ballPrefab; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private int numberOfBalls = 5; // ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float spawnOffset = 0.1f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¾ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //public bool isReadyToDrop = false;
 
-    private bool isReadyToDrop = false;
-
-    // ¼Õ°¡¶ôÀÌ ´­·ÈÀ» ¶§ È£Ãâ
+    // ï¿½Õ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
     public void OnPointerDown(PointerEventData eventData)
     {
-        isReadyToDrop = true; // °øÀ» ¶³¾î¶ß¸± ÁØºñ »óÅÂ
-        Debug.Log("Touch down detected - ready to drop ball.");
+        //isReadyToDrop = true; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½Øºï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (numberOfBalls != 0) Debug.Log("Touch down detected - ready to drop ball.");
     }
 
-    // ¼Õ°¡¶ôÀÌ ¶¼¾îÁ³À» ¶§ È£Ãâ
+    // ï¿½Õ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (isReadyToDrop)
+        if (numberOfBalls != 0)
         {
             Vector3 spawnPosition = Camera.main.ScreenToWorldPoint(eventData.position);
-            spawnPosition.z = 0; // ZÃàÀ» 0À¸·Î ¼³Á¤ÇÏ¿© 2D Æò¸é¿¡ °øÀÌ »ý¼ºµÇµµ·Ï ÇÔ
+            spawnPosition.z = 0; // Zï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ 2D ï¿½ï¿½é¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ ï¿½ï¿½
 
-            // Á¤ÇØÁø °³¼öÀÇ °øÀ» ¶³¾î¶ß¸®±â
-            for (int i = 0; i < numberOfBalls; i++)
-            {
+            for(; numberOfBalls > 0; numberOfBalls--){
                 Vector3 offset = new Vector3(Random.Range(-spawnOffset, spawnOffset), Random.Range(-spawnOffset, spawnOffset), 0);
                 Instantiate(ballPrefab, spawnPosition + offset, Quaternion.identity);
             }
-
-            isReadyToDrop = false;
-            Debug.Log("Touch released - ball dropped.");
+            Debug.Log("Touch released - ball dropped."+get_ball_num());
         }
+    }
+
+    public void init_ball(){
+        numberOfBalls = 5;
+    }
+    public int get_ball_num(){
+        return numberOfBalls;
     }
 }

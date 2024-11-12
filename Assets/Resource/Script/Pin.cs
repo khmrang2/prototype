@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
+    private int cnt = 0;
     // Start is called before the first frame update
-    void Start()
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        // 충돌한 오브젝트의 태그가 "ball"인지 확인
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            // add_cnt 함수 호출
+            add_cnt();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void add_cnt(){
+        cnt++;
+    }
+
+    public int hit_cnt(){
+        return cnt;
+    }
+    public void init_cnt(){
+        cnt = 0;
     }
 }
