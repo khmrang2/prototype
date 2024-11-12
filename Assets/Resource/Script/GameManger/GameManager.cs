@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour
 
     public int damageSum = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
-    public PinManager pinManager; 
+    public PinManager pinManager;
+    public InteractionArea interactionArea;
 
     void Start()
     {
@@ -141,13 +142,28 @@ public class GameManager : MonoBehaviour
     private IEnumerator EndChkStage()
     {
         Debug.Log("Checking end conditions...");
+        damageSum = 0;
+        interactionArea.init_ball();
         yield return new WaitUntil(() => chkStageEnded());
     }
 
     public bool ballHasDropped()
+{
+    // ê³µì´ ?¨ì–´ì§€ê³??ˆëŠ” ì¤‘ì´ê³? Ball ?¤ë¸Œ?íŠ¸ê°€ ???´ìƒ ì¡´ì¬?˜ì? ?Šìœ¼ë©?
+    if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
     {
+        // pinManager?ì„œ ?©ì‚°??hit countë¥?damageSum???€??
+        damageSum = pinManager.hit_cnt_sum();
+        Debug.Log("Total hit count: " + damageSum);
+
+        // ëª¨ë“  ?€??hit count ì´ˆê¸°??
+        pinManager.init_pins_hit_cnt();
+
+        // true ë°˜í™˜
         return true;
     }
+    return false;
+}
     private bool enemyAtkEnded()
     {
         if (plAtkObj == null)
