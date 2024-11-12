@@ -23,12 +23,11 @@ public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             Vector3 spawnPosition = Camera.main.ScreenToWorldPoint(eventData.position);
             spawnPosition.z = 0; // Z���� 0���� �����Ͽ� 2D ��鿡 ���� �����ǵ��� ��
 
-           
-            Vector3 offset = new Vector3(Random.Range(-spawnOffset, spawnOffset), Random.Range(-spawnOffset, spawnOffset), 0);
-            Instantiate(ballPrefab, spawnPosition + offset, Quaternion.identity);
-
+            for(; numberOfBalls > 0; numberOfBalls--){
+                Vector3 offset = new Vector3(Random.Range(-spawnOffset, spawnOffset), Random.Range(-spawnOffset, spawnOffset), 0);
+                Instantiate(ballPrefab, spawnPosition + offset, Quaternion.identity);
+            }
             Debug.Log("Touch released - ball dropped."+get_ball_num());
-            numberOfBalls--;
         }
     }
 
