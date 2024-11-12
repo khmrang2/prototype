@@ -1,77 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
-// 공통 프로퍼티 구현을 제공하는 추상 클래스
-public abstract class BaseState : MonoBehaviour, IState
+[System.Serializable]
+public class BaseState : MonoBehaviour
 {
-    [SerializeField] private int? player_Damage;
-    public int? Player_Damage
+    // 필드로 설정하여 JsonUtility에서 직렬화 가능하도록 함
+    public int Player_Damage;
+    public float Player_CriticalChance;
+    public int Player_HealthIncrease;
+    public float Player_DoubleUpChance;
+    public int Player_ShieldPower;
+    public float Ball_Size;
+    public int Ball_Count;
+    public float Ball_Elasticity;
+    public int Ball_PiercePower;
+    public int Ball_BallSplitCount;
+
+    public BaseState()
     {
-        get => player_Damage;
-        set => player_Damage = value;
+        Player_Damage = 0;
+        Player_CriticalChance = 0f;
+        Player_HealthIncrease = 0;
+        Player_DoubleUpChance = 0f;
+        Player_ShieldPower = 0;
+        Ball_Size = 0f;
+        Ball_Count = 0;
+        Ball_Elasticity = 0f;
+        Ball_PiercePower = 0;
+        Ball_BallSplitCount = 0;
     }
 
-    [SerializeField] private float? player_CriticalChance;
-    public float? Player_CriticalChance
+    public void AddState(BaseState otherState)
     {
-        get => player_CriticalChance;
-        set => player_CriticalChance = value;
-    }
+        Player_Damage += otherState.Player_Damage;
+        Player_CriticalChance += otherState.Player_CriticalChance;
+        Player_HealthIncrease += otherState.Player_HealthIncrease;
+        Player_DoubleUpChance += otherState.Player_DoubleUpChance;
+        Player_ShieldPower += otherState.Player_ShieldPower;
 
-    [SerializeField] private int? player_HealthIncrease;
-    public int? Player_HealthIncrease
-    {
-        get => player_HealthIncrease;
-        set => player_HealthIncrease = value;
+        Ball_Size += otherState.Ball_Size;
+        Ball_Count += otherState.Ball_Count;
+        Ball_Elasticity += otherState.Ball_Elasticity;
+        Ball_PiercePower += otherState.Ball_PiercePower;
+        Ball_BallSplitCount += otherState.Ball_BallSplitCount;
     }
-
-    [SerializeField] private float? player_DoubleUpChance;
-    public float? Player_DoubleUpChance
+    // 디버그용 printAllStates.
+    public void printAllStates()
     {
-        get => player_DoubleUpChance;
-        set => player_DoubleUpChance = value;
-    }
-
-    [SerializeField] private int? player_ShieldPower;
-    public int? Player_ShieldPower
-    {
-        get => player_ShieldPower;
-        set => player_ShieldPower = value;
-    }
-
-    [SerializeField] private float? ball_Size;
-    public float? Ball_Size
-    {
-        get => ball_Size;
-        set => ball_Size = value;
-    }
-
-    [SerializeField] private int? ball_Count;
-    public int? Ball_Count
-    {
-        get => ball_Count;
-        set => ball_Count = value;
-    }
-
-    [SerializeField] private float? ball_Elasticity;
-    public float? Ball_Elasticity
-    {
-        get => ball_Elasticity;
-        set => ball_Elasticity = value;
-    }
-
-    [SerializeField] private int? ball_PiercePower;
-    public int? Ball_PiercePower
-    {
-        get => ball_PiercePower;
-        set => ball_PiercePower = value;
-    }
-
-    [SerializeField] private int? ball_BallSplitCount;
-    public int? Ball_BallSplitCount
-    {
-        get => ball_BallSplitCount;
-        set => ball_BallSplitCount = value;
+        FieldInfo[] fields = this.GetType().GetFields();
+        foreach (FieldInfo field in fields)
+        {
+            Debug.Log($"{field.Name}: {field.GetValue(this)}");
+        }
     }
 }
