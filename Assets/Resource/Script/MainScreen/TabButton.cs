@@ -17,8 +17,10 @@ public class TabButton : MonoBehaviour
     private void Start()
     {
         // 초기 위치 저장
-        if (icon != null)
-            originalPosition = icon.localPosition;
+        if (icon != null) {
+            Debug.Log("original is not set. : local position is : " + icon.localPosition);
+            originalPosition = icon.anchoredPosition;
+        }
     }
 
     // Activate() :
@@ -32,7 +34,7 @@ public class TabButton : MonoBehaviour
             // 색상 변경
             background.sprite = active_background;
             // icon 위치 변경
-            icon.localPosition = originalPosition + activePositionOffset;
+            icon.anchoredPosition = originalPosition + activePositionOffset;
         }
     }
 
@@ -46,7 +48,7 @@ public class TabButton : MonoBehaviour
             // 색상 변경
             background.sprite = deactive_background;
             // icon 위치 변경
-            icon.localPosition = originalPosition;
+            icon.anchoredPosition = originalPosition;
         }
     }
 }
