@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7543005162447155970}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.27040744}
-  m_AnchorMax: {x: 0.5, y: 0.4278148}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300.635, y: 0}
+  m_AnchorMin: {x: 0.29222223, y: 0.2731667}
+  m_AnchorMax: {x: 0.7091667, y: 0.4278148}
+  m_AnchoredPosition: {x: -0.5, y: -1}
+  m_SizeDelta: {x: -0.36499023, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6841887437268528910
 CanvasRenderer:
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.35
+  m_fontSize: 60.2
   m_fontSizeBase: 38
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -313,7 +313,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -334,7 +334,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4229822125667122623}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

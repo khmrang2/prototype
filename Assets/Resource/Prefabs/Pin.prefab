@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f252d9660219eb4459f81396a54d439b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  particleLifetime: 2
 --- !u!50 &6074171299126628106
 Rigidbody2D:
   serializedVersion: 4
