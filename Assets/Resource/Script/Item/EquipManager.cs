@@ -12,12 +12,16 @@ public class EquipManager : MonoBehaviour
 
     public void equipItem()
     {
-        
         index++;
     }
     public void unequipItem()
     {
 
         index--;
+    }
+
+    public void test()
+    {
+
     }
 }
