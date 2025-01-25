@@ -27,13 +27,13 @@ public class DynamicUpgradeGridLayout : DynamicGridLayout
         if (progressBar != null)
         {
             // progressBar의 높이를 cellSize의 개수만큼 설정.
-            progressBar.sizeDelta = new Vector2(progressBar.sizeDelta.x, (1 + spacingCoefficient) * cellSize * (16 + 1));
+            progressBar.sizeDelta = new Vector2(progressBar.sizeDelta.x, (1 + spacingCoefficient) * cellHeight * (16 + 1));
         }
 
         if (contents != null)
         {
             // contents의 높이를 cellSize와 동일하게 설정
-            contents.sizeDelta = new Vector2(contents.sizeDelta.x, (1 + spacingCoefficient) * cellSize * (16 + 1));
+            contents.sizeDelta = new Vector2(contents.sizeDelta.x, (1 + spacingCoefficient) * cellHeight * (16 + 1));
         }
 
         Debug.Log("업그레이드된 레이아웃 추가 작업 실행!");

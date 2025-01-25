@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class DynamicGridLayout : MonoBehaviour
 {
@@ -16,13 +17,19 @@ public class DynamicGridLayout : MonoBehaviour
     //private float marginOffset = 10.0f; // 여백과 spacing을 주기위한 상수 offset(셀 사이즈의 10%)
     [SerializeField] 
     private int columnCount = 3; // 열개수: gridlayoutgroup에서 가져옴. 
+    [SerializeField]
+    private int rowCount = 3; // 행개수: gridlayoutgroup에서 가져옴. 
     [SerializeField][Tooltip("Cell Size에서 몇 %로 padding을 줄 것인지 계수.")]
     protected float paddingCoefficient = 0.1f; // cell size에서 몇 %를 줄지의 계수
     [SerializeField][Tooltip("Cell Size에서 몇 %로 spacing을 줄 것인지 계수.")]
     protected float spacingCoefficient = 0.07f;
+    [SerializeField]
+    [Tooltip("Cell Size가 정사각형(0 default)으로 줄지 아니면 직사각형(1)으로 줄지")]
+    protected int isSquare = 0;
 
     // 자식 클래스에서 접근할 수 있도록 protected로 선언
-    protected float cellSize; // 계산된 셀 크기를 저장하는 변수
+    protected float cellWidth; // 계산된 셀 크기를 저장하는 변수
+    protected float cellHeight; // 계산된 셀 크기를 저장하는 변수
 
     private void Start()
     {
@@ -44,37 +51,64 @@ public class DynamicGridLayout : MonoBehaviour
         // 화면의 너비 높이 가져오기
         screenWidth = parentRectTransform.rect.width;
         screenHeight = parentRectTransform.rect.height;
-        
 
-        // 1. 수식에 기반하여 cellSize 계산
-        // cellSize = minCell / (columnCount + 열의수*2 * marginCoefficient + 열의수-1  * spacingCoefficient); 의 수식을 따름.
-        cellSize = screenWidth / (columnCount + (columnCount*2) * paddingCoefficient + (columnCount-1) * spacingCoefficient);
+        Debug.Log("screen width : " + screenWidth);
 
-        // 2. cellSize가 screenHeight를 초과하면 재조정
-        if (cellSize > screenHeight)
-        {
-            // 화면 높이에 맞추기
-            cellSize = screenHeight;
+        Debug.Log("screen hegiht : " + screenHeight);
 
-            // 화면 높이에 맞춘 cellSize로 padding과 spacing을 다시 계산
-            float totalHorizontalSpacing = (columnCount - 1) * spacingCoefficient * cellSize;
-            float totalPadding = (columnCount * 2) * paddingCoefficient * cellSize;
 
-            // 화면 너비를 넘지 않도록 cellSize를 다시 계산
-            if (totalHorizontalSpacing + totalPadding + columnCount * cellSize > screenWidth)
-            {
-                cellSize = (screenWidth - totalHorizontalSpacing - totalPadding) / columnCount;
-            }
-        }
+        // 1. 수식에 기반하여 cellWidth 계산
+        // cellWidth = screen / (columnCount + 열의수 * 2 * marginCoefficient + 열의수 - 1  * spacingCoefficient); 의 수식을 따름.
+        cellWidth = screenWidth / (columnCount + (columnCount * 2) * paddingCoefficient + (columnCount - 1) * spacingCoefficient);
+        cellHeight = screenHeight / (rowCount + (rowCount * 2) * paddingCoefficient + (rowCount - 1) * spacingCoefficient);
+
+        //// 2. cellSize가 screenHeight를 초과하면 재조정
+        //if (cellWidth > screenHeight)
+        //{
+        //    // 화면 높이에 맞추기
+        //    cellWidth = screenHeight;
+
+        //    // 화면 높이에 맞춘 cellSize로 padding과 spacing을 다시 계산
+        //    float totalHorizontalSpacing = (columnCount - 1) * spacingCoefficient * cellWidth;
+        //    float totalPadding = (columnCount * 2) * paddingCoefficient * cellWidth;
+
+        //    // 화면 너비를 넘지 않도록 cellSize를 다시 계산
+        //    if (totalHorizontalSpacing + totalPadding + columnCount * cellWidth > screenWidth)
+        //    {
+        //        cellWidth = (screenWidth - totalHorizontalSpacing - totalPadding) / columnCount;
+        //    }
+        //}
 
         // 2. margin과 spacing 계산
-        int padding = Mathf.CeilToInt(paddingCoefficient * cellSize);
-        float spacing = spacingCoefficient * cellSize;
+        int padding = Mathf.CeilToInt(paddingCoefficient * cellWidth);
+        float spacing = spacingCoefficient * cellWidth;
 
-        // Grid Layout Group 설정
-        gridLayoutGroup.cellSize = new Vector2(cellSize, cellSize); // 셀 크기 (정사각형)
+        layoutUpdate(cellWidth, cellHeight, padding, spacing);
+    }
+
+    private void layoutUpdate(float width, float height, int padding, float spacing)
+    {
+        if (isSquare == 0)
+        {
+            // 정사각형
+            // Grid Layout Group 설정
+            gridLayoutGroup.cellSize = new Vector2(width, width); // 셀 크기 (정사각형)
+
+        }
+        else if(isSquare == 1)
+        {
+            // 직사각형
+            // Grid Layout Group 설정
+            gridLayoutGroup.cellSize = new Vector2(width, height); // 셀 크기 (직사각형)
+
+        }
+        else
+        {
+            return;
+            Debug.LogError("동적 레이아웃의 정사각형. 직사각형(isSquare)에 잘못된 값이 들어갔습니다.");
+        }
         gridLayoutGroup.spacing = new Vector2(spacing, spacing); // 간격 설정
-        gridLayoutGroup.padding = new RectOffset(padding, padding,0,0 ); // 패딩 설정
+        gridLayoutGroup.padding = new RectOffset(padding, padding, padding, padding); // 패딩 설정
     }
 
     // 최초 시작에만 해주면 되니까 굳이 해줄 필요가 없다.
