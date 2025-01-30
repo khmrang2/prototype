@@ -13,7 +13,6 @@ using System;
 public class DataSettings   //저장될 데이터 클래스
 {
     public int gold = 0;
-    public int score = 0;
 }
 
 
@@ -300,9 +299,10 @@ public class DataControl : MonoBehaviour
     //gpgs로부터 받아온 data settings 데이터로 player prefs의 값들을 변경 
     private void SetDataSettings()
     {
+        SaveEncryptedDataToPrefs("Gold", settings.gold.ToString());
         //SaveEncryptedDataToPrefs("저장변수명", settings.ToString.example);
         //SaveEncryptedDataToPrefs("저장변수명", settings.ToString.example);
-        //SaveEncryptedDataToPrefs("저장변수명", settings.ToString.example);
+
     }
 
 
@@ -310,7 +310,7 @@ public class DataControl : MonoBehaviour
     //player prefs의 값들을 gpgs에 저장하기 위해 data settings로 가져오기
     private void GetDataSettings()
     {
-        //LoadEncryptedDataFromPrefs("저장변수명");
+        settings.gold = int.Parse(LoadEncryptedDataFromPrefs("Gold"));
         //LoadEncryptedDataFromPrefs("저장변수명");
         //LoadEncryptedDataFromPrefs("저장변수명");
     }
@@ -344,7 +344,7 @@ public class DataControl : MonoBehaviour
             PlayerPrefs.SetString(keyName, encryptedString);
             PlayerPrefs.Save();
 
-            Debug.Log(encryptedString);
+            //Debug.Log(encryptedString);
         }
     }
 
@@ -366,7 +366,7 @@ public class DataControl : MonoBehaviour
             using (Aes aesAlg = Aes.Create())
             {
 
-                Debug.Log(encryptedString);
+                //Debug.Log(encryptedString);
 
                 //저장된 키값과 초기화 벡터값을 받아옴
                 aesAlg.Key = key;
@@ -394,6 +394,44 @@ public class DataControl : MonoBehaviour
 
 
     #endregion
+
+
+    private void Start()
+    {
+        goldText.text = "0";
+    }
+
+
+    private void Update()
+    {
+        if (PlayerPrefs.HasKey("Gold"))
+        {
+            goldText.text = LoadEncryptedDataFromPrefs("Gold");
+        }
+        else
+        {
+            SaveEncryptedDataToPrefs("Gold", goldText.text);
+            goldText.text = LoadEncryptedDataFromPrefs("Gold");
+        }
+    }
+
+
+
+    public void AddGold()
+    {
+        int tempGold = int.Parse(goldText.text) + 100;
+        SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
+    }
+
+
+    public void MinusGold()
+    {
+        int tempGold = int.Parse(goldText.text) - 100;
+        SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
+    }
+
+
+
 
 
 }
