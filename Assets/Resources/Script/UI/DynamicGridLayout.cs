@@ -52,9 +52,9 @@ public class DynamicGridLayout : MonoBehaviour
         screenWidth = parentRectTransform.rect.width;
         screenHeight = parentRectTransform.rect.height;
 
-        Debug.Log("screen width : " + screenWidth);
+        //Debug.Log("screen width : " + screenWidth);
 
-        Debug.Log("screen hegiht : " + screenHeight);
+        //Debug.Log("screen hegiht : " + screenHeight);
 
 
         // 1. 수식에 기반하여 cellWidth 계산

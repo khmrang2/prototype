@@ -21,7 +21,7 @@ public class ShowPopup : MonoBehaviour
             Debug.LogWarning("Prefab is not assigned!");
             return;
         }
-        popUpScript.loadTooltip(itemSlot.getItemID());
+        //popUpScript.loadTooltip(itemSlot.getItemID());
 
         popUpPanel.SetActive(true);
     }

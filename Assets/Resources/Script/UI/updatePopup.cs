@@ -11,7 +11,7 @@ public class updatePopup : MonoBehaviour
     public Button yesButton; // yes 버튼
     public Button noButton;  // no 버튼
 
-    public ItemDataLoader itemDataLoader;
+    //public ItemDataLoader itemDataLoader;
     [SerializeField]
     public TMP_Text tooltip;
 
@@ -23,7 +23,7 @@ public class updatePopup : MonoBehaviour
     public void loadTooltip(string itemID)
     {
         itemCode = itemID;
-        tooltip.text = itemDataLoader.GetItemTooltip(itemID);
+        //tooltip.text = itemDataLoader.GetItemTooltip(itemID);
     }
 
     public void yesClicked()

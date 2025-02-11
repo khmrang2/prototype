@@ -36,6 +36,6 @@ public class DynamicUpgradeGridLayout : DynamicGridLayout
             contents.sizeDelta = new Vector2(contents.sizeDelta.x, (1 + spacingCoefficient) * cellHeight * (16 + 1));
         }
 
-        Debug.Log("업그레이드된 레이아웃 추가 작업 실행!");
+        //Debug.Log("업그레이드된 레이아웃 추가 작업 실행!");
     }
 }
