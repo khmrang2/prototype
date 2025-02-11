@@ -62,7 +62,7 @@ public class DataControl : MonoBehaviour
 
     private void OpenSaveGame() //세이브 메소드
     {
-        //plater prefs로부터 저장할 데이터 받아오기
+        //player prefs로부터 저장할 데이터 받아오기
         GetDataSettings();
 
 
