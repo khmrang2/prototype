@@ -10,7 +10,7 @@ public class AsyncSceneLoader : MonoBehaviour
      * MainScreen :     메인 씬
      * PlayScreen :   플레이 씬
      * LoadingScreen :  로딩 씬
-     * 
+     * StartScreen : 시작 씬
      */
 
     public void LoadSceneAsync(string sceneName)
@@ -39,8 +39,10 @@ public class AsyncSceneLoader : MonoBehaviour
             animator.Play("AnimationB");
         }
 
-        // 게임 씬 비동기 로드 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+
+
+        // 지정 씬 비동기 로드 시작
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false; // 자동 씬 전환 방지
 
         // 로딩 진행률 확인 (0.9 이상이면 로딩 거의 완료)
@@ -59,6 +61,6 @@ public class AsyncSceneLoader : MonoBehaviour
         Debug.Log("게임 씬 준비 완료! 씬 전환 진행");
         yield return new WaitForSeconds(1f); // 추가 연출 시간
 
-        asyncLoad.allowSceneActivation = true; // 게임 씬으로 이동
+        asyncLoad.allowSceneActivation = true; // 지정한 씬으로 이동
     }
 }

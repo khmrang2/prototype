@@ -8,12 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd
-  - enabled: 0
-    path: Assets/Scenes/PlayScreen.unity
-    guid: 150d8d97cd8af4149b2ea5698dc0cc8d
+  - enabled: 1
+    path: Assets/Scenes/StartScreen.unity
+    guid: 366557e622fb48f46b7c5d61e0d5e608
   - enabled: 1
     path: Assets/Scenes/MainScreen.unity
     guid: fdae9db0b2fffe249bfc557842ab56a3
+  - enabled: 1
+    path: Assets/Scenes/PlayScreen.unity
+    guid: 150d8d97cd8af4149b2ea5698dc0cc8d
   m_configObjects:
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 00bcf3800fddbf8489659d3f0831b3e7, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: a1b045de0fbc1104db00f6179374c241, type: 2}

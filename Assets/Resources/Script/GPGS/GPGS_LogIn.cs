@@ -4,13 +4,24 @@ using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using TMPro;
+using UnityEngine.UI;
 
 public class GoogleManager : MonoBehaviour
 {
-    public TextMeshProUGUI logText;
+    public TextMeshProUGUI logText;   //로딩 안내용 텍스트 오브젝트
+
+    private DataControl dataControl;    //설치 후 처음 실행 시 서버로부터 데이터를 받아오기 위한 DataControl 클래스
+    public Button startBtn; //로그인 및 데이터 로드 완료 후 활성화 될 게임 시작 버튼
+
+    public GameObject ErrorPopup;
 
     void Awake()
     {
+        dataControl = GetComponent<DataControl>();
+        startBtn.interactable = false;  //데이터 로딩 중 씬 전환 방지를 위한 버튼 비활성화
+        logText.text = "";  //로딩 텍스트 초기화
+        ErrorPopup.SetActive(false);
+
         PlayGamesPlatform.DebugLogEnabled = true;   //gpgs 전용 디버그창 키기
         PlayGamesPlatform.Activate();   //gpgs 작동 시작
        
@@ -18,19 +29,20 @@ public class GoogleManager : MonoBehaviour
         //기존에 사용하던 계정이 있다면
         if (PlayerPrefs.HasKey("SavedAccountKey")) 
         {
-            AutoSignIn();
+            AutoSignIn();   //자동 로그인
         }
         else
         {
             //처음 로그인 시도러면
 
-            ManualSignIn();
+            ManualSignIn(); //계정 선택 화면 팝업
         }
 
     }
 
     public void AutoSignIn()    //구글계정 자동 로그인 함수
     {
+        logText.text = "Starting login..."; //로딩 텍스트에 로그인 시작 알림
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication); //gpgs 싱글톤 클래스의 로그인 함수 호출(변수로 콜백 함수 ProcessAuthentication 등록)
     }
 
@@ -51,24 +63,48 @@ public class GoogleManager : MonoBehaviour
         {
             //로그인에 성공했다면 작동
 
-            
+            logText.text = "Login success"; //로딩 텍스트에 로그인 성공 알림
+
             string id = PlayGamesPlatform.Instance.GetUserId();             //유저 id값 받아오기
             PlayerPrefs.SetString("SavedAccountKey", id);                   //자동 로그인 여부 확인을 위해 id값을 player prefs에 저장
             PlayerPrefs.Save();
 
 
-            logText.text = "Success"; //로그에 "Success" 출력
+            logText.text = "Checking user data..."; //로딩 텍스트에 설치 후 첫 실행인지 확인 중 알림
+
+            if (!PlayerPrefs.HasKey("Played"))
+            {
+                //설치 후 첫 실행이라면
+                
+                logText.text = "Checking server data..."; //서버 데이터 확인중 알림
+
+                dataControl.LoadData(); //서버에서 데이터 확인, 서버에 데이터가 있다면 불러와짐
+
+                logText.text = "Load complete!"; //로딩 텍스트에 데이터 로드 완료 알림
+
+
+                //설치 후 첫 실행이 아님을 알리기 위해 playerPrefs에 표시
+                PlayerPrefs.SetString("Played", "true");
+                PlayerPrefs.Save();
+
+                startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
+            }
+            else
+            {
+                startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
+            }
+
+            logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
+
         }
         else
         {
             //로그인에 실패했다면
-            logText.text = "Sign in Failed! " + status.ToString();   //로그에 "Sign in Failed!" 출력
-
-
-            //다른 게정 사용 유도를 위해 수동 로그인 호출
-            ManualSignIn();
-
-            // 그 외 로그인 실패시 처리할 사항 기술
+            logText.text = "Sign in Failed! " + status.ToString();   //로딩 텍스트에 "Sign in Failed!" 출력            
+            
+            //오류 팝업 띄우기
+            ErrorPopup.SetActive(true);
+            
         }
     }
 }
