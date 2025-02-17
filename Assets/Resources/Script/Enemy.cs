@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     {
         // 플레이어 위치로 이동
         Vector3 direction = (playerTransform.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime; // 매 프레임마다 이동
+        transform.position += direction * moveSpeed;
     }
 
     private void AttackPlayer()
