@@ -267,7 +267,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/etget/Desktop/user.keystore
+  AndroidKeystoreName: "C:/Users/ghdj6/Desktop/\uCEA1\uC2A4\uD1A4\uB85C\uCEEC/user.keystore"
   AndroidKeyaliasName: "\uCF58\uD150\uCE20\uAE4E\uB294\uD558\uB0E5\uC774\uAC1C\uBC1C\uC790"
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0

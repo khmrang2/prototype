@@ -28,19 +28,19 @@ public class AsyncSceneLoader : MonoBehaviour
      **/
     private IEnumerator LoadSceneCoroutine(string sceneName)
     {
-        // 애니메이터가 존재하는 경우에만 실행.
-        if(animator != null)
-        {
-            // 애니메이션 A 실행 (1회)
-            animator.Play("AnimationA");
-            yield return new WaitForSeconds(2f); // 애니메이션 연출 시간
+        //// 애니메이터가 존재하는 경우에만 실행.
+        //if(animator != null)
+        //{
+        //    // 애니메이션 A 실행 (1회)
+        //    animator.Play("AnimationA");
+        //    yield return new WaitForSeconds(2f); // 애니메이션 연출 시간
 
-            // 애니메이션 B 실행 (반복)
-            animator.Play("AnimationB");
-        }
+        //    // 애니메이션 B 실행 (반복)
+        //    animator.Play("AnimationB");
+        //}
 
         // 게임 씬 비동기 로드 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GameScene");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false; // 자동 씬 전환 방지
 
         // 로딩 진행률 확인 (0.9 이상이면 로딩 거의 완료)
@@ -50,11 +50,11 @@ public class AsyncSceneLoader : MonoBehaviour
             yield return null;
         }
 
-        if(animator != null)
-        {
-            // 애니메이션 C 실행 (반복)
-            animator.Play("AnimationC");
-        }
+        //if(animator != null)
+        //{
+        //    // 애니메이션 C 실행 (반복)
+        //    animator.Play("AnimationC");
+        //}
 
         Debug.Log("게임 씬 준비 완료! 씬 전환 진행");
         yield return new WaitForSeconds(1f); // 추가 연출 시간
