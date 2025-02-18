@@ -14,6 +14,7 @@ public class UpgradeBtnManager : MonoBehaviour
         // curBtn이 활성화 된 상태라면.
         if (curBtn != null)
         {
+            if (curBtn == btn) return;
             curBtn.hideButtons();
             curBtn = btn;
         }

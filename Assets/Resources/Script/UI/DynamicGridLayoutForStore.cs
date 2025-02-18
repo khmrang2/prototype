@@ -7,12 +7,9 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class DynamicGridLayoutForStore : DynamicGridLayout
 {
-    private float screenHeight; // 내부적으로 가지고 있을 스크린 크기
-    private float screenWidth; // 내부적으로 가지고 있을 스크린 크기
     [SerializeField]
     [Tooltip("UI 이미지에 맞는 비율을 입력.")]
     public float aspectRatio = 1.0f / 2.0f;
-
 
     // 인벤토리의 그리드 레이 아웃의 셀크기(인벤토리 슬롯 크기)를 동적으로 할당해주는 클래스 및 메소드
     // 화면 크기에 맞추어 셀 사이즈,  셀 여백, 셀 spacing을 동적으로 할당해준다.

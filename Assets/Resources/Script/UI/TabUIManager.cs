@@ -31,7 +31,7 @@ public class TabUIManager : MonoBehaviour
         // 예외 처리.
         if(btnId < 0 || btnId > 5)
         {
-            Debug.LogWarning("[TabUIManager] : Wrong btnId" + btnId);
+            //Debug.LogWarning("[TabUIManager] : Wrong btnId" + btnId);
             return;
         }
 

@@ -18,7 +18,7 @@ public class TabButton : MonoBehaviour
     {
         // 초기 위치 저장
         if (icon != null) {
-            Debug.Log("original is not set. : local position is : " + icon.localPosition);
+            //Debug.Log("original is not set. : local position is : " + icon.localPosition);
             originalPosition = icon.anchoredPosition;
         }
     }

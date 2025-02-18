@@ -11,8 +11,8 @@ public class DynamicGridLayout : MonoBehaviour
     [Tooltip("스크린 캔버스")]
     public RectTransform parentRectTransform; // 스크린 오브젝트(캔버스)
 
-    private float screenHeight; // 내부적으로 가지고 있을 스크린 크기
-    private float screenWidth; // 내부적으로 가지고 있을 스크린 크기
+    protected float screenHeight; // 내부적으로 가지고 있을 스크린 크기
+    protected float screenWidth; // 내부적으로 가지고 있을 스크린 크기
     //[SerializeField]
     //private float marginOffset = 10.0f; // 여백과 spacing을 주기위한 상수 offset(셀 사이즈의 10%)
     [SerializeField]
@@ -35,16 +35,32 @@ public class DynamicGridLayout : MonoBehaviour
 
     private void Start()
     {
-        UpdateGridLayout();
+        StartCoroutine(WaitForRectTransformAndUpdate());
     }
 
     // 화면전환이 이루어져서 오브젝트가 활성화 되었을 때, Layout의 UI의 크기 조절을 다시 해줌.
     // Update로 계속 연산하는 것보다 확실히 나음.
     private void OnEnable()
     {
+        StartCoroutine(WaitForRectTransformAndUpdate());
+    }
+    /// <summary>
+    /// 저는 코루틴에게 패배한 허접입니다.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForRectTransformAndUpdate()
+    {
+        yield return new WaitForEndOfFrame(); // 한 프레임 대기 후 실행
+
+        while (parentRectTransform.rect.width == 0 || parentRectTransform.rect.height == 0)
+        {
+            Debug.LogWarning("RectTransform 크기 업데이트 대기 중...");
+            yield return null; // RectTransform` 크기가 유효할 때까지 반복 대기
+        }
+
+        Debug.Log("RectTransform 크기 확인 완료. UpdateGridLayout 실행.");
         UpdateGridLayout();
     }
-
 
     // 인벤토리의 그리드 레이 아웃의 셀크기(인벤토리 슬롯 크기)를 동적으로 할당해주는 클래스 및 메소드
     // 화면 크기에 맞추어 셀 사이즈,  셀 여백, 셀 spacing을 동적으로 할당해준다.
