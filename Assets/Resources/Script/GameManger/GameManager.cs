@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameLoop()
     {
+        enemyListManager.SpawnInitialEnemies();
         while (true)
         {
             switch (currentTurn)
@@ -75,10 +76,6 @@ public class GameManager : MonoBehaviour
                     break;
                 case GameTurn.EnemyBehaviorState:
                     yield return StartCoroutine(EnemyBehaviorTurn());
-                    currentTurn = GameTurn.SpawnEnemyState;
-                    break;
-                case GameTurn.SpawnEnemyState:
-                    yield return StartCoroutine(SpawnEnemyTurn());
                     currentTurn = GameTurn.ChooseBuffState;
                     break;
                 case GameTurn.ChooseBuffState:
@@ -111,18 +108,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EnemyBehaviorTurn()
     {
-        Debug.Log("Enemy Behavior...");
-        // 적의 행동 (공격 또는 이동)을 처리하는 로직
-        enemyListManager.HandleEnemyBehavior();  // 적이 플레이어를 향해 이동하거나 공격하도록 처리
-        yield return new WaitUntil(() => enemyMoveEnded());
-    }
+        Debug.Log("Enemies moving...");
+        enemyListManager.MoveEnemies(); // 적이 이동하도록 호출
 
-    private IEnumerator SpawnEnemyTurn()
-    {
-        Debug.Log("Spawning enemies...");
-        // 5초 간격으로 적 5명을 소환
-        enemyListManager.SpawnEnemiesWithInterval();
-        yield return new WaitUntil(() => spawnEnemyEnded());
+        yield return new WaitUntil(() => enemyMoveEnded());
     }
 
     private IEnumerator ChooseBuffTurn()
@@ -162,14 +151,7 @@ public class GameManager : MonoBehaviour
     }
     private bool enemyAtkEnded()
     {
-        if (plAtkObj == null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return plAtkObj == null;
     }
 
     private bool buffChosen()
@@ -179,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     private bool enemyMoveEnded()
     {
-        return true; 
+        return enemyListManager.AllEnemiesMoved();
     }
 
     private bool spawnEnemyEnded()
@@ -206,5 +188,11 @@ public class GameManager : MonoBehaviour
     public void updateBuffState()
     {
         this.buffState = buffManager.getBuffSumState();
+    }
+
+    // 투사체가 제거될 때 GameManager에 알림
+    public void NotifyProjectileDestroyed()
+    {
+        plAtkObj = null;
     }
 }

@@ -10,33 +10,56 @@ public class EnemyListManager : MonoBehaviour
     public Transform enemyTransform; // 몬스터가 생성되는 기준 위치
     private List<Enemy> enemies = new List<Enemy>();
     public int maxEnemies = 5; // 최대 5마리
-    public float spawnInterval = 5f; // 5초 간격으로 몬스터 생성
-    void Start()
-    {
-        // 몬스터를 생성하는 코루틴 시작
-        StartCoroutine(SpawnEnemiesWithInterval());
-    }
-    public IEnumerator SpawnEnemiesWithInterval()
-    {
-        for (int i = 0; i < maxEnemies; i++)
-        {
-            // 적을 생성하고 리스트에 추가
-            GameObject enemyObject = Instantiate(enemyPrefab, enemyTransform.position, Quaternion.identity);
-            Enemy enemy = enemyObject.GetComponent<Enemy>();
-            enemies.Add(enemy);
+    private bool enemiesSpawned = false; // 적이 한 번만 스폰되도록 체크
 
-            // 5초 대기 후 다음 적 생성
-            yield return new WaitForSeconds(spawnInterval);
+    // === 1?? 게임 시작 시 처음 한 번만 적 스폰 ===
+    public void SpawnInitialEnemies()
+    {
+        if (!enemiesSpawned)
+        {
+            for (int i = 0; i < maxEnemies; i++)
+            {
+                GameObject enemyObject = Instantiate(enemyPrefab, enemyTransform.position, Quaternion.identity);
+                Enemy enemy = enemyObject.GetComponent<Enemy>();
+                enemies.Add(enemy);
+            }
+            enemiesSpawned = true; // 한 번만 실행되도록 설정
         }
     }
-    // 모든 적의 행동을 처리하는 메서드
-    public void HandleEnemyBehavior()
+
+    // === 2?? 모든 적이 플레이어를 향해 이동 ===
+    public void MoveEnemies()
     {
         foreach (var enemy in enemies)
         {
             if (enemy != null)
             {
-                enemy.Act(playerTransform); // 각 적이 플레이어를 향해 이동하도록 함
+                enemy.Move(); // 적 이동 실행
+            }
+        }
+    }
+
+    // === 3?? 모든 적의 이동이 끝났는지 확인 ===
+    public bool AllEnemiesMoved()
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null && !enemy.HasMoved())
+            {
+                return false; // 아직 이동 안 한 적이 있음
+            }
+        }
+        return true; // 모든 적 이동 완료
+    }
+
+    // === 4?? 다음 턴을 위해 적 이동 여부 초기화 ===
+    public void ResetEnemyMoves()
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                enemy.ResetMove();
             }
         }
     }

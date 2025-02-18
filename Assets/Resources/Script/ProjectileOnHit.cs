@@ -14,4 +14,12 @@ public class ProjectileOnHit : MonoBehaviour
         }
 
     }
+    private void OnDestroy()
+    {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.NotifyProjectileDestroyed();
+        }
+    }
 }

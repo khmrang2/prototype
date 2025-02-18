@@ -8,6 +8,7 @@ using System.Text;
 using UnityEngine;
 using TMPro;
 using System;
+using System.ComponentModel;
 
 
 public class DataSettings   //저장될 데이터 클래스
@@ -20,8 +21,6 @@ public class DataSettings   //저장될 데이터 클래스
 public class DataControl : MonoBehaviour
 {
 
-    public TextMeshProUGUI logText;
-    public TextMeshProUGUI goldText;
 
     public DataSettings settings = new DataSettings();
     //불러와지고 저장될 데이터를 담을 클래스 settings 선언
@@ -122,12 +121,12 @@ public class DataControl : MonoBehaviour
         {
             // 저장완료부분
             Debug.Log("Save End");
-            logText.text = "Save complete";
+            //logText.text = "Save complete";
         }
         else
         {
             Debug.Log("Save nonononononono...");
-            logText.text = "Save failed";
+            //logText.text = "Save failed";
         }
     }
 
@@ -208,7 +207,7 @@ public class DataControl : MonoBehaviour
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
-            logText.text = "Load complete";
+            //logText.text = "Load complete";
 
             //gpgs로부터 불러와진 데이터로 player prefs 최신화
             SetDataSettings();
@@ -271,12 +270,12 @@ public class DataControl : MonoBehaviour
             saveGameClient.Delete(data);
 
             Debug.Log("Delete Complete");
-            logText.text = "Delete complete";
+            //logText.text = "Delete complete";
         }
         else
         {
             Debug.Log("Delete fail");
-            logText.text = "Delete failed";
+            //logText.text = "Delete failed";
         }
     }
 
@@ -396,39 +395,8 @@ public class DataControl : MonoBehaviour
     #endregion
 
 
-    private void Start()
-    {
-        goldText.text = "0";
-    }
 
 
-    private void Update()
-    {
-        if (PlayerPrefs.HasKey("Gold"))
-        {
-            goldText.text = LoadEncryptedDataFromPrefs("Gold");
-        }
-        else
-        {
-            SaveEncryptedDataToPrefs("Gold", goldText.text);
-            goldText.text = LoadEncryptedDataFromPrefs("Gold");
-        }
-    }
-
-
-
-    public void AddGold()
-    {
-        int tempGold = int.Parse(goldText.text) + 100;
-        SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
-    }
-
-
-    public void MinusGold()
-    {
-        int tempGold = int.Parse(goldText.text) - 100;
-        SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
-    }
 
 
 
