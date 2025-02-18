@@ -6,61 +6,58 @@ public class AsyncSceneLoader : MonoBehaviour
 {
     [SerializeField]
     public Animator animator;
-    /** ¾À ÀÌ¸§ Á¤¸®
-     * MainScreen :     ¸ŞÀÎ ¾À
-     * PlayScreen :   ÇÃ·¹ÀÌ ¾À
-     * LoadingScreen :  ·Îµù ¾À
-     * StartScreen : ½ÃÀÛ ¾À
+    /** ì”¬ ì´ë¦„ ì •ë¦¬
+     * MainScreen :     ë©”ì¸ ì”¬
+     * PlayScreen :   í”Œë ˆì´ ì”¬
+     * LoadingScreen :  ë¡œë”© ì”¬
+     * StartScreen : ì‹œì‘ ì”¬
      */
 
     public void LoadSceneAsync(string sceneName)
     {
-        // ºñµ¿±â·Î SceneÀ» ·Îµå
-        // SceneNameÀº ÇØ´ç ¹öÆ°ÀÇ ¸Å°³º¯¼ö·Î ÇÒ´çÇÔ.
+        // ë¹„ë™ê¸°ë¡œ Sceneì„ ë¡œë“œ
+        // SceneNameì€ í•´ë‹¹ ë²„íŠ¼ì˜ ë§¤ê°œë³€ìˆ˜ë¡œ í• ë‹¹í•¨.
         StartCoroutine(LoadSceneCoroutine(sceneName));
     }
 
     /* LoadSceneCoroutine
-     * ÄÚ·çÆ¾À¸·Î ¾ÀÀ» ºÒ·¯¿À´Â ÇÔ¼ö.
+     * ì½”ë£¨í‹´ìœ¼ë¡œ ì”¬ì„ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜.
      * 
-     * ¾ÀÀ» ºÎ¸£¸é¼­, ÆÄÀÏ ÀÔÃâ·Â, º¯¼ö Àü´ŞÀ» °°ÀÌ ÇÏ±â À§ÇØ¼­.
-     * Áï, ¸ÖÆ¼¾²·¹µù °°Àº È¿°ú¸¦ ÁÖ±â À§ÇØ¼­ ÀÌ¿Í°°Àº ÇÔ¼ö¸¦ »ç¿ëÇß´Ù.
+     * ì”¬ì„ ë¶€ë¥´ë©´ì„œ, íŒŒì¼ ì…ì¶œë ¥, ë³€ìˆ˜ ì „ë‹¬ì„ ê°™ì´ í•˜ê¸° ìœ„í•´ì„œ.
+     * ì¦‰, ë©€í‹°ì“°ë ˆë”© ê°™ì€ íš¨ê³¼ë¥¼ ì£¼ê¸° ìœ„í•´ì„œ ì´ì™€ê°™ì€ í•¨ìˆ˜ë¥¼ ì‚¬ìš©í–ˆë‹¤.
      **/
     private IEnumerator LoadSceneCoroutine(string sceneName)
     {
-        // ¾Ö´Ï¸ŞÀÌÅÍ°¡ Á¸ÀçÇÏ´Â °æ¿ì¿¡¸¸ ½ÇÇà.
-        if(animator != null)
-        {
-            // ¾Ö´Ï¸ŞÀÌ¼Ç A ½ÇÇà (1È¸)
-            animator.Play("AnimationA");
-            yield return new WaitForSeconds(2f); // ¾Ö´Ï¸ŞÀÌ¼Ç ¿¬Ãâ ½Ã°£
+        //// ì• ë‹ˆë©”ì´í„°ê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°ì—ë§Œ ì‹¤í–‰.
+        //if(animator != null)
+        //{
+        //    // ì• ë‹ˆë©”ì´ì…˜ A ì‹¤í–‰ (1íšŒ)
+        //    animator.Play("AnimationA");
+        //    yield return new WaitForSeconds(2f); // ì• ë‹ˆë©”ì´ì…˜ ì—°ì¶œ ì‹œê°„
 
-            // ¾Ö´Ï¸ŞÀÌ¼Ç B ½ÇÇà (¹İº¹)
-            animator.Play("AnimationB");
-        }
+        //    // ì• ë‹ˆë©”ì´ì…˜ B ì‹¤í–‰ (ë°˜ë³µ)
+        //    animator.Play("AnimationB");
+        //}
 
-
-
-        // ÁöÁ¤ ¾À ºñµ¿±â ·Îµå ½ÃÀÛ
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        asyncLoad.allowSceneActivation = false; // ÀÚµ¿ ¾À ÀüÈ¯ ¹æÁö
+        asyncLoad.allowSceneActivation = false; // ìë™ ì”¬ ì „í™˜ ë°©ì§€
 
-        // ·Îµù ÁøÇà·ü È®ÀÎ (0.9 ÀÌ»óÀÌ¸é ·Îµù °ÅÀÇ ¿Ï·á)
+        // ë¡œë”© ì§„í–‰ë¥  í™•ì¸ (0.9 ì´ìƒì´ë©´ ë¡œë”© ê±°ì˜ ì™„ë£Œ)
         while (asyncLoad.progress < 0.9f)
         {
-            Debug.Log("¾À ·Îµù ¿Ï·á, °ÔÀÓ ¾À ÁØºñ ½ÅÈ£ ´ë±â Áß...");
+            Debug.Log("ì”¬ ë¡œë”© ì™„ë£Œ, ê²Œì„ ì”¬ ì¤€ë¹„ ì‹ í˜¸ ëŒ€ê¸° ì¤‘...");
             yield return null;
         }
 
-        if(animator != null)
-        {
-            // ¾Ö´Ï¸ŞÀÌ¼Ç C ½ÇÇà (¹İº¹)
-            animator.Play("AnimationC");
-        }
+        //if(animator != null)
+        //{
+        //    // ì• ë‹ˆë©”ì´ì…˜ C ì‹¤í–‰ (ë°˜ë³µ)
+        //    animator.Play("AnimationC");
+        //}
 
-        Debug.Log("°ÔÀÓ ¾À ÁØºñ ¿Ï·á! ¾À ÀüÈ¯ ÁøÇà");
-        yield return new WaitForSeconds(1f); // Ãß°¡ ¿¬Ãâ ½Ã°£
+        Debug.Log("ê²Œì„ ì”¬ ì¤€ë¹„ ì™„ë£Œ! ì”¬ ì „í™˜ ì§„í–‰");
+        yield return new WaitForSeconds(1f); // ì¶”ê°€ ì—°ì¶œ ì‹œê°„
 
-        asyncLoad.allowSceneActivation = true; // ÁöÁ¤ÇÑ ¾ÀÀ¸·Î ÀÌµ¿
+        asyncLoad.allowSceneActivation = true; // ì§€ì •í•œ ì”¬ìœ¼ë¡œ ì´ë™
     }
 }

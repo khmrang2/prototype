@@ -1,26 +1,26 @@
 using UnityEngine;
+
 public class Enemy : MonoBehaviour
 {
-    public int damage = 10;
-    public float attackRange = 5f;
-    public float moveSpeed = 5f;
+    public float moveDistance = 10f;  // 이동 거리
+    private bool hasMoved = false;   // 이동 여부 확인
 
-    public void Act(Transform playerTransform)
+    public void Move()
     {
-        // 플레이어 위치로 이동
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime; // 매 프레임마다 이동
+        if (!hasMoved) // 한 턴에 한 번만 이동
+        {
+            transform.position += Vector3.left * moveDistance;
+            hasMoved = true;
+        }
     }
 
-    private void AttackPlayer()
+    public bool HasMoved()
     {
-        Debug.Log("Attacking the player with damage: " + damage);
-        // Implement player damage logic here (e.g., reduce player's health)
+        return hasMoved;
     }
 
-    private void MoveTowardsPlayer(Transform playerTransform)
+    public void ResetMove()
     {
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        hasMoved = false; // 다음 턴에서 다시 이동 가능하도록 리셋
     }
 }
