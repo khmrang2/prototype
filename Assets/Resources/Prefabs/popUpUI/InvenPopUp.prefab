@@ -330,8 +330,8 @@ MonoBehaviour:
   popUpUI: {fileID: 2754506553100737633}
   yesButton: {fileID: 5554963387224603502}
   noButton: {fileID: 7976336511478080218}
-  itemDataLoader: {fileID: 0}
   tooltip: {fileID: 8861590103768941156}
+  equipManager: {fileID: 0}
 --- !u!1 &3546444968437752007
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,10 +919,10 @@ RectTransform:
   - {fileID: 4247726601841543568}
   m_Father: {fileID: 3298516295542046995}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 170.19995}
-  m_SizeDelta: {x: -518.39996, y: -932.4}
+  m_AnchorMin: {x: 0.15, y: 0.15}
+  m_AnchorMax: {x: 0.85, y: 0.85}
+  m_AnchoredPosition: {x: 0.000015259, y: 1.5643e-10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &552822940645193791
 CanvasRenderer:

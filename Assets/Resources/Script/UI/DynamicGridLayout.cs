@@ -15,13 +15,15 @@ public class DynamicGridLayout : MonoBehaviour
     private float screenWidth; // 내부적으로 가지고 있을 스크린 크기
     //[SerializeField]
     //private float marginOffset = 10.0f; // 여백과 spacing을 주기위한 상수 offset(셀 사이즈의 10%)
-    [SerializeField] 
-    private int columnCount = 3; // 열개수: gridlayoutgroup에서 가져옴. 
     [SerializeField]
-    private int rowCount = 3; // 행개수: gridlayoutgroup에서 가져옴. 
-    [SerializeField][Tooltip("Cell Size에서 몇 %로 padding을 줄 것인지 계수.")]
+    protected int columnCount = 3; // 열개수: gridlayoutgroup에서 가져옴. 
+    [SerializeField]
+    protected int rowCount = 3; // 행개수: gridlayoutgroup에서 가져옴. 
+    [SerializeField]
+    [Tooltip("Cell Size에서 몇 %로 padding을 줄 것인지 계수.")]
     protected float paddingCoefficient = 0.1f; // cell size에서 몇 %를 줄지의 계수
-    [SerializeField][Tooltip("Cell Size에서 몇 %로 spacing을 줄 것인지 계수.")]
+    [SerializeField]
+    [Tooltip("Cell Size에서 몇 %로 spacing을 줄 것인지 계수.")]
     protected float spacingCoefficient = 0.07f;
     [SerializeField]
     [Tooltip("Cell Size가 정사각형(0 default)으로 줄지 아니면 직사각형(1)으로 줄지")]
@@ -62,23 +64,6 @@ public class DynamicGridLayout : MonoBehaviour
         cellWidth = screenWidth / (columnCount + (columnCount * 2) * paddingCoefficient + (columnCount - 1) * spacingCoefficient);
         cellHeight = screenHeight / (rowCount + (rowCount * 2) * paddingCoefficient + (rowCount - 1) * spacingCoefficient);
 
-        //// 2. cellSize가 screenHeight를 초과하면 재조정
-        //if (cellWidth > screenHeight)
-        //{
-        //    // 화면 높이에 맞추기
-        //    cellWidth = screenHeight;
-
-        //    // 화면 높이에 맞춘 cellSize로 padding과 spacing을 다시 계산
-        //    float totalHorizontalSpacing = (columnCount - 1) * spacingCoefficient * cellWidth;
-        //    float totalPadding = (columnCount * 2) * paddingCoefficient * cellWidth;
-
-        //    // 화면 너비를 넘지 않도록 cellSize를 다시 계산
-        //    if (totalHorizontalSpacing + totalPadding + columnCount * cellWidth > screenWidth)
-        //    {
-        //        cellWidth = (screenWidth - totalHorizontalSpacing - totalPadding) / columnCount;
-        //    }
-        //}
-
         // 2. margin과 spacing 계산
         int padding = Mathf.CeilToInt(paddingCoefficient * cellWidth);
         float spacing = spacingCoefficient * cellWidth;
@@ -86,7 +71,7 @@ public class DynamicGridLayout : MonoBehaviour
         layoutUpdate(cellWidth, cellHeight, padding, spacing);
     }
 
-    private void layoutUpdate(float width, float height, int padding, float spacing)
+    protected void layoutUpdate(float width, float height, int padding, float spacing)
     {
         if (isSquare == 0)
         {
@@ -95,7 +80,7 @@ public class DynamicGridLayout : MonoBehaviour
             gridLayoutGroup.cellSize = new Vector2(width, width); // 셀 크기 (정사각형)
 
         }
-        else if(isSquare == 1)
+        else if (isSquare == 1)
         {
             // 직사각형
             // Grid Layout Group 설정
