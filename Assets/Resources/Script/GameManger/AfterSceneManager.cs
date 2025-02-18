@@ -13,7 +13,6 @@ public class AfterSceneManager : MonoBehaviour
     private IEnumerator OpenDoors()
     {
         yield return new WaitForSeconds(0.02f);
-        Debug.LogError("씬 전환 성공. 문 열기 시작.");
         leftDoor.onclicked();
         rightDoor.onclicked();
 
@@ -22,7 +21,6 @@ public class AfterSceneManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.LogError("문이 완전히 열렸습니다.");
         leftDoor.setFalse();
         rightDoor.setFalse();
     }

@@ -4904,7 +4904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d2d38b71d1b474f8a568c30c53e097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opened: 1
+  opened: 0
   pos: {x: 1, y: 0.5}
   myself: {fileID: 727705770}
   animationDuration: 1.5
@@ -5364,7 +5364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &859769504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10119,7 +10119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d2d38b71d1b474f8a568c30c53e097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  opened: 1
+  opened: 0
   pos: {x: 0, y: 0.5}
   myself: {fileID: 1558973453}
   animationDuration: 1.5

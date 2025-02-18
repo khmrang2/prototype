@@ -31,14 +31,10 @@ public class LoadingSceneManager : MonoBehaviour
 
         asyncLoad = SceneManager.LoadSceneAsync(SceneTransitionManager.loadSceneName);
         asyncLoad.allowSceneActivation = false;
-
-        Debug.LogError("씬 동기 시작!");
         while (asyncLoad.progress < 0.9f)
         {
             yield return null;
         }
-        Debug.LogError("씬 동기 종료 시작!");
-        Debug.LogError("씬 전환 시작!");
         asyncLoad.allowSceneActivation = true;
     }
 
