@@ -44,27 +44,27 @@ public class DataControl : MonoBehaviour
 
 
     //초기 데이터에서 입력될 각 데이터들의 키 이름
-    private string PlayerHPName = "PlayerCharacter_HP";                 //플레이어 케릭터의 체력의 키 이름
-    private string PlayerATKName = "PlayerCharacter_ATK";               //플레이어 케릭터의 공격력의 키 이름
-    private string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //플레이어 케릭터의 공 수의 키 이름
-    private string PlayerPINHPName = "PlayerCharacter_PINHP";           //플레이어 케릭터의 핀 체력의 키 이름
+    private static string PlayerHPName = "PlayerCharacter_HP";                 //플레이어 케릭터의 체력의 키 이름
+    private static string PlayerATKName = "PlayerCharacter_ATK";               //플레이어 케릭터의 공격력의 키 이름
+    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //플레이어 케릭터의 공 수의 키 이름
+    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //플레이어 케릭터의 핀 체력의 키 이름
 
-    private string GoldName = "Gold";                                   //재화 중 골드의 키 이름
+    private static string GoldName = "Gold";                                   //재화 중 골드의 키 이름
 
-    private string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
+    private static string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
     //private string EquipDataName;                                     //장비 해금 정보의 키 이름
 
 
 
     //초기 데이터에서 입력될 각 데이터들의 값
-    private int PlayerHP = 100;                                         //플레이어 케릭터의 초기 체력값
-    private int PlayerATK = 5;                                          //플레이어 케릭터의 초기 공격력값
-    private int PlayerBALLCOUNT = 3;                                    //플레이어 케릭터의 초기 공 수의 값
-    private int PlayerPINHP = 3;                                        //플레이어 케릭터의 초기 핀 체력값
+    private static int PlayerHP = 100;                                         //플레이어 케릭터의 초기 체력값
+    private static int PlayerATK = 5;                                          //플레이어 케릭터의 초기 공격력값
+    private static int PlayerBALLCOUNT = 3;                                    //플레이어 케릭터의 초기 공 수의 값
+    private static int PlayerPINHP = 3;                                        //플레이어 케릭터의 초기 핀 체력값
 
-    private int gold = 0;                                               //초기 골드값
+    private static int gold = 0;                                               //초기 골드값
 
-    private int UpgradableNum = 1;                                      //업그레이드 해금 정보의 초기값
+    private static int UpgradableNum = 1;                                      //업그레이드 해금 정보의 초기값
 
 
 
@@ -439,7 +439,7 @@ public class DataControl : MonoBehaviour
 
     
     //호출 시 플레이어 케릭터의 스탯, 업그레이드 해금 및 정바 해금 정보의 초기값 세팅
-    private void SetInitialData()
+    public static void SetInitialData()
     {
         //플레이어 케릭터의 초기 스탯 세팅
         SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
