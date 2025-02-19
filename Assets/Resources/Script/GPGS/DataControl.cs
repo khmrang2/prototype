@@ -14,6 +14,11 @@ using System.ComponentModel;
 public class DataSettings   //저장될 데이터 클래스
 {
     public int gold = 0;
+    public int hp = 0;
+    public int atk = 0;
+    public int pinHp = 0;
+    public int ballCount = 0;
+    public int upgradeNum = 0;
 }
 
 
@@ -38,7 +43,28 @@ public class DataControl : MonoBehaviour
 
 
 
+    //초기 데이터에서 입력될 각 데이터들의 키 이름
+    private static string PlayerHPName = "PlayerCharacter_HP";                 //플레이어 케릭터의 체력의 키 이름
+    private static string PlayerATKName = "PlayerCharacter_ATK";               //플레이어 케릭터의 공격력의 키 이름
+    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //플레이어 케릭터의 공 수의 키 이름
+    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //플레이어 케릭터의 핀 체력의 키 이름
 
+    private static string GoldName = "Gold";                                   //재화 중 골드의 키 이름
+
+    private static string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
+    //private string EquipDataName;                                     //장비 해금 정보의 키 이름
+
+
+
+    //초기 데이터에서 입력될 각 데이터들의 값
+    private static int PlayerHP = 100;                                         //플레이어 케릭터의 초기 체력값
+    private static int PlayerATK = 5;                                          //플레이어 케릭터의 초기 공격력값
+    private static int PlayerBALLCOUNT = 3;                                    //플레이어 케릭터의 초기 공 수의 값
+    private static int PlayerPINHP = 3;                                        //플레이어 케릭터의 초기 핀 체력값
+
+    private static int gold = 0;                                               //초기 골드값
+
+    private static int UpgradableNum = 1;                                      //업그레이드 해금 정보의 초기값
 
 
 
@@ -197,7 +223,10 @@ public class DataControl : MonoBehaviour
             //받아온 데이터가 공백이라면
             Debug.Log("no saved data, saving initial data");
 
-            //기존에 저장된 데이터가 없다는 뜻이므로 현제의 데이터를 저장
+            //기존에 저장된 데이터가 없다는 뜻이고 이는 곧 플레이어가 완전 첫 실행이라는 뜻이므로 초기값 세팅
+            SetInitialData();
+
+            //해당 정보 저장
             SaveData();
         }
         else
@@ -298,9 +327,12 @@ public class DataControl : MonoBehaviour
     //gpgs로부터 받아온 data settings 데이터로 player prefs의 값들을 변경 
     private void SetDataSettings()
     {
-        SaveEncryptedDataToPrefs("Gold", settings.gold.ToString());
-        //SaveEncryptedDataToPrefs("저장변수명", settings.ToString.example);
-        //SaveEncryptedDataToPrefs("저장변수명", settings.ToString.example);
+        SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
+        SaveEncryptedDataToPrefs(PlayerHPName, settings.hp.ToString());
+        SaveEncryptedDataToPrefs(PlayerATKName, settings.atk.ToString());
+        SaveEncryptedDataToPrefs(PlayerPINHPName, settings.pinHp.ToString());
+        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
+        SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
 
     }
 
@@ -309,9 +341,12 @@ public class DataControl : MonoBehaviour
     //player prefs의 값들을 gpgs에 저장하기 위해 data settings로 가져오기
     private void GetDataSettings()
     {
-        settings.gold = int.Parse(LoadEncryptedDataFromPrefs("Gold"));
-        //LoadEncryptedDataFromPrefs("저장변수명");
-        //LoadEncryptedDataFromPrefs("저장변수명");
+        settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
+        settings.hp = int.Parse(LoadEncryptedDataFromPrefs(PlayerHPName));
+        settings.atk = int.Parse(LoadEncryptedDataFromPrefs(PlayerATKName));
+        settings.ballCount = int.Parse(LoadEncryptedDataFromPrefs(PlayerBALLCOUNTName));
+        settings.pinHp = int.Parse(LoadEncryptedDataFromPrefs(PlayerPINHPName));
+        settings.upgradeNum = int.Parse(LoadEncryptedDataFromPrefs(UpgradableNumName));
     }
 
 
@@ -400,6 +435,27 @@ public class DataControl : MonoBehaviour
 
 
 
+    #region 초기 데이터 세팅 관련
+
+    
+    //호출 시 플레이어 케릭터의 스탯, 업그레이드 해금 및 정바 해금 정보의 초기값 세팅
+    public static void SetInitialData()
+    {
+        //플레이어 케릭터의 초기 스탯 세팅
+        SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
+        SaveEncryptedDataToPrefs(PlayerATKName, PlayerATK.ToString());
+        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, PlayerBALLCOUNT.ToString());
+        SaveEncryptedDataToPrefs(PlayerPINHPName, PlayerPINHP.ToString());
+
+        //초기 골드값 세팅
+        SaveEncryptedDataToPrefs(GoldName, gold.ToString());
+
+        //업그레이드 해금 정보의 초기값 세팅
+        SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
+    }
 
 
+
+
+    #endregion
 }
