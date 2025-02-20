@@ -8,6 +8,16 @@ public class UpgradeBtnManager : MonoBehaviour
 
     public UpgradeBtn curBtn;                // 현재 활성화 된 버튼
 
+
+
+
+
+
+
+
+
+
+
     public void trackingBtn(UpgradeBtn btn)
     {
         Debug.Log("눌렸나?");
