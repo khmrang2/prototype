@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class tempScriptForDebug : MonoBehaviour
 {
+    [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //버튼들의 관리를 위한 메니저 스크립트
 
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI HpText;
@@ -76,6 +77,12 @@ public class tempScriptForDebug : MonoBehaviour
         DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP", temp.ToString());
     }
 
+
+    public void initUpgradeNum()
+    {
+        DataControl.SaveEncryptedDataToPrefs("UpgradableNum", 0.ToString());
+        UpgradeBtnManager.RefreshUpgradeBtn();
+    }
 
 
 }

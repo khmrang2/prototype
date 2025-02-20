@@ -1,36 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UpgradeBtnManager : MonoBehaviour
 {
 
-    public UpgradeBtn curBtn;                // 현재 활성화 된 버튼
+    [SerializeField] private GameObject[] UpgradeButtonsList;    
+    
+    private UpgradeBtn UpgradeBtn;
 
-
-
-
-
-
-
-
-
-
-
-    public void trackingBtn(UpgradeBtn btn)
+    //업그레이드 버튼들의 새로고침
+    public void RefreshUpgradeBtn()
     {
-        Debug.Log("눌렸나?");
-        // curBtn이 활성화 된 상태라면.
-        if (curBtn != null)
+        foreach(GameObject btn in UpgradeButtonsList)
         {
-            if (curBtn == btn) return;
-            curBtn.hideButtons();
-            curBtn = btn;
+            UpgradeBtn = btn.GetComponent<UpgradeBtn>();
+            UpgradeBtn.CheckUpgradable();
         }
-        else // 최초의 curBtn에 할당이 안된 상태에서 버튼이 눌렸다면.
-        {
-            curBtn = btn;
-        }
-    }
+    } 
+
+
+
+
+
+
+
 }

@@ -64,7 +64,7 @@ public class DataControl : MonoBehaviour
 
     private static int gold = 0;                                               //초기 골드값
 
-    private static int UpgradableNum = 1;                                      //업그레이드 해금 정보의 초기값
+    private static int UpgradableNum = 0;                                      //업그레이드 해금 정보의 초기값
 
 
 
