@@ -67,6 +67,8 @@ public class DataControl : MonoBehaviour
     private static int UpgradableNum = 0;                                      //업그레이드 해금 정보의 초기값
 
 
+    //세이브의 성공 여부를 나타내는 bool 변수
+    private static bool isSaveSuccess;
 
 
 
@@ -135,6 +137,9 @@ public class DataControl : MonoBehaviour
         else
         {
             Debug.Log("Save No.....");
+
+            //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
+            isSaveSuccess = false;
         }
     }
 
@@ -147,14 +152,40 @@ public class DataControl : MonoBehaviour
         {
             // 저장완료부분
             Debug.Log("Save End");
-            //logText.text = "Save complete";
+            
+            //세이브 성공 여부 확인용 변수의 값을 참으로 변경
+            isSaveSuccess = true;
+
         }
         else
         {
             Debug.Log("Save nonononononono...");
-            //logText.text = "Save failed";
+            
+            //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
+            isSaveSuccess = false;
         }
     }
+
+
+
+
+    //세이브 성공 확인용 메소드
+    public static bool CheckSaveSuccess()
+    {
+        if (isSaveSuccess)
+        {
+            //세이브가 성공적으로 이루어져 세이브 성공 확인 변수의 값이 참이라면
+         
+            return true;    //true 반환
+        }
+        else
+        {
+            //세이브가 성공적으로 이루어지지 못해 true 이외의 값을 갖게 되면
+
+            return false;   //false 반환
+        }
+    }
+
 
 
     #endregion
