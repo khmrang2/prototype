@@ -16,9 +16,13 @@ public class PlayerManger : MonoBehaviour
     [Header("Player Chracter Variables")]
     public float playerHP = 3;
 
+    //플레이어 스탯 참조용 스크립트, (Unity 에디터에서 할당)
+    [Header("Player Status Script")]
+    public PlayerStatus playerStatus;
 
     void Start()
     {
+        playerHP = playerStatus.PlayerHP;
         hpBar = Instantiate(prefHP_Bar, canvas.transform);
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height);
         RectTransform rt = hpBar.GetComponent<RectTransform>();
