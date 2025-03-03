@@ -11,17 +11,19 @@ public class DynamicGridLayout : MonoBehaviour
     [Tooltip("스크린 캔버스")]
     public RectTransform parentRectTransform; // 스크린 오브젝트(캔버스)
 
-    private float screenHeight; // 내부적으로 가지고 있을 스크린 크기
-    private float screenWidth; // 내부적으로 가지고 있을 스크린 크기
+    protected float screenHeight; // 내부적으로 가지고 있을 스크린 크기
+    protected float screenWidth; // 내부적으로 가지고 있을 스크린 크기
     //[SerializeField]
     //private float marginOffset = 10.0f; // 여백과 spacing을 주기위한 상수 offset(셀 사이즈의 10%)
-    [SerializeField] 
-    private int columnCount = 3; // 열개수: gridlayoutgroup에서 가져옴. 
     [SerializeField]
-    private int rowCount = 3; // 행개수: gridlayoutgroup에서 가져옴. 
-    [SerializeField][Tooltip("Cell Size에서 몇 %로 padding을 줄 것인지 계수.")]
+    protected int columnCount = 3; // 열개수: gridlayoutgroup에서 가져옴. 
+    [SerializeField]
+    protected int rowCount = 3; // 행개수: gridlayoutgroup에서 가져옴. 
+    [SerializeField]
+    [Tooltip("Cell Size에서 몇 %로 padding을 줄 것인지 계수.")]
     protected float paddingCoefficient = 0.1f; // cell size에서 몇 %를 줄지의 계수
-    [SerializeField][Tooltip("Cell Size에서 몇 %로 spacing을 줄 것인지 계수.")]
+    [SerializeField]
+    [Tooltip("Cell Size에서 몇 %로 spacing을 줄 것인지 계수.")]
     protected float spacingCoefficient = 0.07f;
     [SerializeField]
     [Tooltip("Cell Size가 정사각형(0 default)으로 줄지 아니면 직사각형(1)으로 줄지")]
@@ -33,16 +35,32 @@ public class DynamicGridLayout : MonoBehaviour
 
     private void Start()
     {
-        UpdateGridLayout();
+        StartCoroutine(WaitForRectTransformAndUpdate());
     }
 
     // 화면전환이 이루어져서 오브젝트가 활성화 되었을 때, Layout의 UI의 크기 조절을 다시 해줌.
     // Update로 계속 연산하는 것보다 확실히 나음.
     private void OnEnable()
     {
+        StartCoroutine(WaitForRectTransformAndUpdate());
+    }
+    /// <summary>
+    /// 저는 코루틴에게 패배한 허접입니다.
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator WaitForRectTransformAndUpdate()
+    {
+        yield return new WaitForEndOfFrame(); // 한 프레임 대기 후 실행
+
+        while (parentRectTransform.rect.width == 0 || parentRectTransform.rect.height == 0)
+        {
+            Debug.LogWarning("RectTransform 크기 업데이트 대기 중...");
+            yield return null; // RectTransform` 크기가 유효할 때까지 반복 대기
+        }
+
+        Debug.Log("RectTransform 크기 확인 완료. UpdateGridLayout 실행.");
         UpdateGridLayout();
     }
-
 
     // 인벤토리의 그리드 레이 아웃의 셀크기(인벤토리 슬롯 크기)를 동적으로 할당해주는 클래스 및 메소드
     // 화면 크기에 맞추어 셀 사이즈,  셀 여백, 셀 spacing을 동적으로 할당해준다.
@@ -62,23 +80,6 @@ public class DynamicGridLayout : MonoBehaviour
         cellWidth = screenWidth / (columnCount + (columnCount * 2) * paddingCoefficient + (columnCount - 1) * spacingCoefficient);
         cellHeight = screenHeight / (rowCount + (rowCount * 2) * paddingCoefficient + (rowCount - 1) * spacingCoefficient);
 
-        //// 2. cellSize가 screenHeight를 초과하면 재조정
-        //if (cellWidth > screenHeight)
-        //{
-        //    // 화면 높이에 맞추기
-        //    cellWidth = screenHeight;
-
-        //    // 화면 높이에 맞춘 cellSize로 padding과 spacing을 다시 계산
-        //    float totalHorizontalSpacing = (columnCount - 1) * spacingCoefficient * cellWidth;
-        //    float totalPadding = (columnCount * 2) * paddingCoefficient * cellWidth;
-
-        //    // 화면 너비를 넘지 않도록 cellSize를 다시 계산
-        //    if (totalHorizontalSpacing + totalPadding + columnCount * cellWidth > screenWidth)
-        //    {
-        //        cellWidth = (screenWidth - totalHorizontalSpacing - totalPadding) / columnCount;
-        //    }
-        //}
-
         // 2. margin과 spacing 계산
         int padding = Mathf.CeilToInt(paddingCoefficient * cellWidth);
         float spacing = spacingCoefficient * cellWidth;
@@ -86,7 +87,7 @@ public class DynamicGridLayout : MonoBehaviour
         layoutUpdate(cellWidth, cellHeight, padding, spacing);
     }
 
-    private void layoutUpdate(float width, float height, int padding, float spacing)
+    protected void layoutUpdate(float width, float height, int padding, float spacing)
     {
         if (isSquare == 0)
         {
@@ -95,7 +96,7 @@ public class DynamicGridLayout : MonoBehaviour
             gridLayoutGroup.cellSize = new Vector2(width, width); // 셀 크기 (정사각형)
 
         }
-        else if(isSquare == 1)
+        else if (isSquare == 1)
         {
             // 직사각형
             // Grid Layout Group 설정

@@ -47,7 +47,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640177711224958791}
   - component: {fileID: 188830333863883597}
-  - component: {fileID: 5226270777905753164}
+  - component: {fileID: 5669489725351843200}
   m_Layer: 5
   m_Name: contents
   m_TagString: Untagged
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 3
---- !u!114 &5226270777905753164
+--- !u!114 &5669489725351843200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,16 +110,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1603015380336104134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a8f94fd7c3b804ead39dbb46b145a1, type: 3}
+  m_Script: {fileID: 11500000, guid: f93f43f98aa0a614c925140928290e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridLayoutGroup: {fileID: 188830333863883597}
   parentRectTransform: {fileID: 640177711224958791}
   columnCount: 3
   rowCount: 1
-  paddingCoefficient: 0.1
-  spacingCoefficient: 0.1
+  paddingCoefficient: 0.05
+  spacingCoefficient: 0.3
   isSquare: 1
+  aspectRatio: 0.5
 --- !u!1 &2149278198061481823
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.9
+  m_fontSize: 45.1
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
