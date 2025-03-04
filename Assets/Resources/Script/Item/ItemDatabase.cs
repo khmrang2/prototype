@@ -20,7 +20,7 @@ public class ItemDatabase : MonoBehaviour
     {
         for (int i = 0; i < itemData.Count; i++)
         {
-            database.Add(new Item((int)itemData[i]["id"], itemData[i]["tooltip"].ToString(), itemData[i]["imgpath"].ToString()));
+            database.Add(new Item((int)itemData[i]["id"], itemData[i]["tooltip"].ToString(), itemData[i]["imgpath"].ToString(), itemData[i]["rarity"]));
         }
         Debug.Log(database.Count);
     }
@@ -48,19 +48,25 @@ public class ItemDatabase : MonoBehaviour
 // 생성자와 반환자.
 public class Item
 {
-    public int Id {  get; set; }
-    public string Tooltip { get; set; }
-    public string ImgPath { get; set; }
-    public Sprite Sprite { get; set; }
+    public int Id {  get; set; }        // 아이템 식별자.
+    public string Tooltip { get; set; } // 아이템 툴팁.
+    public string ImgPath { get; set; } // 아이템 이미지 경로
+    public Sprite Sprite { get; set; }  // 아이템 스프라이트
 
-    public Item(int id, string tooltip, string path)
+    public int rarity { get; set; }     // 아이템 희귀도.
+
+    public Item(int id, string tooltip, string path, int rarity)
     {
         this.Id = id;
         this.Tooltip = tooltip;
         this.ImgPath = path;
         this.Sprite = Resources.Load<Sprite>("Image/Items/" + path);
+        this.rarity = rarity;
     }
 
+    /// <summary>
+    /// 최초 생성자. 아이템이 생성되지 않았으므로 id = -1
+    /// </summary>
     public Item()
     {
         this.Id = -1;
