@@ -66,7 +66,6 @@ public class Door : MonoBehaviour
                 StartCoroutine(openDoor());
                 break;
             default:
-                Debug.LogError("이게 실행되면 안되는데?");
                 break;
         };
             

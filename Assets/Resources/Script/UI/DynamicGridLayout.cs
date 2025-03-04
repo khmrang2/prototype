@@ -54,11 +54,8 @@ public class DynamicGridLayout : MonoBehaviour
 
         while (parentRectTransform.rect.width == 0 || parentRectTransform.rect.height == 0)
         {
-            Debug.LogWarning("RectTransform 크기 업데이트 대기 중...");
             yield return null; // RectTransform` 크기가 유효할 때까지 반복 대기
         }
-
-        Debug.Log("RectTransform 크기 확인 완료. UpdateGridLayout 실행.");
         UpdateGridLayout();
     }
 
@@ -73,7 +70,6 @@ public class DynamicGridLayout : MonoBehaviour
         //Debug.Log("screen width : " + screenWidth);
 
         //Debug.Log("screen hegiht : " + screenHeight);
-
 
         // 1. 수식에 기반하여 cellWidth 계산
         // cellWidth = screen / (columnCount + 열의수 * 2 * marginCoefficient + 열의수 - 1  * spacingCoefficient); 의 수식을 따름.
@@ -106,7 +102,6 @@ public class DynamicGridLayout : MonoBehaviour
         else
         {
             return;
-            Debug.LogError("동적 레이아웃의 정사각형. 직사각형(isSquare)에 잘못된 값이 들어갔습니다.");
         }
         gridLayoutGroup.spacing = new Vector2(spacing, spacing); // 간격 설정
         gridLayoutGroup.padding = new RectOffset(padding, padding, padding, padding); // 패딩 설정
