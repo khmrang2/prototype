@@ -102,6 +102,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   height: 0.75
   playerHP: 3
+  playerStatus: {fileID: -7089963277780937825}
 --- !u!114 &-7089963277780937825
 MonoBehaviour:
   m_ObjectHideFlags: 0
