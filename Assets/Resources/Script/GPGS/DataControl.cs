@@ -68,8 +68,7 @@ public class DataControl : MonoBehaviour
 
 
     //세이브의 성공 여부를 나타내는 bool 변수
-    private static bool isSaveSuccess;
-
+    private bool isSaveSuccess;
 
 
 
@@ -78,6 +77,9 @@ public class DataControl : MonoBehaviour
 
     public void SaveData() // 외부에서 세이브 호출용 메소드
     {
+        //세이브 성공 여부 판단을 위한 bool 변수
+        isSaveSuccess = false;
+
         OpenSaveGame();
     }
 
@@ -169,23 +171,6 @@ public class DataControl : MonoBehaviour
 
 
 
-    //세이브 성공 확인용 메소드
-    public static bool CheckSaveSuccess()
-    {
-        if (isSaveSuccess)
-        {
-            //세이브가 성공적으로 이루어져 세이브 성공 확인 변수의 값이 참이라면
-         
-            return true;    //true 반환
-        }
-        else
-        {
-            //세이브가 성공적으로 이루어지지 못해 true 이외의 값을 갖게 되면
-
-            return false;   //false 반환
-        }
-    }
-
 
 
     #endregion
@@ -202,6 +187,9 @@ public class DataControl : MonoBehaviour
 
     public void LoadData()  //외부에서 로드 호출용 메소드
     {
+        //서버 연결 확인용 bool 변수
+        isSaveSuccess = false;
+
         OpenLoadGame();
     }
 
@@ -236,10 +224,15 @@ public class DataControl : MonoBehaviour
 
             //gpgs로부터 바이트 형식으로 저장된 데이터를 받아오고 콜백 함수 OnSavedGameDataRead 실행
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
+
+            //성공했으니 확인용 변수를 true로
+            isSaveSuccess = true;
+
         }
         else
         {
             Debug.Log("Load fail...");
+            isSaveSuccess = false;
         }
     }
 
@@ -489,4 +482,33 @@ public class DataControl : MonoBehaviour
 
 
     #endregion
+
+
+
+
+
+    #region 서버 연결 확인 관련
+    
+    
+    //세이브 및 로드 성공 확인용 메소드
+    public bool CheckSaveSuccess()
+    {
+        if (isSaveSuccess)
+        {
+            //세이브가 성공적으로 이루어져 세이브 성공 확인 변수의 값이 참이라면
+
+            return true;    //true 반환
+        }
+        else
+        {
+            //세이브가 성공적으로 이루어지지 못해 true 이외의 값을 갖게 되면
+
+            return false;   //false 반환
+        }
+    }
+
+
+    #endregion
+
+
 }
