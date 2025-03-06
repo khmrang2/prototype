@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4812235663852726890}
   - component: {fileID: 7428339480622318730}
   - component: {fileID: 882473715906915836}
+  - component: {fileID: -7089963277780937825}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -101,3 +102,20 @@ MonoBehaviour:
   canvas: {fileID: 0}
   height: 0.75
   playerHP: 3
+  playerStatus: {fileID: -7089963277780937825}
+--- !u!114 &-7089963277780937825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621827187153551225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b62e6a0a91fad140bdedd595dd7fa41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHP: 0
+  playerATK: 0
+  playerPinHP: 0
+  playerBallCnt: 0

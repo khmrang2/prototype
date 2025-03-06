@@ -595,6 +595,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1341735179}
   enemyTransform: {fileID: 310291381}
   maxEnemies: 5
+  enemyDataList: {fileID: 11400000, guid: c43b4145c8276cc47925abf1eb644988, type: 2}
 --- !u!114 &310291380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1558,6 +1559,17 @@ MonoBehaviour:
   - {fileID: 1109138602}
   - {fileID: 777551833}
   - {fileID: 2005002238}
+--- !u!114 &762385703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7089963277780937825, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
+  m_PrefabInstance: {fileID: 3932902375658422669}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b62e6a0a91fad140bdedd595dd7fa41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &764101881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4161,6 +4173,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 355832710}
+    - target: {fileID: 882473715906915836, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
+      propertyPath: playerStatus
+      value: 
+      objectReference: {fileID: 762385703}
     - target: {fileID: 4621827187153551225, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
@@ -4421,7 +4437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3850108917075867867, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 4476692361384899873, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_Name

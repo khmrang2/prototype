@@ -3,7 +3,7 @@
     "id": 1,
     "itemName": "흔한 고철 무기 - common scrap weapon",
     "tooltip": "1-CSW-어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "",
+    "imgpath": "Image/Items/Item_Weapon.png",
     "rarity": 0,
     "stats": [
       {
@@ -18,9 +18,9 @@
   },
   {
     "id": 2,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
+    "itemName": "조잡한 총 - Handmade Gun",
+    "tooltip": "1-HG-일단은 돌아가는 조잡한 총이다.",
+    "imgpath": "Image/Items/Item_Gun.png",
     "rarity": 0,
     "stats": [
       {
@@ -34,14 +34,48 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
+    "id": 3,
+    "itemName": "흔한 기계 심장 - common heart",
+    "tooltip": "1-GMH-어디에서나 구할 수 있는 흔한 기계 심장이다.",
+    "imgpath": "Image/Items/Item_Heart.png",
     "rarity": 0,
     "stats": [
       {
+        "statName": "Health",
+        "statValue": "10"
+      },
+      {
         "statName": "Attack",
+        "statValue": "0"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "itemName": "감자 레몬 서버 - general mechanical heart",
+    "tooltip": "1-gmh-어떻게 서버가 돌아가는지 모르겠다.",
+    "imgpath": "Image/Items/Item_Server.png",
+    "rarity": 0,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "10"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "0"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "itemName": "조잡한 기어",
+    "tooltip": "1-HG-땅에 떨어진 걸 주운 기어다. 돌아가는지 의문이다.",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 0,
+    "stats": [
+      {
+        "statName": "PinHealth",
         "statValue": "10"
       },
       {
@@ -51,15 +85,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
+    "id": 6,
+    "itemName": "기어 샤프트",
+    "tooltip": "동력을 전달해줄 기어 축이다.",
+    "imgpath": "Image/Items/Item_GearAxis.png",
     "rarity": 0,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "PinHealth",
+        "statValue": "5"
       },
       {
         "statName": "NumOfBall",
@@ -68,15 +102,287 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
+    "id": 7,
+    "itemName": "뾰족한 고철 무기",
+    "tooltip": "공격에 사용되는 무기이다.",
+    "imgpath": "Image/Items/Item_Weapon.png",
     "rarity": 0,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "10"
+        "statValue": "30"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "1"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "itemName": "고철 양날 단검",
+    "tooltip": "날카로워 전선을 잘 자를 수 있다.",
+    "imgpath": "Image/Items/Item_Weapon.png",
+    "rarity": 0,
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": "30"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "1"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "itemName": "구리 기계 심장",
+    "tooltip": "체력을 증가시키는 기계 심장.",
+    "imgpath": "Image/Items/Item_Heart.png",
+    "rarity": 0,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "30"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "15"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "itemName": "증기 엔진",
+    "tooltip": "증기를 이용해 동력을 얻는 엔진이다.",
+    "imgpath": "Image/Items/Item_Engine.png",
+    "rarity": 1,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "30"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "15"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "itemName": "주운 기어 박스",
+    "tooltip": "급한대로 주워 쓰는 기어 박스이다.",
+    "imgpath": "Image/Items/Item_GearBox.png",
+    "rarity": 1,
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": "15"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "1"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "itemName": "1:8기어",
+    "tooltip": "비율이 1:8로 8배 빠른 회전을 해주는 기어",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 1,
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": "15"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "1"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "itemName": "강철 스팀 분사기",
+    "tooltip": "스팀이 빠져나갈 틈이 없이 고압으로 분사하는 무기이다.",
+    "imgpath": "Image/Items/Item_Gun.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": "90"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "2"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "itemName": "전기 충격기",
+    "tooltip": "전기를 방출하는 충격기.",
+    "imgpath": "Image/Items/Item_Weapon.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": "90"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "2"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "itemName": "불안한 노심",
+    "tooltip": "핵분열로 막대한 증기를 얻는 터빈이다. 다만 불안하다.",
+    "imgpath": "Image/Items/Item_Engine.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "90"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "45"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "itemName": "뜨거운 감자",
+    "tooltip": "뜨겁다. 김이 모락모락하다.",
+    "imgpath": "Image/Items/Item_HotPotato.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "90"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "45"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "itemName": "기어 박스",
+    "tooltip": "기어 박스와 샤프트를 조합한 완전한 박스이다.",
+    "imgpath": "Image/Items/Item_GearBox.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": "30"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "2"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "itemName": "차동 기어",
+    "tooltip": "차에서 떼어낸 기어이다. 서로 다른 회전을 조절할 수 있어 더욱 정밀한 조절이 가능하다.",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": "30"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "2"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "itemName": "고압 세척기",
+    "tooltip": "물과 강한 압력은 적이 당황하고 부식시키기에 알맞은 무기이다.",
+    "imgpath": "Image/Items/Item_Gun.png",
+    "rarity": 3,
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": "270"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "3"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "itemName": "WD-40",
+    "tooltip": "WD를 뿌려 적이 제어에 혼란을 만들어낸 사이 공격한다.",
+    "imgpath": "Image/Items/Item_WD40.png",
+    "rarity": 3,
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": "270"
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": "3"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "itemName": "v8 엔진",
+    "tooltip": "엔진.",
+    "imgpath": "Image/Items/Item_Engine.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "270"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "135"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "itemName": "2중 노심",
+    "tooltip": "더욱 안전하게 설계된 노심이다. 2중으로 많은 증기를 만들어 낸다.",
+    "imgpath": "Image/Items/Item_Engine.png",
+    "rarity": 3,
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": "270"
+      },
+      {
+        "statName": "Attack",
+        "statValue": "135"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "itemName": "아무튼 기어",
+    "tooltip": "이래저래 쓰이는 기어.",
+    "imgpath": "Image/Items/Item_Gear_Any.png",
+    "rarity": 2,
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": "50"
       },
       {
         "statName": "NumOfBall",
@@ -85,15 +391,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 23,
+    "itemName": "기어 세컨드",
+    "tooltip": "기어가 한 단계 강화됨.",
+    "imgpath": "Image/Items/Item_Gear_Second.png",
+    "rarity": 2,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "PinHealth",
+        "statValue": "50"
       },
       {
         "statName": "NumOfBall",
@@ -102,15 +408,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 24,
+    "itemName": "라이트세이버",
+    "tooltip": "전설적인 광검.",
+    "imgpath": "Image/Items/Item_Weapon_Lightsaber.png",
+    "rarity": 3,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "10"
+        "statValue": "810"
       },
       {
         "statName": "NumOfBall",
@@ -119,15 +425,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 25,
+    "itemName": "화염방사기",
+    "tooltip": "강력한 화염을 내뿜는 무기.",
+    "imgpath": "Image/Items/Item_Weapon_Flamethrower.png",
+    "rarity": 3,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "10"
+        "statValue": "810"
       },
       {
         "statName": "NumOfBall",
@@ -136,15 +442,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 26,
+    "itemName": "v16 엔진",
+    "tooltip": "최강의 엔진.",
+    "imgpath": "Image/Items/Item_Engine_V16.png",
+    "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "Health",
+        "statValue": "810"
       },
       {
         "statName": "NumOfBall",
@@ -153,15 +459,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 27,
+    "itemName": "아크원자로",
+    "tooltip": "최첨단 에너지원.",
+    "imgpath": "Image/Items/Item_ArcReactor.png",
+    "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "Health",
+        "statValue": "810"
       },
       {
         "statName": "NumOfBall",
@@ -170,15 +476,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 28,
+    "itemName": "나선형 기어",
+    "tooltip": "특수한 구조의 기어.",
+    "imgpath": "Image/Items/Item_Gear_Spiral.png",
+    "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "PinHealth",
+        "statValue": "100"
       },
       {
         "statName": "NumOfBall",
@@ -187,15 +493,15 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 29,
+    "itemName": "구글기어",
+    "tooltip": "미래형 기어.",
+    "imgpath": "Image/Items/Item_Gear_Google.png",
+    "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "PinHealth",
+        "statValue": "100"
       },
       {
         "statName": "NumOfBall",
@@ -204,174 +510,20 @@
     ]
   },
   {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
+    "id": 30,
+    "itemName": "구글기어",
+    "tooltip": "미래형 기어.",
+    "imgpath": "Image/Items/Item_Gear_Google.png",
+    "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "10"
+        "statName": "PinHealth",
+        "statValue": "100"
       },
       {
         "statName": "NumOfBall",
         "statValue": "0"
       }
     ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
-    "id": 1,
-    "itemName": "흔한 기계 심장 - general mechanical heart",
-    "tooltip": "1gmh어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "BuffIcon01",
-    "rarity": 0,
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": "10"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-
+  }
 ]

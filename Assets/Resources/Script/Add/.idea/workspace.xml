@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d0b9928b-2a27-4fcb-b9a5-3754bd5771ef" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.IOSResolver.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.IOSResolver.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.JarResolver.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.JarResolver.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.PackageManagerResolver.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.PackageManagerResolver.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.VersionHandlerImpl.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/1.2.182/Google.VersionHandlerImpl.dll.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/CHANGELOG.md.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/CHANGELOG.md.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/Google.VersionHandler.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/Google.VersionHandler.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/Google.VersionHandler.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/Google.VersionHandler.dll.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/LICENSE.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/LICENSE.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/README.md.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/README.md.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.182_manifest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ExternalDependencyManager/Editor/external-dependency-manager_version-1.2.182_manifest.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../GooglePlayGames/com.google.play.games/current-build/GooglePlayGamesPlugin-2.0.0.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Plugins/Android/mainTemplate.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Plugins/Android/mainTemplate.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Plugins/Android/settingsTemplate.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Plugins/Android/settingsTemplate.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Plugin/GooglePlayGamesPlugin-2.0.0.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../ProjectSettings/AndroidResolverDependencies.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../ProjectSettings/AndroidResolverDependencies.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AdManager.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2tZcSVdANrS6ImPjhC2e77EhWIo" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;upgrade&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="d0b9928b-2a27-4fcb-b9a5-3754bd5771ef" name="변경" comment="" />
+      <created>1740563037577</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740563037577</updated>
+      <workItem from="1740563038905" duration="908000" />
+      <workItem from="1740564337350" duration="10000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
