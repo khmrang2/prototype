@@ -65,8 +65,6 @@ public class Door : MonoBehaviour
             case false:
                 StartCoroutine(openDoor());
                 break;
-            default:
-                break;
         };
             
     }

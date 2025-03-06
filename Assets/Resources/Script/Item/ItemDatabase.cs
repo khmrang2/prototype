@@ -31,6 +31,7 @@ public class ItemDatabase : MonoBehaviour
                             itemData[i]["stats"][1]["statName"].ToString(), // ºÎ½ºÅÝ ÀÌ¸§
                             (int)itemData[i]["stats"][1]["statValue"]       // ºÎ½ºÅÝ º§·ù
                         ));
+            Debug.Log("id is " + i + " : " + itemData[i]["imgpath"].ToString());
         }
     }
 

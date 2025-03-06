@@ -3,16 +3,16 @@
     "id": 1,
     "itemName": "흔한 고철 무기 - common scrap weapon",
     "tooltip": "1-CSW-어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "Image/Items/Item_Weapon.png",
+    "imgpath": "Item_Weapon",
     "rarity": 0,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "10"
+        "statValue": 10
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -20,16 +20,16 @@
     "id": 2,
     "itemName": "조잡한 총 - Handmade Gun",
     "tooltip": "1-HG-일단은 돌아가는 조잡한 총이다.",
-    "imgpath": "Image/Items/Item_Gun.png",
+    "imgpath": "Item_Gun",
     "rarity": 0,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "10"
+        "statValue": 10
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -37,16 +37,16 @@
     "id": 3,
     "itemName": "흔한 기계 심장 - common heart",
     "tooltip": "1-GMH-어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "Image/Items/Item_Heart.png",
+    "imgpath": "Item_Heart",
     "rarity": 0,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "10"
+        "statValue": 10
       },
       {
         "statName": "Attack",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -54,16 +54,16 @@
     "id": 4,
     "itemName": "감자 레몬 서버 - general mechanical heart",
     "tooltip": "1-gmh-어떻게 서버가 돌아가는지 모르겠다.",
-    "imgpath": "Image/Items/Item_Server.png",
+    "imgpath": "Item_Server",
     "rarity": 0,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "10"
+        "statValue": 10
       },
       {
         "statName": "Attack",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -71,16 +71,16 @@
     "id": 5,
     "itemName": "조잡한 기어",
     "tooltip": "1-HG-땅에 떨어진 걸 주운 기어다. 돌아가는지 의문이다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 0,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "10"
+        "statValue": 10
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -88,16 +88,16 @@
     "id": 6,
     "itemName": "기어 샤프트",
     "tooltip": "동력을 전달해줄 기어 축이다.",
-    "imgpath": "Image/Items/Item_GearAxis.png",
+    "imgpath": "Item_GearAxis",
     "rarity": 0,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "5"
+        "statValue": 5
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": 0
       }
     ]
   },
@@ -105,16 +105,16 @@
     "id": 7,
     "itemName": "뾰족한 고철 무기",
     "tooltip": "공격에 사용되는 무기이다.",
-    "imgpath": "Image/Items/Item_Weapon.png",
+    "imgpath": "Item_Weapon",
     "rarity": 0,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "NumOfBall",
-        "statValue": "1"
+        "statValue": 1
       }
     ]
   },
@@ -122,16 +122,16 @@
     "id": 8,
     "itemName": "고철 양날 단검",
     "tooltip": "날카로워 전선을 잘 자를 수 있다.",
-    "imgpath": "Image/Items/Item_Weapon.png",
+    "imgpath": "Item_Weapon",
     "rarity": 0,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "NumOfBall",
-        "statValue": "1"
+        "statValue": 1
       }
     ]
   },
@@ -139,16 +139,16 @@
     "id": 9,
     "itemName": "구리 기계 심장",
     "tooltip": "체력을 증가시키는 기계 심장.",
-    "imgpath": "Image/Items/Item_Heart.png",
+    "imgpath": "Item_Heart",
     "rarity": 0,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "Attack",
-        "statValue": "15"
+        "statValue": 15
       }
     ]
   },
@@ -156,16 +156,16 @@
     "id": 10,
     "itemName": "증기 엔진",
     "tooltip": "증기를 이용해 동력을 얻는 엔진이다.",
-    "imgpath": "Image/Items/Item_Engine.png",
+    "imgpath": "Item_Engine",
     "rarity": 1,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "Attack",
-        "statValue": "15"
+        "statValue": 15
       }
     ]
   },
@@ -173,16 +173,16 @@
     "id": 11,
     "itemName": "주운 기어 박스",
     "tooltip": "급한대로 주워 쓰는 기어 박스이다.",
-    "imgpath": "Image/Items/Item_GearBox.png",
+    "imgpath": "Item_GearBox",
     "rarity": 1,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "15"
+        "statValue": 15
       },
       {
         "statName": "NumOfBall",
-        "statValue": "1"
+        "statValue": 1
       }
     ]
   },
@@ -190,16 +190,16 @@
     "id": 12,
     "itemName": "1:8기어",
     "tooltip": "비율이 1:8로 8배 빠른 회전을 해주는 기어",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 1,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "15"
+        "statValue": 15
       },
       {
         "statName": "NumOfBall",
-        "statValue": "1"
+        "statValue": 1
       }
     ]
   },
@@ -207,16 +207,16 @@
     "id": 13,
     "itemName": "강철 스팀 분사기",
     "tooltip": "스팀이 빠져나갈 틈이 없이 고압으로 분사하는 무기이다.",
-    "imgpath": "Image/Items/Item_Gun.png",
+    "imgpath": "Item_Gun",
     "rarity": 2,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "90"
+        "statValue": 90
       },
       {
         "statName": "NumOfBall",
-        "statValue": "2"
+        "statValue": 2
       }
     ]
   },
@@ -224,16 +224,16 @@
     "id": 14,
     "itemName": "전기 충격기",
     "tooltip": "전기를 방출하는 충격기.",
-    "imgpath": "Image/Items/Item_Weapon.png",
+    "imgpath": "Item_Weapon",
     "rarity": 2,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "90"
+        "statValue": 90
       },
       {
         "statName": "NumOfBall",
-        "statValue": "2"
+        "statValue": 2
       }
     ]
   },
@@ -241,16 +241,16 @@
     "id": 15,
     "itemName": "불안한 노심",
     "tooltip": "핵분열로 막대한 증기를 얻는 터빈이다. 다만 불안하다.",
-    "imgpath": "Image/Items/Item_Engine.png",
+    "imgpath": "Item_Engine",
     "rarity": 2,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "90"
+        "statValue": 90
       },
       {
         "statName": "Attack",
-        "statValue": "45"
+        "statValue": 45
       }
     ]
   },
@@ -258,16 +258,16 @@
     "id": 16,
     "itemName": "뜨거운 감자",
     "tooltip": "뜨겁다. 김이 모락모락하다.",
-    "imgpath": "Image/Items/Item_HotPotato.png",
+    "imgpath": "Item_HotPotato",
     "rarity": 2,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "90"
+        "statValue": 90
       },
       {
         "statName": "Attack",
-        "statValue": "45"
+        "statValue": 45
       }
     ]
   },
@@ -275,16 +275,16 @@
     "id": 17,
     "itemName": "기어 박스",
     "tooltip": "기어 박스와 샤프트를 조합한 완전한 박스이다.",
-    "imgpath": "Image/Items/Item_GearBox.png",
+    "imgpath": "Item_GearBox",
     "rarity": 2,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "NumOfBall",
-        "statValue": "2"
+        "statValue": 2
       }
     ]
   },
@@ -292,16 +292,16 @@
     "id": 18,
     "itemName": "차동 기어",
     "tooltip": "차에서 떼어낸 기어이다. 서로 다른 회전을 조절할 수 있어 더욱 정밀한 조절이 가능하다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 2,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "30"
+        "statValue": 30
       },
       {
         "statName": "NumOfBall",
-        "statValue": "2"
+        "statValue": 2
       }
     ]
   },
@@ -309,16 +309,16 @@
     "id": 19,
     "itemName": "고압 세척기",
     "tooltip": "물과 강한 압력은 적이 당황하고 부식시키기에 알맞은 무기이다.",
-    "imgpath": "Image/Items/Item_Gun.png",
+    "imgpath": "Item_Gun",
     "rarity": 3,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "270"
+        "statValue": 270
       },
       {
         "statName": "NumOfBall",
-        "statValue": "3"
+        "statValue": 3
       }
     ]
   },
@@ -326,16 +326,16 @@
     "id": 20,
     "itemName": "WD-40",
     "tooltip": "WD를 뿌려 적이 제어에 혼란을 만들어낸 사이 공격한다.",
-    "imgpath": "Image/Items/Item_WD40.png",
+    "imgpath": "Item_WD40",
     "rarity": 3,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "270"
+        "statValue": 270
       },
       {
         "statName": "NumOfBall",
-        "statValue": "3"
+        "statValue": 3
       }
     ]
   },
@@ -343,16 +343,16 @@
     "id": 21,
     "itemName": "v8 엔진",
     "tooltip": "엔진.",
-    "imgpath": "Image/Items/Item_Engine.png",
+    "imgpath": "Item_Engine",
     "rarity": 2,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "270"
+        "statValue": 270
       },
       {
         "statName": "Attack",
-        "statValue": "135"
+        "statValue": 135
       }
     ]
   },
@@ -360,16 +360,16 @@
     "id": 22,
     "itemName": "2중 노심",
     "tooltip": "더욱 안전하게 설계된 노심이다. 2중으로 많은 증기를 만들어 낸다.",
-    "imgpath": "Image/Items/Item_Engine.png",
+    "imgpath": "Item_Engine",
     "rarity": 3,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "270"
+        "statValue": 270
       },
       {
         "statName": "Attack",
-        "statValue": "135"
+        "statValue": 135
       }
     ]
   },
@@ -377,16 +377,16 @@
     "id": 23,
     "itemName": "형상변환 합금 기어",
     "tooltip": "적절한 온도에서는 반영구적으로 형태를 유지하는 기어이다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 3,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "50"
+        "statValue": 50
       },
       {
         "statName": "NumOfBall",
-        "statValue": "3"
+        "statValue": 3
       }
     ]
   },
@@ -394,16 +394,16 @@
     "id": 24,
     "itemName": "기어 세컨드",
     "tooltip": "무언가 밀짚모자를 써야할 기어이다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 3,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "50"
+        "statValue": 50
       },
       {
         "statName": "NumOfBall",
-        "statValue": "3"
+        "statValue": 3
       }
     ]
   },
@@ -411,16 +411,16 @@
     "id": 25,
     "itemName": "라이트세이버",
     "tooltip": "왕위를 계승 중 입니다.",
-    "imgpath": "Image/Items/Item_Weapon.png",
+    "imgpath": "Item_Weapon",
     "rarity": 4,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "810"
+        "statValue": 810
       },
       {
         "statName": "NumOfBall",
-        "statValue": "4"
+        "statValue": 4
       }
     ]
   },
@@ -428,16 +428,16 @@
     "id": 26,
     "itemName": "화염방사기",
     "tooltip": "강력한 화염을 내뿜는 무기.",
-    "imgpath": "Image/Items/Item_Gun.png",
+    "imgpath": "Item_Gun",
     "rarity": 4,
     "stats": [
       {
         "statName": "Attack",
-        "statValue": "810"
+        "statValue": 810
       },
       {
         "statName": "NumOfBall",
-        "statValue": "4"
+        "statValue": 4
       }
     ]
   },
@@ -445,16 +445,16 @@
     "id": 27,
     "itemName": "V16 엔진",
     "tooltip": "미쳐 날뛰기 시작한 엔진이다.",
-    "imgpath": "Image/Items/Item_Engine.png",
+    "imgpath": "Item_Engine",
     "rarity": 4,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "810"
+        "statValue": 810
       },
       {
         "statName": "Attack",
-        "statValue": "405"
+        "statValue": 405
       }
     ]
   },
@@ -462,16 +462,16 @@
     "id": 28,
     "itemName": "아크 원자로",
     "tooltip": "당신에게 따뜻한 마음이 있었다는 증거.",
-    "imgpath": "Image/Items/Item_Heart.png",
+    "imgpath": "Item_Heart",
     "rarity": 4,
     "stats": [
       {
         "statName": "Health",
-        "statValue": "810"
+        "statValue": 810
       },
       {
         "statName": "Attack",
-        "statValue": "405"
+        "statValue": 405
       }
     ]
   },
@@ -479,16 +479,16 @@
     "id": 29,
     "itemName": "눈 깜빡 기어",
     "tooltip": "로그 나선형 기어로 버티기만 한다면, 광속마저도 넘을 수 있다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 4,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "100"
+        "statValue": 100
       },
       {
         "statName": "NumOfBall",
-        "statValue": "4"
+        "statValue": 4
       }
     ]
   },
@@ -496,16 +496,16 @@
     "id": 30,
     "itemName": "구골 기어",
     "tooltip": "\"구골\"이라는 단위를 형상화한 기어이다. 마지막 기어가 돌아간다면, 우주는 멸망했을 것이다.",
-    "imgpath": "Image/Items/Item_Gear.png",
+    "imgpath": "Item_Gear",
     "rarity": 4,
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": "100"
+        "statValue": 100
       },
       {
         "statName": "NumOfBall",
-        "statValue": "4"
+        "statValue": 4
       }
     ]
   }
