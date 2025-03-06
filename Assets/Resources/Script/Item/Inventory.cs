@@ -59,7 +59,7 @@ public class Inventory : MonoBehaviour
 
     public void fordebugingRandomItemAdd()
     {
-        AddItem(Mathf.RoundToInt(Random.Range(1,10)), Mathf.RoundToInt(Random.Range(1, 100)));
+        AddItem(Mathf.RoundToInt(Random.Range(1,30)), Mathf.RoundToInt(Random.Range(1, 100)));
     }
     public void fordebugingSave()
     {
@@ -98,6 +98,15 @@ public class Inventory : MonoBehaviour
         // 슬롯에 생성.
         GameObject slot = Instantiate(inventorySlot);
         slot.transform.SetParent(slotPanel.transform, false);
+
+        // rarity에 따라 슬롯 이미지 변경
+        SlotInven slotUI = slot.GetComponent<SlotInven>();
+        if (slotUI != null)
+        {
+            // itemToAdd의 rarity 값 (0~4)을 이용해 스프라이트 설정.
+            slotUI.SetRarity(itemToAdd.Rarity);
+        }
+
         slots.Add(slot);
         // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
         GameObject itemObj = Instantiate(inventoryItem);

@@ -3,15 +3,22 @@ using UnityEngine;
 using LitJson;
 using System.IO;
 using System.Runtime.CompilerServices;
+using UnityEngine.Rendering.Universal.Internal;
+
+/// <summary>
+/// 레어리티를 표현하기 위한.
+/// </summary>
+public enum Rarity { Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4 }
 
 public class ItemDatabase : MonoBehaviour
 {
     private List<Item> database = new List<Item>();
     private JsonData itemData;
+    private const string ITEM_DATA_PATH = "/Resources/Data/itemData.json";
     // Start is called before the first frame update
     void Start()
     {
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/Resources/Data/itemData.json"));
+        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + ITEM_DATA_PATH));
         ConstructItemDatabase();
     }
 
@@ -31,7 +38,6 @@ public class ItemDatabase : MonoBehaviour
                             itemData[i]["stats"][1]["statName"].ToString(), // 부스텟 이름
                             (int)itemData[i]["stats"][1]["statValue"]       // 부스텟 벨류
                         ));
-            Debug.Log("id is " + i + " : " + itemData[i]["imgpath"].ToString());
         }
     }
 
@@ -78,7 +84,7 @@ public class Item
     // 아이템 스프라이트
     public Sprite Sprite { get; set; }  
     // 아이템 희귀도. (0: 커먼, 1: 언커먼, 2: 레어, 3: 에픽, 4: 레전드리)
-    public int Rarity { get; set; }     
+    public Rarity Rarity { get; set; }     
 
     public ItemStat PrimaryStat { get; set; }
     public ItemStat SecondStat { get; set; }
@@ -91,7 +97,7 @@ public class Item
         this.Tooltip = toolTip;
         this.ImgPath = path;
         this.Sprite = Resources.Load<Sprite>("Image/Items/" + path);
-        this.Rarity = rarity;
+        this.Rarity = (Rarity)rarity;
         this.PrimaryStat = new ItemStat(primaryStatName, primaryStatValue);
         this.SecondStat = new ItemStat(secondStatName, secondStatValue);
     }

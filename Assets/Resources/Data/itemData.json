@@ -106,7 +106,7 @@
     "itemName": "뾰족한 고철 무기",
     "tooltip": "공격에 사용되는 무기이다.",
     "imgpath": "Item_Weapon",
-    "rarity": 0,
+    "rarity": 1,
     "stats": [
       {
         "statName": "Attack",
@@ -123,7 +123,7 @@
     "itemName": "고철 양날 단검",
     "tooltip": "날카로워 전선을 잘 자를 수 있다.",
     "imgpath": "Item_Weapon",
-    "rarity": 0,
+    "rarity": 1,
     "stats": [
       {
         "statName": "Attack",
@@ -140,7 +140,7 @@
     "itemName": "구리 기계 심장",
     "tooltip": "체력을 증가시키는 기계 심장.",
     "imgpath": "Item_Heart",
-    "rarity": 0,
+    "rarity": 1,
     "stats": [
       {
         "statName": "Health",
@@ -344,7 +344,7 @@
     "itemName": "v8 엔진",
     "tooltip": "엔진.",
     "imgpath": "Item_Engine",
-    "rarity": 2,
+    "rarity": 3,
     "stats": [
       {
         "statName": "Health",

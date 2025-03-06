@@ -14788,7 +14788,7 @@ MonoBehaviour:
   inventoryPanel: {fileID: 1636349484}
   slotPanel: {fileID: 1636349484}
   database: {fileID: 1252224004}
-  inventorySlot: {fileID: 2889133749879119448, guid: 712b891e8524ae141b59b5eba8b2e539, type: 3}
+  inventorySlot: {fileID: 3232639693998567242, guid: d919ca00f4822c34db5de7a1675d22d7, type: 3}
   inventoryItem: {fileID: 1117477902857782943, guid: 108168f62363a3240b2d45f204539895, type: 3}
   slots: []
   inventory: []
