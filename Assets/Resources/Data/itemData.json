@@ -374,28 +374,11 @@
     ]
   },
   {
-    "id": 22,
-    "itemName": "아무튼 기어",
-    "tooltip": "이래저래 쓰이는 기어.",
-    "imgpath": "Image/Items/Item_Gear_Any.png",
-    "rarity": 2,
-    "stats": [
-      {
-        "statName": "PinHealth",
-        "statValue": "50"
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": "0"
-      }
-    ]
-  },
-  {
     "id": 23,
-    "itemName": "기어 세컨드",
-    "tooltip": "기어가 한 단계 강화됨.",
-    "imgpath": "Image/Items/Item_Gear_Second.png",
-    "rarity": 2,
+    "itemName": "형상변환 합금 기어",
+    "tooltip": "적절한 온도에서는 반영구적으로 형태를 유지하는 기어이다.",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 3,
     "stats": [
       {
         "statName": "PinHealth",
@@ -403,33 +386,33 @@
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "3"
       }
     ]
   },
   {
     "id": 24,
-    "itemName": "라이트세이버",
-    "tooltip": "전설적인 광검.",
-    "imgpath": "Image/Items/Item_Weapon_Lightsaber.png",
+    "itemName": "기어 세컨드",
+    "tooltip": "무언가 밀짚모자를 써야할 기어이다.",
+    "imgpath": "Image/Items/Item_Gear.png",
     "rarity": 3,
     "stats": [
       {
-        "statName": "Attack",
-        "statValue": "810"
+        "statName": "PinHealth",
+        "statValue": "50"
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "3"
       }
     ]
   },
   {
     "id": 25,
-    "itemName": "화염방사기",
-    "tooltip": "강력한 화염을 내뿜는 무기.",
-    "imgpath": "Image/Items/Item_Weapon_Flamethrower.png",
-    "rarity": 3,
+    "itemName": "라이트세이버",
+    "tooltip": "왕위를 계승 중 입니다.",
+    "imgpath": "Image/Items/Item_Weapon.png",
+    "rarity": 4,
     "stats": [
       {
         "statName": "Attack",
@@ -437,67 +420,67 @@
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "4"
       }
     ]
   },
   {
     "id": 26,
-    "itemName": "v16 엔진",
-    "tooltip": "최강의 엔진.",
-    "imgpath": "Image/Items/Item_Engine_V16.png",
-    "rarity": 3,
+    "itemName": "화염방사기",
+    "tooltip": "강력한 화염을 내뿜는 무기.",
+    "imgpath": "Image/Items/Item_Gun.png",
+    "rarity": 4,
     "stats": [
       {
-        "statName": "Health",
+        "statName": "Attack",
         "statValue": "810"
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "4"
       }
     ]
   },
   {
     "id": 27,
-    "itemName": "아크원자로",
-    "tooltip": "최첨단 에너지원.",
-    "imgpath": "Image/Items/Item_ArcReactor.png",
-    "rarity": 3,
+    "itemName": "V16 엔진",
+    "tooltip": "미쳐 날뛰기 시작한 엔진이다.",
+    "imgpath": "Image/Items/Item_Engine.png",
+    "rarity": 4,
     "stats": [
       {
         "statName": "Health",
         "statValue": "810"
       },
       {
-        "statName": "NumOfBall",
-        "statValue": "0"
+        "statName": "Attack",
+        "statValue": "405"
       }
     ]
   },
   {
     "id": 28,
-    "itemName": "나선형 기어",
-    "tooltip": "특수한 구조의 기어.",
-    "imgpath": "Image/Items/Item_Gear_Spiral.png",
-    "rarity": 3,
+    "itemName": "아크 원자로",
+    "tooltip": "당신에게 따뜻한 마음이 있었다는 증거.",
+    "imgpath": "Image/Items/Item_Heart.png",
+    "rarity": 4,
     "stats": [
       {
-        "statName": "PinHealth",
-        "statValue": "100"
+        "statName": "Health",
+        "statValue": "810"
       },
       {
-        "statName": "NumOfBall",
-        "statValue": "0"
+        "statName": "Attack",
+        "statValue": "405"
       }
     ]
   },
   {
     "id": 29,
-    "itemName": "구글기어",
-    "tooltip": "미래형 기어.",
-    "imgpath": "Image/Items/Item_Gear_Google.png",
-    "rarity": 3,
+    "itemName": "눈 깜빡 기어",
+    "tooltip": "로그 나선형 기어로 버티기만 한다면, 광속마저도 넘을 수 있다.",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 4,
     "stats": [
       {
         "statName": "PinHealth",
@@ -505,16 +488,16 @@
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "4"
       }
     ]
   },
   {
     "id": 30,
-    "itemName": "구글기어",
-    "tooltip": "미래형 기어.",
-    "imgpath": "Image/Items/Item_Gear_Google.png",
-    "rarity": 3,
+    "itemName": "구골 기어",
+    "tooltip": "\"구골\"이라는 단위를 형상화한 기어이다. 마지막 기어가 돌아간다면, 우주는 멸망했을 것이다.",
+    "imgpath": "Image/Items/Item_Gear.png",
+    "rarity": 4,
     "stats": [
       {
         "statName": "PinHealth",
@@ -522,7 +505,7 @@
       },
       {
         "statName": "NumOfBall",
-        "statValue": "0"
+        "statValue": "4"
       }
     ]
   }

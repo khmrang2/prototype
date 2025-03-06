@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
@@ -8,16 +8,16 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// °³º° ¾ÆÀÌÅÛÀÌ ÀúÀåµÇ±âÀ§ÇÑ ÀÎº¥Åä¸® ½½·Ô¿¡ ´ëÇÑ ÀúÀå±¸Á¶
+/// ê°œë³„ ì•„ì´í…œì´ ì €ì¥ë˜ê¸°ìœ„í•œ ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯ì— ëŒ€í•œ ì €ì¥êµ¬ì¡°
 /// </summary>
 [System.Serializable]
 public class ItemData
 {
-    public int id;      // ¾ÆÀÌÅÛ °íÀ¯ ID
-    public int amount;  // ¾ÆÀÌÅÛ ¼ö·®
+    public int id;      // ì•„ì´í…œ ê³ ìœ  ID
+    public int amount;  // ì•„ì´í…œ ìˆ˜ëŸ‰
 }
 /// <summary>
-/// ¾ÆÀÌÅÛµéÀ» ÇÏ³ªÀÇ ÀÎº¥Åä¸® ÀúÀå ±¸Á¶·Î °ü¸®ÇÏ±â À§ÇÑ ¸®½ºÆ®.
+/// ì•„ì´í…œë“¤ì„ í•˜ë‚˜ì˜ ì¸ë²¤í† ë¦¬ ì €ì¥ êµ¬ì¡°ë¡œ ê´€ë¦¬í•˜ê¸° ìœ„í•œ ë¦¬ìŠ¤íŠ¸.
 /// </summary>
 [System.Serializable]
 public class InventoryData
@@ -28,14 +28,14 @@ public class InventoryData
 public class Inventory : MonoBehaviour
 {
     /// <summary>
-    /// °¢Á¾º¯¼ö
-    /// ÀÎº¥Åä¸® ÆĞ³Î
-    /// ½½·Ô ÆĞ³Î
+    /// ê°ì¢…ë³€ìˆ˜
+    /// ì¸ë²¤í† ë¦¬ íŒ¨ë„
+    /// ìŠ¬ë¡¯ íŒ¨ë„
     /// 
-    /// µ¥ÀÌÅÍº£ÀÌ½º
+    /// ë°ì´í„°ë² ì´ìŠ¤
     /// 
-    /// ÀÎº¥Åä¸® ½½·Ô
-    /// ÀÎº¥Åä¸® ¾ÆÀÌÅÛ
+    /// ì¸ë²¤í† ë¦¬ ìŠ¬ë¡¯
+    /// ì¸ë²¤í† ë¦¬ ì•„ì´í…œ
     /// </summary>
     public GameObject inventoryPanel;
     public GameObject slotPanel;
@@ -44,13 +44,13 @@ public class Inventory : MonoBehaviour
     public GameObject inventoryItem;
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¿¡¼­ »ç¿ëÇÏ°í ÀúÀåÇÒ ¾ÆÀÌÅÛ°ú ½½·Ôµé.
+    /// ì¸ë²¤í† ë¦¬ì—ì„œ ì‚¬ìš©í•˜ê³  ì €ì¥í•  ì•„ì´í…œê³¼ ìŠ¬ë¡¯ë“¤.
     /// </summary>
     public List<GameObject> slots = new List<GameObject>();
     public List<ItemData> inventory = new List<ItemData>();
 
     /// <summary>
-    /// µ¥ÀÌÅÍ¿¡¼­ È¹µæÇÑ ¾ÆÀÌÅÛÀ» ±â¹İÀ¸·Î µ¥ÀÌÅÍ¸¦ ·ÎµåÇÏ°í ºÒ·¯¿Â´Ù.
+    /// ë°ì´í„°ì—ì„œ íšë“í•œ ì•„ì´í…œì„ ê¸°ë°˜ìœ¼ë¡œ ë°ì´í„°ë¥¼ ë¡œë“œí•˜ê³  ë¶ˆëŸ¬ì˜¨ë‹¤.
     /// </summary>
     private void Start()
     {
@@ -70,43 +70,51 @@ public class Inventory : MonoBehaviour
         loadFromJson();
     }
     /// <summary>
-    /// ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡ Ãß°¡ÇÏ´Â ÄÚµå.
+    /// ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€í•˜ëŠ” ì½”ë“œ.
     /// </summary>
     /// <param name="id"></param>
     public void AddItem(int id, int amount)
     {
-        // ¾ÆÀÌÅÛ ÄÚµå µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ id¸¦ ÅëÇØ ¾ÆÀÌÅÛÀ» ³Ö´Â´Ù.
-        // Áï, ¾ÆÀÌÅÛ ÄÚµå·Î ¿ì¸®´Â ¾ÆÀÌÅÛµéÀ» ºÒ·¯¿Ã ¼ö ÀÖ´Ù.
-        Item itemToAdd = database.FetchItemById(id);
-        
-        // ½½·Ô¿¡ »ı¼º.
-        GameObject slot = Instantiate(inventorySlot);
-        slot.transform.SetParent(slotPanel.transform, false);
-        slots.Add(slot);
+        makeItemUIToInventory(id, amount);
 
-        // ÀÎº¥Åä¸® ¾ÆÀÌÅÛ UI »ı¼º ÈÄ ½½·Ô¿¡ ¹èÄ¡.
-        GameObject itemObj = Instantiate(inventoryItem);
-        itemObj.transform.SetParent(slot.transform, false);
-        RectTransform rect = itemObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = Vector2.zero;
-
-        // ÀÌ¹ÌÁö °¡Á®¿À°í.
-        itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-        // ÅøÆÁÀ¸·Î ¿ÀºêÁ§Æ®ÀÇ ÀÌ¸§À» ¼³Á¤.
-        itemObj.name = itemToAdd.Tooltip;
-        // ±×´ÙÀ½ ¿ÀºêÁ§Æ®¿¡¼­ ¾çµµ °¡Á®¿Â´Ù.
-        itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
-
-        // ÀÌÁ¦ µ¥ÀÌÅÍ¿¡ ½ÇÁ¦·Î ³Ö´Â´Ù. 
+        // ì´ì œ ë°ì´í„°ì— ì‹¤ì œë¡œ ë„£ëŠ”ë‹¤. 
         ItemData item = new ItemData();
         item.id = id;
         item.amount = amount;
         inventory.Add(item);
 
     }
+    /// <summary>
+    /// ì¸ë²¤í† ë¦¬ UIì— ì•„ì´í…œì„ ë³´ì´ê²Œ í•˜ëŠ” ê·¸ë˜í”½ì ì¸ ì½”ë“œ.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="amount"></param>
+    public void makeItemUIToInventory(int id, int amount)
+    {
+        // ì•„ì´í…œ ì½”ë“œ ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ idë¥¼ í†µí•´ ì•„ì´í…œì„ ë„£ëŠ”ë‹¤.
+        // ì¦‰, ì•„ì´í…œ ì½”ë“œë¡œ ìš°ë¦¬ëŠ” ì•„ì´í…œë“¤ì„ ë¶ˆëŸ¬ì˜¬ ìˆ˜ ìˆë‹¤.
+        Item itemToAdd = database.FetchItemById(id);
+
+        // ìŠ¬ë¡¯ì— ìƒì„±.
+        GameObject slot = Instantiate(inventorySlot);
+        slot.transform.SetParent(slotPanel.transform, false);
+        slots.Add(slot);
+        // ì¸ë²¤í† ë¦¬ ì•„ì´í…œ UI ìƒì„± í›„ ìŠ¬ë¡¯ì— ë°°ì¹˜.
+        GameObject itemObj = Instantiate(inventoryItem);
+        itemObj.transform.SetParent(slot.transform, false);
+        RectTransform rect = itemObj.GetComponent<RectTransform>();
+        rect.anchoredPosition = Vector2.zero;
+
+        // ì´ë¯¸ì§€ ê°€ì ¸ì˜¤ê³ .
+        itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
+        // íˆ´íŒìœ¼ë¡œ ì˜¤ë¸Œì íŠ¸ì˜ ì´ë¦„ì„ ì„¤ì •.
+        itemObj.name = itemToAdd.Tooltip;
+        // ê·¸ë‹¤ìŒ ì˜¤ë¸Œì íŠ¸ì—ì„œ ì–‘ë„ ê°€ì ¸ì˜¨ë‹¤.
+        itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
+    }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®¸¦ ·¹¾îµµ ¼øÀ¸·Î Á¤·ÄÇÏ´Â ÄÚµå.
+    /// ì¸ë²¤í† ë¦¬ë¥¼ ë ˆì–´ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•˜ëŠ” ì½”ë“œ.
     /// </summary>
     public void sortInventory()
     {
@@ -114,19 +122,19 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÎº¥Åä¸®ÀÇ »óÅÂ¸¦ ÀúÀåÇÏ°í, ºÒ·¯¿À´Â ¸Ş¼Òµå
+    /// ì¸ë²¤í† ë¦¬ì˜ ìƒíƒœë¥¼ ì €ì¥í•˜ê³ , ë¶ˆëŸ¬ì˜¤ëŠ” ë©”ì†Œë“œ
     /// </summary>
     public void saveToJson()
     {
-        // ÀúÀåÇÏ±â À§ÇÑ data »ı¼º.
+        // ì €ì¥í•˜ê¸° ìœ„í•œ data ìƒì„±.
         InventoryData data = new InventoryData();
-        // ÇöÀç °¡Áö°í ÀÖ´Â inv¸¦ °¡Á®¿À°í,
+        // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” invë¥¼ ê°€ì ¸ì˜¤ê³ ,
         data.items = inventory;
         string json = JsonUtility.ToJson(data, true);
-        // Resource´Â ÀĞ±â Àü¿ëÀÌ±â ¶§¹®¿¡, Application.persistentdatapath == /data/data/[ÆĞÅ°Áö¸í]/inventoryData.json¿¡ ÀúÀåµÊ.
+        // ResourceëŠ” ì½ê¸° ì „ìš©ì´ê¸° ë•Œë¬¸ì—, Application.persistentdatapath == /data/data/[íŒ¨í‚¤ì§€ëª…]/inventoryData.jsonì— ì €ì¥ë¨.
         string path = Application.persistentDataPath + "/inventoryData.json";
         File.WriteAllText(path, json);
-        //Debug.Log("ÀÎº¥Åä¸®ÀÇ ÇöÀç »óÅÂ°¡ ÀúÀåµÇ¾ú½À´Ï´Ù." + path);
+        //Debug.Log("ì¸ë²¤í† ë¦¬ì˜ í˜„ì¬ ìƒíƒœê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤." + path);
         return; 
     }
 
@@ -137,13 +145,13 @@ public class Inventory : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             InventoryData data = JsonUtility.FromJson<InventoryData>(json);
-            // ÀúÀåÇÑ µ¥ÀÌÅÍ¸¦ ºÒ·¯¿À±â À§ÇÑ ÃÊ±âÈ­ ÀÛ¾÷.
+            // ì €ì¥í•œ ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì˜¤ê¸° ìœ„í•œ ì´ˆê¸°í™” ì‘ì—….
             foreach(GameObject slot in slots)
             {
-                // ±×·¡ÇÈ ÃÊ±âÈ­
+                // ê·¸ë˜í”½ ì´ˆê¸°í™”
                 Destroy(slot);
             }
-            // µ¥ÀÌÅÍ ÃÊ±âÈ­
+            // ë°ì´í„° ì´ˆê¸°í™”
             slots.Clear();
             inventory.Clear();
 
@@ -154,7 +162,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÀúÀåµÈ ÀÎº¥Åä¸® ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+            Debug.Log("ì €ì¥ëœ ì¸ë²¤í† ë¦¬ íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         }
     }
 }

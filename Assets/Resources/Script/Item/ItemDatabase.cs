@@ -20,9 +20,18 @@ public class ItemDatabase : MonoBehaviour
     {
         for (int i = 0; i < itemData.Count; i++)
         {
-            database.Add(new Item((int)itemData[i]["id"], itemData[i]["tooltip"].ToString(), itemData[i]["imgpath"].ToString(), itemData[i]["rarity"]));
+            database.Add(new Item(
+                            (int)itemData[i]["id"],                         // id
+                            itemData[i]["itemName"].ToString(),             // name
+                            itemData[i]["tooltip"].ToString(),              // tooltip
+                            itemData[i]["imgpath"].ToString(),              // imgpath
+                            (int)itemData[i]["rarity"],                     // rarity
+                            itemData[i]["stats"][0]["statName"].ToString(), // 주스텟 이름
+                            (int)itemData[i]["stats"][1]["statValue"],      // 주스텟 벨류
+                            itemData[i]["stats"][1]["statName"].ToString(), // 부스텟 이름
+                            (int)itemData[i]["stats"][1]["statValue"]       // 부스텟 벨류
+                        ));
         }
-        Debug.Log(database.Count);
     }
 
     // 매개변수인 id를 통해서 아이템을 반환하는 아이템 반환자.
@@ -43,25 +52,47 @@ public class ItemDatabase : MonoBehaviour
 
 }
 
-
+public struct ItemStat
+{
+    public string stat;
+    public int value;
+    
+    public ItemStat(string s, int v){
+        this.stat = s;
+        this.value = v;
+    }
+}
 // 기본 아이템 클래스
 // 생성자와 반환자.
 public class Item
 {
-    public int Id {  get; set; }        // 아이템 식별자.
-    public string Tooltip { get; set; } // 아이템 툴팁.
-    public string ImgPath { get; set; } // 아이템 이미지 경로
-    public Sprite Sprite { get; set; }  // 아이템 스프라이트
+    // 아이템 식별자.
+    public int Id {  get; set; }        
+    // 아이템 이름.
+    public string ItemName { get; set; }
+    // 아이템 툴팁.
+    public string Tooltip { get; set; } 
+    // 아이템 이미지 경로
+    public string ImgPath { get; set; } 
+    // 아이템 스프라이트
+    public Sprite Sprite { get; set; }  
+    // 아이템 희귀도. (0: 커먼, 1: 언커먼, 2: 레어, 3: 에픽, 4: 레전드리)
+    public int Rarity { get; set; }     
 
-    public int rarity { get; set; }     // 아이템 희귀도.
+    public ItemStat PrimaryStat { get; set; }
+    public ItemStat SecondStat { get; set; }
 
-    public Item(int id, string tooltip, string path, int rarity)
+
+    public Item(int id, string itemName, string toolTip, string path, int rarity, string primaryStatName, int primaryStatValue, string secondStatName, int secondStatValue)
     {
         this.Id = id;
-        this.Tooltip = tooltip;
+        this.ItemName = ItemName;
+        this.Tooltip = toolTip;
         this.ImgPath = path;
         this.Sprite = Resources.Load<Sprite>("Image/Items/" + path);
-        this.rarity = rarity;
+        this.Rarity = rarity;
+        this.PrimaryStat = new ItemStat(primaryStatName, primaryStatValue);
+        this.SecondStat = new ItemStat(secondStatName, secondStatValue);
     }
 
     /// <summary>
