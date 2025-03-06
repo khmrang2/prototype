@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
 using System.IO;
@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine.Rendering.Universal.Internal;
 
 /// <summary>
-/// ·¹¾î¸®Æ¼¸¦ Ç¥ÇöÇÏ±â À§ÇÑ.
-/// </summary>
+/// ë ˆì–´ë¦¬í‹°ë¥¼ í‘œí˜„í•˜ê¸° ìœ„í•œ.
+/// </summary>âœ… 
 public enum Rarity { Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4 }
 
 public class ItemDatabase : MonoBehaviour
@@ -22,7 +22,7 @@ public class ItemDatabase : MonoBehaviour
         ConstructItemDatabase();
     }
 
-    // json ÆÄÀÏ¿¡¼­ µ¥ÀÌÅÍ¸¦ ÀĞ¾î¿À´Â ÇÔ¼ö.
+    // json íŒŒì¼ì—ì„œ ë°ì´í„°ë¥¼ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜.
     void ConstructItemDatabase()
     {
         for (int i = 0; i < itemData.Count; i++)
@@ -33,27 +33,27 @@ public class ItemDatabase : MonoBehaviour
                             itemData[i]["tooltip"].ToString(),              // tooltip
                             itemData[i]["imgpath"].ToString(),              // imgpath
                             (int)itemData[i]["rarity"],                     // rarity
-                            itemData[i]["stats"][0]["statName"].ToString(), // ÁÖ½ºÅİ ÀÌ¸§
-                            (int)itemData[i]["stats"][1]["statValue"],      // ÁÖ½ºÅİ º§·ù
-                            itemData[i]["stats"][1]["statName"].ToString(), // ºÎ½ºÅİ ÀÌ¸§
-                            (int)itemData[i]["stats"][1]["statValue"]       // ºÎ½ºÅİ º§·ù
+                            itemData[i]["stats"][0]["statName"].ToString(), // ì£¼ìŠ¤í…Ÿ ì´ë¦„
+                            (int)itemData[i]["stats"][1]["statValue"],      // ì£¼ìŠ¤í…Ÿ ë²¨ë¥˜
+                            itemData[i]["stats"][1]["statName"].ToString(), // ë¶€ìŠ¤í…Ÿ ì´ë¦„
+                            (int)itemData[i]["stats"][1]["statValue"]       // ë¶€ìŠ¤í…Ÿ ë²¨ë¥˜
                         ));
         }
     }
 
-    // ¸Å°³º¯¼öÀÎ id¸¦ ÅëÇØ¼­ ¾ÆÀÌÅÛÀ» ¹İÈ¯ÇÏ´Â ¾ÆÀÌÅÛ ¹İÈ¯ÀÚ.
+    // ë§¤ê°œë³€ìˆ˜ì¸ idë¥¼ í†µí•´ì„œ ì•„ì´í…œì„ ë°˜í™˜í•˜ëŠ” ì•„ì´í…œ ë°˜í™˜ì.
     public Item FetchItemById(int id)
     {
-        //Debug.Log("³Ê ½ÇÇàÀº µÇ³Ä?");
+        //Debug.Log("ë„ˆ ì‹¤í–‰ì€ ë˜ëƒ?");
         for (int i = 0; i < database.Count; i++)
         {
-            //Debug.Log($"Ã¼Å© Áß: database[{i}].Id = {database[i].Id}");
+            //Debug.Log($"ì²´í¬ ì¤‘: database[{i}].Id = {database[i].Id}");
             if (database[i].Id == id)
             {
                 return database[i];
             }
         }
-        //Debug.LogError($"ID {id}¿¡ ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» Ã£À» ¼ö ¾øÀ½!");
+        //Debug.LogError($"ID {id}ì— í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ ì°¾ì„ ìˆ˜ ì—†ìŒ!");
         return null;
     }
 
@@ -69,21 +69,21 @@ public struct ItemStat
         this.value = v;
     }
 }
-// ±âº» ¾ÆÀÌÅÛ Å¬·¡½º
-// »ı¼ºÀÚ¿Í ¹İÈ¯ÀÚ.
+// ê¸°ë³¸ ì•„ì´í…œ í´ë˜ìŠ¤
+// ìƒì„±ìì™€ ë°˜í™˜ì.
 public class Item
 {
-    // ¾ÆÀÌÅÛ ½Äº°ÀÚ.
+    // ì•„ì´í…œ ì‹ë³„ì.
     public int Id {  get; set; }        
-    // ¾ÆÀÌÅÛ ÀÌ¸§.
+    // ì•„ì´í…œ ì´ë¦„.
     public string ItemName { get; set; }
-    // ¾ÆÀÌÅÛ ÅøÆÁ.
+    // ì•„ì´í…œ íˆ´íŒ.
     public string Tooltip { get; set; } 
-    // ¾ÆÀÌÅÛ ÀÌ¹ÌÁö °æ·Î
+    // ì•„ì´í…œ ì´ë¯¸ì§€ ê²½ë¡œ
     public string ImgPath { get; set; } 
-    // ¾ÆÀÌÅÛ ½ºÇÁ¶óÀÌÆ®
+    // ì•„ì´í…œ ìŠ¤í”„ë¼ì´íŠ¸
     public Sprite Sprite { get; set; }  
-    // ¾ÆÀÌÅÛ Èñ±Íµµ. (0: Ä¿¸Õ, 1: ¾ğÄ¿¸Õ, 2: ·¹¾î, 3: ¿¡ÇÈ, 4: ·¹Àüµå¸®)
+    // ì•„ì´í…œ í¬ê·€ë„. (0: ì»¤ë¨¼, 1: ì–¸ì»¤ë¨¼, 2: ë ˆì–´, 3: ì—í”½, 4: ë ˆì „ë“œë¦¬)
     public Rarity Rarity { get; set; }     
 
     public ItemStat PrimaryStat { get; set; }
@@ -103,7 +103,7 @@ public class Item
     }
 
     /// <summary>
-    /// ÃÖÃÊ »ı¼ºÀÚ. ¾ÆÀÌÅÛÀÌ »ı¼ºµÇÁö ¾Ê¾ÒÀ¸¹Ç·Î id = -1
+    /// ìµœì´ˆ ìƒì„±ì. ì•„ì´í…œì´ ìƒì„±ë˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ id = -1
     /// </summary>
     public Item()
     {

@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class SlotInven : MonoBehaviour
 {
+    
+    public Item item;              // 팝업에 띄우기 위한 아이템 데이터.
+
+    public GameObject popUpPanel; // 활성화할 프리팹
+    public updatePopup popUpScript;
+
     public Image backgroundImage;
 
     public Sprite commonSprite;    // rarity 0
@@ -16,6 +22,21 @@ public class SlotInven : MonoBehaviour
     private void Awake()
     {
 
+    }
+    /// <summary>
+    /// 팝업을 띄운다.
+    /// </summary>
+    public void showPopup()
+    {
+        if (popUpPanel == null)
+        {
+            Debug.LogWarning("Prefab is not assigned!");
+            return;
+        }
+
+        //popUpPanel.
+
+        popUpPanel.SetActive(true);
     }
 
     /// <summary>

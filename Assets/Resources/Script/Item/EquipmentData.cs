@@ -10,7 +10,7 @@ public struct EquipmentData
     public int subStat;        // 부 스탯 (추가 효과)
     public string icon;        // 아이콘 파일명
     public Sprite iconSprite;  // Unity에서 사용할 아이콘 이미지
-
+    //✅ 
     public EquipmentData(string name, EquipmentType type, EquipmentRarity rarity, int mainStat, int subStat, string icon)
     {
         this.name = name;

@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
         loadFromJson();
     }
     /// <summary>
-    /// 아이템을 인벤토리에 추가하는 코드.
+      /// 아이템을 인벤토리에 추가하는 코드.
     /// </summary>
     /// <param name="id"></param>
     public void AddItem(int id, int amount)
@@ -85,21 +85,24 @@ public class Inventory : MonoBehaviour
 
     }
     /// <summary>
-    /// 인벤토리 UI에 아이템을 보이게 하는 그래픽적인 코드.
+      /// 인벤토리 UI에 아이템을 보이게 하는 그래픽적인 코드.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="amount"></param>
     public void makeItemUIToInventory(int id, int amount)
     {
-        // 아이템 코드 데이터베이스에서 id를 통해 아이템을 넣는다.
-        // 즉, 아이템 코드로 우리는 아이템들을 불러올 수 있다.
+            // 아이템 코드 데이터베이스에서 id를 통해 아이템을 넣는다.
+            // 즉, 아이템 코드로 우리는 아이템들을 불러올 수 있다.
         Item itemToAdd = database.FetchItemById(id);
 
-        // 슬롯에 생성.
+             
+
+            // 슬롯에 생성.
         GameObject slot = Instantiate(inventorySlot);
         slot.transform.SetParent(slotPanel.transform, false);
 
-        // rarity에 따라 슬롯 이미지 변경
+            // 슬롯에 Item도 넣어주자.(팝업 UI를 위해서)
+            // rarity에 따라 슬롯 이미지 변경
         SlotInven slotUI = slot.GetComponent<SlotInven>();
         if (slotUI != null)
         {
@@ -108,21 +111,21 @@ public class Inventory : MonoBehaviour
         }
 
         slots.Add(slot);
-        // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
+            // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
         GameObject itemObj = Instantiate(inventoryItem);
         itemObj.transform.SetParent(slot.transform, false);
         RectTransform rect = itemObj.GetComponent<RectTransform>();
         rect.anchoredPosition = Vector2.zero;
 
-        // 이미지 가져오고.
+            // 이미지 가져오고.
         itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-        // 툴팁으로 오브젝트의 이름을 설정.
+            // 툴팁으로 오브젝트의 이름을 설정.
         itemObj.name = itemToAdd.Tooltip;
-        // 그다음 오브젝트에서 양도 가져온다.
+            // 그다음 오브젝트에서 양도 가져온다.
         itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
     }
 
-    /// <summary>
+    /// <summary>✅ 
     /// 인벤토리를 레어도 순으로 정렬하는 코드.
     /// </summary>
     public void sortInventory()
