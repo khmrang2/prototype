@@ -11,11 +11,11 @@ public class EquipmentUIManager : MonoBehaviour
 
     void Start()
     {
-        // ✅ 올바른 UI 패널 비활성화 방식
+        //올바른 UI 패널 비활성화 방식
         if (equipmentPanel != null)
             equipmentPanel.gameObject.SetActive(false);
 
-        // ✅ 버튼 이벤트 연결 (람다식 사용하여 매개변수 전달)
+        //버튼 이벤트 연결 (람다식 사용하여 매개변수 전달)
         if (draw_10_rewardsButton != null)
         {
             draw_10_rewardsButton.onClick.AddListener(() => DrawRandom10Rewards(false));
@@ -29,34 +29,38 @@ public class EquipmentUIManager : MonoBehaviour
     public void DrawRandom10Rewards(bool isads)
     {
         if(!payGold(isads, 900)) return;
-        // ✅ UI 패널 활성화
-        if (equipmentPanel != null)
-            equipmentPanel.gameObject.SetActive(true);
+        //UI 패널 활성화
+        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
 
-        float roll = Random.Range(0f, 100f);
+        List<Item> rewards = gacha(10);
+        
+        string rewardLog = "🎁 gacha(10) 결과: ";
+        foreach (Item item in rewards) { 
+            if (item != null) 
+                rewardLog += $"[ID: {item.Id}, Name: {item.ItemName}, Rarity: {item.Rarity}] ";
+            else rewardLog += "[NULL ITEM] ";
+        }
+        Debug.Log(rewardLog);
+        equipmentPanel.ShowMultipleEquipments(rewards);
+    }
 
-        if (roll < 40f) // 40% 확률로 장비 지급
+    private List<Item> gacha(int gacha_count)
+    {
+        List<Item> equipmentList = new List<Item>(gacha_count);
+        for (int i = 0; i < gacha_count; i++)
         {
-            // ✅ 장비 10개 뽑기
-            List<Item> equipmentList = new List<Item>(10);
-            for (int i = 0; i < 10; i++)
+            float roll = Random.Range(0f, 100f);
+            if (roll < 40)
             {
-                // 실제 Item 객체를 데이터베이스에서 가져오고, 바로 리스트에 삽입.
-                equipmentList.Add(itemDatabase.GetRandomItem());              
+                equipmentList.Add(itemDatabase.GetRandomItem());
             }
-
-            if (equipmentList.Count > 0)
+            else
             {
-                equipmentPanel.ShowMultipleEquipments(equipmentList);
-            } 
+                equipmentList.Add(itemDatabase.FetchItemById(30));              
+            }
         }
-        else
-        {
-            // ✅ 60% 확률로 골드 지급 (50G ~ 110G)
-            int goldAmount = Random.Range(50, 111);
-            equipmentPanel.ShowGoldReward(goldAmount);
-            payGold(false, goldAmount);
-        }
+
+        return equipmentList;
     }
     
     public void DrawRandom1Reward(bool isads)
@@ -83,7 +87,7 @@ public class EquipmentUIManager : MonoBehaviour
             // ✅ 60% 확률로 골드 지급 (50G ~ 110G)
             int goldAmount = Random.Range(50, 111);
             equipmentPanel.ShowGoldReward(goldAmount);
-            payGold(false, goldAmount);
+            payGold(false, -goldAmount);
         }
     }
 

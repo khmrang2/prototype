@@ -147,7 +147,7 @@ public class Item
 [System.Serializable]
 public class ItemData
 {
-    public Item item;      // 아이템 고유 ID
+    public Item item;   // 아이템 고유 ID
     public int amount;  // 아이템 수량
 
     public ItemData(Item item, int a)

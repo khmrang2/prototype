@@ -45,7 +45,7 @@ public class EquipmentUIPanel : MonoBehaviour
         itemName.text = item.ItemName;
     }
 
-    /// <summary>
+    /*/// <summary>
     /// 10개 장비 UI 표시
     /// </summary>
     public void ShowMultipleEquipments(List<Item> equipments)
@@ -64,18 +64,18 @@ public class EquipmentUIPanel : MonoBehaviour
             return;
         }
 
-        // ✅ 단일 장비 UI 숨기기 (덮어쓰는 문제 방지)
+        //단일 장비 UI 숨기기 (덮어쓰는 문제 방지)
         itemIcon.gameObject.SetActive(false);
         itemName.gameObject.SetActive(false);
         rewardText.gameObject.SetActive(false);
         
         ClearItemSlots(); // 기존 아이템 삭제
 
-        // ✅ 10개 장비 슬롯 추가
+        //10개 장비 슬롯 추가
         foreach (Item item in equipments)
         {
             GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
-            Debug.Log($"✅ 생성된 프리팹: {slot.name}");
+            Debug.Log($"생성된 프리팹: {slot.name}");
 
             GameObject itemObj = Instantiate(itemPrefab);
             itemObj.transform.SetParent(slot.transform, false);
@@ -102,7 +102,7 @@ public class EquipmentUIPanel : MonoBehaviour
             //    continue;
             //}
 
-            // ✅ 아이콘 설정 및 강제 업데이트
+            //아이콘 설정 및 강제 업데이트
             itemObj.GetComponent<Image>().sprite = item.Sprite;
             
             // rarity에 따라 슬롯 이미지 변경
@@ -113,14 +113,106 @@ public class EquipmentUIPanel : MonoBehaviour
         }
 
         Debug.Log($"🎉 10개 뽑기 완료 - 생성된 슬롯 수: {itemSlotParent.childCount}");
+    }*/
+    
+    /// <summary>
+/// 10개 장비 UI 표시
+/// </summary>
+public void ShowMultipleEquipments(List<Item> equipments)
+{
+    Debug.Log($"🛠 10개 뽑기 실행 - 총 {equipments.Count}개 장비");
+
+    if (equipments == null || equipments.Count == 0)
+    {
+        Debug.LogError("🚨 ShowMultipleEquipments() - equipments 리스트가 비어있습니다!");
+        return;
     }
+
+    if (itemSlotPrefab == null || itemSlotParent == null)
+    {
+        Debug.LogError("🚨 itemSlotPrefab 또는 itemSlotParent가 null입니다! Inspector에서 할당되었는지 확인하세요.");
+        return;
+    }
+
+    // 단일 장비 UI 숨기기 (덮어쓰는 문제 방지)
+    itemIcon.gameObject.SetActive(false);
+    itemName.gameObject.SetActive(false);
+    rewardText.gameObject.SetActive(false);
+    
+    ClearItemSlots(); // 기존 아이템 삭제
+
+    // 10개 장비 슬롯 추가
+    foreach (Item item in equipments)
+    {
+        if (item == null)
+        {
+            Debug.LogWarning("⚠️ Null 아이템이 발견됨. 이 아이템을 건너뜁니다.");
+            continue;
+        }
+
+        GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
+        if (slot == null)
+        {
+            Debug.LogError($"🚨 {item.ItemName}의 슬롯 프리팹이 생성되지 않았습니다!");
+            continue;
+        }
+        Debug.Log($"✅ 생성된 프리팹: {slot.name}");
+
+        GameObject itemObj = Instantiate(itemPrefab, slot.transform);
+        if (itemObj == null)
+        {
+            Debug.LogError($"🚨 {item.ItemName}의 아이템 프리팹이 생성되지 않았습니다!");
+            continue;
+        }
+
+        RectTransform rect = itemObj.GetComponent<RectTransform>();
+        if (rect != null)
+            rect.anchoredPosition = Vector2.zero;
+        else
+            Debug.LogWarning($"⚠️ {item.ItemName}의 RectTransform을 찾을 수 없습니다.");
+
+        // 아이콘 설정
+        Image itemImage = itemObj.GetComponent<Image>();
+        if (itemImage == null)
+        {
+            Debug.LogError($"🚨 {item.ItemName}의 Image 컴포넌트를 찾을 수 없습니다!");
+            continue;
+        }
+
+        if (item.Sprite == null)
+        {
+            Debug.LogWarning($"⚠️ {item.ItemName}의 스프라이트가 null입니다. 기본 아이콘을 설정합니다.");
+            itemImage.sprite = Resources.Load<Sprite>("DefaultIcon"); // 기본 아이콘 설정
+        }
+        else
+        {
+            itemImage.sprite = item.Sprite;
+        }
+
+        // 슬롯의 희귀도 UI 설정
+        SlotInven slotUI = slot.GetComponent<SlotInven>();
+        if (slotUI != null)
+        {
+            slotUI.SetRarity(item.Rarity);
+        }
+        else
+        {
+            Debug.LogError($"🚨 {item.ItemName}의 SlotInven 컴포넌트가 없습니다!");
+        }
+
+        Debug.Log($"🎨 {item.ItemName} 슬롯에 아이콘 설정 완료: {item.ImgPath}");
+    }
+
+    Debug.Log($"🎉 10개 뽑기 완료 - 생성된 슬롯 수: {itemSlotParent.childCount}");
+}
+
 
     /// <summary>
     /// 골드 보상 UI 표시
     /// </summary>
     public void ShowGoldReward(int goldAmount)
     {
-        ClearItemSlots(); // ✅ 기존 슬롯 삭제
+        ClearItemSlots(); //기존 슬롯 삭제
 
         itemIcon.gameObject.SetActive(false);
 		itemName.gameObject.SetActive(false);
@@ -134,13 +226,9 @@ public class EquipmentUIPanel : MonoBehaviour
     /// </summary>
     private void ClearItemSlots()
     {
-        Debug.Log($"🗑 기존 슬롯 삭제 - {itemSlotParent.childCount}개 삭제됨");
-
         foreach (Transform child in itemSlotParent)
         {
             Destroy(child.gameObject);
         }
-
-        Debug.Log("🗑 모든 슬롯 삭제 완료");
     }
 }

@@ -511,18 +511,18 @@
   },
   {
     "id": 30,
-    "itemName": "구골 기어",
-    "tooltip": "\"구골\"이라는 단위를 형상화한 기어이다. 마지막 기어가 돌아간다면, 우주는 멸망했을 것이다.",
-    "imgpath": "Item_Gear",
-    "rarity": 4,
+    "itemName": "골드",
+    "tooltip": "",
+    "imgpath": "Gold",
+    "rarity": 0,
     "stats": [
       {
-        "statName": "PinHealth",
-        "statValue": 100
+        "statName": "",
+        "statValue": 0
       },
       {
-        "statName": "NumOfBall",
-        "statValue": 4
+        "statName": "",
+        "statValue": 0
       }
     ]
   }
