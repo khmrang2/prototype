@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
         enemyListManager.MoveEnemies(); // 적이 이동하도록 호출
 
         yield return new WaitUntil(() => enemyMoveEnded());
+        currentTurn = GameTurn.ChooseBuffState;
     }
 
     private IEnumerator ChooseBuffTurn()
