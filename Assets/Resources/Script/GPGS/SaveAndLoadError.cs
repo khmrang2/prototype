@@ -11,7 +11,7 @@ public class SaveAndLoadError : MonoBehaviour
     public static void ShowErrorScreen()
     {   
         //¿À·ù ÆË¾÷ ¶ç¿ì±â
-        ErrorScreen.SetActive(true);
+        //ErrorScreen.SetActive(true);
         
     }
 

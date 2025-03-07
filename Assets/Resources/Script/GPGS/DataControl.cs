@@ -67,18 +67,46 @@ public class DataControl : MonoBehaviour
     private static int UpgradableNum = 0;                                      //업그레이드 해금 정보의 초기값
 
 
-    //세이브의 성공 여부를 나타내는 bool 변수
+    //세이브의 성공과 실패 여부를 나타내는 bool 변수
     private bool isSaveSuccess;
+    private bool isSaveFail;
+
+
+    //디버그용 텍스트 오브젝트
+    public TextMeshProUGUI DebugTxt;
 
 
 
     #region gpgs 클라우드 데이터 저장
 
 
+    //실행 후 성공 여부를 반환받기 위해 개선된 외부 호출용 저장 메소드
+    public void SaveDataWithCallback(Action<bool> onComplete)
+    {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenSaveGame();
+
+        StartCoroutine(WaitForSave(onComplete));
+    }
+
+    private IEnumerator WaitForSave(Action<bool> onComplete)
+    {
+        yield return new WaitUntil(() => isSaveSuccess || isSaveFail);  // 저장 성공 or 실패 확인
+        onComplete?.Invoke(isSaveSuccess);
+    }
+
+
+
+
+
+
+
     public void SaveData() // 외부에서 세이브 호출용 메소드
     {
         //세이브 성공 여부 판단을 위한 bool 변수
         isSaveSuccess = false;
+        isSaveFail = false;
 
         OpenSaveGame();
     }
@@ -91,20 +119,32 @@ public class DataControl : MonoBehaviour
 
     private void OpenSaveGame() //세이브 메소드
     {
-        //player prefs로부터 저장할 데이터 받아오기
-        GetDataSettings();
+        if (PlayGamesPlatform.Instance != null)
+        {
+
+            //player prefs로부터 저장할 데이터 받아오기
+            GetDataSettings();
 
 
-        //gpgs의 싱글톤 인스턴스를 호출
-        ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+            //gpgs의 싱글톤 인스턴스를 호출
+            ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-        // 데이터 접근
-        saveGameClient.OpenWithAutomaticConflictResolution(fileName,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLastKnownGood,
-            onsavedGameOpend);
-        //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 onsavedGameOpend 실행
+            // 데이터 접근
+            saveGameClient.OpenWithAutomaticConflictResolution(fileName,
+                DataSource.ReadCacheOrNetwork,
+                ConflictResolutionStrategy.UseLastKnownGood,
+                onsavedGameOpend);
+            //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 onsavedGameOpend 실행
+        }
+        else 
+        {
+            //gpgs 호출에 실패했으므로 세이브 실패
+            isSaveSuccess = false ;
+            isSaveFail = true;
+
+            DebugTxt.text = "gpgs null";
+        }
     }
 
 
@@ -119,7 +159,7 @@ public class DataControl : MonoBehaviour
         {
             //세이브 요청에 성공했다면
 
-            Debug.Log("save success!");
+            DebugTxt.text = "save success!";
             //로그 출력
 
             var update = new SavedGameMetadataUpdate.Builder().Build();
@@ -142,6 +182,9 @@ public class DataControl : MonoBehaviour
 
             //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
             isSaveSuccess = false;
+            isSaveFail = true;
+
+            DebugTxt.text = "save request fail: " + status;
         }
     }
 
@@ -153,7 +196,7 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             // 저장완료부분
-            Debug.Log("Save End");
+            DebugTxt.text = "Save End";
             
             //세이브 성공 여부 확인용 변수의 값을 참으로 변경
             isSaveSuccess = true;
@@ -165,6 +208,9 @@ public class DataControl : MonoBehaviour
             
             //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
             isSaveSuccess = false;
+            isSaveFail = true;
+
+            DebugTxt.text = "save request fail2";
         }
     }
 
@@ -185,10 +231,29 @@ public class DataControl : MonoBehaviour
     #region gpgs 클라우드 데이터 로드
 
 
+
+    public void LoadDataWithCallback(Action<bool> onComplete)
+    {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenSaveGame();
+
+        StartCoroutine(WaitForLoad(onComplete));
+    }
+
+    private IEnumerator WaitForLoad(Action<bool> onComplete)
+    {
+        yield return new WaitUntil(() => isSaveSuccess || isSaveFail);  // 저장 성공 or 실패 확인
+        onComplete?.Invoke(isSaveSuccess);
+    }
+
+
+
     public void LoadData()  //외부에서 로드 호출용 메소드
     {
         //서버 연결 확인용 bool 변수
         isSaveSuccess = false;
+        isSaveFail = false;
 
         OpenLoadGame();
     }
@@ -199,16 +264,26 @@ public class DataControl : MonoBehaviour
 
     private void OpenLoadGame()
     {
-        //gpgs의 싱글톤 인스턴스를 호출
-        ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+        if (PlayGamesPlatform.Instance != null)
+        {
+            //gpgs의 싱글톤 인스턴스를 호출
+            ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-        // 데이터 접근
-        saveGameClient.OpenWithAutomaticConflictResolution(fileName,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLastKnownGood,
-            LoadGameData);
-        //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 실행
+            // 데이터 접근
+            saveGameClient.OpenWithAutomaticConflictResolution(fileName,
+                DataSource.ReadCacheOrNetwork,
+                ConflictResolutionStrategy.UseLastKnownGood,
+                LoadGameData);
+            //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 실행
+        }
+        else 
+        {
+            //gpgs 호출에 실패해서 로드 불가
+            isSaveSuccess = false ;
+            isSaveFail = true;
+            DebugTxt.text = "gpgs for load fail";
+        }
     }
 
     private void LoadGameData(SavedGameRequestStatus status, ISavedGameMetadata data)
@@ -220,7 +295,7 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             //gpgs에 보낸 요청이 성공했다면
-            Debug.Log("Load success");
+            DebugTxt.text= "Load success";
 
             //gpgs로부터 바이트 형식으로 저장된 데이터를 받아오고 콜백 함수 OnSavedGameDataRead 실행
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
@@ -232,7 +307,9 @@ public class DataControl : MonoBehaviour
         else
         {
             Debug.Log("Load fail...");
+            isSaveFail = true ;
             isSaveSuccess = false;
+            DebugTxt.text = "load request fail: " + status;
         }
     }
 
@@ -245,7 +322,7 @@ public class DataControl : MonoBehaviour
         if (data == "")
         {
             //받아온 데이터가 공백이라면
-            Debug.Log("no saved data, saving initial data");
+            DebugTxt.text = "no saved data, saving initial data";
 
             //기존에 저장된 데이터가 없다는 뜻이고 이는 곧 플레이어가 완전 첫 실행이라는 뜻이므로 초기값 세팅
             SetInitialData();
@@ -256,7 +333,7 @@ public class DataControl : MonoBehaviour
         else
         {
             //받아온 데이터가 공백이 아니라면
-            Debug.Log("Loading data");
+            DebugTxt.text = "Loading data";
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
@@ -322,12 +399,12 @@ public class DataControl : MonoBehaviour
             //gpgs에 저장된 데이터 삭제
             saveGameClient.Delete(data);
 
-            Debug.Log("Delete Complete");
+            DebugTxt.text = "Delete Complete";
             //logText.text = "Delete complete";
         }
         else
         {
-            Debug.Log("Delete fail");
+            DebugTxt.text = "Delete fail";
             //logText.text = "Delete failed";
         }
     }

@@ -15,6 +15,9 @@
         <!-- The space in these forces it to be interpreted as a string vs. int -->
         <meta-data android:name="com.google.android.gms.games.APP_ID"
             android:value="\u003548584250828" />
+		
+		<meta-data android:name="com.google.android.gms.appstate.APP_ID"
+            android:value="\u003548584250828" />
 
         <!-- Keep track of which plugin is being used -->
         <meta-data android:name="com.google.android.gms.games.unityVersion"

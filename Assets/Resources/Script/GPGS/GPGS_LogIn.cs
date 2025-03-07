@@ -63,38 +63,58 @@ public class GoogleManager : MonoBehaviour
         {
             //로그인에 성공했다면 작동
 
-            logText.text = "Login success"; //로딩 텍스트에 로그인 성공 알림
+            logText.text = logText.text + " Login success"; //로딩 텍스트에 로그인 성공 알림
 
             string id = PlayGamesPlatform.Instance.GetUserId();             //유저 id값 받아오기
             PlayerPrefs.SetString("SavedAccountKey", id);                   //자동 로그인 여부 확인을 위해 id값을 player prefs에 저장
             PlayerPrefs.Save();
 
 
-            logText.text = "Checking user data..."; //로딩 텍스트에 설치 후 첫 실행인지 확인 중 알림
+            logText.text = logText.text + " Checking user data..."; //로딩 텍스트에 설치 후 첫 실행인지 확인 중 알림
 
             if (!PlayerPrefs.HasKey("Played"))
             {
                 //설치 후 첫 실행이라면
                 
-                logText.text = "Checking server data..."; //서버 데이터 확인중 알림
-
-                dataControl.LoadData(); //서버에서 데이터 확인, 서버에 데이터가 있다면 불러와짐
-
-                logText.text = "Load complete!"; //로딩 텍스트에 데이터 로드 완료 알림
+                logText.text = logText.text + " Checking server data..."; //서버 데이터 확인중 알림
 
 
-                //설치 후 첫 실행이 아님을 알리기 위해 playerPrefs에 표시
-                PlayerPrefs.SetString("Played", "true");
-                PlayerPrefs.Save();
 
-                startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
+                StartCoroutine(EnsureLoginAndLoadData());
+
+
+                //로드 실행
+                //dataControl.LoadDataWithCallback((success) =>
+                //{
+                //    if (!success)
+                //    {
+                //        //로드 실패 시
+                //        //오류 팝업 띄우기
+                //        ErrorPopup.SetActive(true);
+                //    }
+                //    else 
+                //    {
+                //        //로드 성공 시
+                //        logText.text = "Load complete!"; //로딩 텍스트에 데이터 로드 완료 알림
+
+
+                //        //설치 후 첫 실행이 아님을 알리기 위해 playerPrefs에 표시
+                //        PlayerPrefs.SetString("Played", "true");
+                //        PlayerPrefs.Save();
+
+                //        startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
+                //    }
+                //}); ; 
+
+                
             }
             else
             {
+                logText.text = logText.text + " played user";
                 startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
             }
 
-            logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
+            //logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
 
         }
         else
@@ -106,5 +126,33 @@ public class GoogleManager : MonoBehaviour
             ErrorPopup.SetActive(true);
             
         }
+    }
+
+
+
+
+    private IEnumerator EnsureLoginAndLoadData()
+    {
+        while (!PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            logText.text = "not yet Authenticated, waiting...";
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        logText.text = "Authenticated! starting data load.";
+        dataControl.LoadDataWithCallback((success) =>
+        {
+            if (!success)
+            {
+                ErrorPopup.SetActive(true);
+            }
+            else
+            {
+                logText.text = "Load complete!";
+                PlayerPrefs.SetString("Played", "true");
+                PlayerPrefs.Save();
+                startBtn.interactable = true;
+            }
+        });
     }
 }

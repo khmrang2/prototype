@@ -754,7 +754,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.85
+  m_fontSize: 36.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3327,6 +3327,7 @@ GameObject:
   - component: {fileID: 304889500}
   - component: {fileID: 304889501}
   - component: {fileID: 304889502}
+  - component: {fileID: 304889503}
   m_Layer: 0
   m_Name: GPGS
   m_TagString: Untagged
@@ -3361,6 +3362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9d6eacc8ff87442b0b72dbe2edbf6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugTxt: {fileID: 2115402757}
 --- !u!114 &304889502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3379,6 +3381,18 @@ MonoBehaviour:
   ATKText: {fileID: 2012981178}
   BcText: {fileID: 1639642683}
   PPText: {fileID: 568831242}
+--- !u!114 &304889503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304889498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4d29d13561311a44ad67ee8d64296eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &310151470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6069337807139934214, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
@@ -4829,7 +4843,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.3
+  m_fontSize: 45.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5410,7 +5424,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.55
+  m_fontSize: 36.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5702,7 +5716,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55.5
+  m_fontSize: 42.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6377,6 +6391,7 @@ MonoBehaviour:
   FailPopup: {fileID: 1601046684}
   uogradableNum: 0
   UpgradeBtnManager: {fileID: 1970038284}
+  datactr: {fileID: 304889501}
 --- !u!1 &658997914
 GameObject:
   m_ObjectHideFlags: 0
@@ -9543,7 +9558,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.05
+  m_fontSize: 43.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11515,7 +11530,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.85
+  m_fontSize: 30.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12230,7 +12245,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.65
+  m_fontSize: 27.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12485,8 +12500,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936277349}
-        m_TargetAssemblyTypeName: PopupClose, Assembly-CSharp
-        m_MethodName: ClosePopup
+        m_TargetAssemblyTypeName: AppControl, Assembly-CSharp
+        m_MethodName: QuitApp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12849,7 +12864,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.85
+  m_fontSize: 36.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13044,7 +13059,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 58.5
+  m_fontSize: 45.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16911,7 +16926,7 @@ GameObject:
   - component: {fileID: 1936277349}
   m_Layer: 5
   m_Name: ErrorScreen
-  m_TagString: Untagged
+  m_TagString: ErrorScreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16946,7 +16961,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1936277347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6c9a0a0018002e4c97f325d9316c91c, type: 3}
+  m_Script: {fileID: 11500000, guid: e3a358ac659e04340a3b7734d13c27a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1947862054
@@ -19671,7 +19686,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.15
+  m_fontSize: 51.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19805,7 +19820,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.85
+  m_fontSize: 30.6
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

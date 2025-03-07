@@ -89,50 +89,53 @@ public class UpgradePopupManager : MonoBehaviour
 
 
             //업그레이드 구매로 인한 변화를 서버에 저장
-            datactr.SaveData();
-            
-            if (!datactr.CheckSaveSuccess())
+            datactr.SaveDataWithCallback((success) =>
             {
-                //서버에 저장 성공하지 못했다면 구매 취소
-
-                //증가시킨 값들을 원래로
-                switch (upgradeStatName)
+                if (!success)
                 {
-                    case 0:
-                        DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
-                            (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP")) - upgradeStat).ToString());
-                        break;
+                    // 서버에 저장 성공하지 못했다면 구매 취소
+                    //증가시킨 값들을 원래로
+                    switch (upgradeStatName)
+                    {
+                        case 0:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP")) - upgradeStat).ToString());
+                            break;
 
-                    case 1:
-                        DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK",
-                            (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK")) - upgradeStat).ToString());
-                        break;
+                        case 1:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK")) - upgradeStat).ToString());
+                            break;
 
-                    case 2:
-                        DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_BALLCOUNT",
-                            (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT")) - upgradeStat).ToString());
-                        break;
+                        case 2:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_BALLCOUNT",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT")) - upgradeStat).ToString());
+                            break;
 
-                    case 3:
-                        DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP",
-                            (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")) - upgradeStat).ToString());
-                        break;
+                        case 3:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")) - upgradeStat).ToString());
+                            break;
+                    }
+
+                    //업그레이드 번호 감소 처리
+                    DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
+                    (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) - 1).ToString());
+
+
+                    //골드도 원 상태로
+                    gold += upgradeCost;
+                    DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
+
+                    //오류 팝업 띄우기
+                    SaveAndLoadError.ShowErrorScreen();
+
                 }
+                else { Debug.Log("upgrade save complete"); }
 
-                //업그레이드 번호 감소 처리
-                DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
-                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) - 1).ToString());
+            });
 
-
-                //골드도 원 상태로
-                gold += upgradeCost;
-                DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
-
-                //오류 팝업 띄우기
-                SaveAndLoadError.ShowErrorScreen();
-
-            }
-
+       
 
             //현재 구매 가능한 업그레이드의 번호가 바뀌었으니 이를 업그레이드 씬에 적용하기 위해 새로고침
             UpgradeBtnManager.RefreshUpgradeBtn();
