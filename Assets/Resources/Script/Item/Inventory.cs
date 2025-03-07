@@ -7,22 +7,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-/// <summary>
-/// 개별 아이템이 저장되기위한 인벤토리 슬롯에 대한 저장구조
-/// </summary>
-[System.Serializable]
-public class ItemData
-{
-    public int id;      // 아이템 고유 ID
-    public int amount;  // 아이템 수량
-}
+
 /// <summary>
 /// 아이템들을 하나의 인벤토리 저장 구조로 관리하기 위한 리스트.
 /// </summary>
 [System.Serializable]
 public class InventoryData
 {
-    public List<ItemData> items = new List<ItemData>();
+    public List<ItemDataForSave> items = new List<ItemDataForSave>();
 }
 
 public class Inventory : MonoBehaviour
@@ -47,7 +39,7 @@ public class Inventory : MonoBehaviour
     /// 인벤토리에서 사용하고 저장할 아이템과 슬롯들.
     /// </summary>
     public List<GameObject> slots = new List<GameObject>();
-    public List<ItemData> inventory = new List<ItemData>();
+    public List<ItemDataForSave> inventory = new List<ItemDataForSave>();
 
     /// <summary>
     /// 데이터에서 획득한 아이템을 기반으로 데이터를 로드하고 불러온다.
@@ -78,9 +70,7 @@ public class Inventory : MonoBehaviour
         makeItemUIToInventory(id, amount);
 
         // 이제 데이터에 실제로 넣는다. 
-        ItemData item = new ItemData();
-        item.id = id;
-        item.amount = amount;
+        ItemDataForSave item = new ItemDataForSave(id, amount);
         inventory.Add(item);
 
     }
@@ -91,37 +81,36 @@ public class Inventory : MonoBehaviour
     /// <param name="amount"></param>
     public void makeItemUIToInventory(int id, int amount)
     {
-            // 아이템 코드 데이터베이스에서 id를 통해 아이템을 넣는다.
-            // 즉, 아이템 코드로 우리는 아이템들을 불러올 수 있다.
+        // 아이템 코드 데이터베이스에서 id를 통해 아이템을 넣는다.
+        // 즉, 아이템 코드로 우리는 아이템들을 불러올 수 있다.
         Item itemToAdd = database.FetchItemById(id);
 
-             
-
-            // 슬롯에 생성.
+        // 슬롯에 생성.
         GameObject slot = Instantiate(inventorySlot);
+        GameObject itemObj = Instantiate(inventoryItem);
+        
         slot.transform.SetParent(slotPanel.transform, false);
 
-            // 슬롯에 Item도 넣어주자.(팝업 UI를 위해서)
-            // rarity에 따라 슬롯 이미지 변경
+        // 슬롯에 Item도 넣어주자.(팝업 UI를 위해서)
+        // rarity에 따라 슬롯 이미지 변경
         SlotInven slotUI = slot.GetComponent<SlotInven>();
         if (slotUI != null)
         {
             // itemToAdd의 rarity 값 (0~4)을 이용해 스프라이트 설정.
             slotUI.SetRarity(itemToAdd.Rarity);
         }
-
         slots.Add(slot);
-            // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
-        GameObject itemObj = Instantiate(inventoryItem);
+
+        // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
         itemObj.transform.SetParent(slot.transform, false);
         RectTransform rect = itemObj.GetComponent<RectTransform>();
         rect.anchoredPosition = Vector2.zero;
 
-            // 이미지 가져오고.
+        // 이미지 가져오고.
         itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-            // 툴팁으로 오브젝트의 이름을 설정.
+        // 툴팁으로 오브젝트의 이름을 설정.
         itemObj.name = itemToAdd.Tooltip;
-            // 그다음 오브젝트에서 양도 가져온다.
+        // 그다음 오브젝트에서 양도 가져온다.
         itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
     }
 
@@ -167,7 +156,7 @@ public class Inventory : MonoBehaviour
             slots.Clear();
             inventory.Clear();
 
-            foreach(ItemData item in data.items)
+            foreach(ItemDataForSave item in data.items)
             {
                 AddItem(item.id, item.amount);
             }

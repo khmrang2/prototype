@@ -4,6 +4,8 @@ using LitJson;
 using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine.Rendering.Universal.Internal;
+using Newtonsoft.Json.Converters;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
@@ -13,13 +15,23 @@ public enum Rarity { Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4 }
 public class ItemDatabase : MonoBehaviour
 {
     private List<Item> database = new List<Item>();
+    private Dictionary<int, Item> itemLookup = new Dictionary<int, Item>();
     private JsonData itemData;
     private const string ITEM_DATA_PATH = "/Resources/Data/itemData.json";
-    // Start is called before the first frame update
-    void Start()
+
+
+    void Awake()
     {
-        itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + ITEM_DATA_PATH));
-        ConstructItemDatabase();
+        TextAsset jsonFile = Resources.Load<TextAsset>("Data/itemData");
+        if (jsonFile != null)
+        {
+            itemData = JsonMapper.ToObject(jsonFile.text);
+            ConstructItemDatabase();
+        }
+        else
+        {
+            Debug.LogError("itemData.json 파일을 찾을 수 없습니다.");
+        }
     }
 
     // json 파일에서 데이터를 읽어오는 함수.
@@ -27,7 +39,7 @@ public class ItemDatabase : MonoBehaviour
     {
         for (int i = 0; i < itemData.Count; i++)
         {
-            database.Add(new Item(
+            var item = new Item(
                             (int)itemData[i]["id"],                         // id
                             itemData[i]["itemName"].ToString(),             // name
                             itemData[i]["tooltip"].ToString(),              // tooltip
@@ -37,24 +49,42 @@ public class ItemDatabase : MonoBehaviour
                             (int)itemData[i]["stats"][1]["statValue"],      // 주스텟 벨류
                             itemData[i]["stats"][1]["statName"].ToString(), // 부스텟 이름
                             (int)itemData[i]["stats"][1]["statValue"]       // 부스텟 벨류
-                        ));
+                        );
+            database.Add(item);
+            itemLookup[item.Id] = item;
         }
     }
 
     // 매개변수인 id를 통해서 아이템을 반환하는 아이템 반환자.
     public Item FetchItemById(int id)
     {
-        //Debug.Log("너 실행은 되냐?");
-        for (int i = 0; i < database.Count; i++)
-        {
-            //Debug.Log($"체크 중: database[{i}].Id = {database[i].Id}");
-            if (database[i].Id == id)
-            {
-                return database[i];
-            }
-        }
-        //Debug.LogError($"ID {id}에 해당하는 아이템을 찾을 수 없음!");
-        return null;
+        return itemLookup.TryGetValue(id, out var item) ? item : null;
+    }
+
+    /// <summary>
+    /// 랜덤으로 아이템을 반환하는 아이템 반환자.
+    /// </summary>
+    /// <returns>Item 랜덤 아이템</returns>
+    public Item GetRandomItem()
+    {
+        int rand = Mathf.RoundToInt(Random.Range(1, database.Count));
+        return database[rand];
+    }
+
+    /// <summary>
+    /// 랜덤으로 ItemData(아이템과 양)을 반환하는 아이템 반환자.
+    /// 
+    /// param을 넣지 않으면 기본으로 0 ~ 5로 반환합니다.
+    /// </summary>
+    /// <param name="max_amount">아이템의 최대 수량을 return 합니다.</param>
+    /// <returns>ItemData 랜덤 아이템과 양.</returns>
+    public ItemData GetRandomItemWithAmount(int max_amount)
+    {
+        return new ItemData(GetRandomItem(), Mathf.RoundToInt(Random.Range(1, max_amount)));
+    }
+    public ItemData GetRandomItemWithAmount()
+    {
+        return new ItemData(GetRandomItem(), Mathf.RoundToInt(Random.Range(1, 5)));
     }
 
 }
@@ -93,7 +123,7 @@ public class Item
     public Item(int id, string itemName, string toolTip, string path, int rarity, string primaryStatName, int primaryStatValue, string secondStatName, int secondStatValue)
     {
         this.Id = id;
-        this.ItemName = ItemName;
+        this.ItemName = itemName;
         this.Tooltip = toolTip;
         this.ImgPath = path;
         this.Sprite = Resources.Load<Sprite>("Image/Items/" + path);
@@ -108,5 +138,33 @@ public class Item
     public Item()
     {
         this.Id = -1;
+    }
+}
+
+/// <summary>
+/// 개별 아이템이 저장되기위한 인벤토리 슬롯에 대한 저장구조
+/// </summary>
+[System.Serializable]
+public class ItemData
+{
+    public Item item;      // 아이템 고유 ID
+    public int amount;  // 아이템 수량
+
+    public ItemData(Item item, int a)
+    {
+        this.item = item;
+        this.amount = a;
+    }
+}
+[System.Serializable]
+public class ItemDataForSave
+{
+    public int id;      // 아이템 고유 ID
+    public int amount;  // 아이템 수량
+
+    public ItemDataForSave(int i, int a)
+    {
+        this.id = i;
+        this.amount = a;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class EquipmentUIManager : MonoBehaviour
 {
+    public ItemDatabase itemDatabase;
     public EquipmentUIPanel equipmentPanel; // UI 패널 (Inspector에서 연결)
     public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
@@ -37,11 +38,17 @@ public class EquipmentUIManager : MonoBehaviour
         if (roll < 40f) // 40% 확률로 장비 지급
         {
             // ✅ 장비 10개 뽑기
-            List<EquipmentData> equipmentList = EquipmentDatabase.GetRandomEquipment(10);
+            List<Item> equipmentList = new List<Item>(10);
+            for (int i = 0; i < 10; i++)
+            {
+                // 실제 Item 객체를 데이터베이스에서 가져오고, 바로 리스트에 삽입.
+                equipmentList.Add(itemDatabase.GetRandomItem());              
+            }
+
             if (equipmentList.Count > 0)
             {
                 equipmentPanel.ShowMultipleEquipments(equipmentList);
-            }
+            } 
         }
         else
         {
@@ -64,7 +71,8 @@ public class EquipmentUIManager : MonoBehaviour
         if (roll < 40f) // 40% 확률로 장비 지급
         {
             // ✅ 장비 1개 뽑기
-            List<EquipmentData> equipmentList = EquipmentDatabase.GetRandomEquipment(1);
+            List<Item> equipmentList = new List<Item>(1);
+            equipmentList.Add(itemDatabase.GetRandomItem());
             if (equipmentList.Count > 0)
             {
                 equipmentPanel.ShowSingleEquipment(equipmentList[0]); // ✅ 1개 UI 표시

@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro; // TextMeshPro 네임스페이스 추가
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class EquipmentUIPanel : MonoBehaviour
 {
@@ -12,12 +13,15 @@ public class EquipmentUIPanel : MonoBehaviour
     public GameObject itemSlotPrefab; // 장비 10개 뽑을 때 사용
     public Transform itemSlotParent;  // 장비 10개 뽑을 때 슬롯을 추가할 부모
 
+    public GameObject itemPrefab;
+
+
     /// <summary>
     /// 단일 장비 UI 표시
     /// </summary>
-    public void ShowSingleEquipment(EquipmentData equipmentData)
+    public void ShowSingleEquipment(Item item)
     {
-        if (equipmentData.Equals(default(EquipmentData))) // ✅ 올바른 Null 체크 방식
+        if (item.Equals(default(Item))) // ✅ 올바른 Null 체크 방식
         {
             Debug.LogError("🚨 ShowSingleEquipment() - equipmentData가 기본 값(잘못된 데이터)입니다!");
             return;
@@ -29,22 +33,22 @@ public class EquipmentUIPanel : MonoBehaviour
 		itemName.gameObject.SetActive(true);
         rewardText.gameObject.SetActive(false);
 
-        if (equipmentData.iconSprite != null)
+        if (item.Sprite!= null)
         {
-            itemIcon.sprite = equipmentData.iconSprite;
+            itemIcon.sprite = item.Sprite;
         }
         else
         {
-            Debug.LogWarning($"⚠️ {equipmentData.name}의 iconSprite가 없습니다.");
+            Debug.LogWarning($"⚠️ {item.ItemName}의 iconSprite가 없습니다.");
         }
 
-        itemName.text = equipmentData.name;
+        itemName.text = item.ItemName;
     }
 
     /// <summary>
     /// 10개 장비 UI 표시
     /// </summary>
-    public void ShowMultipleEquipments(List<EquipmentData> equipments)
+    public void ShowMultipleEquipments(List<Item> equipments)
     {
         Debug.Log($"🛠 10개 뽑기 실행 - 총 {equipments.Count}개 장비");
 
@@ -68,39 +72,44 @@ public class EquipmentUIPanel : MonoBehaviour
         ClearItemSlots(); // 기존 아이템 삭제
 
         // ✅ 10개 장비 슬롯 추가
-        foreach (var equipment in equipments)
+        foreach (Item item in equipments)
         {
             GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
             Debug.Log($"✅ 생성된 프리팹: {slot.name}");
 
-            Transform iconTransform = slot.transform.Find("item_icon");
+            GameObject itemObj = Instantiate(itemPrefab);
+            itemObj.transform.SetParent(slot.transform, false);
+            RectTransform rect = itemObj.GetComponent<RectTransform>();
+            rect.anchoredPosition = Vector2.zero;
 
-            if (iconTransform == null)
-            {
-                Debug.LogError($"🚨 {equipment.name}의 프리팹에서 'item_icon'을 찾을 수 없습니다!");
-                continue;
-            }
+            //if (iconTransform == null)
+            //{
+            //    Debug.LogError($"🚨 {item.ItemName}의 프리팹에서 'item_icon'을 찾을 수 없습니다!");
+            //    continue;
+            //}
 
-            Image slotIcon = iconTransform.GetComponent<Image>();
+            //Image slotIcon = iconTransform.GetComponent<Image>();
 
-            if (slotIcon == null)
-            {
-                Debug.LogError($"🚨 {equipment.name}의 'item_icon'에 UI 컴포넌트가 없습니다!");
-                continue;
-            }
+            //if (slotIcon == null)
+            //{
+            //    Debug.LogError($"🚨 {item.ItemName}의 'item_icon'에 UI 컴포넌트가 없습니다!");
+            //    continue;
+            //}
 
-            if (equipment.iconSprite == null)
-            {
-                Debug.LogWarning($"⚠️ {equipment.name}의 iconSprite가 null입니다. 기본 아이콘을 설정하세요.");
-                continue;
-            }
+            //if (item.Sprite == null)
+            //{
+            //    Debug.LogWarning($"⚠️ {item.ItemName}의 iconSprite가 null입니다. 기본 아이콘을 설정하세요.");
+            //    continue;
+            //}
 
             // ✅ 아이콘 설정 및 강제 업데이트
-            slotIcon.sprite = equipment.iconSprite;
-            slotIcon.enabled = false;
-            slotIcon.enabled = true;
+            itemObj.GetComponent<Image>().sprite = item.Sprite;
+            
+            // rarity에 따라 슬롯 이미지 변경
+            SlotInven slotUI = slot.GetComponent<SlotInven>();
+            slotUI.SetRarity(item.Rarity);
 
-            Debug.Log($"🎨 {equipment.name} 슬롯에 아이콘 설정 완료: {equipment.iconSprite.name}");
+            Debug.Log($"🎨 {item.ItemName} 슬롯에 아이콘 설정 완료: {item.ImgPath}");
         }
 
         Debug.Log($"🎉 10개 뽑기 완료 - 생성된 슬롯 수: {itemSlotParent.childCount}");
