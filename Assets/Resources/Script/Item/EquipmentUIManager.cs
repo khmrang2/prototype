@@ -28,22 +28,41 @@ public class EquipmentUIManager : MonoBehaviour
 
     public void DrawRandom10Rewards(bool isads)
     {
-        if(!payGold(isads, 900)) return;
+        if(!payGold(900, isads)) return;
         //UI 패널 활성화
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
-
-        List<Item> rewards = gacha(10);
         
-        string rewardLog = "🎁 gacha(10) 결과: ";
-        foreach (Item item in rewards) { 
-            if (item != null) 
-                rewardLog += $"[ID: {item.Id}, Name: {item.ItemName}, Rarity: {item.Rarity}] ";
-            else rewardLog += "[NULL ITEM] ";
-        }
-        Debug.Log(rewardLog);
-        equipmentPanel.ShowMultipleEquipments(rewards);
+        equipmentPanel.ShowMultipleEquipments(gacha(10));
+    }
+    
+    public void DrawRandom1Reward(bool isads)
+    {
+        if(!payGold(100, isads)) return;
+        // ✅ UI 패널 활성화
+        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
+        
+        equipmentPanel.ShowSingleEquipment(gacha(1)); // ✅ 1개 UI 표시
     }
 
+    private bool payGold(int amount, bool isAds=false)
+    {
+        if (isAds) return true;
+        else
+        {
+            int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+            if (currentGold < amount) return false;
+            DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold - amount).ToString());
+            return true;
+        }
+    }
+
+    public void closePanel()
+    {
+        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
+        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + equipmentPanel.GetEarnedGold()).ToString());
+    }
+    
     private List<Item> gacha(int gacha_count)
     {
         List<Item> equipmentList = new List<Item>(gacha_count);
@@ -61,50 +80,5 @@ public class EquipmentUIManager : MonoBehaviour
         }
 
         return equipmentList;
-    }
-    
-    public void DrawRandom1Reward(bool isads)
-    {
-        if(!payGold(isads, 100)) return;
-        // ✅ UI 패널 활성화
-        if (equipmentPanel != null)
-            equipmentPanel.gameObject.SetActive(true);
-
-        float roll = Random.Range(0f, 100f);
-
-        if (roll < 40f) // 40% 확률로 장비 지급
-        {
-            // ✅ 장비 1개 뽑기
-            List<Item> equipmentList = new List<Item>(1);
-            equipmentList.Add(itemDatabase.GetRandomItem());
-            if (equipmentList.Count > 0)
-            {
-                equipmentPanel.ShowSingleEquipment(equipmentList[0]); // ✅ 1개 UI 표시
-            }
-        }
-        else
-        {
-            // ✅ 60% 확률로 골드 지급 (50G ~ 110G)
-            int goldAmount = Random.Range(50, 111);
-            equipmentPanel.ShowGoldReward(goldAmount);
-            payGold(false, -goldAmount);
-        }
-    }
-
-    private bool payGold(bool isAds, int amount)
-    {
-        if (isAds) return true;
-        else
-        {
-            int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-            if (currentGold < amount) return false;
-            DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold - amount).ToString());
-            return true;
-        }
-    }
-
-    public void closePanel()
-    {
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
     }
 }
