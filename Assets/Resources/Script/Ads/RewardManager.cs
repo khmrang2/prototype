@@ -23,8 +23,8 @@ public class RewardManager : MonoBehaviour
         AdManager.Instance.ShowRewardedInterstitialAd("gold", 2000);
     }
 
-    public void give1equipment()
+    public void give10equipment()
     {
-        AdManager.Instance.ShowRewardedInterstitialAd("item", 1);
+        AdManager.Instance.ShowRewardedInterstitialAd("item", 10);
     }
 }

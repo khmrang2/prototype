@@ -1,4 +1,21 @@
 [
+    {
+      "id": 0,
+      "itemName": "gold",
+      "tooltip": "",
+      "imgpath": "BuffIcon11",
+      "rarity": 0,
+      "stats": [
+        {
+          "statName": "",
+          "statValue": 0
+        },
+        {
+          "statName": "NumOfBall",
+          "statValue": 0
+        }
+      ]
+    },
   {
     "id": 1,
     "itemName": "흔한 고철 무기 - common scrap weapon",
