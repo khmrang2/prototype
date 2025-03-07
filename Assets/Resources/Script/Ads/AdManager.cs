@@ -145,7 +145,7 @@ public class AdManager : MonoBehaviour
     private void GiveItem(int amount)
     {
         EquipmentUIManager equipmentUiManager = FindObjectOfType<EquipmentUIManager>();
-        equipmentUiManager.DrawRandom1Reward(true);
+        equipmentUiManager.DrawRandom10Rewards(true);
     }
 
     // ✅ 버프 지급 함수

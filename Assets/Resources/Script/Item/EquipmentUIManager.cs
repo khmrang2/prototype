@@ -27,7 +27,7 @@ public class EquipmentUIManager : MonoBehaviour
 
     public void DrawRandom10Rewards(bool isads)
     {
-        payGold(isads, -900);
+        if(!payGold(isads, 900)) return;
         // ✅ UI 패널 활성화
         if (equipmentPanel != null)
             equipmentPanel.gameObject.SetActive(true);
@@ -54,7 +54,7 @@ public class EquipmentUIManager : MonoBehaviour
     
     public void DrawRandom1Reward(bool isads)
     {
-        payGold(isads, -100);
+        if(!payGold(isads, 100)) return;
         // ✅ UI 패널 활성화
         if (equipmentPanel != null)
             equipmentPanel.gameObject.SetActive(true);
@@ -79,13 +79,15 @@ public class EquipmentUIManager : MonoBehaviour
         }
     }
 
-    private void payGold(bool isAds, int amount)
+    private bool payGold(bool isAds, int amount)
     {
-        if (isAds) return;
+        if (isAds) return true;
         else
         {
             int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-            DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + amount).ToString());
+            if (currentGold < amount) return false;
+            DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold - amount).ToString());
+            return true;
         }
     }
 
