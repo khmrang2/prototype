@@ -236,7 +236,7 @@ public class DataControl : MonoBehaviour
     {
         isSaveSuccess = false;
         isSaveFail = false;
-        OpenSaveGame();
+        OpenLoadGame();
 
         StartCoroutine(WaitForLoad(onComplete));
     }
@@ -328,7 +328,7 @@ public class DataControl : MonoBehaviour
             SetInitialData();
 
             //해당 정보 저장
-            SaveData();
+            //SaveData();
         }
         else
         {
@@ -540,7 +540,7 @@ public class DataControl : MonoBehaviour
 
     
     //호출 시 플레이어 케릭터의 스탯, 업그레이드 해금 및 정바 해금 정보의 초기값 세팅
-    public static void SetInitialData()
+    public void SetInitialData()
     {
         //플레이어 케릭터의 초기 스탯 세팅
         SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
@@ -553,6 +553,8 @@ public class DataControl : MonoBehaviour
 
         //업그레이드 해금 정보의 초기값 세팅
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
+
+        DebugTxt.text = "no saved data, saving initial data";
     }
 
 
