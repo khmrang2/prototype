@@ -63,20 +63,20 @@ public class GoogleManager : MonoBehaviour
         {
             //로그인에 성공했다면 작동
 
-            logText.text = logText.text + " Login success"; //로딩 텍스트에 로그인 성공 알림
+            logText.text = " Login success"; //로딩 텍스트에 로그인 성공 알림
 
             string id = PlayGamesPlatform.Instance.GetUserId();             //유저 id값 받아오기
             PlayerPrefs.SetString("SavedAccountKey", id);                   //자동 로그인 여부 확인을 위해 id값을 player prefs에 저장
             PlayerPrefs.Save();
 
             
-            logText.text = logText.text + " Checking server data..."; //서버로부터 데이터를 받아오기 위해 서버 데이터 확인중 알림
+            logText.text = " Checking server data..."; //서버로부터 데이터를 받아오기 위해 서버 데이터 확인중 알림
             
             
             //로그인 및 계정 인증이 완료된 후 작동하는 로드 함수 호출 코루틴
             StartCoroutine(EnsureLoginAndLoadData());
 
-            //logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
+            logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
 
         }
         else
