@@ -21,7 +21,10 @@ public class SlotInven : MonoBehaviour
 
     private void Awake()
     {
-
+        if(item != null)
+        {
+            SetRarity(item.Rarity);
+        }
     }
     /// <summary>
     /// ÆË¾÷À» ¶ç¿î´Ù.

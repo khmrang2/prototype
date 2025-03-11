@@ -6,51 +6,81 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class EquipmentUIPanel : MonoBehaviour
 {
-    public Image itemIcon;  // 아이콘 이미지 (단일 장비)
+    [Header("Single Equipment UI")]
+    //public Image itemIcon;  // 아이콘 이미지 (단일 장비)
     public TMP_Text itemName;   // 장비 이름 (단일 장비)
-    public TMP_Text rewardText; // 골드 보상 텍스트
+    public Transform singleItemSlotParent; // 장비 1개의 뽑을 때 슬롯이 될 부모.
 
+    [Header("Multiple Equipment UI")]
     public GameObject itemSlotPrefab; // 장비 10개 뽑을 때 사용
     public Transform itemSlotParent;  // 장비 10개 뽑을 때 슬롯을 추가할 부모
-
     public GameObject itemPrefab;
-	
-	private int earn_gold = 0;
+
+    private List<ItemDataForSave> handToInventory = new List<ItemDataForSave>(); // 인벤토리에 넘겨줄 아이템들
+
+    private int earn_gold = 0;
 
     /// <summary>
     /// 단일 장비 UI 표시
     /// </summary>
     public void ShowSingleEquipment(List<Item> equipments)
     {
-		if (equipments == null || equipments.Count == 0) return;
+        // 초기화
+        earn_gold = 0;
+        if (equipments == null || equipments.Count == 0) return;
 
+        // 단일 장비이므로 첫 번째 아이템만 사용
         Item item = equipments[0];
-		earn_gold = 0;
 
-        ClearItemSlots(); // ✅ 기존 슬롯 삭제
+        // 기존 슬롯(다중 UI) 클리어 및 인벤토리용 데이터 초기화
+        ClearItemSlots();
+        handToInventory.Clear();
 
-        itemIcon.gameObject.SetActive(true);
+        // 단일 장비 UI 활성화
+        //itemIcon.gameObject.SetActive(true);
         itemName.gameObject.SetActive(true);
-        rewardText.gameObject.SetActive(false);
 
-        if (item.Sprite != null)
+        GameObject slot = Instantiate(itemSlotPrefab, singleItemSlotParent);
+        GameObject itemObj = Instantiate(itemPrefab, slot.transform);
+        if (slot == null || itemObj == null) return;
+
+        RectTransform rect = itemObj.GetComponent<RectTransform>();
+        if (rect != null) rect.anchoredPosition = Vector2.zero;
+
+        // 아이템 이미지 및 이름 설정
+        Image itemImage = itemObj.GetComponent<Image>();
+        itemImage.sprite = item.Sprite;
+        itemObj.name = item.ItemName;
+        itemName.text = item.ItemName;
+
+        // 수량 결정 및 처리
+        int amount = 1;
+        if (item.Id == ItemDatabase.ID_GOLD_POT)
         {
-            itemIcon.sprite = item.Sprite;
+            // 골드 항아리: 50 ~ 110 사이의 랜덤 수량
+            amount = Random.Range(50, 110);
+            itemName.gameObject.SetActive(true);
+            itemName.text = $"{amount} G earned!";
+            earn_gold += amount;
+        }
+        else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
+        {
+            // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
+            amount = Random.Range(1, 10);
         }
         else
         {
-            Debug.LogWarning($"⚠️ {item.ItemName}의 iconSprite가 없습니다.");
+            // 일반 장비: 예시로 1 ~ 2 사이의 랜덤 수량
+            amount = Random.Range(1, 3);
+            // 일반 장비는 인벤토리에 넘겨줄 데이터에 추가
+            handToInventory.Add(new ItemDataForSave(item.Id, amount));
         }
 
-        itemName.text = item.ItemName;
-
-        // ✅ 골드 아이템일 경우 (ID == 30) 랜덤 골드 지급
-        if (item.Id == 30)
+        // 단일 장비 UI에 수량 정보가 필요하다면, 예를 들어 아이콘의 자식에 TextMeshProUGUI가 있다면 갱신
+        TextMeshProUGUI qtyText = slot.GetComponentInChildren<TextMeshProUGUI>();
+        if (qtyText != null)
         {
-            int randomValue = Random.Range(50, 110);
-            rewardText.gameObject.SetActive(true);
-            rewardText.text = $"{randomValue}G earned!";
-            earn_gold += randomValue; // 골드 합산
+            qtyText.text = (item.Id == ItemDatabase.ID_GOLD_POT) ? $"{amount} G" : amount.ToString();
         }
     }
 
@@ -65,50 +95,71 @@ public class EquipmentUIPanel : MonoBehaviour
    		if (itemSlotPrefab == null || itemSlotParent == null) return;
 
     		// 단일 장비 UI 숨기기 (덮어쓰는 문제 방지)
-    	itemIcon.gameObject.SetActive(false);
+    	//itemIcon.gameObject.SetActive(false);
     	itemName.gameObject.SetActive(false);
-    	rewardText.gameObject.SetActive(false);
     
     	ClearItemSlots(); // 기존 아이템 삭제
+        handToInventory.Clear(); // 인벤토리에 넘겨줄 아이템 리스트 초기화.
 
-    	// 10개 장비 슬롯 추가
-    	foreach (Item item in equipments){
+        // 10개 장비 슬롯 추가
+        foreach (Item item in equipments){
+            // 아이템에 이미 코드가 다 있음.
         	if (item == null) continue;
        
         	GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
-       		if (slot == null) continue;
-        
         	GameObject itemObj = Instantiate(itemPrefab, slot.transform);
-        	if (itemObj == null) continue;
+       		if (slot == null || itemObj == null) continue;
 
         	RectTransform rect = itemObj.GetComponent<RectTransform>();
-        
 			if (rect != null) rect.anchoredPosition = Vector2.zero;
 
-       		// 아이콘 설정
-        	Image itemImage = itemObj.GetComponent<Image>();
-        	if (itemImage == null) continue;
+            // 아이템 이미지 및 이름 설정
+            Image itemImage = itemObj.GetComponent<Image>();
+            itemImage.sprite = item.Sprite;
+            itemObj.name = item.ItemName;
 
-        	if (item.Sprite == null) itemImage.sprite = Resources.Load<Sprite>("DefaultIcon"); // 기본 아이콘 설정
-        	else itemImage.sprite = item.Sprite;
-        	
+            // 슬롯의 희귀도 UI 설정
+            SlotInven slotUI = slot.GetComponent<SlotInven>();
+        	if (slotUI != null) slotUI.SetRarity(item.Rarity);
 
-        	// 슬롯의 희귀도 UI 설정
-        	SlotInven slotUI = slot.GetComponent<SlotInven>();
-        	if (slotUI != null) slotUI.SetRarity(item.Rarity);	
+            // 아이템 수량 결정 (기본은 장비: 1)
+            int amount = 1;
 
-			if (item.Id == 30){
-        		TextMeshProUGUI textComponent = slot.GetComponentInChildren<TextMeshProUGUI>();
-        		if (textComponent != null){
-        			   	int randomValue = Random.Range(50, 110); // 50 ~ 100 사이의 랜덤 숫자
-        			    textComponent.text = randomValue.ToString();
-        	    		earn_gold += randomValue;
-        		}
-			}
-		}
+            // 예시 조건: 골드 항아리와 업그레이드 아이템은 ID로 구분
+            if (item.Id == ItemDatabase.ID_GOLD_POT)
+            {
+                // 골드 항아리: 50 ~ 110 사이의 랜덤 수량
+                amount = Random.Range(50, 110);
+                earn_gold += amount;
+                /* 여기에 골드를 넣어줌. */
+            }
+            else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
+            {
+                // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
+                amount = Random.Range(1, 10);
+                /* 여기에 업그레이드 아이템을 넣어줌. */
+            }
+            else
+            {
+                // 장비 아이템: 예시로 1 ~ 5 사이의 랜덤 수량
+                amount = Random.Range(1, 3);
+                // 인벤토리에 넘길 아이템 데이터 생성 및 저장
+                handToInventory.Add(new ItemDataForSave(item.Id, amount));
+            }
+
+            // 슬롯 내 TextMeshProUGUI를 찾아 수량 표시
+            TextMeshProUGUI qtyText = slot.GetComponentInChildren<TextMeshProUGUI>();
+            if (qtyText != null)
+            {
+                qtyText.text = item.Id == ItemDatabase.ID_GOLD_POT ? $"{amount} G" : amount.ToString();
+            }
+        }
+        
 	}
 
-	
+
+    public List<ItemDataForSave> getItemDatas() { return handToInventory; }
+
     /// <summary>
     /// 골드 보상 UI 표시
     /// </summary>
@@ -116,11 +167,8 @@ public class EquipmentUIPanel : MonoBehaviour
     {
         ClearItemSlots(); //기존 슬롯 삭제
 
-        itemIcon.gameObject.SetActive(false);
+        //itemIcon.gameObject.SetActive(false);
 		itemName.gameObject.SetActive(false);
-        rewardText.gameObject.SetActive(true);
-
-        rewardText.text = $"{goldAmount}G earned!";
     }
 
     /// <summary>

@@ -1,16 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
-
-
-/// <summary>
-/// 아이템들을 하나의 인벤토리 저장 구조로 관리하기 위한 리스트.
-/// </summary>
 [System.Serializable]
 public class InventoryData
 {
@@ -19,151 +12,182 @@ public class InventoryData
 
 public class Inventory : MonoBehaviour
 {
-    /// <summary>
-    /// 각종변수
-    /// 인벤토리 패널
-    /// 슬롯 패널
-    /// 
-    /// 데이터베이스
-    /// 
-    /// 인벤토리 슬롯
-    /// 인벤토리 아이템
-    /// </summary>
+    public static Inventory Instance { get; private set; }
+
+    [Header("UI References")]
     public GameObject inventoryPanel;
     public GameObject slotPanel;
-    public ItemDatabase database;
-    public GameObject inventorySlot;
-    public GameObject inventoryItem;
+    public GameObject inventorySlotPrefab;
+    public GameObject inventoryItemPrefab;
 
-    /// <summary>
-    /// 인벤토리에서 사용하고 저장할 아이템과 슬롯들.
-    /// </summary>
-    public List<GameObject> slots = new List<GameObject>();
-    public List<ItemDataForSave> inventory = new List<ItemDataForSave>();
+    // UI 슬롯과 아이템 데이터가 인덱스별로 매칭되는 리스트
+    private List<GameObject> slots = new List<GameObject>();
+    private List<ItemDataForSave> inventoryItems = new List<ItemDataForSave>();
 
-    /// <summary>
-    /// 데이터에서 획득한 아이템을 기반으로 데이터를 로드하고 불러온다.
-    /// </summary>
-    private void Start()
+    private const string SAVE_FILE = "/inventoryData.json";
+
+    void Awake()
     {
-
-    }
-
-    public void fordebugingRandomItemAdd()
-    {
-        AddItem(Mathf.RoundToInt(Random.Range(1,30)), Mathf.RoundToInt(Random.Range(1, 100)));
-    }
-    public void fordebugingSave()
-    {
-        saveToJson();
-    }
-    public void fordebugingLoad()
-    {
-        loadFromJson();
-    }
-    /// <summary>
-      /// 아이템을 인벤토리에 추가하는 코드.
-    /// </summary>
-    /// <param name="id"></param>
-    public void AddItem(int id, int amount)
-    {
-        makeItemUIToInventory(id, amount);
-
-        // 이제 데이터에 실제로 넣는다. 
-        ItemDataForSave item = new ItemDataForSave(id, amount);
-        inventory.Add(item);
-
-    }
-    /// <summary>
-      /// 인벤토리 UI에 아이템을 보이게 하는 그래픽적인 코드.
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="amount"></param>
-    public void makeItemUIToInventory(int id, int amount)
-    {
-        // 아이템 코드 데이터베이스에서 id를 통해 아이템을 넣는다.
-        // 즉, 아이템 코드로 우리는 아이템들을 불러올 수 있다.
-        Item itemToAdd = database.FetchItemById(id);
-
-        // 슬롯에 생성.
-        GameObject slot = Instantiate(inventorySlot);
-        GameObject itemObj = Instantiate(inventoryItem);
-        
-        slot.transform.SetParent(slotPanel.transform, false);
-
-        // 슬롯에 Item도 넣어주자.(팝업 UI를 위해서)
-        // rarity에 따라 슬롯 이미지 변경
-        SlotInven slotUI = slot.GetComponent<SlotInven>();
-        if (slotUI != null)
+        if (Instance != null && Instance != this)
         {
-            // itemToAdd의 rarity 값 (0~4)을 이용해 스프라이트 설정.
-            slotUI.SetRarity(itemToAdd.Rarity);
+            Destroy(gameObject);
+            return;
         }
-        slots.Add(slot);
-
-        // 인벤토리 아이템 UI 생성 후 슬롯에 배치.
-        itemObj.transform.SetParent(slot.transform, false);
-        RectTransform rect = itemObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = Vector2.zero;
-
-        // 이미지 가져오고.
-        itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
-        // 툴팁으로 오브젝트의 이름을 설정.
-        itemObj.name = itemToAdd.Tooltip;
-        // 그다음 오브젝트에서 양도 가져온다.
-        itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
-    }
-
-    /// <summary>✅ 
-    /// 인벤토리를 레어도 순으로 정렬하는 코드.
-    /// </summary>
-    public void sortInventory()
-    {
-        return;
+        Instance = this;
     }
 
     /// <summary>
-    /// 인벤토리의 상태를 저장하고, 불러오는 메소드
+    /// 인벤토리에 아이템을 추가하거나, 이미 존재하는 경우 수량을 업데이트합니다.
     /// </summary>
-    public void saveToJson()
+    /// <param name="id">아이템 ID</param>
+    /// <param name="amount">추가할 수량</param>
+    public void AddOrUpdateItem(int id, int amount)
     {
-        // 저장하기 위한 data 생성.
-        InventoryData data = new InventoryData();
-        // 현재 가지고 있는 inv를 가져오고,
-        data.items = inventory;
-        string json = JsonUtility.ToJson(data, true);
-        // Resource는 읽기 전용이기 때문에, Application.persistentdatapath == /data/data/[패키지명]/inventoryData.json에 저장됨.
-        string path = Application.persistentDataPath + "/inventoryData.json";
-        File.WriteAllText(path, json);
-        //Debug.Log("인벤토리의 현재 상태가 저장되었습니다." + path);
-        return; 
-    }
-
-    public void loadFromJson()
-    {
-        string path = Application.persistentDataPath + "/inventoryData.json";
-        if (File.Exists(path))
+        // 이미 같은 아이템이 인벤토리에 있는지 검색
+        int index = inventoryItems.FindIndex(x => x.id == id);
+        if (index >= 0)
         {
-            string json = File.ReadAllText(path);
-            InventoryData data = JsonUtility.FromJson<InventoryData>(json);
-            // 저장한 데이터를 불러오기 위한 초기화 작업.
-            foreach(GameObject slot in slots)
+            // 이미 있으면 수량 업데이트
+            inventoryItems[index].amount += amount;
+            // UI 슬롯 업데이트 (슬롯 인덱스와 데이터 인덱스가 일치한다고 가정)
+            if (index < slots.Count)
             {
-                // 그래픽 초기화
-                Destroy(slot);
-            }
-            // 데이터 초기화
-            slots.Clear();
-            inventory.Clear();
-
-            foreach(ItemDataForSave item in data.items)
-            {
-                AddItem(item.id, item.amount);
+                GameObject slot = slots[index];
+                TextMeshProUGUI qtyText = slot.GetComponentInChildren<TextMeshProUGUI>();
+                if (qtyText != null)
+                {
+                    qtyText.text = inventoryItems[index].amount.ToString();
+                }
             }
         }
         else
         {
-            Debug.Log("저장된 인벤토리 파일이 존재하지 않습니다.");
+            // 없으면 새로 추가
+            CreateItemUI(id, amount);
+            inventoryItems.Add(new ItemDataForSave(id, amount));
         }
+    }
+
+    /// <summary>
+    /// 외부에서 상점 등에서 전달받은 아이템 리스트를 인벤토리에 추가합니다.
+    /// </summary>
+    public void AddOrUpdateItems(List<ItemDataForSave> handItems)
+    {
+        foreach (ItemDataForSave data in handItems)
+        {
+            AddOrUpdateItem(data.id, data.amount);
+        }
+    }
+
+    /// <summary>
+    /// 새 슬롯과 아이템 UI를 생성합니다.
+    /// </summary>
+    private void CreateItemUI(int id, int amount)
+    {
+        Item itemToAdd = ItemDatabase.Instance.FetchItemById(id);
+        if (itemToAdd == null)
+        {
+            Debug.LogWarning("해당 아이템 ID를 찾을 수 없습니다: " + id);
+            return;
+        }
+
+        GameObject slot = Instantiate(inventorySlotPrefab);
+        slot.transform.SetParent(slotPanel.transform, false);
+        SlotInven slotInven = slot.GetComponent<SlotInven>();
+        slotInven?.SetRarity(itemToAdd.Rarity);
+        slots.Add(slot);
+
+        GameObject itemObj = Instantiate(inventoryItemPrefab);
+        itemObj.transform.SetParent(slot.transform, false);
+        RectTransform rect = itemObj.GetComponent<RectTransform>();
+        if (rect != null)
+            rect.anchoredPosition = Vector2.zero;
+
+        Image itemImage = itemObj.GetComponent<Image>();
+        itemImage.sprite = itemToAdd.Sprite;
+        itemObj.name = itemToAdd.Tooltip;
+
+        // 자식 텍스트에 수량 표시 (수량 표시용 TextMeshProUGUI는 inventoryItemPrefab의 첫 번째 자식이라고 가정)
+        TextMeshProUGUI qtyText = itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        qtyText.text = amount.ToString();
+    }
+
+    /// <summary>
+    /// 인벤토리에 이미 있는 아이템의 수량을 업데이트하고 UI를 갱신합니다.
+    /// </summary>
+    /// <param name="id">업데이트할 아이템 ID</param>
+    /// <param name="additionalAmount">추가할 수량</param>
+    /// <returns>이미 존재하면 true, 없으면 false</returns>
+    private bool UpdateExistingItem(int id, int additionalAmount)
+    {
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            if (inventoryItems[i].id == id)
+            {
+                inventoryItems[i].amount += additionalAmount;
+
+                // 인벤토리 UI에서 해당 슬롯을 찾아 수량 텍스트를 갱신
+                if (i < slots.Count)
+                {
+                    GameObject slot = slots[i];
+                    // inventoryItemPrefab의 첫 번째 자식이 수량 텍스트라고 가정
+                    TextMeshProUGUI qtyText = slot.transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
+                    if (qtyText != null)
+                    {
+                        qtyText.text = inventoryItems[i].amount.ToString();
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    #region JSON 저장/로드
+    public void SaveInventory()
+    {
+        InventoryData data = new InventoryData { items = inventoryItems };
+        string json = JsonUtility.ToJson(data, true);
+        string path = Application.persistentDataPath + SAVE_FILE;
+        File.WriteAllText(path, json);
+        Debug.Log("인벤토리 저장됨: " + path);
+    }
+
+    public void LoadInventory()
+    {
+        string path = Application.persistentDataPath + SAVE_FILE;
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            InventoryData data = JsonUtility.FromJson<InventoryData>(json);
+            // 초기화: 기존 슬롯과 데이터 삭제
+            foreach (GameObject slot in slots)
+                Destroy(slot);
+            slots.Clear();
+            inventoryItems.Clear();
+
+            foreach (ItemDataForSave item in data.items)
+            {
+                AddOrUpdateItem(item.id, item.amount);
+            }
+        }
+        else
+        {
+            Debug.Log("저장된 인벤토리 파일이 없습니다.");
+        }
+    }
+    #endregion
+
+    public void fordebugingRandomItemAdd()
+    {
+        AddOrUpdateItem(Mathf.RoundToInt(Random.Range(1, 30)), Mathf.RoundToInt(Random.Range(1, 100)));
+    }
+    public void fordebugingSave()
+    {
+        SaveInventory();
+    }
+    public void fordebugingLoad()
+    {
+        LoadInventory();
     }
 }

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class EquipmentUIManager : MonoBehaviour
 {
-    public ItemDatabase itemDatabase;
     public EquipmentUIPanel equipmentPanel; // UI 패널 (Inspector에서 연결)
     public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
+    public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
 
     void Start()
     {
@@ -24,6 +24,10 @@ public class EquipmentUIManager : MonoBehaviour
         {
             draw_1_rewardButton.onClick.AddListener(() => DrawRandom1Reward(false));
         }
+        if (close_Button != null)
+        {
+            close_Button.onClick.AddListener(() => closePanel());
+        }
     }
 
     public void DrawRandom10Rewards(bool isads)
@@ -33,6 +37,7 @@ public class EquipmentUIManager : MonoBehaviour
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
         
         equipmentPanel.ShowMultipleEquipments(gacha(10));
+        addEquipmentToInventory();
     }
     
     public void DrawRandom1Reward(bool isads)
@@ -42,6 +47,7 @@ public class EquipmentUIManager : MonoBehaviour
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
         
         equipmentPanel.ShowSingleEquipment(gacha(1)); // ✅ 1개 UI 표시
+        addEquipmentToInventory();
     }
 
     private bool payGold(int amount, bool isAds=false)
@@ -62,7 +68,21 @@ public class EquipmentUIManager : MonoBehaviour
         int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
         DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + equipmentPanel.GetEarnedGold()).ToString());
     }
+
+    /// <summary>
+    /// handItem을 인벤토리에 넘겨줘야함.
+    /// </summary>
+    /// <param name="handItem"></param>
+    public void addEquipmentToInventory()
+    {
+        Inventory.Instance.AddOrUpdateItems(equipmentPanel.getItemDatas());
+    }
     
+    /// <summary>
+    /// param : gacha_count만큼 랜덤 뽑기를 시행.
+    /// </summary>
+    /// <param name="gacha_count"></param>
+    /// <returns></returns>
     private List<Item> gacha(int gacha_count)
     {
         List<Item> equipmentList = new List<Item>(gacha_count);
@@ -71,11 +91,16 @@ public class EquipmentUIManager : MonoBehaviour
             float roll = Random.Range(0f, 100f);
             if (roll < 40)
             {
-                equipmentList.Add(itemDatabase.GetRandomItem());
+                // 40% 장비
+                equipmentList.Add(ItemDatabase.Instance.GetRandomItem());
+            }else if(40 < roll && roll < 50){
+                // 10% 업그레이드 아이템.
+                equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_UPGRADE_ITEM));
             }
             else
             {
-                equipmentList.Add(itemDatabase.FetchItemById(30));              
+                // 50% 골드.
+                equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_GOLD_POT));              
             }
         }
 
