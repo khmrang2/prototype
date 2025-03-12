@@ -69,4 +69,11 @@ public class SlotInven : MonoBehaviour
                 break;
         }
     }
+
+    public void setInit(Item item)
+    {
+        this.item = item;
+
+        SetRarity(this.item.Rarity);
+    }
 }

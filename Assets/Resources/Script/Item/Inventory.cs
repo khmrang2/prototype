@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
         GameObject slot = Instantiate(inventorySlotPrefab);
         slot.transform.SetParent(slotPanel.transform, false);
         SlotInven slotInven = slot.GetComponent<SlotInven>();
-        slotInven?.SetRarity(itemToAdd.Rarity);
+        slotInven.setInit(itemToAdd);
         slots.Add(slot);
 
         GameObject itemObj = Instantiate(inventoryItemPrefab);

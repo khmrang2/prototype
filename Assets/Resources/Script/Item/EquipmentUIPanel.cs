@@ -41,17 +41,19 @@ public class EquipmentUIPanel : MonoBehaviour
         itemName.gameObject.SetActive(true);
 
         GameObject slot = Instantiate(itemSlotPrefab, singleItemSlotParent);
+        SlotInven slotUI = slot.GetComponent<SlotInven>();
+        slotUI.setInit(item);
+
         GameObject itemObj = Instantiate(itemPrefab, slot.transform);
         if (slot == null || itemObj == null) return;
-
-        RectTransform rect = itemObj.GetComponent<RectTransform>();
-        if (rect != null) rect.anchoredPosition = Vector2.zero;
 
         // 아이템 이미지 및 이름 설정
         Image itemImage = itemObj.GetComponent<Image>();
         itemImage.sprite = item.Sprite;
         itemObj.name = item.ItemName;
         itemName.text = item.ItemName;
+
+
 
         // 수량 결정 및 처리
         int amount = 1;
@@ -109,18 +111,15 @@ public class EquipmentUIPanel : MonoBehaviour
         	GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
         	GameObject itemObj = Instantiate(itemPrefab, slot.transform);
        		if (slot == null || itemObj == null) continue;
-
-        	RectTransform rect = itemObj.GetComponent<RectTransform>();
-			if (rect != null) rect.anchoredPosition = Vector2.zero;
+            // 슬롯의 희귀도 UI 설정
+            SlotInven slotUI = slot.GetComponent<SlotInven>();
+        	if (slotUI != null) slotUI.setInit(item);
 
             // 아이템 이미지 및 이름 설정
             Image itemImage = itemObj.GetComponent<Image>();
             itemImage.sprite = item.Sprite;
             itemObj.name = item.ItemName;
 
-            // 슬롯의 희귀도 UI 설정
-            SlotInven slotUI = slot.GetComponent<SlotInven>();
-        	if (slotUI != null) slotUI.SetRarity(item.Rarity);
 
             // 아이템 수량 결정 (기본은 장비: 1)
             int amount = 1;
