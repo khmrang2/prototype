@@ -34,13 +34,13 @@ public class EnemyListManager : MonoBehaviour
     }
 
     // === 2?? 모든 적이 플레이어를 향해 이동 ===
-    public void MoveEnemies()
+    public async void MoveEnemies()
     {
         foreach (var enemy in enemies)
         {
             if (enemy != null)
             {
-                enemy.Move(); // 적 이동 실행
+               await enemy.Move(); // 적 이동 및 공격 실행, 이 과정이 끝날 때까지 대기 후 진행
             }
         }
     }
