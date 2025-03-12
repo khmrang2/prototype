@@ -37,36 +37,25 @@ public class EquipmentUIPanel : MonoBehaviour
         handToInventory.Clear();
 
         // 단일 장비 UI 활성화
-        //itemIcon.gameObject.SetActive(true);
+        singleItemSlotParent.gameObject.SetActive(true);
         itemName.gameObject.SetActive(true);
+        itemSlotParent.gameObject.SetActive(false);
 
         GameObject slot = Instantiate(itemSlotPrefab, singleItemSlotParent);
         SlotInven slotUI = slot.GetComponent<SlotInven>();
-        slotUI.setInit(item);
-
-        GameObject itemObj = Instantiate(itemPrefab, slot.transform);
-        if (slot == null || itemObj == null) return;
-
-        // 아이템 이미지 및 이름 설정
-        Image itemImage = itemObj.GetComponent<Image>();
-        itemImage.sprite = item.Sprite;
-        itemObj.name = item.ItemName;
-        itemName.text = item.ItemName;
-
-
-
-        // 수량 결정 및 처리
+        
+        // 아이템 수량 결정 및 처리
         int amount = 1;
         if (item.Id == ItemDatabase.ID_GOLD_POT)
         {
             // 골드 항아리: 50 ~ 110 사이의 랜덤 수량
             amount = Random.Range(50, 110);
-            itemName.gameObject.SetActive(true);
             itemName.text = $"{amount} G earned!";
             earn_gold += amount;
         }
         else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
         {
+            itemName.text = $"{item.ItemName} : {amount} get!";
             // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
             amount = Random.Range(1, 10);
         }
@@ -74,16 +63,12 @@ public class EquipmentUIPanel : MonoBehaviour
         {
             // 일반 장비: 예시로 1 ~ 2 사이의 랜덤 수량
             amount = Random.Range(1, 3);
+            itemName.text = $"{item.ItemName} : {amount} get!";
             // 일반 장비는 인벤토리에 넘겨줄 데이터에 추가
             handToInventory.Add(new ItemDataForSave(item.Id, amount));
         }
 
-        // 단일 장비 UI에 수량 정보가 필요하다면, 예를 들어 아이콘의 자식에 TextMeshProUGUI가 있다면 갱신
-        TextMeshProUGUI qtyText = slot.GetComponentInChildren<TextMeshProUGUI>();
-        if (qtyText != null)
-        {
-            qtyText.text = (item.Id == ItemDatabase.ID_GOLD_POT) ? $"{amount} G" : amount.ToString();
-        }
+        slotUI.setInit(new ItemData(item, amount));
     }
 
     
@@ -96,11 +81,11 @@ public class EquipmentUIPanel : MonoBehaviour
     	if (equipments == null || equipments.Count == 0) return;
    		if (itemSlotPrefab == null || itemSlotParent == null) return;
 
-    		// 단일 장비 UI 숨기기 (덮어쓰는 문제 방지)
-    	//itemIcon.gameObject.SetActive(false);
-    	itemName.gameObject.SetActive(false);
-    
-    	ClearItemSlots(); // 기존 아이템 삭제
+        singleItemSlotParent.gameObject.SetActive(false);
+        itemName.gameObject.SetActive(false);
+        itemSlotParent.gameObject.SetActive(true);
+
+        ClearItemSlots(); // 기존 아이템 삭제
         handToInventory.Clear(); // 인벤토리에 넘겨줄 아이템 리스트 초기화.
 
         // 10개 장비 슬롯 추가
@@ -109,17 +94,9 @@ public class EquipmentUIPanel : MonoBehaviour
         	if (item == null) continue;
        
         	GameObject slot = Instantiate(itemSlotPrefab, itemSlotParent);
-        	GameObject itemObj = Instantiate(itemPrefab, slot.transform);
-       		if (slot == null || itemObj == null) continue;
+       		if (slot == null) continue;
             // 슬롯의 희귀도 UI 설정
             SlotInven slotUI = slot.GetComponent<SlotInven>();
-        	if (slotUI != null) slotUI.setInit(item);
-
-            // 아이템 이미지 및 이름 설정
-            Image itemImage = itemObj.GetComponent<Image>();
-            itemImage.sprite = item.Sprite;
-            itemObj.name = item.ItemName;
-
 
             // 아이템 수량 결정 (기본은 장비: 1)
             int amount = 1;
@@ -145,13 +122,7 @@ public class EquipmentUIPanel : MonoBehaviour
                 // 인벤토리에 넘길 아이템 데이터 생성 및 저장
                 handToInventory.Add(new ItemDataForSave(item.Id, amount));
             }
-
-            // 슬롯 내 TextMeshProUGUI를 찾아 수량 표시
-            TextMeshProUGUI qtyText = slot.GetComponentInChildren<TextMeshProUGUI>();
-            if (qtyText != null)
-            {
-                qtyText.text = item.Id == ItemDatabase.ID_GOLD_POT ? $"{amount} G" : amount.ToString();
-            }
+            if (slotUI != null) slotUI.setInit(new ItemData(item, amount));
         }
         
 	}
@@ -176,6 +147,10 @@ public class EquipmentUIPanel : MonoBehaviour
     private void ClearItemSlots()
     {
         foreach (Transform child in itemSlotParent)
+        {
+            Destroy(child.gameObject);
+        }
+        foreach (Transform child in singleItemSlotParent)
         {
             Destroy(child.gameObject);
         }

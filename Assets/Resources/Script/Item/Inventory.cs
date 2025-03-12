@@ -94,53 +94,9 @@ public class Inventory : MonoBehaviour
         GameObject slot = Instantiate(inventorySlotPrefab);
         slot.transform.SetParent(slotPanel.transform, false);
         SlotInven slotInven = slot.GetComponent<SlotInven>();
-        slotInven.setInit(itemToAdd);
+        slotInven.setInit(new ItemData(itemToAdd, amount));
         slots.Add(slot);
 
-        GameObject itemObj = Instantiate(inventoryItemPrefab);
-        itemObj.transform.SetParent(slot.transform, false);
-        RectTransform rect = itemObj.GetComponent<RectTransform>();
-        if (rect != null)
-            rect.anchoredPosition = Vector2.zero;
-
-        Image itemImage = itemObj.GetComponent<Image>();
-        itemImage.sprite = itemToAdd.Sprite;
-        itemObj.name = itemToAdd.Tooltip;
-
-        // 자식 텍스트에 수량 표시 (수량 표시용 TextMeshProUGUI는 inventoryItemPrefab의 첫 번째 자식이라고 가정)
-        TextMeshProUGUI qtyText = itemObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        qtyText.text = amount.ToString();
-    }
-
-    /// <summary>
-    /// 인벤토리에 이미 있는 아이템의 수량을 업데이트하고 UI를 갱신합니다.
-    /// </summary>
-    /// <param name="id">업데이트할 아이템 ID</param>
-    /// <param name="additionalAmount">추가할 수량</param>
-    /// <returns>이미 존재하면 true, 없으면 false</returns>
-    private bool UpdateExistingItem(int id, int additionalAmount)
-    {
-        for (int i = 0; i < inventoryItems.Count; i++)
-        {
-            if (inventoryItems[i].id == id)
-            {
-                inventoryItems[i].amount += additionalAmount;
-
-                // 인벤토리 UI에서 해당 슬롯을 찾아 수량 텍스트를 갱신
-                if (i < slots.Count)
-                {
-                    GameObject slot = slots[i];
-                    // inventoryItemPrefab의 첫 번째 자식이 수량 텍스트라고 가정
-                    TextMeshProUGUI qtyText = slot.transform.GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
-                    if (qtyText != null)
-                    {
-                        qtyText.text = inventoryItems[i].amount.ToString();
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
     }
 
     #region JSON 저장/로드

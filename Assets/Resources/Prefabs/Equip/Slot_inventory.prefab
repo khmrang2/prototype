@@ -85,7 +85,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2520585758488776328}
   - component: {fileID: 4688778226879030115}
-  - component: {fileID: 8708736879471911752}
   - component: {fileID: 7500550726458643119}
   - component: {fileID: 8984420145704558461}
   m_Layer: 5
@@ -123,21 +122,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3232639693998567242}
   m_CullTransparentMesh: 1
---- !u!114 &8708736879471911752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3232639693998567242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948d8860749cbb640af48fed78169a53, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popUpPanel: {fileID: 2754506553100737633, guid: 6e4e1b84dcdc3d14d974fa7f7dbbc439, type: 3}
-  popUpScript: {fileID: 8589012772887946665, guid: 6e4e1b84dcdc3d14d974fa7f7dbbc439, type: 3}
-  itemSlot: {fileID: 7500550726458643119}
 --- !u!114 &7500550726458643119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e01d8e9a3bf924fa271afd093c6f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData:
+    amount: 0
   popUpPanel: {fileID: 0}
   popUpScript: {fileID: 0}
   backgroundImage: {fileID: 4229822125667122623}
@@ -158,6 +144,7 @@ MonoBehaviour:
   rareSprite: {fileID: 21300000, guid: de92499005a75264987479b6a0581a98, type: 3}
   epicSprite: {fileID: 21300000, guid: 5c18880365109114795cb49c49b42216, type: 3}
   legendarySprite: {fileID: 21300000, guid: cb53d206b9494dd468f047c7b60392bd, type: 3}
+  inventoryItemPrefab: {fileID: 1117477902857782943, guid: 108168f62363a3240b2d45f204539895, type: 3}
 --- !u!114 &8984420145704558461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,9 +189,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8708736879471911752}
-        m_TargetAssemblyTypeName: EquipPopup, Assembly-CSharp
-        m_MethodName: ActivatePrefab
+      - m_Target: {fileID: 7500550726458643119}
+        m_TargetAssemblyTypeName: SlotInven, Assembly-CSharp
+        m_MethodName: showPopup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
