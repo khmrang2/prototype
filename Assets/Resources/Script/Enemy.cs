@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private PlayerManger Pmanager;  //플레이어에게 데미지 처리를 위한 PlayerManager
     private EnemyStatus status; //이 적 케릭터의 스탯
     //private Animator animator; // 애니메이터(공격 에니메이션 추가 시 사용될 예정)
+
+    [SerializeField] private float AttackRange = 0.1f;
     
     
     private void Start()
@@ -62,7 +64,7 @@ public class Enemy : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, moveSpeed * Time.deltaTime);
 
             // 목표 위치에 도달하면 이동 종료
-            if (Vector3.Distance(transform.position, target.transform.position) < 0.1f)
+            if (Vector3.Distance(transform.position, target.transform.position) < AttackRange)
             {
                 isMoving = false;
             }
@@ -85,9 +87,13 @@ public class Enemy : MonoBehaviour
     //플레이어가 사거리 내에 존재하는지 확인 
     private void DetectPlayer()
     {
-        //만일 플레이어 오브젝트와 사거리 오브젝트가 접촉했다면
+        //만일 플레이어 오브젝트와의 거리가 사거리보다 같거나 작아진다면
+        if(Vector3.Distance(transform.position, target.transform.position) <= AttackRange)
+        {
+            //감지 여부 변수의 값을 참으로
+            isDetectedPlayer= true;
 
-        //감지 여부 변수의 값을 참으로
+        }
 
     }
 
