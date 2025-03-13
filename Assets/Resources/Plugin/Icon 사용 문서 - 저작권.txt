@@ -1,0 +1,15 @@
+// 여러 아이콘 사용에 있어서 Freepik의 icon을 사용했음을 알립니다.
+Icon designed by Freepik
+
+<a href="https://kr.freepik.com/icon/car-engine_2061866">Freepik 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/car-engine_2061956">Freepik 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/setting_11516378#fromView=search&page=1&position=6&uuid=4076e18b-0a26-4980-b5eb-1bf220065c23">Iconic Panda 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/joystick_462427#fromView=search&page=1&position=65&uuid=6c84ae01-efe3-4a3d-a07c-921dc4be08c9">Smashicons 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/manual-transmission_2061963#fromView=search&page=1&position=80&uuid=6c84ae01-efe3-4a3d-a07c-921dc4be08c9">Freepik 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/piston_5385862#fromView=search&page=1&position=87&uuid=ddbb20e3-4d1f-418b-a069-ace7ea6a31fa">surang 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/tools_10429557#fromView=search&page=4&position=23&uuid=ddbb20e3-4d1f-418b-a069-ace7ea6a31fa">Lagot Design 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/heart_1330215#fromView=search&page=1&position=3&uuid=8fea34ed-7504-4b24-96c8-57f60e2d248c">Freepik 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/heart_18871622#fromView=search&page=2&position=59&uuid=8fea34ed-7504-4b24-96c8-57f60e2d248c">Anditii Creative 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/spud_13630417#fromView=search&page=1&position=47&uuid=8324b459-8f09-49f1-8068-38810001679f">kerismaker 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/food_13554555#fromView=search&page=1&position=41&uuid=b35f6050-f58d-4e4d-a831-93d0c25227c0">Atif Arshad 제작 아이콘</a>
+<a href="https://kr.freepik.com/icon/domain-servers_9504100#fromView=search&page=1&position=79&uuid=c535dfb3-09ec-4796-a716-bb1baf79c3d3">zero_wing 제작 아이콘</a>
