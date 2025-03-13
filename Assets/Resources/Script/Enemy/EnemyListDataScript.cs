@@ -18,6 +18,11 @@ public class EnemyDataList : ScriptableObject
     public List<int> EnemyATKList;
 
     public List<int> EnemyDFFList;
-    
+
+    //이번 스테이지에 등장할 적들의 리스트, 앞에서 부터 아래 EnemySpawnCountPerTurn의 값에 따라 등장
+    public List<GameObject> EnemyList;
+
+    //각 턴마다 소환될 적의 수, 인덱스 번호가 턴, 해당 인덱스 번호의 값이 해당 턴에 소환될 적의 수
+    public List<int> EnemySpawnCountPerTurn;
 }
 

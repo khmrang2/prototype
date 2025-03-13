@@ -109,10 +109,18 @@ public class GameManager : MonoBehaviour
     private IEnumerator EnemyBehaviorTurn()
     {
         Debug.Log("Enemies moving...");
-        enemyListManager.MoveEnemies(); // 적이 이동하도록 호출
+        yield return MoveEnemiesCoroutine();
+        //enemyListManager.MoveEnemies(); // 적이 이동하도록 호출
 
         yield return new WaitUntil(() => enemyMoveEnded());
+        enemyListManager.SpawnEnemyPerTurn();   //이동이 완료되고 턴에 따른 적 스폰 처리
         currentTurn = GameTurn.ChooseBuffState;
+    }
+
+    private IEnumerator MoveEnemiesCoroutine()
+    {
+        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() 실행
+        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // 완료될 때까지 대기
     }
 
     private IEnumerator ChooseBuffTurn()
