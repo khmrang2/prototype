@@ -30,6 +30,7 @@ struct buffState
 };
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public GameObject prefPlayerAtkProjrctile;
     private GameObject plAtkObj;
     public Transform playerTransform;  // 플레이어의 Transform
@@ -109,12 +110,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator EnemyBehaviorTurn()
     {
         Debug.Log("Enemies moving...");
-        yield return MoveEnemiesCoroutine();
-        //enemyListManager.MoveEnemies(); // 적이 이동하도록 호출
 
-        yield return new WaitUntil(() => enemyMoveEnded());
-        enemyListManager.SpawnEnemyPerTurn();   //이동이 완료되고 턴에 따른 적 스폰 처리
-        currentTurn = GameTurn.ChooseBuffState;
+        // 적을 5칸씩 나누어 이동시키기
+        yield return enemyListManager.MoveEnemies();
+
+        yield return new WaitUntil(() => enemyListManager.AllEnemiesMoved());
+
+        // 이동이 끝나면 스폰 처리
+        enemyListManager.SpawnEnemyPerTurn();
     }
 
     private IEnumerator MoveEnemiesCoroutine()
