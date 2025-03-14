@@ -40,12 +40,12 @@ public class EnemyListManager : MonoBehaviour
 
         for (int i = 0; i < maxEnemies; i++)
         {
-            GameObject enemyObject = Instantiate(enemyDataList.EnemyList[i], enemyStartTransform.position, Quaternion.identity);
+            GameObject enemyObject = Instantiate(enemyDataList.EnemyList[i].enemyType, enemyStartTransform.position, Quaternion.identity);
             Enemy enemy = enemyObject.GetComponent<Enemy>();
             enemies.Add(enemy);
             EnemyStatus enemyStatus = enemyObject.GetComponent<EnemyStatus>();
             //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여
-            enemyStatus.SetEnemyStat(enemyDataList.EnemyHPList[i], enemyDataList.EnemyATKList[i], enemyDataList.EnemyDFFList[i]);
+            enemyStatus.SetEnemyStat(enemyDataList.EnemyList[i].hp, enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
             //enemyObject.SetActive(false);
         }
         enemiesSpawned = true; // 한 번만 실행되도록 설정
