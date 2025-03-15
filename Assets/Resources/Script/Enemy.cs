@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] public bool isMoving = false; // 이동 여부 확인
     public bool isDetectedPlayer = false;   //플레이어 감지 여부
     private PlayerManger Pmanager;  //플레이어에게 데미지 처리를 위한 PlayerManager
-    private EnemyStatus status; //이 적 케릭터의 스탯
+    public EnemyStatus status; //이 적 케릭터의 스탯
     public bool isSpawned = false;
     public bool isAlive;
     [SerializeField] private float AttackRange = 0.1f;
@@ -73,35 +73,61 @@ public class Enemy : MonoBehaviour
     private float duration = 0.2f; // 이동 시간
     public async Task MoveOneStep()
     {
-        if (target == null || !isSpawned) return;
-        isMoving = true; // 이동 시작
-        float elapsedTime = 0f;
-        
-        
-        Vector3 startPosition = transform.position;
-        Vector3 endPosition = transform.position - (Vector3.right * moveDistance);
+        //타겟을 발견 했고, 필드에 소환되었으며 살아있는 경우에만 실행
+        if (target == null || !isSpawned || !isAlive) return;
 
-        while (elapsedTime < duration)
+        //플레이어가 사거리 내에 없을 때만 실행
+        if (!isDetectedPlayer)
         {
-            // 목표 위치로 일정 속도로 이동
-            Debug.Log($"{Time.deltaTime} 시간");
-            transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime/duration);
-            elapsedTime += Time.deltaTime;
-            await Task.Yield(); // 프레임마다 갱신
-        }
-        transform.position = endPosition; // 최종 위치 보정
-        isMoving = false; // 이동 종료
+            isMoving = true; // 이동 시작
+            float elapsedTime = 0f;
 
-        DetectPlayer(); // 이동 후 플레이어 감지
+
+            Vector3 startPosition = transform.position;
+            Vector3 endPosition = transform.position - (Vector3.right * moveDistance);
+
+            while (elapsedTime < duration)
+            {
+                // 목표 위치로 일정 속도로 이동
+                Debug.Log($"{Time.deltaTime} 시간");
+                transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / duration);
+                elapsedTime += Time.deltaTime;
+                await Task.Yield(); // 프레임마다 갱신
+            }
+            transform.position = endPosition; // 최종 위치 보정
+            isMoving = false; // 이동 종료
+
+            DetectPlayer(); // 이동 후 플레이어 감지
+        }
+        else
+        {
+            //플레이어가 사거리 내에 있다면
+
+            await Attack(); //이동하지 않고 공격 수행, 공격이 끝날 때까지 대기
+            isMoving = false;   //이동이 불필요하므로 false
+        }
+
     }
 
     private void Update()
     {
+        //살아 있을때만 실행
+        if (isAlive & status != null)
+        {
+            if(status.EnemyHP < 0) 
+            {
+                isAlive = false;
+                this.gameObject.SetActive(false);
+            }
+        }
+
         if (!isMoving) return; // 이동 중이 아닐 때만 실행
 
         // 사거리 내에 플레이어가 있는지 확인
         DetectPlayer();
     }
+
+
 
     public bool HasMoved()
     {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PinManager : MonoBehaviour
 {
+    public PlayerStatus playerStatus; //핀 히트 수를 전달받을 스크립트
+
     public List<GameObject> pins = new List<GameObject>();
     // 각 Pin의 hit_cnt 값을 합산하여 반환
     public int hit_cnt_sum()
@@ -18,7 +20,7 @@ public class PinManager : MonoBehaviour
                 totalHits += pin.hit_cnt();
             }
         }
-
+        playerStatus.PinHitCount = totalHits;
         return totalHits;
     }
 

@@ -568,6 +568,7 @@ MonoBehaviour:
   moveSpeed: 5
   isMoving: 0
   isDetectedPlayer: 0
+  status: {fileID: 0}
   isSpawned: 0
   isAlive: 0
   AttackRange: 0.1
@@ -1062,6 +1063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b68cbb319d541e18f434571235254e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStatus: {fileID: 762385703}
   pins:
   - {fileID: 1064587562}
   - {fileID: 1406396419}
@@ -1436,6 +1438,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1341735179}
   enemyListManager: {fileID: 310291379}
   buffManager: {fileID: 1764876259}
+  playerManger: {fileID: 1034013464}
   damageSum: 0
   currentTurn: 0
   pinManager: {fileID: 745019941}
@@ -1592,6 +1595,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+--- !u!114 &1034013464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 882473715906915836, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
+  m_PrefabInstance: {fileID: 3932902375658422669}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8398e527393b149a42cd14b8247fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1064587562 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6038173052482977072, guid: b089bc311d671494ab292a0f810b4b09, type: 3}

@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     // 버프를 받아서 갱신될 cur_state.
     [SerializeField]
     public BuffManager buffManager;
+    public PlayerManger playerManger;
     
     BaseState buffState = null;
     BaseState defaultState = null;
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
                 if (!stateStarted)
                 {
                     plAtkObj = Instantiate(prefPlayerAtkProjrctile);
-                    plAtkObj.transform.position = new Vector3(-2.4f, 4.85f, 0);
+                    plAtkObj.transform.position = playerTransform.position;
                     Debug.Log("Player attacking...");
                     stateStarted = true;
                 }
@@ -116,19 +117,22 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameTurn.ChooseBuffState:
-                if (!stateStarted)
+                if (playerManger.isAlive)
                 {
-                    Debug.Log("Choosing a buff...");
-                    buffManager.ShowBuffSelection();
-                    stateStarted = true;
-                }
-                if (buffManager.IsBuffSelected())
-                {
-                    updateBuffState();
-                    Debug.Log("Buff updated.");
-                    buffState.printAllStates();
-                    stateStarted = false;
-                    currentTurn = GameTurn.EndChkState;
+                    if (!stateStarted)
+                    {
+                        Debug.Log("Choosing a buff...");
+                        buffManager.ShowBuffSelection();
+                        stateStarted = true;
+                    }
+                    if (buffManager.IsBuffSelected())
+                    {
+                        updateBuffState();
+                        Debug.Log("Buff updated.");
+                        buffState.printAllStates();
+                        stateStarted = false;
+                        currentTurn = GameTurn.EndChkState;
+                    }
                 }
                 break;
 
@@ -150,6 +154,7 @@ public class GameManager : MonoBehaviour
     }
     public bool ballHasDropped()
     {
+        //공이 다 사라졌을 시에 실행
         if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
         {
             damageSum = pinManager.hit_cnt_sum();

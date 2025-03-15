@@ -15,6 +15,7 @@ public class PlayerManger : MonoBehaviour
 
     [Header("Player Chracter Variables")]
     public float playerHP = 3;
+    public bool isAlive = true;
 
     //플레이어 스탯 참조용 스크립트, (Unity 에디터에서 할당)
     [Header("Player Status Script")]
@@ -49,7 +50,8 @@ public class PlayerManger : MonoBehaviour
     //사망 처리 함수
     void OnDied()
     {
+        isAlive = false;
         Destroy(hpBar);
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 }
