@@ -1,9 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    [Header("벽")]
     public BoxCollider2D leftWall;
     public BoxCollider2D rightWall;
+
+    [Header("밑에 공 사라지게 하는 오브젝트")]
+    public BoxCollider2D destroyArea;
 
     private Camera mainCamera;
     private int lastScreenWidth, lastScreenHeight;
@@ -14,7 +19,7 @@ public class Wall : MonoBehaviour
     void Awake()
     {
         mainCamera = Camera.main;
-        UpdateWallPositions();
+        UpdateObjectPositions();
     }
 
     /// <summary>
@@ -24,8 +29,14 @@ public class Wall : MonoBehaviour
     {
         if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
         {
-            UpdateWallPositions();
+            UpdateObjectPositions();
         }
+    }
+
+    void UpdateObjectPositions()
+    {
+        UpdateWallPositions();
+        UpdateDestroyAreaPosition();
     }
 
     /// <summary>
@@ -54,5 +65,16 @@ public class Wall : MonoBehaviour
         // 오른쪽 벽 설정 (x축은 벽의 두께 절반만큼 오프셋)
         rightWall.size = new Vector2(wallWidth, wallHeight);
         rightWall.transform.position = new Vector2(screenTopRight.x - wallWidth / 3, wallCenterY);
+    }
+
+    void UpdateDestroyAreaPosition()
+    {
+        // 메인 카메라를 기준으로 화면 하단의 좌표를 가져옴
+        Vector3 bottomCenterScreen = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0, 0));
+
+        // Destroy Zone의 위치를 카메라 하단부로 설정
+        destroyArea.transform.position = new Vector3(bottomCenterScreen.x, bottomCenterScreen.y - 1.0f, 0); // Y좌표를 살짝 낮춰 카메라에 보이지 않도록 설정
+
+        destroyArea.size = new Vector2(Camera.main.orthographicSize * 3 * Camera.main.aspect, 1); // 화면 너비에 맞춤
     }
 }
