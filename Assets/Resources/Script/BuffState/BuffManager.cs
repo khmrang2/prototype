@@ -22,12 +22,15 @@ public class BuffDataList
 
 public class BuffManager : MonoBehaviour
 {
+    public List<BuffSelectUI> buffUIs; // 버프 ui.
+
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
     [SerializeField] private TextAsset buffDataJSON; // JSON 파일
     private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID로 접근할 수 있는 버프 테이블
     private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
     private int selectedBuffId = -1; // 선택된 Buff ID
     private List<BuffStruct> selectedBuffs; // 선택된 버프들.
+
 
     private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
 
@@ -55,7 +58,7 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    // UI 패널을 활성화하고, 임의의 3개 버프를 표시
+    // 1. UI 패널을 활성화하고, 임의의 3개 버프를 표시
     public void ShowBuffSelection()
     {
         isBuffSelected = false; // 초기화
@@ -63,33 +66,33 @@ public class BuffManager : MonoBehaviour
         ShowRandomBuffs();
     }
 
-    // 임의의 3개의 버프를 선택하고, UI에 표시
+    // 2. 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
         // 3개의 선택된 버프를 출력해줌.
         List<BuffStruct> selectedBuffs = GetRandomBuffs(3);
-
-        for (int i = 0; i < selectedBuffs.Count; i++)
+        for (int i = 0; i < 3; i++)
         {
-            BuffStruct buff = selectedBuffs[i];
-            GameObject buffSlot = selectPanel.transform.GetChild(i).gameObject;
+            // 각 buffUI에 해당 버프 정보를 갱신
+            buffUIs[i].getBuffState(selectedBuffs[i]);
 
-            Image buffImage = buffSlot.transform.Find("buffImage").GetComponent<Image>();
-            TextMeshProUGUI buffText = buffSlot.transform.Find("buffToolTip").GetComponent<TextMeshProUGUI>();
+            // 해당 UI 오브젝트에 Button 컴포넌트가 있다고 가정하고, 클릭 이벤트에 리스너 추가
+            Button button = buffUIs[i].GetComponent<Button>();
+            if (button != null)
+            {
+                // 클리어 후 새로 등록하기 위해 기존 리스너 제거
+                button.onClick.RemoveAllListeners();
 
-            // [issue] ! !
-            // 버프 이미지 오류로 인한 주석처리..
-            //buffImage.sprite = LoadSpriteFromPath(buff.ImagePath);
-            buffText.text = buff.Tooltip;
-
-            int buffId = buff.ID;
-            buffSlot.GetComponent<Button>().onClick.RemoveAllListeners();
-            buffSlot.GetComponent<Button>().onClick.AddListener(() => OnBuffSelected(buffId));
+                // 지역변수에 할당해야 올바른 버프ID가 캡처됨
+                int buffId = selectedBuffs[i].ID;
+                button.onClick.AddListener(() => { OnBuffSelected(buffId); });
+            }
         }
     }
-    
 
-    // 임의의 n개의 버프를 선택하는 함수
+    #region 2-1. 임의의 3개의 버프를 선택하는 함수.
+
+    // 2-1. 임의의 n개의 버프를 선택하는 함수
     private List<BuffStruct> GetRandomBuffs(int count)
     {
         //모든 랜덤 버프들. 최초시행에는 이제 새로 만들자.
@@ -118,7 +121,9 @@ public class BuffManager : MonoBehaviour
 
         return selectedBuffs;
     }
-    // 버프가 선택되었을 때 호출되는 함수
+    #endregion 
+
+    // 3. 버프가 선택되었을 때 호출되는 함수
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;

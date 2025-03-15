@@ -10,7 +10,7 @@ public class EnemyListManager : MonoBehaviour
     public Transform playerTransform; //몬스터가 스폰 처리 시 이동 될 위치
     public Transform enemySpawnTransform;
     public Transform enemyStartTransform;
-    private List<Enemy> enemies = new List<Enemy>();
+    public List<Enemy> enemies = new List<Enemy>();
 
     [SerializeField] private int turn;  //턴 값
 
@@ -114,6 +114,7 @@ public class EnemyListManager : MonoBehaviour
         Debug.Log("spawning enemy-------------------------------------------------------------------");
 
         //총 적의 수보다 현재 소환된 적의 수가 적을 때만 실행
+        // 디버그용으로 주석처리한거. 나중에 커밋할때 꼭 
         if (spawnedCount < maxEnemies)
         {
             int willSpawnCnt = enemyDataList.EnemySpawnCountPerTurn[turn];
