@@ -12,13 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3415be4ee1a83d4e92d01aefc42dfbc, type: 3}
   m_Name: EnemyDataList(test)
   m_EditorClassIdentifier: 
-  EnemyHPList: 6400000050000000780000006400000064000000
-  EnemyATKList: 080000000c000000050000000800000008000000
-  EnemyDFFList: 0000000000000000000000000000000000000000
   EnemyList:
-  - {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  - hp: 100
+    attack: 8
+    defense: 0
+    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  - hp: 80
+    attack: 12
+    defense: 0
+    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  - hp: 120
+    attack: 5
+    defense: 0
+    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  - hp: 100
+    attack: 8
+    defense: 0
+    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+  - hp: 100
+    attack: 8
+    defense: 0
+    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
   EnemySpawnCountPerTurn: 0100000001000000000000000100000002000000

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1674373607952233300}
   m_Layer: 0
   m_Name: proto_enemy 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  isMoving: 0
   isDetectedPlayer: 0
+  isSpawned: 0
+  isAlive: 0
   AttackRange: 1
 --- !u!114 &-1674373607952233300
 MonoBehaviour:

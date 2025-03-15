@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
         buffState = new BaseState();
         defaultState = new BaseState();
         playerState = new BaseState();
+        enemyListManager.SpawnInitialEnemies();
     }
     /// <summary>
     /// stateStarted로 스핀락을 구현하여
