@@ -16,13 +16,20 @@ public class PlayerManger : MonoBehaviour
     [Header("Player Chracter Variables")]
     public float playerHP = 3;
     public bool isAlive = true;
+    public bool gameOver = false;
 
     //플레이어 스탯 참조용 스크립트, (Unity 에디터에서 할당)
     [Header("Player Status Script")]
     public PlayerStatus playerStatus;
 
+
+    [Header("GameOver Screen")]
+    public GameObject GameOverPopup;
+
     void Start()
     {
+        gameOver = false ;
+        GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
         hpBar = Instantiate(prefHP_Bar, canvas.transform);
         Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height);
@@ -40,7 +47,7 @@ public class PlayerManger : MonoBehaviour
         hpSlider.value = playerHP;
 
         //체력이 0 이하가 된다면
-        if(playerHP <= 0)
+        if(playerHP <= 0 && !gameOver)
         {
             OnDied();
         }
@@ -50,8 +57,14 @@ public class PlayerManger : MonoBehaviour
     //사망 처리 함수
     void OnDied()
     {
+        gameOver = true ;
         isAlive = false;
         Destroy(hpBar);
+
+        //사망 에니메이션
         this.gameObject.SetActive(false);
+
+        GameOverPopup.SetActive(true);
+
     }
 }
