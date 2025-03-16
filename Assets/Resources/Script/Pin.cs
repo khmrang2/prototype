@@ -16,6 +16,7 @@ public class Pin : MonoBehaviour
     private float forceOffset = 15.0f;
 
     private int cnt = 0;
+    private int maxHitCount = 5; // 최대 충돌 횟수
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Pin : MonoBehaviour
 
             // add_cnt 함수 호출
             add_cnt();
+            destroy_Pin();
         }
     }
 
@@ -117,7 +119,10 @@ public class Pin : MonoBehaviour
         // 파티클 자동 삭제
         Destroy(particleInstance, particleLifetime);
     }
-
+    private void destroy_Pin() // 핀이 일정 체력 이하로 떨어지면 파괴
+    {
+        if (cnt >= maxHitCount) gameObject.SetActive(false);
+    }
     private void add_cnt(){
         cnt++;
     }
