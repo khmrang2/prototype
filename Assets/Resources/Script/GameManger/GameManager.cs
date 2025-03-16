@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private GameObject plAtkObj;
     public Transform playerTransform;  // 플레이어의 Transform
     public EnemyListManager enemyListManager;  // EnemyListManager 참조
+    public GameObject clearPopup;
     // 현민 - 
     // 게임할 state들을 불러옴.
     // 플레이어가 기본적으로 불러오는 state. 
@@ -55,8 +56,13 @@ public class GameManager : MonoBehaviour
     // 각 상태의 동작이 시작되었는지 여부를 체크하는 플래그
     private bool stateStarted = false;
 
+    //게임 시스템의 진행을 정지시키기 위한 변수
+    public bool isPlaying = true;
+
     void Start()
     {
+        clearPopup.SetActive(false);
+        isPlaying = true;
         buffState = new BaseState();
         defaultState = new BaseState();
         playerState = new BaseState();
@@ -102,18 +108,34 @@ public class GameManager : MonoBehaviour
             case GameTurn.EnemyBehaviorState:
                 if (!stateStarted)
                 {
-                    Debug.Log("Enemies moving...");
-                    // 적 이동을 시작 (enemyListManager.MoveEnemies()가 내부적으로 이동을 처리하고,
-                    // AllEnemiesMoved()가 이동 완료를 판단한다고 가정)
-                    enemyListManager.MoveEnemies();
-                    stateStarted = true;
+                    //살아있는 적이 없다면 게임 클리어 처리
+                    if (enemyListManager.isAllEnemyDead())
+                    {
+                        stateStarted = true;    //게임 진행을 막기 위해 stateStarted의 값을 참으로
+                        isPlaying = false;
+
+                        //게임 클리어 팝업 띄우기
+                        clearPopup.SetActive(true);
+                    }
+                    else   //살아있는 적이 있다면 적의 이동 작동
+                    {
+
+                        Debug.Log("Enemies moving...");
+                        // 적 이동을 시작 (enemyListManager.MoveEnemies()가 내부적으로 이동을 처리하고,
+                        // AllEnemiesMoved()가 이동 완료를 판단한다고 가정)
+                        enemyListManager.MoveEnemies();
+                        stateStarted = true;
+                    }
+
                 }
-                if (enemyListManager.AllEnemiesMoved())
+                if (enemyListManager.AllEnemiesMoved() && isPlaying)
                 {
                     enemyListManager.SpawnEnemyPerTurn();
                     stateStarted = false;
                     currentTurn = GameTurn.ChooseBuffState;
                 }
+                    
+                
                 break;
 
             case GameTurn.ChooseBuffState:
@@ -186,6 +208,7 @@ public class GameManager : MonoBehaviour
     {
         plAtkObj = null;
     }
+
 }
 
 /**

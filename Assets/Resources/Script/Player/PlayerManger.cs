@@ -64,6 +64,10 @@ public class PlayerManger : MonoBehaviour
         //사망 에니메이션
         this.gameObject.SetActive(false);
 
+        //에니메이션 종료 후 게임 일시 정지
+        //Time.timeScale = 0;
+
+        //게임 오버 팝업 띄우기
         GameOverPopup.SetActive(true);
 
     }

@@ -132,4 +132,17 @@ public class EnemyListManager : MonoBehaviour
     {
         return enemies;
     }
+
+
+    // === 6?? 게임 클리어 여부 확인을 위한 적 생존 확인 ===
+    public bool isAllEnemyDead()
+    {
+        foreach(var enemy in enemies)
+        {
+            if(enemy.isAlive == true) return false;     //하나라도 살아있다면 false 반환
+        }
+        Debug.Log("다 죽었다");
+        return true;    //다 죽었다면 true 반환
+    }
+
 }
