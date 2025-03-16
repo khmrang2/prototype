@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: EnemyDataList(test)
   m_EditorClassIdentifier: 
   EnemyList:
-  - hp: 100
+  - hp: 100000
     attack: 8
     defense: 0
     enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - hp: 80
+  - hp: 1000000
     attack: 12
     defense: 0
     enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - hp: 120
+  - hp: 1000000
     attack: 5
     defense: 0
     enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - hp: 100
+  - hp: 10000
     attack: 8
     defense: 0
     enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
-  - hp: 100
+  - hp: 100000
     attack: 8
     defense: 0
     enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}

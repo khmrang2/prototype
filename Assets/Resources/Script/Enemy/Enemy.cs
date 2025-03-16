@@ -11,13 +11,12 @@ public class Enemy : MonoBehaviour
     public bool isSpawned = false;
     public bool isAlive;
     [SerializeField] private float AttackRange = 0.1f;
-    private Vector3 targetPosition;  // 목표 위치
     private int moveStep = 0; // 이동 단계 (5번으로 나누어 진행);
     private GameObject target;  // 추가된 변수, 타겟(플레이어)을 추적
-    float moveDistance; // 한 칸 이동 목표 거리
+    private float moveDistance; // 한 칸 이동 목표 거리
+    public Transform start;
     private void Start()
     {
-        
         status = GetComponent<EnemyStatus>();
         // "Player" 태그가 있는 오브젝트를 찾아 타겟으로 설정
         target = GameObject.FindWithTag("Player");
@@ -31,8 +30,13 @@ public class Enemy : MonoBehaviour
             {
                 Debug.Log("found player!");
             }
+            else
+            {
+                Debug.Log("Player None");
+            }
         }
-        moveDistance = Vector3.Distance(transform.position, target.transform.position) / 5f; // 한 칸 이동 목표 거리
+        moveDistance = Vector3.Distance(start.position, target.transform.position) / 5f; // 한 칸 이동 목표 거리
+
         //플레이어 감지 상태를 false로 초기화
         isDetectedPlayer = false;
         //생존 처리를 true로
@@ -82,14 +86,13 @@ public class Enemy : MonoBehaviour
             isMoving = true; // 이동 시작
             float elapsedTime = 0f;
 
-
             Vector3 startPosition = transform.position;
             Vector3 endPosition = transform.position - (Vector3.right * moveDistance);
-
+            Debug.Log($"시작 {startPosition} 끝{endPosition}");
+            Debug.Log($"이동거리{moveDistance}");
             while (elapsedTime < duration)
             {
                 // 목표 위치로 일정 속도로 이동
-                Debug.Log($"{Time.deltaTime} 시간");
                 transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / duration);
                 elapsedTime += Time.deltaTime;
                 await Task.Yield(); // 프레임마다 갱신
