@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Pin
   - Ball
+  - ErrorScreen
   layers:
   - Default
   - TransparentFX
