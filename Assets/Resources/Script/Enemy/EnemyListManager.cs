@@ -11,6 +11,7 @@ public class EnemyListManager : MonoBehaviour
     public Transform enemySpawnTransform;
     public Transform enemyStartTransform;
     public List<Enemy> enemies = new List<Enemy>();
+    public GameObject EnemyHpbarCanvas;
 
     [SerializeField] private int turn;  //턴 값
 
@@ -48,6 +49,10 @@ public class EnemyListManager : MonoBehaviour
             //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여 
             enemyStatus.SetEnemyStat(enemyDataList.EnemyList[i].hp, enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
             //enemyObject.SetActive(false);
+            //적 체력바 소환
+            enemy.canvas = EnemyHpbarCanvas;
+            enemy.SetEnemyHealthBar();
+
         }
         enemiesSpawned = true; // 한 번만 실행되도록 설정
 

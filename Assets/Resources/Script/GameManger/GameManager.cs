@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour
 
                         //게임 클리어 팝업 띄우기
                         clearPopup.SetActive(true);
+
                     }
                     else   //살아있는 적이 있다면 적의 이동 작동
                     {
