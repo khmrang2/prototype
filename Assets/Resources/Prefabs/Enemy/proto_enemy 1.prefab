@@ -101,11 +101,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   isMoving: 0
+  start: {fileID: 0}
   isDetectedPlayer: 0
-  status: {fileID: 0}
   isSpawned: 0
   isAlive: 0
   AttackRange: 1.5
+  status: {fileID: 0}
+  HpBar: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
 --- !u!114 &-1674373607952233300
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class PlayerManger : MonoBehaviour
 {
     [Header ("HP Bar variables")]
-    public GameObject prefHP_Bar;
-    public GameObject canvas;
-    public float height = 2f;
-    private GameObject hpBar;
+    public GameObject hpBar;    //플레이어의 체력바 ui
+    //public GameObject canvas;   
+    //public float height = 2f;   
+    
     private Slider hpSlider; 
 
     [Header("Player Chracter Variables")]
@@ -28,15 +28,21 @@ public class PlayerManger : MonoBehaviour
 
     void Start()
     {
+        //변수 및 팝업 초기화
         gameOver = false ;
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
-        hpBar = Instantiate(prefHP_Bar, canvas.transform);
-        Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height);
-        RectTransform rt = hpBar.GetComponent<RectTransform>();
-        rt.anchorMin = viewportPos;
-        rt.anchorMax = viewportPos;
-         hpSlider = hpBar.GetComponent<Slider>();
+
+        //체력바 소환
+        //hpBar = Instantiate(prefHP_Bar, canvas.transform);
+        
+        //체력바 위치 조정
+        //Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height + Vector3.left * 0.07f);   //체력바가 위치할 좌표
+        //RectTransform rt = hpBar.GetComponent<RectTransform>();
+        //rt.anchorMin = viewportPos;
+        //rt.anchorMax = viewportPos;
+        hpSlider = hpBar.GetComponent<Slider>();
+        hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
 
     }
 
