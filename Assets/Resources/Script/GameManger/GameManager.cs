@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
                 if (chkStageEnded())
                 {
                     stateStarted = false;
+                    pinManager.RespawnPins();
                     currentTurn = GameTurn.DropBallState;
                 }
                 break;
