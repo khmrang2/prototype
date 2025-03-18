@@ -139,11 +139,12 @@ MonoBehaviour:
   popUpPanel: {fileID: 0}
   popUpScript: {fileID: 0}
   backgroundImage: {fileID: 4229822125667122623}
-  commonSprite: {fileID: 21300000, guid: 7596fb16de0cd63439cdb0252b5695ad, type: 3}
+  commonSprite: {fileID: 21300000, guid: d1396238b42ef984fa5e842e1137291e, type: 3}
   uncommonSprite: {fileID: 21300000, guid: 7b562e830a7c8584fb819fb303ea7b6a, type: 3}
   rareSprite: {fileID: 21300000, guid: de92499005a75264987479b6a0581a98, type: 3}
   epicSprite: {fileID: 21300000, guid: 5c18880365109114795cb49c49b42216, type: 3}
   legendarySprite: {fileID: 21300000, guid: cb53d206b9494dd468f047c7b60392bd, type: 3}
+  usableSprite: {fileID: 21300000, guid: f43a7111c119bb847b376fb4527262ac, type: 3}
   inventoryItemPrefab: {fileID: 1117477902857782943, guid: 108168f62363a3240b2d45f204539895, type: 3}
 --- !u!114 &8984420145704558461
 MonoBehaviour:

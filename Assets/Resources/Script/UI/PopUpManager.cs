@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PopUpManager : MonoBehaviour
 {
     // 싱글톤 인스턴스
@@ -34,8 +35,10 @@ public class PopUpManager : MonoBehaviour
     /// 아이템 슬롯에서 호출하면, 해당 아이템의 정보를 담은 팝업을 표시합니다.
     /// </summary>
     /// <param name="itemData">표시할 아이템 데이터 (예: Item 타입 또는 ItemData 타입)</param>
-    public void ShowPopup(ItemData itemdata)
+    public void ShowPopup(int popupid, ItemData itemdata)
     {
+        if (itemdata == null) return;
+
         // 팝업이 처음 호출되면 인스턴스 생성
         if (popupInstance == null)
         {
@@ -52,7 +55,7 @@ public class PopUpManager : MonoBehaviour
         updatePopup popupComponent = popupInstance.GetComponent<updatePopup>();
         if (popupComponent != null)
         {
-            popupComponent.loadItem(itemdata);
+            popupComponent.loadItem(popupid, itemdata);
         }
         else
         {

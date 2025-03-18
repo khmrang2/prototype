@@ -6,6 +6,7 @@ using UnityEngine;
 public class FontSizeAdjuster : MonoBehaviour
 {
     public TextMeshProUGUI titleText; // Auto Size 켜진 제목 텍스트
+    public List<TextMeshProUGUI> mainText;   // 같은 비율로 맞출 텍스트
     public List<TextMeshProUGUI> subTexts;   // 비율로 맞출 텍스트
     [Range(0.1f, 1f)]
     public float ratio = 0.8f; // 제목 폰트 크기의 80%로 설정

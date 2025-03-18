@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "itemName": "흔한 고철 무기 - common scrap weapon",
-    "tooltip": "1-CSW-어디에서나 구할 수 있는 흔한 기계 심장이다.",
+    "itemName": "흔한 고철 무기",
+    "tooltip": "어디에서나 구할 수 있는 흔한 기계 심장이다.",
     "imgpath": "Item_Weapon",
     "rarity": 0,
     "type": "equipment",
@@ -20,8 +20,8 @@
   },
   {
     "id": 2,
-    "itemName": "조잡한 총 - Handmade Gun",
-    "tooltip": "1-HG-일단은 돌아가는 조잡한 총이다.",
+    "itemName": "조잡한 총",
+    "tooltip": "일단은 돌아가는 조잡한 총이다.",
     "imgpath": "Item_Gun",
     "rarity": 0,
     "type": "equipment",
@@ -39,8 +39,8 @@
   },
   {
     "id": 3,
-    "itemName": "흔한 기계 심장 - common heart",
-    "tooltip": "1-GMH-어디에서나 구할 수 있는 흔한 기계 심장이다.",
+    "itemName": "흔한 기계 심장",
+    "tooltip": "어디에서나 구할 수 있는 흔한 기계 심장이다.",
     "imgpath": "Item_Heart",
     "rarity": 0,
     "type": "equipment",
@@ -58,8 +58,8 @@
   },
   {
     "id": 4,
-    "itemName": "감자 레몬 서버 - general mechanical heart",
-    "tooltip": "1-gmh-어떻게 서버가 돌아가는지 모르겠다.",
+    "itemName": "감자 레몬 서버",
+    "tooltip": "어떻게 서버가 돌아가는지 모르겠다.",
     "imgpath": "Item_Server",
     "rarity": 0,
     "type": "equipment",
@@ -78,7 +78,7 @@
   {
     "id": 5,
     "itemName": "조잡한 기어",
-    "tooltip": "1-HG-땅에 떨어진 걸 주운 기어다. 돌아가는지 의문이다.",
+    "tooltip": "땅에 떨어진 걸 주운 기어다. 돌아가는지 의문이다.",
     "imgpath": "Item_Gear",
     "rarity": 0,
     "type": "equipment",
@@ -419,7 +419,7 @@
   },
   {
     "id": 23,
-    "itemName": "형상변환 합금 기어",
+    "itemName": "형상 합금 기어",
     "tooltip": "적절한 온도에서는 반영구적으로 형태를 유지하는 기어이다.",
     "imgpath": "Item_Gear",
     "rarity": 3,
@@ -552,8 +552,8 @@
   },
   {
     "id": 30,
-    "itemName": "gear legendary",
-    "tooltip": "null.",
+    "itemName": "100단 구골 기어",
+    "tooltip": "100개의 톱니가 연결되어 있는 톱니. 1개의 톱니가 돌기 위해선 1년이 필요하고, 다음 톱니의 1칸을 맞물리게 한다. 그래서 구골이라는 단위가 만들어졌다.",
     "imgpath": "Item_Gear",
     "rarity": 4,
     "type": "equipment",
@@ -574,7 +574,7 @@
     "itemName": "골드go",
     "tooltip": "asdasd",
     "imgpath": "Sack Of Coin",
-    "rarity": 0,
+    "rarity": 5,
     "type": "goldpot"
   },
   {
@@ -582,7 +582,7 @@
     "itemName": "upgrade 소모성 아이템",
     "tooltip": "upgrade~ ~",
     "imgpath": "Item_Upgrade",
-    "rarity": 0,
+    "rarity": 5,
     "type": "consumable"
   }
 ]
