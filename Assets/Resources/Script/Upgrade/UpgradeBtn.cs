@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-//¾÷±×·¹ÀÌµå ¹öÆ° º°·Î Áõ°¡½ÃÅ³ ½ºÅÈÀÇ Á¾·ù¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ ¿­°ÅÇü(enum) Á¤ÀÇ
+//ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(enum) ï¿½ï¿½ï¿½ï¿½
 public enum UpgradeStatName
 {
     HP = 0,
@@ -26,42 +26,42 @@ public class UpgradeBtn : MonoBehaviour
 
     [Header("Upgrade button parameters")]
 
-    public Button btn;    //½º½º·ÎÀÇ È°¼º & ºñÈ°¼ºÀ» Ã³¸®ÇÏ±â À§ÇÑ ¹öÆ°
-    //public UpgradeBtnManager manager;    // ¹öÆ° ¸Å´ÏÁ® // ½ÅÈ£¸¦ ÁÖ±â À§ÇØ¼­
+    public Button btn;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½ & ï¿½ï¿½È°ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    //public UpgradeBtnManager manager;    // ï¿½ï¿½Æ° ï¿½Å´ï¿½ï¿½ï¿½ // ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
 
-    [SerializeField] private GameObject upgradePopUp;   //¹öÆ° ÅÍÄ¡ ½Ã µîÀåÇÒ ÆË¾÷
-    private UpgradePopupManager popupManager;           //µîÀåÇÒ Æà¾÷¿¡ Àü´ÞµÉ µ¥ÀÌÅÍ °ü¸®¸¦ À§ÇÑ Å¬·¡½º
+    [SerializeField] private GameObject upgradePopUp;   //ï¿½ï¿½Æ° ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½
+    private UpgradePopupManager popupManager;           //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Þµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 
 
     [Header("Upgrade button settings")]
 
-    [SerializeField] private string upgradeName;  //ÇØ´ç ¹öÆ°À» ÅëÇØ ÀÌ·ç¾îÁú ¾÷±×·¹ÀÌµåÀÇ ÀÌ¸§  // ÆË¾÷¿¡ µîÀå
-    [SerializeField] private int upgradeStat;     //ÇØ´ç ¹öÆ°À» ÅëÇØ ÀÌ·ç¾îÁú ¾÷±×·¹ÀÌµåÀÇ ¼öÄ¡
-    [SerializeField] private int upgradeCost;    //ÇØ´ç ¹öÆ°À» ÅëÇØ ÀÌ·ç¾îÁú ¾÷±×·¹ÀÌµåÀÇ ºñ¿ë
+    [SerializeField] private string upgradeName;  //ï¿½Ø´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½  // ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private int upgradeStat;     //ï¿½Ø´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    [SerializeField] private int upgradeCost;    //ï¿½Ø´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-    [SerializeField] private bool isUpgradable;  //ÇØ´ç ¾÷±×·¹ÀÌµå°¡ ±¸¸Å °¡´ÉÇÑÁö ³ªÅ¸³»´Â °ª, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ±¸Çö
-    [SerializeField] private int upgradeNum;    //¾÷±×·¹ÀÌµå°£ÀÇ ±¸º°À» À§ÇÑ °íÀ¯°ª, ´Ü°èÀû ÇØ±Ý ¹× ±¸¸Å±â·Ï ÀúÀå°ú ¿¬°è ¿¹Á¤, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ±¸Çö
+    [SerializeField] public bool isUpgradable;  //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private int upgradeNum;    //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Å±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public bool IsUpgradable { get { return isUpgradable; } set { isUpgradable = value; } }
 
     public int UpgradeNum { get { return upgradeNum; } }
 
-    public UpgradeStatName upgradeStatName;     //¾÷±×·¹ÀÌµå ¹öÆ° º°·Î Áõ°¡½ÃÅ³ ½ºÅÈÀÇ Á¾·ù¸¦ ÁöÁ¤ÇÏ±â À§ÇÑ ¿­°ÅÇü
+    public UpgradeStatName upgradeStatName;     //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
 
 
-    #region ÃÊ±âÈ­
+    #region ï¿½Ê±ï¿½È­
     void Start()
     {
-        //ÆË¾÷ÀÇ µ¥ÀÌÅÍ °ü¸®¸¦ À§ÇØ UpgradePopupManagerÀ» È£Ãâ
+        //ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UpgradePopupManagerï¿½ï¿½ È£ï¿½ï¿½
         popupManager = upgradePopUp.GetComponent<UpgradePopupManager>();
 
-        // ±âÁ¸ ¹öÆ°¿¡ Å¬¸¯ ÀÌº¥Æ® Ãß°¡
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ß°ï¿½
         btn.onClick.AddListener(showButtons);
 
-        //¾÷±×·¹ÀÌµå °¡´É ¿©ºÎ¿¡ µû¶ó ½º½º·Î¸¦ È°¼º or ºñÈ°¼ºÈ­
+        //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ È°ï¿½ï¿½ or ï¿½ï¿½È°ï¿½ï¿½È­
         CheckUpgradable();
 
     }
@@ -70,32 +70,32 @@ public class UpgradeBtn : MonoBehaviour
 
 
 
-    #region ÆË¾÷ °ü·Ã ¸Þ¼Òµå
+    #region ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
-    //ÆË¾÷ È°¼ºÈ­
+    //ï¿½Ë¾ï¿½ È°ï¿½ï¿½È­
     public void showButtons()
     {
 
-        //ÆË¾÷¿¡ µ¥ÀÌÅÍ Àü´Þ
+        //ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         popupManager.UpgradeName = upgradeName;
         popupManager.UpgradeStat = upgradeStat;
         popupManager.UpgradeCost = upgradeCost;
         popupManager.UpgradeStatName = (int)upgradeStatName;
 
 
-        //ÆË¾÷ ¼³Á¤
+        //ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½
         popupManager.SetUpgradePopup();
 
-        //ÆË¾÷ È°¼ºÈ­
+        //ï¿½Ë¾ï¿½ È°ï¿½ï¿½È­
         upgradePopUp.SetActive(true);
 
     }
 
 
-    //ÆË¾÷ ´Ý±â
+    //ï¿½Ë¾ï¿½ ï¿½Ý±ï¿½
     public void hideButtons()
     {
-        // »õ ¹öÆ° È°¼ºÈ­
+        // ï¿½ï¿½ ï¿½ï¿½Æ° È°ï¿½ï¿½È­
         upgradePopUp.SetActive(false);
 
     }
@@ -104,119 +104,119 @@ public class UpgradeBtn : MonoBehaviour
 
 
 
-    #region ¾÷±×·¹ÀÌµå ¹öÆ° È°¼ºÈ­ °ü·Ã ¸Þ¼Òµå
+    #region ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Æ° È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
 
-    //ÇØ´ç ¾÷±×·¹ÀÌµå°¡ ±¸¸Å °¡´ÉÇÑÁö È®ÀÎÇÏ´Â ¸Þ¼Òµå
+    //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
     public void CheckUpgradable()
     {
-        //ÇöÁ¦ ±¸¸Å °¡´ÉÇÑ ¾÷±×·¹ÀÌµåÀÇ ¹øÈ£¸¦ ¹Þ¾Æ¿È
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
         int upNum = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum"));
 
-        //ÀÌ ¾÷±×·¹ÀÌµåÀÇ ¹øÈ£¿Í ÇöÁ¦ ±¸¸Å °¡´ÉÇÑ ¾÷±×·¹ÀÌµåÀÇ ¹øÈ£°¡ °°ÀºÁö È®ÀÎ
+        //ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (upNum == UpgradeNum) 
         {
-            //°°´Ù¸é ÇØ´ç ¹öÆ°ÀÇ »óÈ£ÀÛ¿ë ¿©ºÎ¸¦ true·Î º¯°æ
+            //ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             IsUpgradable = true;
 
-            //ÀÌ¹ÌÁö º¯°æ
+            //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             ChangeButtonImage(upNum);
 
-            //»óÈ£ÀÛ¿ë °¡´É Ã³¸®
+            //ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             btn.interactable = true;
 
         }
         else
         {
-            //´Ù¸£´Ù¸é ÇØ´ç ¹öÆ°ÀÇ »óÈ£ÀÛ¿ë ¿©ºÎ¸¦ false·Î º¯°æ
+            //ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             IsUpgradable = false;
 
-            //ÀÌ¹ÌÁö º¯°æ
+            //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             ChangeButtonImage(upNum);
 
-            //»óÈ£ÀÛ¿ë ºÒ°¡´É Ã³¸®
+            //ï¿½ï¿½È£ï¿½Û¿ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             btn.interactable = false;
         }
     }
 
 
 
-    //¾÷±×·¹ÀÌµå ±¸¸Å °¡´É ¿©ºÎ¿¡ µû¸¥ ¹öÆ° ÀÌ¹ÌÁö º¯È­ ¸Þ¼Òµå
+    //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½Þ¼Òµï¿½
     private void ChangeButtonImage(int upgradableNum)
     {
 
-        //¹öÆ°ÀÇ ÀÌ¹ÌÁö¸¦ ´ã´çÇÏ´Â ÀÚ½Ä ¿ÀºêÁ§Æ® bg Ã£±â
+        //ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® bg Ã£ï¿½ï¿½
         Transform bgTransform = transform.Find("bg");
 
 
         if (IsUpgradable)
         {
-            //¾÷±×·¹ÀÌµå°¡ °¡´ÉÇÏ´Ù¸é ±¸¸Å °¡´É ½ºÇÁ¶óÀÌÆ®·Î º¯°æ
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             
             if (bgTransform != null)
             {
                 Image bgImage = bgTransform.GetComponent<Image>();
                 if (bgImage != null)
                 {
-                    bgImage.sprite = PurchasableUpgrade; // Source Image º¯°æ
+                    bgImage.sprite = PurchasableUpgrade; // Source Image ï¿½ï¿½ï¿½ï¿½
                 }
                 else
                 {
-                    Debug.LogError("bg ¿ÀºêÁ§Æ®¿¡ Image ÄÄÆ÷³ÍÆ®°¡ ¾øÀ½!");
+                    Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                 }
             }
             else
             {
-                Debug.LogError("bg ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾øÀ½!");
+                Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
             }
 
 
         }
         else
         {
-            //¾÷±×·¹ÀÌµå°¡ ºÒ°¡´ÉÇÏ´Ù¸é
-            //ÀÌ¹Ì ±¸¸ÅÇÑ ¾÷±×·¹ÀÌµåÀÎÁö, ¾ÆÁ÷ ±¸¸Å ºÒ°¡´ÉÇÑ ¾÷±×·¹ÀÌµåÀÎÁö È®ÀÎ
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå°¡ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï´Ù¸ï¿½
+            //ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
             if (UpgradeNum < upgradableNum) 
             {
-                //ÀÌ¹Ì ±¸¸ÅÇÑ ¾÷±×·¹ÀÌµå¶ó¸é ÇØ´ç ÀÌ¹ÌÁö·Î º¯°æ
+                //ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                 if (bgTransform != null)
                 {
                     Image bgImage = bgTransform.GetComponent<Image>();
                     if (bgImage != null)
                     {
-                        bgImage.sprite = PurchasedUpgrade; // Source Image º¯°æ
+                        bgImage.sprite = PurchasedUpgrade; // Source Image ï¿½ï¿½ï¿½ï¿½
                     }
                     else
                     {
-                        Debug.LogError("bg ¿ÀºêÁ§Æ®¿¡ Image ÄÄÆ÷³ÍÆ®°¡ ¾øÀ½!");
+                        Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                     }
                 }
                 else
                 {
-                    Debug.LogError("bg ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾øÀ½!");
+                    Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                 }
             }
             else if(UpgradeNum > upgradableNum)
             {
-                //¾ÆÁ÷ ±¸¸ÅÇÒ ¼ö ¾ø´Â ¾÷±×·¹ÀÌµå¶ó¸é ÇØ´ç ÀÌ¹ÌÁö·Î º¯°æ
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                 if (bgTransform != null)
                 {
                     Image bgImage = bgTransform.GetComponent<Image>();
                     if (bgImage != null)
                     {
-                        bgImage.sprite = UnpurchasableUpgrade; // Source Image º¯°æ
+                        bgImage.sprite = UnpurchasableUpgrade; // Source Image ï¿½ï¿½ï¿½ï¿½
                     }
                     else
                     {
-                        Debug.LogError("bg ¿ÀºêÁ§Æ®¿¡ Image ÄÄÆ÷³ÍÆ®°¡ ¾øÀ½!");
+                        Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Image ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                     }
                 }
                 else
                 {
-                    Debug.LogError("bg ¿ÀºêÁ§Æ®¸¦ Ã£À» ¼ö ¾øÀ½!");
+                    Debug.LogError("bg ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                 }
             }
 
