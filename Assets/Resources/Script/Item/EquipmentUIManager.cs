@@ -52,13 +52,15 @@ public class EquipmentUIManager : MonoBehaviour
 
     private bool payGold(int amount, bool isAds=false)
     {
+        if (PlayerStatusInMain.Instance == null)
+        {
+            Debug.LogError("🚨 PlayerStateInMain.Instance가 null입니다! 초기화 확인 필요");
+            return false;
+        }
         if (isAds) return true;
         else
         {
-            int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-            if (currentGold < amount) return false;
-            DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold - amount).ToString());
-            return true;
+            return PlayerStatusInMain.Instance.payGold(amount);
         }
     }
 
@@ -66,7 +68,9 @@ public class EquipmentUIManager : MonoBehaviour
     {
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
         int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        //int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
         DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + equipmentPanel.GetEarnedGold()).ToString());
+        //DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + equipmentPanel.GetEarnedUpgradeStone()).ToString());
     }
 
     /// <summary>
@@ -91,15 +95,15 @@ public class EquipmentUIManager : MonoBehaviour
             float roll = Random.Range(0f, 100f);
             if (roll < 40)
             {
-                // 40% 장비 실제로 40%가 아닌데? 
+                // 40% 장비
                 equipmentList.Add(ItemDatabase.Instance.GetRandomItem());
-            }else if(40 < roll && roll < 50){
-                // 10% 업그레이드 아이템.
+            }else if(40 < roll && roll <= 70){
+                // 30% 업그레이드 아이템.
                 equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_UPGRADE_ITEM));
             }
             else
             {
-                // 50% 골드.
+                // 30% 골드.
                 equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_GOLD_POT));              
             }
         }

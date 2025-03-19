@@ -52,6 +52,7 @@ public class DataControl : MonoBehaviour
     private static string GoldName = "Gold";                                   //재화 중 골드의 키 이름
 
     private static string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
+    
     //private string EquipDataName;                                     //장비 해금 정보의 키 이름
 
 

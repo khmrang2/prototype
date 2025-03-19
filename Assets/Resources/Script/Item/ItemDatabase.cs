@@ -31,15 +31,6 @@ public class ItemDatabase : MonoBehaviour
     /** 아이템 색인 0부터 32까지의 id를 가져옴.*/
     public const int RANGE_COSUMABLE = 32;
 
-    [Header("레어도에 따른 확률 변동.")]
-    public float commonChance = 40f;
-    public float uncommonChance = 30f;
-    public float rareChance = 20f;
-    public float epicChance = 9f;
-    public float legendaryChance = 1f;
-    public float usuableChance = 0f; // 필요한 경우 사용
-
-
     private List<Item> database = new List<Item>();
     private Dictionary<int, Item> itemLookup = new Dictionary<int, Item>();
     private JsonData itemData;
@@ -148,21 +139,6 @@ public class ItemDatabase : MonoBehaviour
     public Item FetchItemById(int id)
     {
         return itemLookup.TryGetValue(id, out var item) ? item : null;
-    }
-    /// <summary>
-    /// 랜덤으로 ItemData(아이템과 양)을 반환하는 아이템 반환자.
-    /// 
-    /// param을 넣지 않으면 기본으로 0 ~ 5로 반환합니다.
-    /// </summary>
-    /// <param name="max_amount">아이템의 최대 수량을 return 합니다.</param>
-    /// <returns>ItemData 랜덤 아이템과 양.</returns>
-    public ItemData GetRandomItemWithAmount(int max_amount)
-    {
-        return new ItemData(GetRandomItem(), Mathf.RoundToInt(UnityEngine.Random.Range(1, max_amount)));
-    }
-    public ItemData GetRandomItemWithAmount()
-    {
-        return new ItemData(GetRandomItem(), Mathf.RoundToInt(UnityEngine.Random.Range(1, 5)));
     }
     /// <summary>
     /// 랜덤으로 아이템을 반환하는 아이템 반환자.

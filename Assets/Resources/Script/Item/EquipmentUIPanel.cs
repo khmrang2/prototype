@@ -20,6 +20,8 @@ public class EquipmentUIPanel : MonoBehaviour
 
     private int earn_gold = 0;
 
+    private int earn_upgrade_stone = 0;
+
     /// <summary>
     /// 단일 장비 UI 표시
     /// </summary>
@@ -27,6 +29,7 @@ public class EquipmentUIPanel : MonoBehaviour
     {
         // 초기화
         earn_gold = 0;
+        earn_upgrade_stone = 0;
         if (equipments == null || equipments.Count == 0) return;
 
         // 단일 장비이므로 첫 번째 아이템만 사용
@@ -58,6 +61,7 @@ public class EquipmentUIPanel : MonoBehaviour
             itemName.text = $"{item.ItemName}을(를)\n{amount}개 획득했습니다!";
             // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
             amount = Random.Range(1, 10);
+            earn_upgrade_stone += amount;
         }
         else
         {
@@ -77,6 +81,7 @@ public class EquipmentUIPanel : MonoBehaviour
 		/// </summary>
     public void ShowMultipleEquipments(List<Item> equipments){
 		earn_gold = 0;
+        earn_upgrade_stone = 0;
 
     	if (equipments == null || equipments.Count == 0) return;
    		if (itemSlotPrefab == null || itemSlotParent == null) return;
@@ -113,6 +118,7 @@ public class EquipmentUIPanel : MonoBehaviour
             {
                 // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
                 amount = Random.Range(1, 10);
+                earn_upgrade_stone += amount;
                 /* 여기에 업그레이드 아이템을 넣어줌. */
             }
             else
@@ -161,4 +167,8 @@ public class EquipmentUIPanel : MonoBehaviour
     	return earn_gold;
 	}
 
+    public int GetEarnedUpgradeStone()
+    {
+        return earn_upgrade_stone;
+    }
 }
