@@ -36,13 +36,29 @@ public class PlayerStatusInMain : MonoBehaviour
         return true;
     }
 
-    //public bool payUpgradeStone(int amount)
-    //{
-    //    int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-    //    if (currentUpgradeStone < amount) return false;
-    //    DataControl.SaveEncryptedDataToPrefs("Gold", (currentUpgradeStone - amount).ToString());
-    //    return true;
-    //}
+    public void getGold(int amount)
+    {
+        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        Debug.Log($"Player received {amount} gold.");
+        DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + amount).ToString());
+        // TODO: 골드 추가 로직 구현 (예: 플레이어의 골드 데이터 업데이트)
+    }
+
+    public bool payUpgradeStone(int amount)
+    {
+        int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
+        if (currentUpgradeStone < amount) return false;
+        DataControl.SaveEncryptedDataToPrefs("Gold", (currentUpgradeStone - amount).ToString());
+        return true;
+    }
+
+    public void getUpgradeStone(int amount)
+    {
+        int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
+        Debug.Log($"Player received {amount} upgrade stone");
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + amount).ToString());
+        // TODO: 골드 추가 로직 구현 (예: 플레이어의 골드 데이터 업데이트)
+    }
     // player stat : migration with tae yeon.
 
     // gold

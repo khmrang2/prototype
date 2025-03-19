@@ -8,6 +8,7 @@ public class tempScriptForDebug : MonoBehaviour
     [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //버튼들의 관리를 위한 메니저 스크립트
 
     public TextMeshProUGUI goldText;
+    public TextMeshProUGUI upgradeStoneText;
     public TextMeshProUGUI HpText;
     public TextMeshProUGUI ATKText;
     public TextMeshProUGUI BcText;
@@ -17,6 +18,7 @@ public class tempScriptForDebug : MonoBehaviour
     private void Start()
     {
         goldText.text = "0";
+        upgradeStoneText.text = "0";
         HpText.text = "0";
         ATKText.text = "0";
         BcText.text = "0";
@@ -26,6 +28,7 @@ public class tempScriptForDebug : MonoBehaviour
     private void Update()
     {
         goldText.text = DataControl.LoadEncryptedDataFromPrefs("Gold");
+        upgradeStoneText.text = DataControl.LoadEncryptedDataFromPrefs("UpgradeStone");
         HpText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP");
         ATKText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK");
         BcText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT");

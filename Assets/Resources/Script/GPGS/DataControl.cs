@@ -14,6 +14,7 @@ using System.ComponentModel;
 public class DataSettings   //저장될 데이터 클래스
 {
     public int gold = 0;
+    public int upgradeStone = 0;
     public int hp = 0;
     public int atk = 0;
     public int pinHp = 0;
@@ -50,6 +51,7 @@ public class DataControl : MonoBehaviour
     private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //플레이어 케릭터의 핀 체력의 키 이름
 
     private static string GoldName = "Gold";                                   //재화 중 골드의 키 이름
+    private static string UpgradeStoneName = "UpgradeStone";                       //재화 중 업그레이드 키 이름.
 
     private static string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
     
@@ -64,6 +66,7 @@ public class DataControl : MonoBehaviour
     private static int PlayerPINHP = 3;                                        //플레이어 케릭터의 초기 핀 체력값
 
     private static int gold = 0;                                               //초기 골드값
+    private static int upgradeStone = 0;                                       //초기 업그레이드 스톤 양.
 
     private static int UpgradableNum = 0;                                      //업그레이드 해금 정보의 초기값
 
@@ -360,6 +363,7 @@ public class DataControl : MonoBehaviour
     private void SetDataSettings()
     {
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
+        SaveEncryptedDataToPrefs(UpgradeStoneName, settings.upgradeStone.ToString());
         SaveEncryptedDataToPrefs(PlayerHPName, settings.hp.ToString());
         SaveEncryptedDataToPrefs(PlayerATKName, settings.atk.ToString());
         SaveEncryptedDataToPrefs(PlayerPINHPName, settings.pinHp.ToString());
@@ -374,6 +378,7 @@ public class DataControl : MonoBehaviour
     private void GetDataSettings()
     {
         settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
+        settings.upgradeStone = int.Parse(LoadEncryptedDataFromPrefs(UpgradeStoneName));
         settings.hp = int.Parse(LoadEncryptedDataFromPrefs(PlayerHPName));
         settings.atk = int.Parse(LoadEncryptedDataFromPrefs(PlayerATKName));
         settings.ballCount = int.Parse(LoadEncryptedDataFromPrefs(PlayerBALLCOUNTName));
@@ -481,6 +486,7 @@ public class DataControl : MonoBehaviour
 
         //초기 골드값 세팅
         SaveEncryptedDataToPrefs(GoldName, gold.ToString());
+        SaveEncryptedDataToPrefs(UpgradeStoneName, upgradeStone.ToString());
 
         //업그레이드 해금 정보의 초기값 세팅
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());

@@ -46,6 +46,7 @@ public class AdManager : MonoBehaviour
         rewardActions = new Dictionary<string, Action<int>>
         {
             { "gold", GiveGold },   // 골드 지급
+            { "upgradeStone", GiveUpgradeStone },
             { "item", GiveItem },   // 아이템 지급
             { "buff", GiveBuff }    // 버프 지급
         };
@@ -135,10 +136,13 @@ public class AdManager : MonoBehaviour
     // ✅ 골드 지급 함수
     private void GiveGold(int amount)
     {
-        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-        Debug.Log($"Player received {amount} gold.");
-        DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold+amount).ToString());
-        // TODO: 골드 추가 로직 구현 (예: 플레이어의 골드 데이터 업데이트)
+        PlayerStatusInMain.Instance.getGold(amount);
+    }
+
+    // ✅ 강화석 지급 함수
+    private void GiveUpgradeStone(int amount)
+    {
+        PlayerStatusInMain.Instance.getUpgradeStone(amount);
     }
 
     // ✅ 아이템 지급 함수

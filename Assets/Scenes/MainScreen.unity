@@ -3236,6 +3236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeBtnManager: {fileID: 1970038284}
   goldText: {fileID: 39232627}
+  upgradeStoneText: {fileID: 2004852299}
   HpText: {fileID: 1055422981}
   ATKText: {fileID: 2012981178}
   BcText: {fileID: 1639642683}
