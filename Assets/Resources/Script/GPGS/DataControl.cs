@@ -20,6 +20,8 @@ public class DataSettings   //저장될 데이터 클래스
     public int pinHp = 0;
     public int ballCount = 0;
     public int upgradeNum = 0;
+
+    public List<ItemDataForSave> inventoryItems = new List<ItemDataForSave>();
 }
 
 
@@ -52,6 +54,8 @@ public class DataControl : MonoBehaviour
 
     private static string GoldName = "Gold";                                   //재화 중 골드의 키 이름
     private static string UpgradeStoneName = "UpgradeStone";                       //재화 중 업그레이드 키 이름.
+
+    private static string PlayerInventory = "PlayerInventory";
 
     private static string UpgradableNumName = "UpgradableNum";                 //업그레이드 해금 정보의 키 이름
     
@@ -370,6 +374,9 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
 
+        // 인벤토리를 저장.
+        SaveInventoryToPrefs(settings.inventoryItems);
+
     }
 
 
@@ -384,6 +391,8 @@ public class DataControl : MonoBehaviour
         settings.ballCount = int.Parse(LoadEncryptedDataFromPrefs(PlayerBALLCOUNTName));
         settings.pinHp = int.Parse(LoadEncryptedDataFromPrefs(PlayerPINHPName));
         settings.upgradeNum = int.Parse(LoadEncryptedDataFromPrefs(UpgradableNumName));
+
+        settings.inventoryItems = LoadInventoryFromPrefs();
     }
 
 
@@ -490,10 +499,41 @@ public class DataControl : MonoBehaviour
 
         //업그레이드 해금 정보의 초기값 세팅
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
+
+        //아이템 저장 정보
+        SaveInventoryToPrefs(new List<ItemDataForSave>());
     }
 
 
 
 
     #endregion
+
+
+    #region 리스트(인벤토리, 장비)를 json파일로 변환하여 플레이어 프렙스에 저장.
+    // list를 json파일로 변환하여 플레이어 프렙스에 저장.
+    public static void SaveInventoryToPrefs(List<ItemDataForSave> inventory)
+    {
+        string json = JsonUtility.ToJson(new InventoryData { items = inventory });
+        SaveEncryptedDataToPrefs(PlayerInventory, json);
+    }
+
+    /// <summary>
+    /// 플레이어 프렙스에서 json을 불러와서 리스트로 변환.
+    /// </summary>
+    public static List<ItemDataForSave> LoadInventoryFromPrefs()
+    {
+        string json = LoadEncryptedDataFromPrefs(PlayerInventory);
+        if (string.IsNullOrEmpty(json))
+        {
+            Debug.LogError("Error Error 인벤토리.json load 실패.");
+            return new List<ItemDataForSave>();
+        }
+
+        InventoryData data = JsonUtility.FromJson<InventoryData>(json);
+        return data.items;
+    }
+    #endregion
+
+
 }

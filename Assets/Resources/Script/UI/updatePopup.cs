@@ -139,7 +139,7 @@ public class updatePopup : MonoBehaviour
                 Equip.Instance.UnEquipItem(currentEquipped);
             }
             // 장비 장착 로직 실행
-            Equip.Instance.EquipItem(equip);
+            Equip.Instance.EquipItem(equip, amount);
         }
     }
     public void noClicked()

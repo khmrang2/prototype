@@ -11,7 +11,7 @@ using UnityEditor;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
-/// </summary>✅ 
+/// </summary>
 public enum Rarity { Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4, Usuable=5}
 
 
@@ -34,7 +34,7 @@ public class ItemDatabase : MonoBehaviour
     private List<Item> database = new List<Item>();
     private Dictionary<int, Item> itemLookup = new Dictionary<int, Item>();
     private JsonData itemData;
-    private const string ITEM_DATA_PATH = "/Resources/Data/itemData.json";
+    private const string ITEM_DATA_PATH = "Data/itemData";
 
 
     void Awake()
@@ -48,7 +48,7 @@ public class ItemDatabase : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        TextAsset jsonFile = Resources.Load<TextAsset>("Data/itemData");
+        TextAsset jsonFile = Resources.Load<TextAsset>(ITEM_DATA_PATH);
         if (jsonFile != null)
         {
             itemData = JsonMapper.ToObject(jsonFile.text);
@@ -141,7 +141,7 @@ public class ItemDatabase : MonoBehaviour
         return itemLookup.TryGetValue(id, out var item) ? item : null;
     }
     /// <summary>
-    /// 랜덤으로 아이템을 반환하는 아이템 반환자.
+    /// 랜덤 확률로 아이템을 반환하는 아이템 반환자.
     /// </summary>
     /// <returns>Item 랜덤 아이템</returns>
     public Item GetRandomItem()
@@ -156,6 +156,18 @@ public class ItemDatabase : MonoBehaviour
         // 랜덤 값이 속하는 레어리티 찾기
         int accumulatedProbability = 0;
         Rarity selectedRarity = Rarity.Common; // 기본값 Common
+
+        /**
+         * 확률이 {50, 30, 15, 4, 1}일 경우, 누적 확률은 다음과 같이 증가합니다:
+            Common: 0 ~ 49
+            Uncommon: 50 ~ 79
+            Rare: 80 ~ 94
+            Epic: 95 ~ 98
+            Legendary: 99
+            랜덤 값(randValue)이 해당 범위에 속하면
+            브레이크가 걸리며 해당 레어리티가 선택됩니다.
+         * 
+         **/
 
         for (int i = 0; i < rarityProbabilities.Length; i++)
         {
