@@ -3452,6 +3452,53 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6069337807139934214, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
   m_PrefabInstance: {fileID: 1576701503}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &415719043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 415719044}
+  - component: {fileID: 415719045}
+  m_Layer: 0
+  m_Name: Equip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &415719044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415719043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1497583332}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &415719045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415719043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 760613ca5f5b08346a39aa4c9096ed17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponSlot: {fileID: 236026005}
+  heartSlot: {fileID: 2036161676}
+  gearSlot: {fileID: 1804840168}
 --- !u!1 &426208861
 GameObject:
   m_ObjectHideFlags: 0
@@ -11613,7 +11660,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1307112353}
   - component: {fileID: 1307112354}
-  - component: {fileID: 1307112355}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -11651,21 +11697,6 @@ MonoBehaviour:
   inventoryPanel: {fileID: 1636349484}
   slotPanel: {fileID: 1636349484}
   inventorySlotPrefab: {fileID: 3232639693998567242, guid: d919ca00f4822c34db5de7a1675d22d7, type: 3}
---- !u!114 &1307112355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1307112352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 760613ca5f5b08346a39aa4c9096ed17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSlot: {fileID: 236026005}
-  heartSlot: {fileID: 2036161676}
-  gearSlot: {fileID: 1804840168}
 --- !u!1 &1318409701
 GameObject:
   m_ObjectHideFlags: 0
@@ -12630,6 +12661,7 @@ Transform:
   - {fileID: 1257179681}
   - {fileID: 1303116285}
   - {fileID: 1446650128}
+  - {fileID: 415719044}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1524603769
@@ -16783,6 +16815,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 415719045}
+        m_TargetAssemblyTypeName: Equip, Assembly-CSharp
+        m_MethodName: clearslot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1307112354}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: loadInv
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1877004173
 GameObject:
   m_ObjectHideFlags: 0
@@ -19727,13 +19783,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1307112354}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: fordebugingRandomItemAdd
+        m_MethodName: loadInv
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
