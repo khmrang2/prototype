@@ -32,10 +32,21 @@ public class Inventory : MonoBehaviour
         }
         Instance = this;
     }
+    
+    public void loadInv()
+    {
+        inventoryItemData = DataControl.LoadItemDataFromPrefs("PlayerInventory");
+        RefreshInventoryUI();
+
+        foreach(var item in inventoryItemData)
+        {
+            Debug.Log($"{item.id}와 {item.amount}가 로드됨.");
+        }
+    }
 
     private void Start()
     {
-        inventoryItemData = DataControl.LoadInventoryFromPrefs();
+        loadInv();
         RefreshInventoryUI();
         //foreach(var item in inventoryItemData)
         //{
@@ -70,13 +81,14 @@ public class Inventory : MonoBehaviour
     /// <summary>
     /// 1b. 여러 아이템을 한 번에 추가 또는 업데이트합니다.
     /// </summary>
-    public void AddOrUpdateItems(List<ItemDataForSave> handItems)
+    public void AddOrUpdateItems(List<ItemDataForSave> handItems, bool save = false)
     {
         foreach (ItemDataForSave data in handItems)
         {
             AddOrUpdateItem(data.id, data.amount);
         }
-        DataControl.SaveInventoryToPrefs(inventoryItemData);
+        if (save)
+            DataControl.SaveItemDataToPrefs("PlayerInventory", inventoryItemData);
     }
 
     /// <summary>
@@ -157,17 +169,6 @@ public class Inventory : MonoBehaviour
     }
 
     /// <summary>
-    /// 나의 인벤토리에서 id에 해당하는 amount를 리턴합니다. 
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public int GetItemAmount(int id)
-    {
-        int index = inventoryItemData.FindIndex(x => x.id == id);
-        return index >= 0 ? inventoryItemData[index].amount : 0;
-    }
-
-    /// <summary>
     /// 인벤토리에서 특정 아이템을 지정한 수량만큼 제거합니다.
     /// 만약 기존 수량보다 작거나 같으면 해당 아이템 항목을 완전히 삭제합니다.
     /// 
@@ -193,14 +194,14 @@ public class Inventory : MonoBehaviour
                 inventoryItemData.RemoveAt(index);
             }
             Debug.Log($"{id}의 아이템이 {amount}만큼 삭제됨.");
-
-            RefreshInventoryUI(); // 🔹 UI를 다시 정렬하고 갱신
         }
         else
         {
             Debug.LogWarning("RemoveItem: 해당 아이템이 인벤토리에 없습니다. ID: " + id);
         }
         // 인벤토리에서 사라졌으니 삭제함을 json에 저장.
-        DataControl.SaveInventoryToPrefs(inventoryItemData);
+        DataControl.SaveItemDataToPrefs("PlayerInventory", inventoryItemData);
+
+        RefreshInventoryUI(); // 🔹 UI를 다시 정렬하고 갱신
     }
 }

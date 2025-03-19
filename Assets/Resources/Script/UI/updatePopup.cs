@@ -127,7 +127,7 @@ public class updatePopup : MonoBehaviour
         {
             // 장비에서 호출 된 경우 :
             // 바로 해제
-            Equip.Instance.UnEquipItem(equip);
+            Equip.Instance.UnEquipItem(equip, true);
         }
         else if(popupIdentifier == 0)
         {
@@ -136,10 +136,10 @@ public class updatePopup : MonoBehaviour
             // 장비 타입에 해당하는 슬롯에 이미 장착되어 있다면 "교체", 아니면 "장착"
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
-                Equip.Instance.UnEquipItem(currentEquipped);
+                Equip.Instance.UnEquipItem(currentEquipped, false);
             }
             // 장비 장착 로직 실행
-            Equip.Instance.EquipItem(equip, amount);
+            Equip.Instance.EquipItem(equip, amount,true, true);
         }
     }
     public void noClicked()

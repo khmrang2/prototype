@@ -42,7 +42,7 @@ public class SlotInven : MonoBehaviour
     /// <summary>
     /// rarity 값에 따라 배경 이미지를 설정합니다.
     /// </summary>
-    public void SetRarity(Rarity rarity)
+    private void SetRarity(Rarity rarity)
     {
         switch (rarity)
         {
@@ -93,7 +93,6 @@ public class SlotInven : MonoBehaviour
     public void setInit(ItemData itemdata)
     {
         this.itemData = itemdata;
-
         setItem(itemdata);
         SetRarity(itemdata.item.Rarity);
 
@@ -108,7 +107,6 @@ public class SlotInven : MonoBehaviour
     {
         Item item = itemdata.item;
         int a = itemdata.amount;
-
 
         // 쇼잉아이템 처음 호출되면 인스턴스 생성
         if (showingItemObject == null)
@@ -134,5 +132,16 @@ public class SlotInven : MonoBehaviour
         // 자식 텍스트에 수량 표시 (수량 표시용 TextMeshProUGUI는 inventoryItemPrefab의 첫 번째 자식이라고 가정)
         TextMeshProUGUI qtyText = showingItemObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         qtyText.text = a.ToString();
+    }
+
+
+    /// <summary>
+    /// 나의 인벤토리에서 id에 해당하는 amount를 리턴합니다. 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public int GetItemAmount()
+    {
+        return itemData.amount;
     }
 }
