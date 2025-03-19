@@ -7,11 +7,14 @@ using UnityEngine.Rendering.Universal.Internal;
 using Newtonsoft.Json.Converters;
 using static UnityEditor.Progress;
 using System;
+using UnityEditor;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
 /// </summary>✅ 
 public enum Rarity { Common=0, Uncommon=1, Rare=2, Epic=3, Legendary=4, Usuable=5}
+
+
 
 public class ItemDatabase : MonoBehaviour
 {
@@ -27,6 +30,14 @@ public class ItemDatabase : MonoBehaviour
 
     /** 아이템 색인 0부터 32까지의 id를 가져옴.*/
     public const int RANGE_COSUMABLE = 32;
+
+    [Header("레어도에 따른 확률 변동.")]
+    public float commonChance = 40f;
+    public float uncommonChance = 30f;
+    public float rareChance = 20f;
+    public float epicChance = 9f;
+    public float legendaryChance = 1f;
+    public float usuableChance = 0f; // 필요한 경우 사용
 
 
     private List<Item> database = new List<Item>();
@@ -138,17 +149,6 @@ public class ItemDatabase : MonoBehaviour
     {
         return itemLookup.TryGetValue(id, out var item) ? item : null;
     }
-
-    /// <summary>
-    /// 랜덤으로 아이템을 반환하는 아이템 반환자.
-    /// </summary>
-    /// <returns>Item 랜덤 아이템</returns>
-    public Item GetRandomItem()
-    {
-        int rand = Mathf.RoundToInt(UnityEngine.Random.Range(0, database.Count));
-        return database[rand];
-    }
-
     /// <summary>
     /// 랜덤으로 ItemData(아이템과 양)을 반환하는 아이템 반환자.
     /// 
@@ -164,7 +164,46 @@ public class ItemDatabase : MonoBehaviour
     {
         return new ItemData(GetRandomItem(), Mathf.RoundToInt(UnityEngine.Random.Range(1, 5)));
     }
+    /// <summary>
+    /// 랜덤으로 아이템을 반환하는 아이템 반환자.
+    /// </summary>
+    /// <returns>Item 랜덤 아이템</returns>
+    public Item GetRandomItem()
+    {
+        // 레어리티 확률 분배 (합이 100이 되도록 설정)
+        int[] rarityProbabilities = { 50, 30, 15, 4, 1 }; // Common, Uncommon, Rare, Epic, Legendary
+        int totalProbability = 100;
 
+        // 0~99 사이의 랜덤 값 생성
+        int randValue = UnityEngine.Random.Range(0, totalProbability);
+
+        // 랜덤 값이 속하는 레어리티 찾기
+        int accumulatedProbability = 0;
+        Rarity selectedRarity = Rarity.Common; // 기본값 Common
+
+        for (int i = 0; i < rarityProbabilities.Length; i++)
+        {
+            accumulatedProbability += rarityProbabilities[i];
+            if (randValue < accumulatedProbability)
+            {
+                selectedRarity = (Rarity)i;
+                break;
+            }
+        }
+
+        // 선택된 레어리티에 속하는 아이템만 필터링
+        List<Item> filteredItems = database.FindAll(item => item.Rarity == selectedRarity);
+
+        if (filteredItems.Count > 0)
+        {
+            // 해당 레어리티의 아이템 중 랜덤으로 하나 반환
+            return filteredItems[UnityEngine.Random.Range(0, filteredItems.Count)];
+        }
+
+        // 만약 해당 레어리티에 아이템이 없으면 기본값 반환 (예외 처리)
+        Debug.LogWarning($"해당 레어리티({selectedRarity})의 아이템이 없습니다. 기본값을 반환합니다.");
+        return database.Count > 0 ? database[0] : null;
+    }
 }
 
 //public struct ItemStat

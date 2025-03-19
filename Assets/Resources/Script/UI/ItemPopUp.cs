@@ -15,8 +15,6 @@ public class ItemPopUp : MonoBehaviour
     [SerializeField]
     public TMP_Text tooltip;
 
-    public EquipManager equipManager;
-
     private string itemCode;
 
     public void loadTooltip(Item handleItem)

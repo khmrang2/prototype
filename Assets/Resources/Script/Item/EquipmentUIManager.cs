@@ -91,7 +91,7 @@ public class EquipmentUIManager : MonoBehaviour
             float roll = Random.Range(0f, 100f);
             if (roll < 40)
             {
-                // 40% 장비
+                // 40% 장비 실제로 40%가 아닌데? 
                 equipmentList.Add(ItemDatabase.Instance.GetRandomItem());
             }else if(40 < roll && roll < 50){
                 // 10% 업그레이드 아이템.

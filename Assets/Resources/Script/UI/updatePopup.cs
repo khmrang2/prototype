@@ -15,8 +15,6 @@ public class updatePopup : MonoBehaviour
     public TextMeshProUGUI itemSecondaryStatName;
     public TextMeshProUGUI itemSecondaryStat;
 
-    public EquipManager equipManager;
-
     public FontSizeAdjuster fontSizeAdjuster;
 
     public GameObject popUpUI; // 팝업 ui
@@ -101,7 +99,7 @@ public class updatePopup : MonoBehaviour
         if (popupIdentifier == 1)
         {
             // 장비 슬롯이 눌렸을 때
-            Debug.LogError("장비 - 해제밖에 없음.");
+            //Debug.LogError("장비 - 해제밖에 없음.");
             yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "해제";
         }
         else if (popupIdentifier == 0)
@@ -110,13 +108,13 @@ public class updatePopup : MonoBehaviour
             // 장비 타입에 해당하는 슬롯에 이미 장착되어 있다면 "교체", 아니면 "장착"
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
-                Debug.LogError("인벤토리 - 장착된 상태");
+                //Debug.LogError("인벤토리 - 장착된 상태");
                 yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "교체";
 
             }
             else
             {
-                Debug.LogError("인벤토리 - X한 상태");
+                //Debug.LogError("인벤토리 - X한 상태");
                 yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "장착";
             }
         }

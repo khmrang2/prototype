@@ -50,12 +50,12 @@ public class EquipmentUIPanel : MonoBehaviour
         {
             // 골드 항아리: 50 ~ 110 사이의 랜덤 수량
             amount = Random.Range(50, 110);
-            itemName.text = $"{amount} G earned!";
+            itemName.text = $"{amount}G를\n획득했습니다.";
             earn_gold += amount;
         }
         else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
         {
-            itemName.text = $"{item.ItemName} : {amount} get!";
+            itemName.text = $"{item.ItemName}을(를)\n{amount}개 획득했습니다!";
             // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
             amount = Random.Range(1, 10);
         }
@@ -63,7 +63,7 @@ public class EquipmentUIPanel : MonoBehaviour
         {
             // 일반 장비: 예시로 1 ~ 2 사이의 랜덤 수량
             amount = Random.Range(1, 3);
-            itemName.text = $"{item.ItemName} : {amount} get!";
+            itemName.text = $"{item.ItemName}을(를)\n{amount}개 획득했습니다.";
             // 일반 장비는 인벤토리에 넘겨줄 데이터에 추가
             handToInventory.Add(new ItemDataForSave(item.Id, amount));
         }
