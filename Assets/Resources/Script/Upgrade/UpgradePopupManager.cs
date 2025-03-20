@@ -6,19 +6,21 @@ using UnityEngine;
 public class UpgradePopupManager : MonoBehaviour
 {
 
-    [SerializeField] private TextMeshProUGUI popupName;     //ÆË¾÷ÀÇ ¾÷±×·¹ÀÌµå ¸í ºÎºÐ ÅØ½ºÆ®     
-    [SerializeField] private TextMeshProUGUI popupCost;     //ÆË¾÷ÀÇ ºñ¿ë ºÎºÐ ÅØ½ºÆ®
+    [SerializeField] private TextMeshProUGUI popupName;     //ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½Îºï¿½ ï¿½Ø½ï¿½Æ®     
+    [SerializeField] private TextMeshProUGUI popupCost;     //ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½Ø½ï¿½Æ®
 
-    [SerializeField] private GameObject FailPopup;      //±¸¸Å ½ÇÆÐ ½Ã ¶ã ÆË¾÷
+    [SerializeField] private GameObject FailPopup;      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë¾ï¿½
 
-    [SerializeField] private int uogradableNum;     //±¸¸Å °¡´ÉÇÑ ¾÷±×·¹ÀÌµåÀÇ ¹øÈ£
+    [SerializeField] private int uogradableNum;     //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½È£
 
-    [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //¹öÆ°µéÀÇ °ü¸®¸¦ À§ÇÑ ¸Þ´ÏÀú ½ºÅ©¸³Æ®
+    [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
+  
+    [SerializeField] private DataControl datactr;       //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
 
-    private string upgradeName;     //ÆË¾÷¿¡ Ç¥½ÃµÉ ¾÷±×·¹ÀÌµå ÀÌ¸§, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ¼³Á¤
-    private int upgradeStatName;    //¾÷±×·¹ÀÌµå ±¸¸Å ½Ã Áõ°¡ µÉ ½ºÅÈ, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ¼³Á¤
-    private int upgradeStat;        //¾÷±×·¹ÀÌµå ±¸¸Å ½Ã Áõ°¡ µÉ ½ºÅÈ ¼öÄ¡, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ¼³Á¤
-    private int upgradeCost;        //ÆË¾÷¿¡ Ç¥½ÃµÉ ¾÷±×·¹ÀÌµå ºñ¿ë, º¸¾ÈÀ» À§ÇØ ÇÁ·ÎÆÛÆ¼·Î ¼³Á¤
+    private string upgradeName;     //ï¿½Ë¾ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int upgradeStatName;    //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int upgradeStat;        //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int upgradeCost;        //ï¿½Ë¾ï¿½ï¿½ï¿½ Ç¥ï¿½Ãµï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public string UpgradeName {  get { return upgradeName; } set { upgradeName = value; } }
     public int UpgradeStatName { get { return upgradeStatName; } set { upgradeStatName = value; } }
@@ -27,7 +29,7 @@ public class UpgradePopupManager : MonoBehaviour
 
 
 
-    //ÃÊ±âÈ­
+    //ï¿½Ê±ï¿½È­
     private void Start()
     {
         FailPopup.SetActive(false);
@@ -36,7 +38,7 @@ public class UpgradePopupManager : MonoBehaviour
 
 
 
-    //ÆË¾÷ ´Ý±â
+    //ï¿½Ë¾ï¿½ ï¿½Ý±ï¿½
     public void ClosePopup()
     {
         this.gameObject.SetActive(false);
@@ -45,19 +47,19 @@ public class UpgradePopupManager : MonoBehaviour
 
     public void BuyUpgrade()
     {
-        //ÇöÁ¦ º¸À¯ °ñµå ¹Þ¾Æ¿À±â
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
         int gold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
 
 
         if (gold >= upgradeCost)
         {
-            //¾÷±×·¹ÀÌµå ±¸¸Å°¡ °¡´ÉÇÏ´Ù¸é
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Å°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Ù¸ï¿½
 
-            //°ñµå °¨¼Ò Ã³¸®
+            //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             gold -= upgradeCost;
             DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
 
-            //Àü´Þ¹ÞÀº ¾÷±×·¹ÀÌµå ³»¿ëÀ» Åä´ë·Î ½ºÅÈ Áõ°¡ Ã³¸®
+            //ï¿½ï¿½ï¿½Þ¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             switch(upgradeStatName)
             {
                 case 0:
@@ -81,33 +83,82 @@ public class UpgradePopupManager : MonoBehaviour
                     break;
             }
 
-            //¾÷±×·¹ÀÌµå ¹øÈ£ Áõ°¡ Ã³¸®
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
             DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
                 (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) + 1).ToString());
 
 
-            //ÇöÀç ±¸¸Å °¡´ÉÇÑ ¾÷±×·¹ÀÌµåÀÇ ¹øÈ£°¡ ¹Ù²î¾úÀ¸´Ï ÀÌ¸¦ ¾÷±×·¹ÀÌµå ¾À¿¡ Àû¿ëÇÏ±â À§ÇØ »õ·Î°íÄ§
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Å·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            datactr.SaveDataWithCallback((success) =>
+            {
+                if (!success)
+                {
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    switch (upgradeStatName)
+                    {
+                        case 0:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP")) - upgradeStat).ToString());
+                            break;
+
+                        case 1:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK")) - upgradeStat).ToString());
+                            break;
+
+                        case 2:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_BALLCOUNT",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT")) - upgradeStat).ToString());
+                            break;
+
+                        case 3:
+                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP",
+                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")) - upgradeStat).ToString());
+                            break;
+                    }
+
+                    //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+                    DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
+                    (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) - 1).ToString());
+
+
+                    //ï¿½ï¿½åµµ ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½
+                    gold += upgradeCost;
+                    DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
+
+                    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    SaveAndLoadError.ShowErrorScreen();
+
+                }
+                else { Debug.Log("upgrade save complete"); }
+
+            });
+
+       
+
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î°ï¿½Ä§
             UpgradeBtnManager.RefreshUpgradeBtn();
 
-            Debug.Log("±¸¸Å ¼º°ø!");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
 
 
             ClosePopup();
         }
         else 
         {
-            //¾÷±×·¹ÀÌµå ±¸¸Å°¡ ºÒ°¡´ÉÇÏ´Ù¸é
+            //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½Å°ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ï¿½Ï´Ù¸ï¿½
 
 
-            //±¸¸Å ½ÇÆÐ ÆË¾÷ ¶ç¿ì±â
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½
             FailPopup.SetActive(true);
 
-            Debug.Log("±¸¸Å ½ÇÆÐ!");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
             ClosePopup();
         }
     }
 
-    //ÆË¾÷ ¼³Á¤
+    //ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetUpgradePopup()
     {
         popupName.text = upgradeName;

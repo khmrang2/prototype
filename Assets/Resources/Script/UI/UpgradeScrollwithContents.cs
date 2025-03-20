@@ -5,27 +5,27 @@ using UnityEngine.UI;
 
 public class UpgradeScrollwithContents : MonoBehaviour
 {
-    public RectTransform bgParent;  // ¹è°æÀ» ´ãÀ» ºÎ¸ð (Viewport ÇÏÀ§)
-    public RectTransform contents;  // ScrollViewÀÇ contents
-    public ScrollRect scrollRect;   // ScrollRect ÄÄÆ÷³ÍÆ®
-    public RectTransform bgPrefab;  // ¹è°æ ÇÁ¸®ÆÕ
-    public int poolSize = 5;        // ¹è°æ ¿ÀºêÁ§Æ® Ç® Å©±â
-    public float bgHeight = 1280f;  // ¹è°æ ÇÑ ÀåÀÇ ³ôÀÌ
-    public float visibilityOffset = 500f; // È­¸é ¹Û¿¡¼­ ºñÈ°¼ºÈ­ÇÒ °Å¸®
+    public RectTransform bgParent;  // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ (Viewport ï¿½ï¿½ï¿½ï¿½)
+    public RectTransform contents;  // ScrollViewï¿½ï¿½ contents
+    public ScrollRect scrollRect;   // ScrollRect ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public RectTransform bgPrefab;  // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int poolSize = 5;        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç® Å©ï¿½ï¿½
+    public float bgHeight = 1280f;  // ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float visibilityOffset = 500f; // È­ï¿½ï¿½ ï¿½Û¿ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½Å¸ï¿½
 
-    private readonly List<RectTransform> bgPool = new(); // ¹è°æ ¿ÀºêÁ§Æ® Ç®
-    private float lastContentY;  // ¸¶Áö¸·À¸·Î È®ÀÎÇÑ ½ºÅ©·Ñ À§Ä¡
+    private readonly List<RectTransform> bgPool = new(); // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç®
+    private float lastContentY;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Ä¡
 
     void Start()
     {
         scrollRect.onValueChanged.AddListener(_ => OnScroll());
 
-        // ¹è°æ ¿ÀºêÁ§Æ® Ç® »ý¼º
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ç® ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < poolSize; i++)
         {
             var bg = Instantiate(bgPrefab, bgParent);
             bg.anchoredPosition = new Vector2(0, i * bgHeight);
-            bg.gameObject.SetActive(true);  // Ã³À½¿¡´Â ¸ðµÎ È°¼ºÈ­
+            bg.gameObject.SetActive(true);  // Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
             bgPool.Add(bg);
         }
     }
@@ -34,19 +34,19 @@ public class UpgradeScrollwithContents : MonoBehaviour
     {
         float contentY = contents.anchoredPosition.y;
 
-        // ¹è°æ À§Ä¡ °»½Å
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         foreach (var bg in bgPool)
         {
             float bgY = bg.anchoredPosition.y;
             float distance = Mathf.Abs(contentY - bgY);
 
-            // À¯ÀúÀÇ ½Ã¾ß¿¡¼­ ¹þ¾î³­ ¹è°æÀ» ºñÈ°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¾ß¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             bool isVisible = distance < bgHeight + visibilityOffset;
             bg.gameObject.SetActive(isVisible);
         }
 
-        // ½ºÅ©·Ñ ¹æÇâ¿¡ µû¶ó ¹è°æ Àç»ç¿ë
-        if (contentY > lastContentY) // ¾Æ·¡·Î ½ºÅ©·Ñ
+        // ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (contentY > lastContentY) // ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½
         {
             RecycleBackground();
         }
@@ -58,7 +58,7 @@ public class UpgradeScrollwithContents : MonoBehaviour
         RectTransform firstBg = bgPool[0];
         RectTransform lastBg = bgPool[^1];
 
-        // Ã¹ ¹øÂ° ¹è°æÀÌ È­¸é À§·Î ¹þ¾î³µ´Ù¸é Àç»ç¿ë
+        // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î³µï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (firstBg.anchoredPosition.y + bgHeight < contents.anchoredPosition.y - visibilityOffset)
         {
             firstBg.anchoredPosition = new Vector2(0, lastBg.anchoredPosition.y + bgHeight);

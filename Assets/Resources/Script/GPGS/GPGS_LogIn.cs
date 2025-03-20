@@ -63,36 +63,18 @@ public class GoogleManager : MonoBehaviour
         {
             //로그인에 성공했다면 작동
 
-            logText.text = "Login success"; //로딩 텍스트에 로그인 성공 알림
+            logText.text = " Login success"; //로딩 텍스트에 로그인 성공 알림
 
             string id = PlayGamesPlatform.Instance.GetUserId();             //유저 id값 받아오기
             PlayerPrefs.SetString("SavedAccountKey", id);                   //자동 로그인 여부 확인을 위해 id값을 player prefs에 저장
             PlayerPrefs.Save();
 
-
-            logText.text = "Checking user data..."; //로딩 텍스트에 설치 후 첫 실행인지 확인 중 알림
-
-            if (!PlayerPrefs.HasKey("Played"))
-            {
-                //설치 후 첫 실행이라면
-                
-                logText.text = "Checking server data..."; //서버 데이터 확인중 알림
-
-                dataControl.LoadData(); //서버에서 데이터 확인, 서버에 데이터가 있다면 불러와짐
-
-                logText.text = "Load complete!"; //로딩 텍스트에 데이터 로드 완료 알림
-
-
-                //설치 후 첫 실행이 아님을 알리기 위해 playerPrefs에 표시
-                PlayerPrefs.SetString("Played", "true");
-                PlayerPrefs.Save();
-
-                startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
-            }
-            else
-            {
-                startBtn.interactable = true;   //씬 전환해도 괜찮으므로 버튼 활성화
-            }
+            
+            logText.text = " Checking server data..."; //서버로부터 데이터를 받아오기 위해 서버 데이터 확인중 알림
+            
+            
+            //로그인 및 계정 인증이 완료된 후 작동하는 로드 함수 호출 코루틴
+            StartCoroutine(EnsureLoginAndLoadData());
 
             logText.text = "";  //로딩 텍스트를 띄울 필요 없으므로 공백처리
 
@@ -106,5 +88,31 @@ public class GoogleManager : MonoBehaviour
             ErrorPopup.SetActive(true);
             
         }
+    }
+
+
+
+
+    private IEnumerator EnsureLoginAndLoadData()
+    {
+        while (!PlayGamesPlatform.Instance.IsAuthenticated())
+        {
+            logText.text = "not yet Authenticated, waiting...";
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        logText.text = "Authenticated! starting data load.";
+        dataControl.LoadDataWithCallback((success) =>
+        {
+            if (!success)
+            {
+                ErrorPopup.SetActive(true);
+            }
+            else
+            {
+                logText.text = "Load complete!";
+                startBtn.interactable = true;
+            }
+        });
     }
 }

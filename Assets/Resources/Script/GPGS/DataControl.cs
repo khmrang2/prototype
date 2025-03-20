@@ -11,7 +11,7 @@ using System;
 using System.ComponentModel;
 
 
-public class DataSettings   //ÀúÀåµÉ µ¥ÀÌÅÍ Å¬·¡½º
+public class DataSettings   //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
 {
     public int gold = 0;
     public int upgradeStone = 0;
@@ -32,66 +32,96 @@ public class DataControl : MonoBehaviour
 
 
     public DataSettings settings = new DataSettings();
-    //ºÒ·¯¿ÍÁö°í ÀúÀåµÉ µ¥ÀÌÅÍ¸¦ ´ãÀ» Å¬·¡½º settings ¼±¾ð
+    //ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ settings ï¿½ï¿½ï¿½ï¿½
 
     private string fileName = "savefile.dat";
-    //Å¬¶ó¿ìµå¿¡ ÀúÀåµÉ ÆÄÀÏÀÇ ÀÌ¸§ ¼³Á¤
+    //Å¬ï¿½ï¿½ï¿½å¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
-    // ¾ÏÈ£È­ Å° (16¹ÙÀÌÆ®)
+    // ï¿½ï¿½È£È­ Å° (16ï¿½ï¿½ï¿½ï¿½Æ®)
     private static readonly byte[] key = Encoding.UTF8.GetBytes("pX9rOL3mC3sEivmz");
 
 
-    // ¾ÏÈ£È­ IV (16¹ÙÀÌÆ®)
+    // ï¿½ï¿½È£È­ IV (16ï¿½ï¿½ï¿½ï¿½Æ®)
     private static readonly byte[] iv = Encoding.UTF8.GetBytes("KPlYJeefFqyw7WBe");
 
 
 
-    //ÃÊ±â µ¥ÀÌÅÍ¿¡¼­ ÀÔ·ÂµÉ °¢ µ¥ÀÌÅÍµéÀÇ Å° ÀÌ¸§
-    private static string PlayerHPName = "PlayerCharacter_HP";                 //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ Ã¼·ÂÀÇ Å° ÀÌ¸§
-    private static string PlayerATKName = "PlayerCharacter_ATK";               //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ °ø°Ý·ÂÀÇ Å° ÀÌ¸§
-    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ °ø ¼öÀÇ Å° ÀÌ¸§
-    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÇÉ Ã¼·ÂÀÇ Å° ÀÌ¸§
+    //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
+    private static string PlayerHPName = "PlayerCharacter_HP";                 //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
+    private static string PlayerATKName = "PlayerCharacter_ATK";               //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
+    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
+    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
 
-    private static string GoldName = "Gold";                                   //ÀçÈ­ Áß °ñµåÀÇ Å° ÀÌ¸§
-    private static string UpgradeStoneName = "UpgradeStone";                       //ÀçÈ­ Áß ¾÷±×·¹ÀÌµå Å° ÀÌ¸§.
+    private static string GoldName = "Gold";                                   //ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
+    private static string UpgradeStoneName = "UpgradeStone";                       //ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ Å° ï¿½Ì¸ï¿½.
 
-    private static string PlayerInventoryName = "PlayerInventory";                  // ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸®
-    private static string PlayerEquipName = "PlayerEquip";                          // ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸®
+    private static string PlayerInventoryName = "PlayerInventory";                  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Îºï¿½ï¿½ä¸®
+    private static string PlayerEquipName = "PlayerEquip";                          // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Îºï¿½ï¿½ä¸®
 
-    private static string UpgradableNumName = "UpgradableNum";                 //¾÷±×·¹ÀÌµå ÇØ±Ý Á¤º¸ÀÇ Å° ÀÌ¸§
+    private static string UpgradableNumName = "UpgradableNum";                 //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
     
-    //private string EquipDataName;                                     //Àåºñ ÇØ±Ý Á¤º¸ÀÇ Å° ÀÌ¸§
+    //private string EquipDataName;                                     //ï¿½ï¿½ï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ì¸ï¿½
 
 
 
-    //ÃÊ±â µ¥ÀÌÅÍ¿¡¼­ ÀÔ·ÂµÉ °¢ µ¥ÀÌÅÍµéÀÇ °ª
-    private static int PlayerHP = 100;                                         //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÃÊ±â Ã¼·Â°ª
-    private static int PlayerATK = 5;                                          //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÃÊ±â °ø°Ý·Â°ª
-    private static int PlayerBALLCOUNT = 3;                                    //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÃÊ±â °ø ¼öÀÇ °ª
-    private static int PlayerPINHP = 3;                                        //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÃÊ±â ÇÉ Ã¼·Â°ª
+    //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½Ô·Âµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½
+    private static int PlayerHP = 100;                                         //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ Ã¼ï¿½Â°ï¿½
+    private static int PlayerATK = 5;                                          //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½Ý·Â°ï¿½
+    private static int PlayerBALLCOUNT = 3;                                    //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    private static int PlayerPINHP = 3;                                        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ Ã¼ï¿½Â°ï¿½
 
-    private static int Gold = 7;                                               //ÃÊ±â °ñµå°ª
-    private static int UpgradeStone = 0;                                       //ÃÊ±â ¾÷±×·¹ÀÌµå ½ºÅæ ¾ç.
+    private static int Gold = 7;                                               //ï¿½Ê±ï¿½ ï¿½ï¿½å°ª
+    private static int UpgradeStone = 0;                                       //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
 
     private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();
     private static List<ItemDataForSave> Equip = new List<ItemDataForSave>();
 
 
-    private static int UpgradableNum = 0;                                      //¾÷±×·¹ÀÌµå ÇØ±Ý Á¤º¸ÀÇ ÃÊ±â°ª
+    private static int UpgradableNum = 0;                                      //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â°ª
 
 
-    //¼¼ÀÌºêÀÇ ¼º°ø ¿©ºÎ¸¦ ³ªÅ¸³»´Â bool º¯¼ö
-    private static bool isSaveSuccess;
+    //ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ bool ï¿½ï¿½ï¿½ï¿½
+    private bool isSaveSuccess;
+    private bool isSaveFail;
+
+
+    //ï¿½ï¿½ï¿½ï¿½×¿ï¿½ ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public TextMeshProUGUI DebugTxt;
 
 
 
+    #region gpgs Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    #region gpgs Å¬¶ó¿ìµå µ¥ÀÌÅÍ ÀúÀå
 
-
-    public void SaveData() // ¿ÜºÎ¿¡¼­ ¼¼ÀÌºê È£Ãâ¿ë ¸Þ¼Òµå
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½È¯ï¿½Þ±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Üºï¿½ È£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
+    public void SaveDataWithCallback(Action<bool> onComplete)
     {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenSaveGame();
+
+        StartCoroutine(WaitForSave(onComplete));
+    }
+
+    private IEnumerator WaitForSave(Action<bool> onComplete)
+    {
+        yield return new WaitUntil(() => isSaveSuccess || isSaveFail);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        onComplete?.Invoke(isSaveSuccess);
+    }
+
+
+
+
+
+
+
+    public void SaveData() // ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ È£ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
+    {
+        //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ bool ï¿½ï¿½ï¿½ï¿½
+        isSaveSuccess = false;
+        isSaveFail = false;
+
         OpenSaveGame();
     }
 
@@ -101,73 +131,88 @@ public class DataControl : MonoBehaviour
 
 
 
-    private void OpenSaveGame() //¼¼ÀÌºê ¸Þ¼Òµå
+    private void OpenSaveGame() //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Þ¼Òµï¿½
     {
-        //player prefs·ÎºÎÅÍ ÀúÀåÇÒ µ¥ÀÌÅÍ ¹Þ¾Æ¿À±â
-        GetDataSettings();
+        if (PlayGamesPlatform.Instance != null)
+        {
+
+            //player prefsï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+            GetDataSettings();
 
 
-        //gpgsÀÇ ½Ì±ÛÅæ ÀÎ½ºÅÏ½º¸¦ È£Ãâ
-        ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+            //gpgsï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+            ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-        // µ¥ÀÌÅÍ Á¢±Ù
-        saveGameClient.OpenWithAutomaticConflictResolution(fileName,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLastKnownGood,
-            onsavedGameOpend);
-        //Å¬¶ó¿ìµå µ¥ÀÌÅÍ Á¢±Ù ¿äÃ» ¸Þ¼Òµå, ÁöÁ¤ÇÑ ÆÄÀÏ¸íÀ¸·Î ÀúÀå, ÄÉ½¬°¡ ÃÖ½ÅÀÌ ¾Æ´Ï¶ó¸é ³×Æ®¿öÅ©¸¦ ÅëÇØ µ¥ÀÌÅÍ °¡Á®¿È, Ãæµ¹½Ã¸¦ ´ëºñÇØ ÃÖ½Å µ¥ÀÌÅÍ¸¦ Ã³¸®, ÄÝ¹éÇÔ¼ö onsavedGameOpend ½ÇÇà
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            saveGameClient.OpenWithAutomaticConflictResolution(fileName,
+                DataSource.ReadCacheOrNetwork,
+                ConflictResolutionStrategy.UseLastKnownGood,
+                onsavedGameOpend);
+            //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Þ¼Òµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½É½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½æµ¹ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã³ï¿½ï¿½, ï¿½Ý¹ï¿½ï¿½Ô¼ï¿½ onsavedGameOpend ï¿½ï¿½ï¿½ï¿½
+        }
+        else 
+        {
+            //gpgs È£ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
+            isSaveSuccess = false ;
+            isSaveFail = true;
+
+            DebugTxt.text = "gpgs null";
+        }
     }
 
 
     private void onsavedGameOpend(SavedGameRequestStatus status, ISavedGameMetadata game)
     {
-        //µ¥ÀÌÅÍ ¿äÃ» ¼º°ø ¿©ºÎ¿Í ºÒ·¯¿ÍÁø µ¥ÀÌÅÍ¸¦ ÅëÇØ ÀÛµ¿
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½
 
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
-        //gpgs ½Ì±ÛÅæ È£Ãâ
+        //gpgs ï¿½Ì±ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //¼¼ÀÌºê ¿äÃ»¿¡ ¼º°øÇß´Ù¸é
+            //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
 
-            Debug.Log("save success!");
-            //·Î±× Ãâ·Â
+            DebugTxt.text = "save success!";
+            //ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 
             var update = new SavedGameMetadataUpdate.Builder().Build();
-            //±¸±Û ÇÃ·¹ÀÌ ¼­ºñ½º¿¡ ÀúÀåÀ» À§ÇÑ ¸ÞÅ¸µ¥ÀÌÅÍ 
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ñ½º¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
             //json
             var json = JsonUtility.ToJson(settings);
-            //jsonUtility¸¦ ÅëÇØ ÀúÀåÇÏ·Á´Â µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î º¯°æ
+            //jsonUtilityï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
             byte[] data = Encoding.UTF8.GetBytes(json);
-            //¹®ÀÚ¿­·Î º¯°æµÈ µ¥ÀÌÅÍ¸¦ ¹ÙÀÌÆ®·Î º¯È¯ (UTF-8 »ç¿ë)
+            //ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯ (UTF-8 ï¿½ï¿½ï¿½)
 
 
-            // ÀúÀå ÇÔ¼ö ½ÇÇà
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             saveGameClient.CommitUpdate(game, update, data, OnSavedGameWritten);
         }
         else
         {
             Debug.Log("Save No.....");
 
-            //¼¼ÀÌºê ¼º°ø ¿©ºÎ È®ÀÎ¿ë º¯¼öÀÇ °ªÀ» °ÅÁþÀ¸·Î º¯°æ
+            //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             isSaveSuccess = false;
+            isSaveFail = true;
+
+            DebugTxt.text = "save request fail: " + status;
         }
     }
 
-    // ÀúÀå È®ÀÎ 
+    // ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 
     private void OnSavedGameWritten(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //ÀúÀå ¸Þ¼Òµå ÀÛµ¿ ½Ã ÄÝ¹éÀ» ÅëÇØ ½ÇÇàµÉ ¸Þ¼Òµå
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½Ûµï¿½ ï¿½ï¿½ ï¿½Ý¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
         if (status == SavedGameRequestStatus.Success)
         {
-            // ÀúÀå¿Ï·áºÎºÐ
-            Debug.Log("Save End");
+            // ï¿½ï¿½ï¿½ï¿½Ï·ï¿½Îºï¿½
+            DebugTxt.text = "Save End";
             
-            //¼¼ÀÌºê ¼º°ø ¿©ºÎ È®ÀÎ¿ë º¯¼öÀÇ °ªÀ» ÂüÀ¸·Î º¯°æ
+            //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             isSaveSuccess = true;
 
         }
@@ -175,30 +220,16 @@ public class DataControl : MonoBehaviour
         {
             Debug.Log("Save nonononononono...");
             
-            //¼¼ÀÌºê ¼º°ø ¿©ºÎ È®ÀÎ¿ë º¯¼öÀÇ °ªÀ» °ÅÁþÀ¸·Î º¯°æ
+            //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             isSaveSuccess = false;
+            isSaveFail = true;
+
+            DebugTxt.text = "save request fail2";
         }
     }
 
 
 
-
-    //¼¼ÀÌºê ¼º°ø È®ÀÎ¿ë ¸Þ¼Òµå
-    public static bool CheckSaveSuccess()
-    {
-        if (isSaveSuccess)
-        {
-            //¼¼ÀÌºê°¡ ¼º°øÀûÀ¸·Î ÀÌ·ç¾îÁ® ¼¼ÀÌºê ¼º°ø È®ÀÎ º¯¼öÀÇ °ªÀÌ ÂüÀÌ¶ó¸é
-         
-            return true;    //true ¹ÝÈ¯
-        }
-        else
-        {
-            //¼¼ÀÌºê°¡ ¼º°øÀûÀ¸·Î ÀÌ·ç¾îÁöÁö ¸øÇØ true ÀÌ¿ÜÀÇ °ªÀ» °®°Ô µÇ¸é
-
-            return false;   //false ¹ÝÈ¯
-        }
-    }
 
 
 
@@ -211,11 +242,33 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region gpgs Å¬¶ó¿ìµå µ¥ÀÌÅÍ ·Îµå
+    #region gpgs Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 
 
-    public void LoadData()  //¿ÜºÎ¿¡¼­ ·Îµå È£Ãâ¿ë ¸Þ¼Òµå
+
+    public void LoadDataWithCallback(Action<bool> onComplete)
     {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenLoadGame();
+
+        StartCoroutine(WaitForLoad(onComplete));
+    }
+
+    private IEnumerator WaitForLoad(Action<bool> onComplete)
+    {
+        yield return new WaitUntil(() => isSaveSuccess || isSaveFail);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        onComplete?.Invoke(isSaveSuccess);
+    }
+
+
+
+    public void LoadData()  //ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½Îµï¿½ È£ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
+    {
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ bool ï¿½ï¿½ï¿½ï¿½
+        isSaveSuccess = false;
+        isSaveFail = false;
+
         OpenLoadGame();
     }
 
@@ -225,65 +278,82 @@ public class DataControl : MonoBehaviour
 
     private void OpenLoadGame()
     {
-        //gpgsÀÇ ½Ì±ÛÅæ ÀÎ½ºÅÏ½º¸¦ È£Ãâ
-        ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+        if (PlayGamesPlatform.Instance != null)
+        {
+            //gpgsï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
+            ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-        // µ¥ÀÌÅÍ Á¢±Ù
-        saveGameClient.OpenWithAutomaticConflictResolution(fileName,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLastKnownGood,
-            LoadGameData);
-        //Å¬¶ó¿ìµå µ¥ÀÌÅÍ Á¢±Ù ¿äÃ» ¸Þ¼Òµå, ÁöÁ¤ÇÑ ÆÄÀÏ¸íÀ¸·Î ÀúÀå, ÄÉ½¬°¡ ÃÖ½ÅÀÌ ¾Æ´Ï¶ó¸é ³×Æ®¿öÅ©¸¦ ÅëÇØ µ¥ÀÌÅÍ °¡Á®¿È, Ãæµ¹½Ã¸¦ ´ëºñÇØ ÃÖ½Å µ¥ÀÌÅÍ¸¦ Ã³¸®, ÄÝ¹éÇÔ¼ö ½ÇÇà
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            saveGameClient.OpenWithAutomaticConflictResolution(fileName,
+                DataSource.ReadCacheOrNetwork,
+                ConflictResolutionStrategy.UseLastKnownGood,
+                LoadGameData);
+            //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Þ¼Òµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½É½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½æµ¹ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã³ï¿½ï¿½, ï¿½Ý¹ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+        }
+        else 
+        {
+            //gpgs È£ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Îµï¿½ ï¿½Ò°ï¿½
+            isSaveSuccess = false ;
+            isSaveFail = true;
+            DebugTxt.text = "gpgs for load fail";
+        }
     }
 
     private void LoadGameData(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //gpgs ½Ì±ÛÅæ ÀÎ½ºÅÏ½º È£Ãâ
+        //gpgs ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ È£ï¿½ï¿½
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //gpgs¿¡ º¸³½ ¿äÃ»ÀÌ ¼º°øÇß´Ù¸é
-            Debug.Log("Load success");
+            //gpgsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
+            DebugTxt.text= "Load success";
 
-            //gpgs·ÎºÎÅÍ ¹ÙÀÌÆ® Çü½ÄÀ¸·Î ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ ¹Þ¾Æ¿À°í ÄÝ¹é ÇÔ¼ö OnSavedGameDataRead ½ÇÇà
+            //gpgsï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½Ý¹ï¿½ ï¿½Ô¼ï¿½ OnSavedGameDataRead ï¿½ï¿½ï¿½ï¿½
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
+
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½
+            isSaveSuccess = true;
+
         }
         else
         {
             Debug.Log("Load fail...");
+            isSaveFail = true ;
+            isSaveSuccess = false;
+            DebugTxt.text = "load request fail: " + status;
         }
     }
 
 
     private void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] loadData)
     {
-        //¹Þ¾Æ¿Â ¹ÙÀÌÆ® ÇüÅÂÀÇ µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î º¯È¯
+        //ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         string data = System.Text.Encoding.UTF8.GetString(loadData);
 
         if (data == "")
         {
-            //¹Þ¾Æ¿Â µ¥ÀÌÅÍ°¡ °ø¹éÀÌ¶ó¸é
-            Debug.Log("no saved data, saving initial data");
+            //ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
+            DebugTxt.text = "no saved data, saving initial data";
 
-            //±âÁ¸¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ°¡ ¾ø´Ù´Â ¶æÀÌ°í ÀÌ´Â °ð ÇÃ·¹ÀÌ¾î°¡ ¿ÏÀü Ã¹ ½ÇÇàÀÌ¶ó´Â ¶æÀÌ¹Ç·Î ÃÊ±â°ª ¼¼ÆÃ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ì´ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½Ê±â°ª ï¿½ï¿½ï¿½ï¿½
             SetInitialData();
 
-            //ÇØ´ç Á¤º¸ ÀúÀå
-            SaveData();
+            //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            //SaveData();
         }
         else
         {
-            //¹Þ¾Æ¿Â µ¥ÀÌÅÍ°¡ °ø¹éÀÌ ¾Æ´Ï¶ó¸é
-            Debug.Log("Loading data");
+            //ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½
+            DebugTxt.text = "Loading data";
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
             //logText.text = "Load complete";
 
-            //gpgs·ÎºÎÅÍ ºÒ·¯¿ÍÁø µ¥ÀÌÅÍ·Î player prefs ÃÖ½ÅÈ­
+            //gpgsï¿½Îºï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ player prefs ï¿½Ö½ï¿½È­
             SetDataSettings();
 
         }
@@ -304,7 +374,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region gpgs Å¬¶ó¿ìµå µ¥ÀÌÅÍ Á¦°Å
+    #region gpgs Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -319,36 +389,36 @@ public class DataControl : MonoBehaviour
     private void DeleteGameData()
     {
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
-        //gpgsÀÇ ½Ì±ÛÅæ ÀÎ½ºÅÏ½º¸¦ È£Ãâ
+        //gpgsï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ È£ï¿½ï¿½
 
-        // µ¥ÀÌÅÍ Á¢±Ù
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         saveGameClient.OpenWithAutomaticConflictResolution(fileName,
             DataSource.ReadCacheOrNetwork,
             ConflictResolutionStrategy.UseLastKnownGood,
             DeleteSaveGame);
-        //Å¬¶ó¿ìµå µ¥ÀÌÅÍ Á¢±Ù ¿äÃ» ¸Þ¼Òµå, ÁöÁ¤ÇÑ ÆÄÀÏ¸íÀ¸·Î ÀúÀå, ÄÉ½¬°¡ ÃÖ½ÅÀÌ ¾Æ´Ï¶ó¸é ³×Æ®¿öÅ©¸¦ ÅëÇØ µ¥ÀÌÅÍ °¡Á®¿È, Ãæµ¹½Ã¸¦ ´ëºñÇØ ÃÖ½Å µ¥ÀÌÅÍ¸¦ Ã³¸®, ÄÝ¹éÇÔ¼ö ½ÇÇà
+        //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» ï¿½Þ¼Òµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½É½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½æµ¹ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã³ï¿½ï¿½, ï¿½Ý¹ï¿½ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
 
     private void DeleteSaveGame(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //gpgsÀÇ ½Ì±ÛÅæ ÀÎ½ºÅÏ½º È£Ãâ
+        //gpgsï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ È£ï¿½ï¿½
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //gpgs¿¡ º¸³½ ¿äÃ»ÀÌ ¹Þ¾Æµé¿©Á³´Ù¸é
+            //gpgsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½Þ¾Æµé¿©ï¿½ï¿½ï¿½Ù¸ï¿½
 
-            //gpgs¿¡ ÀúÀåµÈ µ¥ÀÌÅÍ »èÁ¦
+            //gpgsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             saveGameClient.Delete(data);
 
-            Debug.Log("Delete Complete");
+            DebugTxt.text = "Delete Complete";
             //logText.text = "Delete complete";
         }
         else
         {
-            Debug.Log("Delete fail");
+            DebugTxt.text = "Delete fail";
             //logText.text = "Delete failed";
         }
     }
@@ -365,11 +435,11 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region PlayerPrefs¿Í ¾ÏÈ£È­ °ü·Ã
+    #region PlayerPrefsï¿½ï¿½ ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½
 
 
 
-    //gpgs·ÎºÎÅÍ ¹Þ¾Æ¿Â data settings µ¥ÀÌÅÍ·Î player prefsÀÇ °ªµéÀ» º¯°æ 
+    //gpgsï¿½Îºï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ data settings ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ player prefsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
     private void SetDataSettings()
     {
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
@@ -380,7 +450,7 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
 
-        // ÀÎº¥Åä¸®¸¦ ÀúÀå.
+        // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         SaveItemDataToPrefs(PlayerInventoryName, settings.inventoryItems);
         SaveItemDataToPrefs(PlayerEquipName, settings.equipItems);
 
@@ -388,7 +458,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefsÀÇ °ªµéÀ» gpgs¿¡ ÀúÀåÇÏ±â À§ÇØ data settings·Î °¡Á®¿À±â
+    //player prefsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ gpgsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ data settingsï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void GetDataSettings()
     {
         settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
@@ -406,28 +476,28 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefs¿¡ ¾ÏÈ£È­½ÃÄÑ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸Þ¼Òµå, player prefs¿¡ keyNameÀ» Å°·Î »ï¾Æ ¹®ÀÚ¿­ dataÀ» ÀúÀå
+    //player prefsï¿½ï¿½ ï¿½ï¿½È£È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½, player prefsï¿½ï¿½ keyNameï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ dataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
-    //ÀÌ ÇÔ¼ö »ç¿ë!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public static void SaveEncryptedDataToPrefs(string keyName, string data)
     {
         using (Aes aesAlg = Aes.Create())
         {
-            //ÀúÀåµÈ Å°°ª°ú ÃÊ±âÈ­ º¤ÅÍ°ªÀ» ¹Þ¾Æ¿È
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Í°ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
             aesAlg.Key = key;
             aesAlg.IV = iv;
 
-            // ¾ÏÈ£È­ Å°¿Í ÃÊ±âÈ­ º¤ÅÍ¸¦ ÀÌ¿ëÇÏ¿©, ¾ÏÈ£È­¸¦ ÁøÇàÇÒ encryptor »ý¼º
+            // ï¿½ï¿½È£È­ Å°ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½, ï¿½ï¿½È£È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ encryptor ï¿½ï¿½ï¿½ï¿½
             ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
             byte[] encryptedData = null;
 
-            // ÀÏ¹Ý µ¥ÀÌÅÍ¸¦ ¾ÏÈ£È­
+            // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½È£È­
             byte[] bytesToEncrypt = Encoding.UTF8.GetBytes(data);
             encryptedData = encryptor.TransformFinalBlock(bytesToEncrypt, 0, bytesToEncrypt.Length);
 
-            // ¾ÏÈ£È­ µ¥ÀÌÅÍ¸¦ ¹®ÀÚ¿­·Î º¯È¯ÇÏ¿© ÀúÀå 
+            // ï¿½ï¿½È£È­ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ 
             string encryptedString = Convert.ToBase64String(encryptedData);
             PlayerPrefs.SetString(keyName, encryptedString);
             PlayerPrefs.Save();
@@ -439,41 +509,41 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefs¿¡ ¾ÏÈ£È­µÇ¾î ÀúÀåµÈ µ¥ÀÌÅÍ¸¦ ¹Þ¾Æ¿À´Â ¸Þ¼Òµå, ÀúÀå½Ã »ç¿ëÇÑ keyName°ªÀ¸·Î µ¥ÀÌÅÍ¸¦ Ã£¾Æ ¹®ÀÚ¿­ °ªÀ¸·Î ¹ÝÈ¯
+    //player prefsï¿½ï¿½ ï¿½ï¿½È£È­ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ keyNameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 
-    //ÀÌ ÇÔ¼ö »ç¿ë!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //ï¿½ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public static string LoadEncryptedDataFromPrefs(string keyName)
     {
-        //player prefs·ÎºÎÅÍ keyName°ªÀ» ÅëÇØ ¾ÏÈ£È­µÈ µ¥ÀÌÅÍ¸¦ encryptedString¿¡ ÀúÀå
+        //player prefsï¿½Îºï¿½ï¿½ï¿½ keyNameï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ encryptedStringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         string encryptedString = PlayerPrefs.GetString(keyName);
 
         if (!string.IsNullOrEmpty(encryptedString))
         {
-            //¸¸ÀÏ ¹Þ¾Æ¿Â °ªÀÌ ºñ¾îÀÖÁö ¾Ê´Ù¸é(= °ªÀÌ ÀÖ´Ù¸é)
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½(= ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½)
             using (Aes aesAlg = Aes.Create())
             {
 
                 //Debug.Log(encryptedString);
 
-                //ÀúÀåµÈ Å°°ª°ú ÃÊ±âÈ­ º¤ÅÍ°ªÀ» ¹Þ¾Æ¿È
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Í°ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
 
-                //¾ÏÈ£È­ Å°¿Í ÃÊ±âÈ­ º¤ÅÍ¸¦ ÀÌ¿ëÇÏ¿© º¹È£È­¸¦ ÁøÇàÇÒ decryptor »ý¼º
+                //ï¿½ï¿½È£È­ Å°ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È£È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ decryptor ï¿½ï¿½ï¿½ï¿½
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                // µ¥ÀÌÅÍ º¹È£È­
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£È­
                 byte[] encryptedData = Convert.FromBase64String(encryptedString);
                 byte[] decryptedData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
 
-                // º¹È£È­µÈ µ¥ÀÌÅÍ¸¦ ÀÌ¿ëÇÏ¿© ÀúÀåµÈ µ¥ÀÌÅÍ ¹ÝÈ¯
+                // ï¿½ï¿½È£È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
                 return Encoding.UTF8.GetString(decryptedData);
             }
         }
         else
         {
-            //¹Þ¾Æ¿Â °ªÀÌ ºñ¾îÀÖ´Ù¸é
+            //ï¿½Þ¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Ù¸ï¿½
             return null;
         }
 
@@ -489,32 +559,29 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region ÃÊ±â µ¥ÀÌÅÍ ¼¼ÆÃ °ü·Ã
+    #region ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     
-    //È£Ãâ ½Ã ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ½ºÅÈ, ¾÷±×·¹ÀÌµå ÇØ±Ý ¹× Á¤¹Ù ÇØ±Ý Á¤º¸ÀÇ ÃÊ±â°ª ¼¼ÆÃ
-    public static void SetInitialData()
+    //È£ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â°ª ï¿½ï¿½ï¿½ï¿½
+    public void SetInitialData()
     {
-        //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ ÃÊ±â ½ºÅÈ ¼¼ÆÃ
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
         SaveEncryptedDataToPrefs(PlayerATKName, PlayerATK.ToString());
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, PlayerBALLCOUNT.ToString());
         SaveEncryptedDataToPrefs(PlayerPINHPName, PlayerPINHP.ToString());
 
-        //ÃÊ±â °ñµå°ª ¼¼ÆÃ
+        //ï¿½Ê±ï¿½ ï¿½ï¿½å°ª ï¿½ï¿½ï¿½ï¿½
         SaveEncryptedDataToPrefs(GoldName, Gold.ToString());
         SaveEncryptedDataToPrefs(UpgradeStoneName, UpgradeStone.ToString());
 
-        //¾÷±×·¹ÀÌµå ÇØ±Ý Á¤º¸ÀÇ ÃÊ±â°ª ¼¼ÆÃ
+        //ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â°ª ï¿½ï¿½ï¿½ï¿½
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
-
-        //¾ÆÀÌÅÛ ÀúÀå Á¤º¸
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SaveItemDataToPrefs(PlayerInventoryName, new List<ItemDataForSave>());
         SaveItemDataToPrefs(PlayerEquipName, new List<ItemDataForSave>());
 
-        #region ÀÎº¥Åä¸®, Àåºñ UI »õ·Î°íÄ§
-
-        #endregion
+        DebugTxt.text = "no saved data, saving initial data";
     }
 
 
@@ -523,31 +590,53 @@ public class DataControl : MonoBehaviour
     #endregion
 
 
-    #region ¸®½ºÆ®(ÀÎº¥Åä¸®, Àåºñ)¸¦ jsonÆÄÀÏ·Î º¯È¯ÇÏ¿© ÇÃ·¹ÀÌ¾î ÇÁ·¾½º¿¡ ÀúÀå.
-    // list¸¦ jsonÆÄÀÏ·Î º¯È¯ÇÏ¿© ÇÃ·¹ÀÌ¾î ÇÁ·¾½º¿¡ ÀúÀå.
+    #region ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½Îºï¿½ï¿½ä¸®, ï¿½ï¿½ï¿½)ï¿½ï¿½ jsonï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+    // listï¿½ï¿½ jsonï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½È¯ï¿½Ï¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     public static void SaveItemDataToPrefs(string keyName, List<ItemDataForSave> data)
     {
-        Debug.LogError($"{keyName} jsonÀ¸·Î ÀúÀå!");
         string json = JsonUtility.ToJson(new InventoryData { items = data });
         SaveEncryptedDataToPrefs(keyName, json);
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î ÇÁ·¾½º¿¡¼­ jsonÀ» ºÒ·¯¿Í¼­ ¸®½ºÆ®·Î º¯È¯.
+    /// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ jsonï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È¯.
     /// </summary>
     public static List<ItemDataForSave> LoadItemDataFromPrefs(string keyName)
     {
-        Debug.LogError($"{keyName}À» ·Îµå");
         string json = LoadEncryptedDataFromPrefs(keyName);
         if (string.IsNullOrEmpty(json))
         {
-            //Debug.LogError("ÃÊ±â »óÅÂ.");
+            //Debug.LogError("ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½.");
             return new List<ItemDataForSave>();
         }
 
         InventoryData data = JsonUtility.FromJson<InventoryData>(json);
         return data.items;
     }
+    #endregion
+
+
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+
+    //ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½Þ¼Òµï¿½
+    public bool CheckSaveSuccess()
+    {
+        if (isSaveSuccess)
+        {
+            //ï¿½ï¿½ï¿½Ìºê°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½
+
+            return true;    //true ï¿½ï¿½È¯
+        }
+        else
+        {
+            //ï¿½ï¿½ï¿½Ìºê°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ true ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½
+
+            return false;   //false ï¿½ï¿½È¯
+        }
+    }
+
+
     #endregion
 
 
