@@ -5,16 +5,16 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [Header("Enemy movement variables")]
-    public float moveSpeed = 2f;  // ÀÌµ¿ ¼Óµµ
-    [SerializeField] public bool isMoving = false; // ÀÌµ¿ ¿©ºÎ È®ÀÎ
-    private int moveStep = 0; // ÀÌµ¿ ´Ü°è (5¹øÀ¸·Î ³ª´©¾î ÁøÇà);
-    private GameObject target;  // Ãß°¡µÈ º¯¼ö, Å¸°Ù(ÇÃ·¹ÀÌ¾î)À» ÃßÀû
-    private float moveDistance; // ÇÑ Ä­ ÀÌµ¿ ¸ñÇ¥ °Å¸®
+    public float moveSpeed = 2f;  // ì´ë™ ì†ë„
+    [SerializeField] public bool isMoving = false; // ì´ë™ ì—¬ë¶€ í™•ì¸
+    private int moveStep = 0; // ì´ë™ ë‹¨ê³„ (5ë²ˆìœ¼ë¡œ ë‚˜ëˆ„ì–´ ì§„í–‰);
+    private GameObject target;  // ì¶”ê°€ëœ ë³€ìˆ˜, íƒ€ê²Ÿ(í”Œë ˆì´ì–´)ì„ ì¶”ì 
+    private float moveDistance; // í•œ ì¹¸ ì´ë™ ëª©í‘œ ê±°ë¦¬
     public Transform start;
 
     [Header("Enemy attack & hit variables")]
-    public bool isDetectedPlayer = false;   //ÇÃ·¹ÀÌ¾î °¨Áö ¿©ºÎ
-    private PlayerManger Pmanager;  //ÇÃ·¹ÀÌ¾î¿¡°Ô µ¥¹ÌÁö Ã³¸®¸¦ À§ÇÑ PlayerManager
+    public bool isDetectedPlayer = false;   //í”Œë ˆì´ì–´ ê°ì§€ ì—¬ë¶€
+    private PlayerManger Pmanager;  //í”Œë ˆì´ì–´ì—ê²Œ ë°ë¯¸ì§€ ì²˜ë¦¬ë¥¼ ìœ„í•œ PlayerManager
     
     public bool isSpawned = false;
     public bool isAlive;
@@ -26,23 +26,23 @@ public class Enemy : MonoBehaviour
 
 
     [Header("Enemy references")]
-    public EnemyStatus status; //ÀÌ Àû ÄÉ¸¯ÅÍÀÇ ½ºÅÈ
-    public GameObject HpBar;    //Ã¼·Â¹Ù
-    public GameObject canvas;   //Ã¼·Â¹Ù°¡ ¼ÒÈ¯µÉ ui Äµ¹ö½º
+    public EnemyStatus status; //ì´ ì  ì¼€ë¦­í„°ì˜ ìŠ¤íƒ¯
+    public GameObject HpBar;    //ì²´ë ¥ë°”
+    public GameObject canvas;   //ì²´ë ¥ë°”ê°€ ì†Œí™˜ë  ui ìº”ë²„ìŠ¤
 
 
 
     private void Start()
     {
         status = GetComponent<EnemyStatus>();
-        // "Player" ÅÂ±×°¡ ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ Å¸°ÙÀ¸·Î ¼³Á¤
+        // "Player" íƒœê·¸ê°€ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •
         target = GameObject.FindWithTag("Player");
         if (target != null)
         {
-            //Ã£¾ÒÀ¸¸é PlayerManager ¹Ş¾Æ¿À±â
+            //ì°¾ì•˜ìœ¼ë©´ PlayerManager ë°›ì•„ì˜¤ê¸°
             Pmanager = target.GetComponent<PlayerManger>();
 
-            //µğ¹ö±×¿ë
+            //ë””ë²„ê·¸ìš©
             if (Pmanager != null)
             {
                 Debug.Log("found player!");
@@ -52,109 +52,109 @@ public class Enemy : MonoBehaviour
                 Debug.Log("Player None");
             }
         }
-        moveDistance = Vector3.Distance(start.position, target.transform.position) / 5f; // ÇÑ Ä­ ÀÌµ¿ ¸ñÇ¥ °Å¸®
+        moveDistance = Vector3.Distance(start.position, target.transform.position) / 5f; // í•œ ì¹¸ ì´ë™ ëª©í‘œ ê±°ë¦¬
 
-        //ÇÃ·¹ÀÌ¾î °¨Áö »óÅÂ¸¦ false·Î ÃÊ±âÈ­
+        //í”Œë ˆì´ì–´ ê°ì§€ ìƒíƒœë¥¼ falseë¡œ ì´ˆê¸°í™”
         isDetectedPlayer = false;
-        //»ıÁ¸ Ã³¸®¸¦ true·Î
+        //ìƒì¡´ ì²˜ë¦¬ë¥¼ trueë¡œ
         isAlive = true;
-        hpBarSlider.maxValue = status.EnemyHP;          //Ã¼·Â¹Ù ÃÖ´ë°ª ¼³Á¤
+        hpBarSlider.maxValue = status.EnemyHP;          //ì²´ë ¥ë°” ìµœëŒ€ê°’ ì„¤ì •
 
 
     }
 
     public async Task Move()
     {
-        if (target != null && !isMoving) // Å¸°ÙÀÌ Á¸ÀçÇÏ°í ¼ÒÈ¯ÀÌ ¿Ï·áµÇ¾úÀ¸¸ç ÀÌµ¿ ÁßÀÌ ¾Æ´Ò ¶§¸¸ ÀÌµ¿ ½ÃÀÛ
+        if (target != null && !isMoving) // íƒ€ê²Ÿì´ ì¡´ì¬í•˜ê³  ì†Œí™˜ì´ ì™„ë£Œë˜ì—ˆìœ¼ë©° ì´ë™ ì¤‘ì´ ì•„ë‹ ë•Œë§Œ ì´ë™ ì‹œì‘
         {
             if (isSpawned)
             {
-                //»ç°Å¸® ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ Á¸ÀçÇÏ¸é
+                //ì‚¬ê±°ë¦¬ ë‚´ì— í”Œë ˆì´ì–´ê°€ ì¡´ì¬í•˜ë©´
                 if (isDetectedPlayer)
                 {
-                    await Attack(); //°ø°İÀÌ ³¡³¯ ¶§±îÁö ´ë±â
-                    isMoving = false;   //ÀÌµ¿ÀÌ ºÒÇÊ¿äÇÏ¹Ç·Î false
+                    await Attack(); //ê³µê²©ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
+                    isMoving = false;   //ì´ë™ì´ ë¶ˆí•„ìš”í•˜ë¯€ë¡œ false
                 }
                 else
                 {
-                    isMoving = true;    //»ç°Å¸® ³»¿¡ ÀûÀÌ µé¾î¿Í¾ß ÇÏ´Ï ÀÌµ¿
-                    moveStep++;         // ÀÌµ¿ ´Ü°è¸¦ ÇÏ³ª Áõ°¡
-                    if (moveStep >= 5)  // 5ÅÏ¸¶´Ù ÇÑ Ä­ ÀÌµ¿
+                    isMoving = true;    //ì‚¬ê±°ë¦¬ ë‚´ì— ì ì´ ë“¤ì–´ì™€ì•¼ í•˜ë‹ˆ ì´ë™
+                    moveStep++;         // ì´ë™ ë‹¨ê³„ë¥¼ í•˜ë‚˜ ì¦ê°€
+                    if (moveStep >= 5)  // 5í„´ë§ˆë‹¤ í•œ ì¹¸ ì´ë™
                     {
-                        await MoveOneStep(); // ÇÑ Ä­ ÀÌµ¿
-                        moveStep = 0; // ÀÌµ¿ ´Ü°è¸¦ ÃÊ±âÈ­
+                        await MoveOneStep(); // í•œ ì¹¸ ì´ë™
+                        moveStep = 0; // ì´ë™ ë‹¨ê³„ë¥¼ ì´ˆê¸°í™”
                     }
                 }
             }
             else
             {
-                //½ºÆù Ã³¸®°¡ ¾ÈµÇ¾ú´Ù¸é ÀÌµ¿ÇÏ¸é ¾ÈµÇ´Ï false
+                //ìŠ¤í° ì²˜ë¦¬ê°€ ì•ˆë˜ì—ˆë‹¤ë©´ ì´ë™í•˜ë©´ ì•ˆë˜ë‹ˆ false
                 isMoving = false;
             }
         }
     }
     
-    private float duration = 0.2f; // ÀÌµ¿ ½Ã°£
+    private float duration = 0.2f; // ì´ë™ ì‹œê°„
     public async Task MoveOneStep()
     {
-        //Å¸°ÙÀ» ¹ß°ß Çß°í, ÇÊµå¿¡ ¼ÒÈ¯µÇ¾úÀ¸¸ç »ì¾ÆÀÖ´Â °æ¿ì¿¡¸¸ ½ÇÇà
+        //íƒ€ê²Ÿì„ ë°œê²¬ í–ˆê³ , í•„ë“œì— ì†Œí™˜ë˜ì—ˆìœ¼ë©° ì‚´ì•„ìˆëŠ” ê²½ìš°ì—ë§Œ ì‹¤í–‰
         if (target == null || !isSpawned || !isAlive) return;
 
-        //ÇÃ·¹ÀÌ¾î°¡ »ç°Å¸® ³»¿¡ ¾øÀ» ¶§¸¸ ½ÇÇà
+        //í”Œë ˆì´ì–´ê°€ ì‚¬ê±°ë¦¬ ë‚´ì— ì—†ì„ ë•Œë§Œ ì‹¤í–‰
         if (!isDetectedPlayer)
         {
-            isMoving = true; // ÀÌµ¿ ½ÃÀÛ
+            isMoving = true; // ì´ë™ ì‹œì‘
             float elapsedTime = 0f;
 
             Vector3 startPosition = transform.position;
             Vector3 endPosition = transform.position - (Vector3.right * moveDistance);
-            Debug.Log($"½ÃÀÛ {startPosition} ³¡{endPosition}");
-            Debug.Log($"ÀÌµ¿°Å¸®{moveDistance}");
+            Debug.Log($"ì‹œì‘ {startPosition} ë{endPosition}");
+            Debug.Log($"ì´ë™ê±°ë¦¬{moveDistance}");
             while (elapsedTime < duration)
             {
-                // ¸ñÇ¥ À§Ä¡·Î ÀÏÁ¤ ¼Óµµ·Î ÀÌµ¿
+                // ëª©í‘œ ìœ„ì¹˜ë¡œ ì¼ì • ì†ë„ë¡œ ì´ë™
                 transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / duration);
                 elapsedTime += Time.deltaTime;
-                await Task.Yield(); // ÇÁ·¹ÀÓ¸¶´Ù °»½Å
+                await Task.Yield(); // í”„ë ˆì„ë§ˆë‹¤ ê°±ì‹ 
             }
-            transform.position = endPosition; // ÃÖÁ¾ À§Ä¡ º¸Á¤
-            isMoving = false; // ÀÌµ¿ Á¾·á
+            transform.position = endPosition; // ìµœì¢… ìœ„ì¹˜ ë³´ì •
+            isMoving = false; // ì´ë™ ì¢…ë£Œ
 
-            DetectPlayer(); // ÀÌµ¿ ÈÄ ÇÃ·¹ÀÌ¾î °¨Áö
+            DetectPlayer(); // ì´ë™ í›„ í”Œë ˆì´ì–´ ê°ì§€
         }
         else
         {
-            //ÇÃ·¹ÀÌ¾î°¡ »ç°Å¸® ³»¿¡ ÀÖ´Ù¸é
+            //í”Œë ˆì´ì–´ê°€ ì‚¬ê±°ë¦¬ ë‚´ì— ìˆë‹¤ë©´
 
-            await Attack(); //ÀÌµ¿ÇÏÁö ¾Ê°í °ø°İ ¼öÇà, °ø°İÀÌ ³¡³¯ ¶§±îÁö ´ë±â
-            isMoving = false;   //ÀÌµ¿ÀÌ ºÒÇÊ¿äÇÏ¹Ç·Î false
+            await Attack(); //ì´ë™í•˜ì§€ ì•Šê³  ê³µê²© ìˆ˜í–‰, ê³µê²©ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
+            isMoving = false;   //ì´ë™ì´ ë¶ˆí•„ìš”í•˜ë¯€ë¡œ false
         }
 
     }
 
     private void Update()
     {
-        //Ã¼·Â¹Ù À§Ä¡ ¾÷µ¥ÀÌÆ®
+        //ì²´ë ¥ë°” ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         LocateEnemyHealthBar();
-        //hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);    //È­¸é ºñÀ²¿¡ µû¶ó Ã¼·Â¹Ù Å©±â Á¶Á¤ È®ÀÎ¿ë µğ¹ö±× ÄÚµå
+        //hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);    //í™”ë©´ ë¹„ìœ¨ì— ë”°ë¼ ì²´ë ¥ë°” í¬ê¸° ì¡°ì • í™•ì¸ìš© ë””ë²„ê·¸ ì½”ë“œ
         
-        //Ã¼·Â¹Ù °ª ¾÷µ¥ÀÌÆ®
+        //ì²´ë ¥ë°” ê°’ ì—…ë°ì´íŠ¸
         hpBarSlider.value = status.EnemyHP;
 
-        //»ì¾Æ ÀÖÀ»¶§¸¸ ½ÇÇà
+        //ì‚´ì•„ ìˆì„ë•Œë§Œ ì‹¤í–‰
         if (isAlive & status != null)
         {
             if(status.EnemyHP < 0) 
             {
-                //¸¸¾à Ã¼·ÂÀÌ 0 ÀÌÇÏ·Î ¶³¾îÁö¸é »ç¸ÁÃ³¸®
+                //ë§Œì•½ ì²´ë ¥ì´ 0 ì´í•˜ë¡œ ë–¨ì–´ì§€ë©´ ì‚¬ë§ì²˜ë¦¬
                 isAlive = false;
                 OnDie();
             }
         }
 
-        if (!isMoving) return; // ÀÌµ¿ ÁßÀÌ ¾Æ´Ò ¶§¸¸ ½ÇÇà
+        if (!isMoving) return; // ì´ë™ ì¤‘ì´ ì•„ë‹ ë•Œë§Œ ì‹¤í–‰
 
-        // »ç°Å¸® ³»¿¡ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ì‚¬ê±°ë¦¬ ë‚´ì— í”Œë ˆì´ì–´ê°€ ìˆëŠ”ì§€ í™•ì¸
         DetectPlayer();
     }
 
@@ -162,15 +162,15 @@ public class Enemy : MonoBehaviour
 
     public bool HasMoved()
     {
-        return !isMoving;  // ÀÌµ¿ÀÌ ³¡³µ´Ù¸é false ¹İÈ¯
+        return !isMoving;  // ì´ë™ì´ ëë‚¬ë‹¤ë©´ false ë°˜í™˜
     }
 
     public void ResetMove()
     {
-        isMoving = false; // ÀÌµ¿ »óÅÂ ÃÊ±âÈ­
+        isMoving = false; // ì´ë™ ìƒíƒœ ì´ˆê¸°í™”
     }
 
-    //ÇÃ·¹ÀÌ¾î°¡ »ç°Å¸® ³»¿¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+    //í”Œë ˆì´ì–´ê°€ ì‚¬ê±°ë¦¬ ë‚´ì— ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
     private void DetectPlayer()
     {
         if (Vector3.Distance(transform.position, target.transform.position) <= AttackRange)
@@ -179,27 +179,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    //°ø°İ ÇÔ¼ö
+    //ê³µê²© í•¨ìˆ˜
     private async Task Attack()
     {
-        // ÇÃ·¹ÀÌ¾î¿¡°Ô °ø°İ·Â¸¸Å­ µ¥¹ÌÁö ºÎ¿©
+        // í”Œë ˆì´ì–´ì—ê²Œ ê³µê²©ë ¥ë§Œí¼ ë°ë¯¸ì§€ ë¶€ì—¬
         Pmanager.playerHP -= status.EnemyATK;
 
-        // ÀÓ½Ã ÄÚµå (°ø°İ ¾Ö´Ï¸ŞÀÌ¼ÇÀ» À§ÇÑ ´ë±â ½Ã°£)
-        await Task.Delay(500);  // 0.5ÃÊ ´ë±â
+        // ì„ì‹œ ì½”ë“œ (ê³µê²© ì• ë‹ˆë©”ì´ì…˜ì„ ìœ„í•œ ëŒ€ê¸° ì‹œê°„)
+        await Task.Delay(500);  // 0.5ì´ˆ ëŒ€ê¸°
     }
 
 
 
-    //Ã¼·Â¹Ù ¼ÒÈ¯ ÇÔ¼ö
+    //ì²´ë ¥ë°” ì†Œí™˜ í•¨ìˆ˜
     public void SetEnemyHealthBar() 
     {
         if (canvas != null)
         {
-            hpb = Instantiate(HpBar, canvas.transform);     //Ã¼·Â¹Ù ¼ÒÈ¯
-            hpBarPos = hpb.GetComponent<RectTransform>();   //Ã¼·Â¹Ù À§Ä¡ ÀÌµ¿À» À§ÇØ RectTransformÀ» ¹Ş¾Æ¿È
-            hpBarSlider = hpb.GetComponent<Slider>();       //Ã¼·Â¹Ù °ª ¼³Á¤À» À§ÇØ slider ÄÄÆ÷³ÍÆ®¸¦ ¹Ş¾Æ¿È
-            hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);  //È­¸é ºñÀ²¿¡ ¸ÂÃç Ã¼·Â¹ÙÀÇ Å©±â Á¶Á¤
+            hpb = Instantiate(HpBar, canvas.transform);     //ì²´ë ¥ë°” ì†Œí™˜
+            hpb.SetActive(true);
+            hpBarPos = hpb.GetComponent<RectTransform>();   //ì²´ë ¥ë°” ìœ„ì¹˜ ì´ë™ì„ ìœ„í•´ RectTransformì„ ë°›ì•„ì˜´
+            hpBarSlider = hpb.GetComponent<Slider>();       //ì²´ë ¥ë°” ê°’ ì„¤ì •ì„ ìœ„í•´ slider ì»´í¬ë„ŒíŠ¸ë¥¼ ë°›ì•„ì˜´
+            hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);  //í™”ë©´ ë¹„ìœ¨ì— ë§ì¶° ì²´ë ¥ë°”ì˜ í¬ê¸° ì¡°ì •
         }
         else 
         {
@@ -209,19 +210,19 @@ public class Enemy : MonoBehaviour
 
 
 
-    //Ã¼·Â¹Ù À§Ä¡¸¦ Àû ÄÉ¸¯ÅÍ »ó´ÜÀ¸·Î Á¶Á¤ÇÏ´Â ÇÔ¼ö
+    //ì²´ë ¥ë°” ìœ„ì¹˜ë¥¼ ì  ì¼€ë¦­í„° ìƒë‹¨ìœ¼ë¡œ ì¡°ì •í•˜ëŠ” í•¨ìˆ˜
     private void LocateEnemyHealthBar()
     {
         if (canvas != null) 
         {
-            Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * 0.9f);   //Ã¼·Â¹Ù°¡ À§Ä¡ÇÒ ÁÂÇ¥
+            Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * 0.9f);   //ì²´ë ¥ë°”ê°€ ìœ„ì¹˜í•  ì¢Œí‘œ
             hpBarPos.anchorMin = viewportPos;
             hpBarPos.anchorMax = viewportPos;
         }
     }
 
 
-    //»ç¸Á ½Ã ÀÛµ¿ÇÏ´Â ÇÔ¼ö
+    //ì‚¬ë§ ì‹œ ì‘ë™í•˜ëŠ” í•¨ìˆ˜
     public void OnDie()
     {
         HpBar.gameObject.SetActive(false);
@@ -229,19 +230,19 @@ public class Enemy : MonoBehaviour
     }
 
 }
-    //°ø°İ ÇÔ¼ö¿¡¼­ ¿¡´Ï¸ŞÀÌ¼Ç ±æÀÌ¸¦ ¹İÈ¯¹Ş±â À§ÇØ ¾²ÀÌ´Â Èû¼ö
+    //ê³µê²© í•¨ìˆ˜ì—ì„œ ì—ë‹ˆë©”ì´ì…˜ ê¸¸ì´ë¥¼ ë°˜í™˜ë°›ê¸° ìœ„í•´ ì“°ì´ëŠ” í˜ìˆ˜
     //private float GetAnimationLength(string animationName)
     //{
-    //    if (animator == null) return 1.0f; // ¾Ö´Ï¸ŞÀÌÅÍ ¾øÀ» °æ¿ì ±âº»°ª
+    //    if (animator == null) return 1.0f; // ì• ë‹ˆë©”ì´í„° ì—†ì„ ê²½ìš° ê¸°ë³¸ê°’
 
-    //    //¿¡´Ï¸ŞÀÌ¼ÇÀ» ÀÌ·ç´Â Å¬¸³µéÀÇ ±æÀÌ¸¦ ÂüÁ¶ÇÏ±â À§ÇÑ RuntimeAnimatorController
+    //    //ì—ë‹ˆë©”ì´ì…˜ì„ ì´ë£¨ëŠ” í´ë¦½ë“¤ì˜ ê¸¸ì´ë¥¼ ì°¸ì¡°í•˜ê¸° ìœ„í•œ RuntimeAnimatorController
     //    RuntimeAnimatorController ac = animator.runtimeAnimatorController;
 
     //    foreach (AnimationClip clip in ac.animationClips)
     //    {
-    //        //¿¡´Ï¸ŞÀÌ¼ÇÀ» ÀÌ·ç´Â °¢ Å¬¸³º°·Î
+    //        //ì—ë‹ˆë©”ì´ì…˜ì„ ì´ë£¨ëŠ” ê° í´ë¦½ë³„ë¡œ
     //        if (clip.name == animationName)
     //            return clip.length;
     //    }
-    //    return 1.0f; // ±âº» ¾Ö´Ï¸ŞÀÌ¼Ç ±æÀÌ (1ÃÊ)
+    //    return 1.0f; // ê¸°ë³¸ ì• ë‹ˆë©”ì´ì…˜ ê¸¸ì´ (1ì´ˆ)
     //}
