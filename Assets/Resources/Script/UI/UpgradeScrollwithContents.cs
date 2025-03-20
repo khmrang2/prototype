@@ -5,16 +5,11 @@ using UnityEngine.UI;
 
 public class UpgradeScrollwithContents : MonoBehaviour
 {
-    public RectTransform bgParent;  // ����� ���� �θ� (Viewport ����)
-    public RectTransform contents;  // ScrollView�� contents
-    public ScrollRect scrollRect;   // ScrollRect ������Ʈ
-    public RectTransform bgPrefab;  // ��� ������
-    public int poolSize = 5;        // ��� ������Ʈ Ǯ ũ��
-    public float bgHeight = 1280f;  // ��� �� ���� ����
-    public float visibilityOffset = 500f; // ȭ�� �ۿ��� ��Ȱ��ȭ�� �Ÿ�
-
-    private readonly List<RectTransform> bgPool = new(); // ��� ������Ʈ Ǯ
-    private float lastContentY;  // ���������� Ȯ���� ��ũ�� ��ġ
+    public RectTransform bgParent;  // viewport 배경
+    public RectTransform contents;  // ScrollView의 contents
+    public ScrollRect scrollRect;   // ScrollRect 컴포넌트
+    public RectTransform bgPrefab;  // 생성할 배경 프리팹
+    private float lastContentY;  // 마지막 콘텐츠
 
     void Start()
     {

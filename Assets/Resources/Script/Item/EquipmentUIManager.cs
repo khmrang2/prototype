@@ -67,12 +67,8 @@ public class EquipmentUIManager : MonoBehaviour
     public void closePanel()
     {
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
-        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
-        int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
         PlayerStatusInMain.Instance.getGold(equipmentPanel.GetEarnedGold());
         PlayerStatusInMain.Instance.getUpgradeStone(equipmentPanel.GetEarnedUpgradeStone());
-        DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + equipmentPanel.GetEarnedGold()).ToString());
-        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + equipmentPanel.GetEarnedUpgradeStone()).ToString());
     }
 
     /// <summary>

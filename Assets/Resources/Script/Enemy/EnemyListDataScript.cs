@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class EnemyDataList : ScriptableObject 
 {
-    //Àûµé »ý¼º ½Ã »ç¿ëµÉ ÀûµéÀÇ µ¥ÀÌÅÍ ¸®½ºÆ®¸¦ ´ãÀ» ½ºÅ©¸³ÅÍºí ¿ÀºêÁ§Æ®
+    //ì ë“¤ ìƒì„± ì‹œ ì‚¬ìš©ë  ì ë“¤ì˜ ë°ì´í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹´ì„ ìŠ¤í¬ë¦½í„°ë¸” ì˜¤ë¸Œì íŠ¸
 
-    //°¢ ¸®½ºÆ®´Â ¼ø¼­´ë·Î ÇØ´ç ¸Ê¿¡¼­ µîÀåÇÒ ÀûµéÀÇ Ã¼·Â, °ø°Ý·Â, ¹æ¾î·ÂÀ» ´ãÀº ¸®½ºÆ®
+    //ê° ë¦¬ìŠ¤íŠ¸ëŠ” ìˆœì„œëŒ€ë¡œ í•´ë‹¹ ë§µì—ì„œ ë“±ìž¥í•  ì ë“¤ì˜ ì²´ë ¥, ê³µê²©ë ¥, ë°©ì–´ë ¥ì„ ë‹´ì€ ë¦¬ìŠ¤íŠ¸
 
-    //ÀÌ¹ø ½ºÅ×ÀÌÁö¿¡ µîÀåÇÒ ÀûµéÀÇ ¸®½ºÆ®, ¾Õ¿¡¼­ ºÎÅÍ ¾Æ·¡ EnemySpawnCountPerTurnÀÇ °ª¿¡ µû¶ó µîÀå
+    //ì´ë²ˆ ìŠ¤í…Œì´ì§€ì— ë“±ìž¥í•  ì ë“¤ì˜ ë¦¬ìŠ¤íŠ¸, ì•žì—ì„œ ë¶€í„° ì•„ëž˜ EnemySpawnCountPerTurnì˜ ê°’ì— ë”°ë¼ ë“±ìž¥
     public List<EnemyData> EnemyList;
 
-    //°¢ ÅÏ¸¶´Ù ¼ÒÈ¯µÉ ÀûÀÇ ¼ö, ÀÎµ¦½º ¹øÈ£°¡ ÅÏ, ÇØ´ç ÀÎµ¦½º ¹øÈ£ÀÇ °ªÀÌ ÇØ´ç ÅÏ¿¡ ¼ÒÈ¯µÉ ÀûÀÇ ¼ö
+    //ê° í„´ë§ˆë‹¤ ì†Œí™˜ë  ì ì˜ ìˆ˜, ì¸ë±ìŠ¤ ë²ˆí˜¸ê°€ í„´, í•´ë‹¹ ì¸ë±ìŠ¤ ë²ˆí˜¸ì˜ ê°’ì´ í•´ë‹¹ í„´ì— ì†Œí™˜ë  ì ì˜ ìˆ˜
     public List<int> EnemySpawnCountPerTurn;
 }
 [System.Serializable]

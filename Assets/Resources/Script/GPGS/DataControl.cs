@@ -62,8 +62,6 @@ public class DataControl : MonoBehaviour
 
     private static string UpgradableNumName = "UpgradableNum";                 // 업그레이드 해금 정보의 키 이름
 
-    //private string EquipDataName;                                     //��� �ر� ������ Ű �̸�
-
 
     // 초기 데이터에서 입력될 값들
     private static int PlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
@@ -71,27 +69,27 @@ public class DataControl : MonoBehaviour
     private static int PlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
     private static int PlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int Gold = 7;                                               //�ʱ� ��尪
+    private static int Gold = 7;                                               // 초기 골드 양
     private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
     private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();
     private static List<ItemDataForSave> Equip = new List<ItemDataForSave>();
 
 
-    private static int UpgradableNum = 0;                                      //���׷��̵� �ر� ������ �ʱⰪ
+    private static int UpgradableNum = 0;                                      // 업그레이드 횟수
 
 
-    //���̺��� ������ ���� ���θ� ��Ÿ���� bool ����
+    //세이브 성공 여부 확인용 변수 bool
     private bool isSaveSuccess;
     private bool isSaveFail;
 
 
-    //����׿� �ؽ�Ʈ ������Ʈ
+    //디버그용 텍스트
     public TextMeshProUGUI DebugTxt;
 
 
 
-    #region gpgs Ŭ���� ������ ����
+    #region gpgs 클라우드 데이터 저장
 
 
     //���� �� ���� ���θ� ��ȯ�ޱ� ���� ������ �ܺ� ȣ��� ���� �޼ҵ�
@@ -116,7 +114,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    public void SaveData() // �ܺο��� ���̺� ȣ��� �޼ҵ�
+    public void SaveData() // 외부에서 세이브 호출용 메소드
     {
         //���̺� ���� ���� �Ǵ��� ���� bool ����
         isSaveSuccess = false;
@@ -131,25 +129,25 @@ public class DataControl : MonoBehaviour
 
 
 
-    private void OpenSaveGame() //���̺� �޼ҵ�
+    private void OpenSaveGame() //세이브 메소드
     {
         if (PlayGamesPlatform.Instance != null)
         {
 
-            //player prefs�κ��� ������ ������ �޾ƿ���
+            //player prefs로부터 저장할 데이터 받아오기
             GetDataSettings();
 
 
-            //gpgs�� �̱��� �ν��Ͻ��� ȣ��
+            //gpgs의 싱글톤 인스턴스를 호출
             ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-            // ������ ����
+            // 데이터 접근
             saveGameClient.OpenWithAutomaticConflictResolution(fileName,
                 DataSource.ReadCacheOrNetwork,
                 ConflictResolutionStrategy.UseLastKnownGood,
                 onsavedGameOpend);
-            //Ŭ���� ������ ���� ��û �޼ҵ�, ������ ���ϸ����� ����, �ɽ��� �ֽ��� �ƴ϶�� ��Ʈ��ũ�� ���� ������ ������, �浹�ø� ����� �ֽ� �����͸� ó��, �ݹ��Լ� onsavedGameOpend ����
+            //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 onsavedGameOpend 실행
         }
         else 
         {
@@ -164,37 +162,37 @@ public class DataControl : MonoBehaviour
 
     private void onsavedGameOpend(SavedGameRequestStatus status, ISavedGameMetadata game)
     {
-        //������ ��û ���� ���ο� �ҷ����� �����͸� ���� �۵�
+        //데이터 요청 성공 여부와 불러와진 데이터를 통해 작동
 
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
-        //gpgs �̱��� ȣ��
+        ///gpgs 싱글톤 호출
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //���̺� ��û�� �����ߴٸ�
+            //세이브 요청에 성공했다면
 
             DebugTxt.text = "save success!";
-            //�α� ���
+            //로그 출력
 
             var update = new SavedGameMetadataUpdate.Builder().Build();
-            //���� �÷��� ���񽺿� ������ ���� ��Ÿ������ 
+            //구글 플레이 서비스에 저장을 위한 메타데이터 
 
             //json
             var json = JsonUtility.ToJson(settings);
-            //jsonUtility�� ���� �����Ϸ��� �����͸� ���ڿ��� ����
+            //jsonUtility를 통해 저장하려는 데이터를 문자열로 변경
 
             byte[] data = Encoding.UTF8.GetBytes(json);
-            //���ڿ��� ����� �����͸� ����Ʈ�� ��ȯ (UTF-8 ���)
+            //문자열로 변경된 데이터를 바이트로 변환 (UTF-8 사용)
 
 
-            // ���� �Լ� ����
+            // 저장 함수 실행
             saveGameClient.CommitUpdate(game, update, data, OnSavedGameWritten);
         }
         else
         {
             Debug.Log("Save No.....");
 
-            //���̺� ���� ���� Ȯ�ο� ������ ���� �������� ����
+            //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
             isSaveSuccess = false;
             isSaveFail = true;
 
@@ -202,25 +200,25 @@ public class DataControl : MonoBehaviour
         }
     }
 
-    // ���� Ȯ�� 
+    // 저장 확인 
     private void OnSavedGameWritten(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //���� �޼ҵ� �۵� �� �ݹ��� ���� ����� �޼ҵ�
+        //저장 메소드 작동 시 콜백을 통해 실행될 메소드
 
         if (status == SavedGameRequestStatus.Success)
         {
-            // ����Ϸ�κ�
+            // 저장완료부분
             DebugTxt.text = "Save End";
-            
-            //���̺� ���� ���� Ȯ�ο� ������ ���� ������ ����
+
+            //세이브 성공 여부 확인용 변수의 값을 참으로 변경
             isSaveSuccess = true;
 
         }
         else
         {
             Debug.Log("Save nonononononono...");
-            
-            //���̺� ���� ���� Ȯ�ο� ������ ���� �������� ����
+
+            //세이브 성공 여부 확인용 변수의 값을 거짓으로 변경
             isSaveSuccess = false;
             isSaveFail = true;
 
@@ -242,7 +240,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region gpgs Ŭ���� ������ �ε�
+    #region gpgs 클라우드 데이터 로드
 
 
 
@@ -263,9 +261,9 @@ public class DataControl : MonoBehaviour
 
 
 
-    public void LoadData()  //�ܺο��� �ε� ȣ��� �޼ҵ�
+    public void LoadData()  //외부에서 로드 호출용 메소드
     {
-        //���� ���� Ȯ�ο� bool ����
+        //세이브 여부를 bool로 초기화
         isSaveSuccess = false;
         isSaveFail = false;
 
@@ -280,20 +278,20 @@ public class DataControl : MonoBehaviour
     {
         if (PlayGamesPlatform.Instance != null)
         {
-            //gpgs�� �̱��� �ν��Ͻ��� ȣ��
+            //gpgs의 싱글톤 인스턴스를 호출
             ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
-            // ������ ����
+            // 데이터 접근
             saveGameClient.OpenWithAutomaticConflictResolution(fileName,
                 DataSource.ReadCacheOrNetwork,
                 ConflictResolutionStrategy.UseLastKnownGood,
                 LoadGameData);
-            //Ŭ���� ������ ���� ��û �޼ҵ�, ������ ���ϸ����� ����, �ɽ��� �ֽ��� �ƴ϶�� ��Ʈ��ũ�� ���� ������ ������, �浹�ø� ����� �ֽ� �����͸� ó��, �ݹ��Լ� ����
+            //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 실행
         }
-        else 
-        {
-            //gpgs ȣ�⿡ �����ؼ� �ε� �Ұ�
+        else
+            {
+            //gpgs load 실패
             isSaveSuccess = false ;
             isSaveFail = true;
             DebugTxt.text = "gpgs for load fail";
@@ -302,19 +300,19 @@ public class DataControl : MonoBehaviour
 
     private void LoadGameData(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //gpgs �̱��� �ν��Ͻ� ȣ��
+        //gpgs 싱글톤 인스턴스 호출
         ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //gpgs�� ���� ��û�� �����ߴٸ�
+            //gpgs에 보낸 요청이 성공했다면
             DebugTxt.text= "Load success";
 
-            //gpgs�κ��� ����Ʈ �������� ����� �����͸� �޾ƿ��� �ݹ� �Լ� OnSavedGameDataRead ����
+            //gpgs로부터 바이트 형식으로 저장된 데이터를 받아오고 콜백 함수 OnSavedGameDataRead 실행
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
 
-            //���������� Ȯ�ο� ������ true��
+            //새이브 성공 변수를 true로 설정.
             isSaveSuccess = true;
 
         }
@@ -330,30 +328,30 @@ public class DataControl : MonoBehaviour
 
     private void OnSavedGameDataRead(SavedGameRequestStatus status, byte[] loadData)
     {
-        //�޾ƿ� ����Ʈ ������ �����͸� ���ڿ��� ��ȯ
+        //받아온 바이트 형태의 데이터를 문자열로 변환
         string data = System.Text.Encoding.UTF8.GetString(loadData);
 
         if (data == "")
         {
-            //�޾ƿ� �����Ͱ� �����̶��
+            //받아온 데이터가 공백이라면
             DebugTxt.text = "no saved data, saving initial data";
 
-            //������ ����� �����Ͱ� ���ٴ� ���̰� �̴� �� �÷��̾ ���� ù �����̶�� ���̹Ƿ� �ʱⰪ ����
+            //기존에 저장된 데이터가 없다는 뜻이고 이는 곧 플레이어가 완전 첫 실행이라는 뜻이므로 초기값 세팅
             SetInitialData();
 
-            //�ش� ���� ����
+            //해당 정보 저장
             //SaveData();
         }
         else
         {
-            //�޾ƿ� �����Ͱ� ������ �ƴ϶��
+            //받아온 데이터가 공백이 아니라면
             DebugTxt.text = "Loading data";
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
             //logText.text = "Load complete";
 
-            //gpgs�κ��� �ҷ����� �����ͷ� player prefs �ֽ�ȭ
+            //gpgs로부터 불러와진 데이터로 player prefs 최신화
             SetDataSettings();
 
         }
@@ -374,7 +372,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region gpgs Ŭ���� ������ ����
+    #region gpgs 클라우드 데이터 제거
 
 
 
@@ -389,28 +387,28 @@ public class DataControl : MonoBehaviour
     private void DeleteGameData()
     {
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
-        //gpgs�� �̱��� �ν��Ͻ��� ȣ��
+        //gpgs의 싱글톤 인스턴스를 호출
 
-        // ������ ����
+        // 데이터 접근
         saveGameClient.OpenWithAutomaticConflictResolution(fileName,
             DataSource.ReadCacheOrNetwork,
             ConflictResolutionStrategy.UseLastKnownGood,
             DeleteSaveGame);
-        //Ŭ���� ������ ���� ��û �޼ҵ�, ������ ���ϸ����� ����, �ɽ��� �ֽ��� �ƴ϶�� ��Ʈ��ũ�� ���� ������ ������, �浹�ø� ����� �ֽ� �����͸� ó��, �ݹ��Լ� ����
+        //클라우드 데이터 접근 요청 메소드, 지정한 파일명으로 저장, 케쉬가 최신이 아니라면 네트워크를 통해 데이터 가져옴, 충돌시를 대비해 최신 데이터를 처리, 콜백함수 실행
     }
 
 
     private void DeleteSaveGame(SavedGameRequestStatus status, ISavedGameMetadata data)
     {
-        //gpgs�� �̱��� �ν��Ͻ� ȣ��
+        //gpgs의 싱글톤 인스턴스 호출
         ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
 
 
         if (status == SavedGameRequestStatus.Success)
         {
-            //gpgs�� ���� ��û�� �޾Ƶ鿩���ٸ�
+            //gpgs에 보낸 요청이 받아들여졌다면
 
-            //gpgs�� ����� ������ ����
+            //gpgs에 저장된 데이터 삭제
             saveGameClient.Delete(data);
 
             DebugTxt.text = "Delete Complete";
@@ -435,11 +433,11 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region PlayerPrefs�� ��ȣȭ ����
+    #region PlayerPrefs와 암호화 관련
 
 
 
-    //gpgs�κ��� �޾ƿ� data settings �����ͷ� player prefs�� ������ ���� 
+    //gpgs로부터 받아온 data settings 데이터로 player prefs의 값들을 변경 
     private void SetDataSettings()
     {
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
@@ -450,7 +448,7 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
 
-        // �κ��丮�� ����.
+        //아이템과 인벤토리는 변환한 후 저장.
         SaveItemDataToPrefs(PlayerInventoryName, settings.inventoryItems);
         SaveItemDataToPrefs(PlayerEquipName, settings.equipItems);
 
@@ -458,7 +456,7 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefs�� ������ gpgs�� �����ϱ� ���� data settings�� ��������
+    //player prefs의 값들을 gpgs에 저장하기 위해 data settings로 가져오기
     private void GetDataSettings()
     {
         settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
@@ -476,28 +474,28 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefs�� ��ȣȭ���� �����͸� �����ϴ� �޼ҵ�, player prefs�� keyName�� Ű�� ��� ���ڿ� data�� ����
+    //player prefs에 암호화시켜 데이터를 저장하는 메소드, player prefs에 keyName을 키로 삼아 문자열 data을 저장
 
 
-    //�� �Լ� ���!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //이 함수 사용!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public static void SaveEncryptedDataToPrefs(string keyName, string data)
     {
         using (Aes aesAlg = Aes.Create())
         {
-            //����� Ű���� �ʱ�ȭ ���Ͱ��� �޾ƿ�
+            //저장된 키값과 초기화 벡터값을 받아옴
             aesAlg.Key = key;
             aesAlg.IV = iv;
 
-            // ��ȣȭ Ű�� �ʱ�ȭ ���͸� �̿��Ͽ�, ��ȣȭ�� ������ encryptor ����
+            // 암호화 키와 초기화 벡터를 이용하여, 암호화를 진행할 encryptor 생성
             ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
             byte[] encryptedData = null;
 
-            // �Ϲ� �����͸� ��ȣȭ
+            // 일반 데이터를 암호화
             byte[] bytesToEncrypt = Encoding.UTF8.GetBytes(data);
             encryptedData = encryptor.TransformFinalBlock(bytesToEncrypt, 0, bytesToEncrypt.Length);
 
-            // ��ȣȭ �����͸� ���ڿ��� ��ȯ�Ͽ� ���� 
+            // 암호화 데이터를 문자열로 변환하여 저장 
             string encryptedString = Convert.ToBase64String(encryptedData);
             PlayerPrefs.SetString(keyName, encryptedString);
             PlayerPrefs.Save();
@@ -509,41 +507,41 @@ public class DataControl : MonoBehaviour
 
 
 
-    //player prefs�� ��ȣȭ�Ǿ� ����� �����͸� �޾ƿ��� �޼ҵ�, ����� ����� keyName������ �����͸� ã�� ���ڿ� ������ ��ȯ
+    //player prefs에 암호화되어 저장된 데이터를 받아오는 메소드, 저장시 사용한 keyName값으로 데이터를 찾아 문자열 값으로 반환
 
-    //�� �Լ� ���!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //이 함수 사용!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public static string LoadEncryptedDataFromPrefs(string keyName)
     {
-        //player prefs�κ��� keyName���� ���� ��ȣȭ�� �����͸� encryptedString�� ����
+        //player prefs로부터 keyName값을 통해 암호화된 데이터를 encryptedString에 저장
         string encryptedString = PlayerPrefs.GetString(keyName);
 
         if (!string.IsNullOrEmpty(encryptedString))
         {
-            //���� �޾ƿ� ���� ������� �ʴٸ�(= ���� �ִٸ�)
+            //만일 받아온 값이 비어있지 않다면(= 값이 있다면)
             using (Aes aesAlg = Aes.Create())
             {
 
                 //Debug.Log(encryptedString);
 
-                //����� Ű���� �ʱ�ȭ ���Ͱ��� �޾ƿ�
+                //저장된 키값과 초기화 벡터값을 받아옴
                 aesAlg.Key = key;
                 aesAlg.IV = iv;
 
-                //��ȣȭ Ű�� �ʱ�ȭ ���͸� �̿��Ͽ� ��ȣȭ�� ������ decryptor ����
+                //암호화 키와 초기화 벡터를 이용하여 복호화를 진행할 decryptor 생성
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-                // ������ ��ȣȭ
+                // 데이터 복호화
                 byte[] encryptedData = Convert.FromBase64String(encryptedString);
                 byte[] decryptedData = decryptor.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
 
-                // ��ȣȭ�� �����͸� �̿��Ͽ� ����� ������ ��ȯ
+                // 복호화된 데이터를 이용하여 저장된 데이터 반환
                 return Encoding.UTF8.GetString(decryptedData);
             }
         }
         else
         {
-            //�޾ƿ� ���� ����ִٸ�
+            //받아온 값이 비어있다면
             return null;
         }
 
@@ -559,25 +557,25 @@ public class DataControl : MonoBehaviour
 
 
 
-    #region �ʱ� ������ ���� ����
+    #region 초기 데이터 세팅 관련
 
-    
-    //ȣ�� �� �÷��̾� �ɸ����� ����, ���׷��̵� �ر� �� ���� �ر� ������ �ʱⰪ ����
+
+    //호출 시 플레이어 케릭터의 스탯, 업그레이드 해금 및 정바 해금 정보의 초기값 세팅
     public void SetInitialData()
     {
-        //�÷��̾� �ɸ����� �ʱ� ���� ����
+        //플레이어 케릭터의 초기 스탯 세팅
         SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
         SaveEncryptedDataToPrefs(PlayerATKName, PlayerATK.ToString());
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, PlayerBALLCOUNT.ToString());
         SaveEncryptedDataToPrefs(PlayerPINHPName, PlayerPINHP.ToString());
 
-        //�ʱ� ��尪 ����
+        //초기 골드값 세팅
         SaveEncryptedDataToPrefs(GoldName, Gold.ToString());
         SaveEncryptedDataToPrefs(UpgradeStoneName, UpgradeStone.ToString());
 
-        //���׷��̵� �ر� ������ �ʱⰪ ����
+        //업그레이드 해금 정보의 초기값 세팅
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
-        //������ ���� ����
+        //아이템, 인벤토리 초기값 세팅
         SaveItemDataToPrefs(PlayerInventoryName, new List<ItemDataForSave>());
         SaveItemDataToPrefs(PlayerEquipName, new List<ItemDataForSave>());
 
@@ -590,17 +588,15 @@ public class DataControl : MonoBehaviour
     #endregion
 
 
-    #region ����Ʈ(�κ��丮, ���)�� json���Ϸ� ��ȯ�Ͽ� �÷��̾� �������� ����.
-    // list�� json���Ϸ� ��ȯ�Ͽ� �÷��̾� �������� ����.
+    #region 인벤토리와 장비 json에서 string으로 변환 후 저장.
+    // 아이템 data를 json -> string으로 변경.
     public static void SaveItemDataToPrefs(string keyName, List<ItemDataForSave> data)
     {
         string json = JsonUtility.ToJson(new InventoryData { items = data });
         SaveEncryptedDataToPrefs(keyName, json);
     }
 
-    /// <summary>
-    /// �÷��̾� ���������� json�� �ҷ��ͼ� ����Ʈ�� ��ȯ.
-    /// </summary>
+    // 아이템 data를 string -> json으로 변경.
     public static List<ItemDataForSave> LoadItemDataFromPrefs(string keyName)
     {
         string json = LoadEncryptedDataFromPrefs(keyName);

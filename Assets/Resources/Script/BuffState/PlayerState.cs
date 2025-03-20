@@ -4,17 +4,17 @@ using UnityEditor;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
-// ÇÃ·¹ÀÌ¾îÀÇ ±âº» »óÅÂ¸¦ °ü¸®ÇÏ±â À§ÇÑ ÇÃ·¹ÀÌ¾î ½ºÅ×ÀÌÆ®
+// í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ìƒíƒœë¥¼ ê´€ë¦¬í•˜ê¸° ìœ„í•œ í”Œë ˆì´ì–´ ìŠ¤í…Œì´íŠ¸
 public class PlayerState : BaseState
 {
-    // Àú´Â PLayerState¸¦ Ball.cs ³ª Pin.cs¿¡ °¡¼­ publicÀ¸·Î ÇÒ´çÇØÁØ ´ÙÀ½
-    // ½ºÅİÀ» ÂüÁ¶ÇÏ¿© °ªÀ» ¼öÁ¤ÇÏ°í ¾÷µ¥ÀÌÆ®ÇÏ´Â ¹æ½ÄÀ» ¼±ÅÃÇŞ¾¹´Ï´Ù.
+    // ì €ëŠ” PLayerStateë¥¼ Ball.cs ë‚˜ Pin.csì— ê°€ì„œ publicìœ¼ë¡œ í• ë‹¹í•´ì¤€ ë‹¤ìŒ
+    // ìŠ¤í…Ÿì„ ì°¸ì¡°í•˜ì—¬ ê°’ì„ ìˆ˜ì •í•˜ê³  ì—…ë°ì´íŠ¸í•˜ëŠ” ë°©ì‹ì„ ì„ íƒí–‡ì”ë‹ˆë‹¤.
 
-    //ÇÃ·¹ÀÌ¾î ½ºÅÈ ÂüÁ¶¿ë ½ºÅ©¸³Æ®, (Unity ¿¡µğÅÍ¿¡¼­ ÇÒ´ç)
+    //í”Œë ˆì´ì–´ ìŠ¤íƒ¯ ì°¸ì¡°ìš© ìŠ¤í¬ë¦½íŠ¸, (Unity ì—ë””í„°ì—ì„œ í• ë‹¹)
     [Header("Player Status Script")]
     public PlayerStatus playerStatus;
 
-    [Header("¹öÇÁ ¿¬µ¿")]
+    [Header("ë²„í”„ ì—°ë™")]
 
     public int Pin_Hp;
 

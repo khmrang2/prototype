@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlayerManger : MonoBehaviour
 {
     [Header ("HP Bar variables")]
-    public GameObject hpBar;    //ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â¹Ù ui
+    public GameObject hpBar;    //í”Œë ˆì´ì–´ì˜ ì²´ë ¥ë°” ui
     //public GameObject canvas;   
     //public float height = 2f;   
     
@@ -27,22 +27,22 @@ public class PlayerManger : MonoBehaviour
     [Header("GameOver Screen")]
     public GameObject GameOverPopup;
 
-    [Header("¹öÇÁµé Àû¿ëÀ» À§ÇÑ ºÒ·¯¿Ã °Íµé")]
+    [Header("ë²„í”„ë“¤ ì ìš©ì„ ìœ„í•œ ë¶ˆëŸ¬ì˜¬ ê²ƒë“¤")]
     public GameManager gameManager;
     public PinManager pinManager;
 
     void Start()
     {
-        //º¯¼ö ¹× ÆË¾÷ ÃÊ±âÈ­
+        //ë³€ìˆ˜ ë° íŒì—… ì´ˆê¸°í™”
         gameOver = false ;
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
 
-        //Ã¼·Â¹Ù ¼ÒÈ¯
+        //ì²´ë ¥ë°” ì†Œí™˜
         //hpBar = Instantiate(prefHP_Bar, canvas.transform);
         
-        //Ã¼·Â¹Ù À§Ä¡ Á¶Á¤
-        //Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height + Vector3.left * 0.07f);   //Ã¼·Â¹Ù°¡ À§Ä¡ÇÒ ÁÂÇ¥
+        //ì²´ë ¥ë°” ìœ„ì¹˜ ì¡°ì •
+        //Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * height + Vector3.left * 0.07f);   //ì²´ë ¥ë°”ê°€ ìœ„ì¹˜í•  ì¢Œí‘œ
         //RectTransform rt = hpBar.GetComponent<RectTransform>();
         //rt.anchorMin = viewportPos;
         //rt.anchorMax = viewportPos;
@@ -55,10 +55,10 @@ public class PlayerManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Ã¼·Â¹Ù ¾÷µ¥ÀÌÆ®
+        //ì²´ë ¥ë°” ì—…ë°ì´íŠ¸
         hpSlider.value = playerHP;
         hpSlider.maxValue = playerState.Player_Health;
-        //Ã¼·ÂÀÌ 0 ÀÌÇÏ°¡ µÈ´Ù¸é
+        //ì²´ë ¥ì´ 0 ì´í•˜ê°€ ëœë‹¤ë©´
         if (playerHP <= 0 && !gameOver)
         {
             OnDied();
@@ -66,31 +66,31 @@ public class PlayerManger : MonoBehaviour
     }
 
 
-    //»ç¸Á Ã³¸® ÇÔ¼ö
+    //ì‚¬ë§ ì²˜ë¦¬ í•¨ìˆ˜
     void OnDied()
     {
         gameOver = true ;
         isAlive = false;
         Destroy(hpBar);
 
-        //»ç¸Á ¿¡´Ï¸ŞÀÌ¼Ç
+        //ì‚¬ë§ ì—ë‹ˆë©”ì´ì…˜
         this.gameObject.SetActive(false);
 
-        //¿¡´Ï¸ŞÀÌ¼Ç Á¾·á ÈÄ °ÔÀÓ ÀÏ½Ã Á¤Áö
+        //ì—ë‹ˆë©”ì´ì…˜ ì¢…ë£Œ í›„ ê²Œì„ ì¼ì‹œ ì •ì§€
         //Time.timeScale = 0;
 
-        //°ÔÀÓ ¿À¹ö ÆË¾÷ ¶ç¿ì±â
+        //ê²Œì„ ì˜¤ë²„ íŒì—… ë„ìš°ê¸°
         GameOverPopup.SetActive(true);
 
     }
 
-    //ÇÉ È÷Æ® ¼ö¿Í °ø°İ·ÂÀÇ °öÀÎ ÃÑ µ¥¹ÌÁö¸¦ °è»ê ÈÄ ¹İÈ¯ÇÏ´Â ÇÔ¼ö, ÇÃ·¹ÀÌ¾î°¡ ¹ß»çÇÏ´Â Åõ»çÃ¼¿¡¼­ È£Ãâ
+    //í•€ íˆíŠ¸ ìˆ˜ì™€ ê³µê²©ë ¥ì˜ ê³±ì¸ ì´ ë°ë¯¸ì§€ë¥¼ ê³„ì‚° í›„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜, í”Œë ˆì´ì–´ê°€ ë°œì‚¬í•˜ëŠ” íˆ¬ì‚¬ì²´ì—ì„œ í˜¸ì¶œ
     public int GetTotalDamage()
     {
-        // Å©¸®Æ¼ÄÃ ¹ß»ı ½Ã¿¡
+        // í¬ë¦¬í‹°ì»¬ ë°œìƒ ì‹œì—
         if (playerState.Player_Critical_Chance >= Random.Range(0, 100))
         {
-            //Debug.LogError("Å©¸®Æ¼ÄÃ!");
+            //Debug.LogError("í¬ë¦¬í‹°ì»¬!");
             //Debug.LogError($"{(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage) * (gameManager.pinHitCount)}");
             return (int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage);
         }

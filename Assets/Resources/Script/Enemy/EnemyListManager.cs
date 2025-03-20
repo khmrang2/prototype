@@ -7,27 +7,27 @@ public class EnemyListManager : MonoBehaviour
 {
     public PlayerState playerState;
 
-    // Àû ÇÁ¸®ÆÕÀ» ´ãÀ» º¯¼ö (Unity ¿¡µğÅÍ¿¡¼­ ÇÒ´ç)
+    // ì  í”„ë¦¬íŒ¹ì„ ë‹´ì„ ë³€ìˆ˜ (Unity ì—ë””í„°ì—ì„œ í• ë‹¹)
     //public GameObject enemyPrefab;
-    public Transform playerTransform; //¸ó½ºÅÍ°¡ ½ºÆù Ã³¸® ½Ã ÀÌµ¿ µÉ À§Ä¡
+    public Transform playerTransform; //ëª¬ìŠ¤í„°ê°€ ìŠ¤í° ì²˜ë¦¬ ì‹œ ì´ë™ ë  ìœ„ì¹˜
     public Transform enemySpawnTransform;
     public Transform enemyStartTransform;
     public List<Enemy> enemies = new List<Enemy>();
     public GameObject EnemyHpbarCanvas;
 
-    [SerializeField] private int turn;  //ÅÏ °ª
+    [SerializeField] private int turn;  //í„´ ê°’
 
-    [SerializeField] private int maxEnemies = 0; // µîÀåÇÒ ÀûÀÇ ÃÑ ¼ö
+    [SerializeField] private int maxEnemies = 0; // ë“±ì¥í•  ì ì˜ ì´ ìˆ˜
 
-    private int spawnedCount;   //µîÀåÇÑ ÀûÀÇ ¼ö
+    private int spawnedCount;   //ë“±ì¥í•œ ì ì˜ ìˆ˜
 
-    private bool enemiesSpawned = false; // ÀûÀÌ ÇÑ ¹ø¸¸ ½ºÆùµÇµµ·Ï Ã¼Å©
+    private bool enemiesSpawned = false; // ì ì´ í•œ ë²ˆë§Œ ìŠ¤í°ë˜ë„ë¡ ì²´í¬
 
-    [SerializeField] private EnemyDataList enemyDataList;   //ÇØ´ç ¸Ê¿¡¼­ µîÀåÇÒ ÀûµéÀÇ ½ºÅÈÀÌ ´ã±ä ½ºÅ©¸³ÅÍºí ¿ÀºêÁ§½º
+    [SerializeField] private EnemyDataList enemyDataList;   //í•´ë‹¹ ë§µì—ì„œ ë“±ì¥í•  ì ë“¤ì˜ ìŠ¤íƒ¯ì´ ë‹´ê¸´ ìŠ¤í¬ë¦½í„°ë¸” ì˜¤ë¸Œì ìŠ¤
 
     
 
-    //ÃÊ±âÈ­ ÇÔ¼ö
+    //ì´ˆê¸°í™” í•¨ìˆ˜
     private void Awake()
     {
         turn = 0;
@@ -35,7 +35,7 @@ public class EnemyListManager : MonoBehaviour
         spawnedCount = 0;
     }
 
-    // === 1?? °ÔÀÓ ½ÃÀÛ ½Ã Ã³À½ ÇÑ ¹ø¸¸ Àû ½ºÆù ===
+    // === 1?? ê²Œì„ ì‹œì‘ ì‹œ ì²˜ìŒ í•œ ë²ˆë§Œ ì  ìŠ¤í° ===
     public void SpawnInitialEnemies()
     {
         if (enemiesSpawned)
@@ -48,47 +48,47 @@ public class EnemyListManager : MonoBehaviour
             enemies.Add(enemy);
             enemy.start = enemySpawnTransform;
             EnemyStatus enemyStatus = enemyObject.GetComponent<EnemyStatus>();
-            //»ı¼ºµÈ °¢ Àûµé¿¡°Ô ½ºÅ©¸³ÅÍºí ¿ÀºêÁ§Æ®¸¦ ÂüÁ¶ÇÏ¿© °¢ÀÚÀÇ ½ºÅÈ ºÎ¿© 
+            //ìƒì„±ëœ ê° ì ë“¤ì—ê²Œ ìŠ¤í¬ë¦½í„°ë¸” ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¸ì¡°í•˜ì—¬ ê°ìì˜ ìŠ¤íƒ¯ ë¶€ì—¬ 
             enemyStatus.SetEnemyStat((int)(1.0-playerState.Enemy_Health) * enemyDataList.EnemyList[i].hp, (int)(1.0 - playerState.Enemy_Attack) * enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
             //enemyObject.SetActive(false);
-            //Àû Ã¼·Â¹Ù ¼ÒÈ¯
+            //ì  ì²´ë ¥ë°” ì†Œí™˜
             enemy.canvas = EnemyHpbarCanvas;
             enemy.SetEnemyHealthBar();
 
         }
-        enemiesSpawned = true; // ÇÑ ¹ø¸¸ ½ÇÇàµÇµµ·Ï ¼³Á¤
+        enemiesSpawned = true; // í•œ ë²ˆë§Œ ì‹¤í–‰ë˜ë„ë¡ ì„¤ì •
 
-        //°ÔÀÓ ½ÃÀÛÇÏÀÚ¸¶ÀÚ ¼ÒÈ¯µÇ¾î¾ß ÇÏ´Â ÀûµéÀÇ ¼ÒÈ¯ Ã³¸®
+        //ê²Œì„ ì‹œì‘í•˜ìë§ˆì ì†Œí™˜ë˜ì–´ì•¼ í•˜ëŠ” ì ë“¤ì˜ ì†Œí™˜ ì²˜ë¦¬
         SpawnEnemyPerTurn();
     }
 
     public async Task MoveEnemies()
     {
-        // °¢ Àû¸¶´Ù 5¹øÀÇ ÅÏÀ» °ÉÃÄ ÀÌµ¿ÇÏµµ·Ï Ã³¸®
+        // ê° ì ë§ˆë‹¤ 5ë²ˆì˜ í„´ì„ ê±¸ì³ ì´ë™í•˜ë„ë¡ ì²˜ë¦¬
         foreach (var enemy in enemies)
         {
             if (enemy != null)
             {
-                // ÇÃ·¹ÀÌ¾î¸¦ ÇâÇØ ÀÌµ¿ ½ÃÀÛ
+                // í”Œë ˆì´ì–´ë¥¼ í–¥í•´ ì´ë™ ì‹œì‘
                 enemy.MoveOneStep();
 
-                // 5¹øÀÇ ÀÌµ¿ ´Ü°è ¿Ï·áµÉ ¶§±îÁö ±â´Ù¸²
+                // 5ë²ˆì˜ ì´ë™ ë‹¨ê³„ ì™„ë£Œë  ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
                 while (enemy.isMoving)
                 {
-                    await Task.Yield();  // ºñµ¿±âÀûÀ¸·Î ÀÌµ¿ÀÌ ³¡³¯ ¶§±îÁö ´ë±â
+                    await Task.Yield();  // ë¹„ë™ê¸°ì ìœ¼ë¡œ ì´ë™ì´ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°
                 }
             }
         }
-        turn += 1; // ÇÑ ¹ø È£ÃâµÉ ¶§¸¶´Ù 1ÅÏ Áõ°¡
-        //ÀÌµ¿ÀÌ ³¡³ª°í ÅÏÀÌ Áö³µÀ¸´Ï ½ºÆùÃ³¸®
+        turn += 1; // í•œ ë²ˆ í˜¸ì¶œë  ë•Œë§ˆë‹¤ 1í„´ ì¦ê°€
+        //ì´ë™ì´ ëë‚˜ê³  í„´ì´ ì§€ë‚¬ìœ¼ë‹ˆ ìŠ¤í°ì²˜ë¦¬
         //SpawnEnemyPerTurn()
-        // ÀÌµ¿ÀÌ ³¡³ª¸é, Àû ÀÌµ¿ Ã³¸® ¿Ï·á
+        // ì´ë™ì´ ëë‚˜ë©´, ì  ì´ë™ ì²˜ë¦¬ ì™„ë£Œ
         Debug.Log("All enemies moved.");
     }
 
 
 
-    // === 3?? ¸ğµç ÀûÀÇ ÀÌµ¿ÀÌ ³¡³µ´ÂÁö È®ÀÎ ===
+    // === 3?? ëª¨ë“  ì ì˜ ì´ë™ì´ ëë‚¬ëŠ”ì§€ í™•ì¸ ===
     public bool AllEnemiesMoved()
     {
         foreach (var enemy in enemies)
@@ -96,15 +96,15 @@ public class EnemyListManager : MonoBehaviour
             if (enemy != null && !enemy.HasMoved())
             {
                 //Debug.Log("still moving");
-                return false; // ¾ÆÁ÷ ÀÌµ¿ ¾È ÇÑ ÀûÀÌ ÀÖÀ½
+                return false; // ì•„ì§ ì´ë™ ì•ˆ í•œ ì ì´ ìˆìŒ
             }
         }
         
-        return true; // ¸ğµç Àû ÀÌµ¿ ¿Ï·á
+        return true; // ëª¨ë“  ì  ì´ë™ ì™„ë£Œ
         
     }
 
-    // === 4?? ´ÙÀ½ ÅÏÀ» À§ÇØ Àû ÀÌµ¿ ¿©ºÎ ÃÊ±âÈ­ ===
+    // === 4?? ë‹¤ìŒ í„´ì„ ìœ„í•´ ì  ì´ë™ ì—¬ë¶€ ì´ˆê¸°í™” ===
     public void ResetEnemyMoves()
     {
         foreach (var enemy in enemies)
@@ -116,13 +116,13 @@ public class EnemyListManager : MonoBehaviour
         }
     }
 
-    // === 5?? ÅÏ¿¡ µû¸¥ Àû ½ºÆù Ã³¸® ===
+    // === 5?? í„´ì— ë”°ë¥¸ ì  ìŠ¤í° ì²˜ë¦¬ ===
     public void SpawnEnemyPerTurn() 
     {
         Debug.Log("spawning enemy-------------------------------------------------------------------");
 
-        //ÃÑ ÀûÀÇ ¼öº¸´Ù ÇöÀç ¼ÒÈ¯µÈ ÀûÀÇ ¼ö°¡ ÀûÀ» ¶§¸¸ ½ÇÇà
-        // µğ¹ö±×¿ëÀ¸·Î ÁÖ¼®Ã³¸®ÇÑ°Å. ³ªÁß¿¡ Ä¿¹ÔÇÒ¶§ ²À 
+        //ì´ ì ì˜ ìˆ˜ë³´ë‹¤ í˜„ì¬ ì†Œí™˜ëœ ì ì˜ ìˆ˜ê°€ ì ì„ ë•Œë§Œ ì‹¤í–‰
+        // ë””ë²„ê·¸ìš©ìœ¼ë¡œ ì£¼ì„ì²˜ë¦¬í•œê±°. ë‚˜ì¤‘ì— ì»¤ë°‹í• ë•Œ ê¼­ 
         if (spawnedCount < maxEnemies)
         {
             int willSpawnCnt = enemyDataList.EnemySpawnCountPerTurn[turn];
@@ -142,15 +142,15 @@ public class EnemyListManager : MonoBehaviour
     }
 
 
-    // === 6?? °ÔÀÓ Å¬¸®¾î ¿©ºÎ È®ÀÎÀ» À§ÇÑ Àû »ıÁ¸ È®ÀÎ ===
+    // === 6?? ê²Œì„ í´ë¦¬ì–´ ì—¬ë¶€ í™•ì¸ì„ ìœ„í•œ ì  ìƒì¡´ í™•ì¸ ===
     public bool isAllEnemyDead()
     {
         foreach(var enemy in enemies)
         {
-            if(enemy.isAlive == true) return false;     //ÇÏ³ª¶óµµ »ì¾ÆÀÖ´Ù¸é false ¹İÈ¯
+            if(enemy.isAlive == true) return false;     //í•˜ë‚˜ë¼ë„ ì‚´ì•„ìˆë‹¤ë©´ false ë°˜í™˜
         }
-        Debug.Log("´Ù Á×¾ú´Ù");
-        return true;    //´Ù Á×¾ú´Ù¸é true ¹İÈ¯
+        Debug.Log("ë‹¤ ì£½ì—ˆë‹¤");
+        return true;    //ë‹¤ ì£½ì—ˆë‹¤ë©´ true ë°˜í™˜
     }
 
 }

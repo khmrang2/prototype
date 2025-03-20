@@ -8,49 +8,49 @@ using UnityEngine.UI;
 
 public class GoogleManager : MonoBehaviour
 {
-    public TextMeshProUGUI logText;   //·Îµù ¾È³»¿ë ÅØ½ºÆ® ¿ÀºêÁ§Æ®
+    public TextMeshProUGUI logText;   //ë¡œë”© ì•ˆë‚´ìš© í…ìŠ¤íŠ¸ ì˜¤ë¸Œì íŠ¸
 
-    private DataControl dataControl;    //¼³Ä¡ ÈÄ Ã³À½ ½ÇÇà ½Ã ¼­¹ö·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿À±â À§ÇÑ DataControl Å¬·¡½º
-    public Button startBtn; //·Î±×ÀÎ ¹× µ¥ÀÌÅÍ ·Îµå ¿Ï·á ÈÄ È°¼ºÈ­ µÉ °ÔÀÓ ½ÃÀÛ ¹öÆ°
+    private DataControl dataControl;    //ì„¤ì¹˜ í›„ ì²˜ìŒ ì‹¤í–‰ ì‹œ ì„œë²„ë¡œë¶€í„° ë°ì´í„°ë¥¼ ë°›ì•„ì˜¤ê¸° ìœ„í•œ DataControl í´ë˜ìŠ¤
+    public Button startBtn; //ë¡œê·¸ì¸ ë° ë°ì´í„° ë¡œë“œ ì™„ë£Œ í›„ í™œì„±í™” ë  ê²Œì„ ì‹œì‘ ë²„íŠ¼
 
     public GameObject ErrorPopup;
 
     void Awake()
     {
         dataControl = GetComponent<DataControl>();
-        startBtn.interactable = false;  //µ¥ÀÌÅÍ ·Îµù Áß ¾À ÀüÈ¯ ¹æÁö¸¦ À§ÇÑ ¹öÆ° ºñÈ°¼ºÈ­
-        logText.text = "";  //·Îµù ÅØ½ºÆ® ÃÊ±âÈ­
+        startBtn.interactable = false;  //ë°ì´í„° ë¡œë”© ì¤‘ ì”¬ ì „í™˜ ë°©ì§€ë¥¼ ìœ„í•œ ë²„íŠ¼ ë¹„í™œì„±í™”
+        logText.text = "";  //ë¡œë”© í…ìŠ¤íŠ¸ ì´ˆê¸°í™”
         ErrorPopup.SetActive(false);
 
-        PlayGamesPlatform.DebugLogEnabled = true;   //gpgs Àü¿ë µğ¹ö±×Ã¢ Å°±â
-        PlayGamesPlatform.Activate();   //gpgs ÀÛµ¿ ½ÃÀÛ
+        PlayGamesPlatform.DebugLogEnabled = true;   //gpgs ì „ìš© ë””ë²„ê·¸ì°½ í‚¤ê¸°
+        PlayGamesPlatform.Activate();   //gpgs ì‘ë™ ì‹œì‘
        
 
-        //±âÁ¸¿¡ »ç¿ëÇÏ´ø °èÁ¤ÀÌ ÀÖ´Ù¸é
+        //ê¸°ì¡´ì— ì‚¬ìš©í•˜ë˜ ê³„ì •ì´ ìˆë‹¤ë©´
         if (PlayerPrefs.HasKey("SavedAccountKey")) 
         {
-            AutoSignIn();   //ÀÚµ¿ ·Î±×ÀÎ
+            AutoSignIn();   //ìë™ ë¡œê·¸ì¸
         }
         else
         {
-            //Ã³À½ ·Î±×ÀÎ ½Ãµµ·¯¸é
+            //ì²˜ìŒ ë¡œê·¸ì¸ ì‹œë„ëŸ¬ë©´
 
-            ManualSignIn(); //°èÁ¤ ¼±ÅÃ È­¸é ÆË¾÷
+            ManualSignIn(); //ê³„ì • ì„ íƒ í™”ë©´ íŒì—…
         }
 
     }
 
-    public void AutoSignIn()    //±¸±Û°èÁ¤ ÀÚµ¿ ·Î±×ÀÎ ÇÔ¼ö
+    public void AutoSignIn()    //êµ¬ê¸€ê³„ì • ìë™ ë¡œê·¸ì¸ í•¨ìˆ˜
     {
-        logText.text = "Starting login..."; //·Îµù ÅØ½ºÆ®¿¡ ·Î±×ÀÎ ½ÃÀÛ ¾Ë¸²
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication); //gpgs ½Ì±ÛÅæ Å¬·¡½ºÀÇ ·Î±×ÀÎ ÇÔ¼ö È£Ãâ(º¯¼ö·Î Äİ¹é ÇÔ¼ö ProcessAuthentication µî·Ï)
+        logText.text = "Starting login..."; //ë¡œë”© í…ìŠ¤íŠ¸ì— ë¡œê·¸ì¸ ì‹œì‘ ì•Œë¦¼
+        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication); //gpgs ì‹±ê¸€í†¤ í´ë˜ìŠ¤ì˜ ë¡œê·¸ì¸ í•¨ìˆ˜ í˜¸ì¶œ(ë³€ìˆ˜ë¡œ ì½œë°± í•¨ìˆ˜ ProcessAuthentication ë“±ë¡)
     }
 
 
-    public void ManualSignIn()  //±¸±Û °èÁ¤ ¼öµ¿ ·Î±×ÀÎ ÇÔ¼ö
+    public void ManualSignIn()  //êµ¬ê¸€ ê³„ì • ìˆ˜ë™ ë¡œê·¸ì¸ í•¨ìˆ˜
     {
         
-        PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication); //·Î±×ÀÎ °èÁ¤ ¼±ÅÃ È­¸éÀ» Ç¥½Ã, °èÁ¤ ¼±ÅÃ ÈÄ Äİ¹é ÇÔ¼ö ProcessAuthentication È£Ãâ
+        PlayGamesPlatform.Instance.ManuallyAuthenticate(ProcessAuthentication); //ë¡œê·¸ì¸ ê³„ì • ì„ íƒ í™”ë©´ì„ í‘œì‹œ, ê³„ì • ì„ íƒ í›„ ì½œë°± í•¨ìˆ˜ ProcessAuthentication í˜¸ì¶œ
     }
 
 
@@ -58,33 +58,33 @@ public class GoogleManager : MonoBehaviour
 
     internal void ProcessAuthentication(SignInStatus status)
     {
-        //·Î±×ÀÎ °úÁ¤¿¡¼­ È£Ãâ µÉ Äİ¹éÇÔ¼ö ProcessAuthentication, º¯¼ö SignInStatus status´Â ·Î±×ÀÎ ¼º°ø ¿©ºÎ ¹İÈ¯°ª
+        //ë¡œê·¸ì¸ ê³¼ì •ì—ì„œ í˜¸ì¶œ ë  ì½œë°±í•¨ìˆ˜ ProcessAuthentication, ë³€ìˆ˜ SignInStatus statusëŠ” ë¡œê·¸ì¸ ì„±ê³µ ì—¬ë¶€ ë°˜í™˜ê°’
         if (status == SignInStatus.Success)
         {
-            //·Î±×ÀÎ¿¡ ¼º°øÇß´Ù¸é ÀÛµ¿
+            //ë¡œê·¸ì¸ì— ì„±ê³µí–ˆë‹¤ë©´ ì‘ë™
 
-            logText.text = " Login success"; //·Îµù ÅØ½ºÆ®¿¡ ·Î±×ÀÎ ¼º°ø ¾Ë¸²
+            logText.text = " Login success"; //ë¡œë”© í…ìŠ¤íŠ¸ì— ë¡œê·¸ì¸ ì„±ê³µ ì•Œë¦¼
 
-            string id = PlayGamesPlatform.Instance.GetUserId();             //À¯Àú id°ª ¹Ş¾Æ¿À±â
-            PlayerPrefs.SetString("SavedAccountKey", id);                   //ÀÚµ¿ ·Î±×ÀÎ ¿©ºÎ È®ÀÎÀ» À§ÇØ id°ªÀ» player prefs¿¡ ÀúÀå
+            string id = PlayGamesPlatform.Instance.GetUserId();             //ìœ ì € idê°’ ë°›ì•„ì˜¤ê¸°
+            PlayerPrefs.SetString("SavedAccountKey", id);                   //ìë™ ë¡œê·¸ì¸ ì—¬ë¶€ í™•ì¸ì„ ìœ„í•´ idê°’ì„ player prefsì— ì €ì¥
             PlayerPrefs.Save();
 
             
-            logText.text = " Checking server data..."; //¼­¹ö·ÎºÎÅÍ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ¿À±â À§ÇØ ¼­¹ö µ¥ÀÌÅÍ È®ÀÎÁß ¾Ë¸²
+            logText.text = " Checking server data..."; //ì„œë²„ë¡œë¶€í„° ë°ì´í„°ë¥¼ ë°›ì•„ì˜¤ê¸° ìœ„í•´ ì„œë²„ ë°ì´í„° í™•ì¸ì¤‘ ì•Œë¦¼
             
             
-            //·Î±×ÀÎ ¹× °èÁ¤ ÀÎÁõÀÌ ¿Ï·áµÈ ÈÄ ÀÛµ¿ÇÏ´Â ·Îµå ÇÔ¼ö È£Ãâ ÄÚ·çÆ¾
+            //ë¡œê·¸ì¸ ë° ê³„ì • ì¸ì¦ì´ ì™„ë£Œëœ í›„ ì‘ë™í•˜ëŠ” ë¡œë“œ í•¨ìˆ˜ í˜¸ì¶œ ì½”ë£¨í‹´
             StartCoroutine(EnsureLoginAndLoadData());
 
-            logText.text = "";  //·Îµù ÅØ½ºÆ®¸¦ ¶ç¿ï ÇÊ¿ä ¾øÀ¸¹Ç·Î °ø¹éÃ³¸®
+            logText.text = "";  //ë¡œë”© í…ìŠ¤íŠ¸ë¥¼ ë„ìš¸ í•„ìš” ì—†ìœ¼ë¯€ë¡œ ê³µë°±ì²˜ë¦¬
 
         }
         else
         {
-            //·Î±×ÀÎ¿¡ ½ÇÆĞÇß´Ù¸é
-            logText.text = "Sign in Failed! " + status.ToString();   //·Îµù ÅØ½ºÆ®¿¡ "Sign in Failed!" Ãâ·Â            
+            //ë¡œê·¸ì¸ì— ì‹¤íŒ¨í–ˆë‹¤ë©´
+            logText.text = "Sign in Failed! " + status.ToString();   //ë¡œë”© í…ìŠ¤íŠ¸ì— "Sign in Failed!" ì¶œë ¥            
             
-            //¿À·ù ÆË¾÷ ¶ç¿ì±â
+            //ì˜¤ë¥˜ íŒì—… ë„ìš°ê¸°
             ErrorPopup.SetActive(true);
             
         }

@@ -10,7 +10,7 @@ public class SlotInven : MonoBehaviour
     public int id = 0;
 
     [Header("Popup Comoponent")]
-    public GameObject popUpPanel; // È°¼ºÈ­ÇÒ ÇÁ¸®ÆÕ
+    public GameObject popUpPanel; // í™œì„±í™”í•  í”„ë¦¬íŒ¹
     public updatePopup popUpScript;
 
     public Image backgroundImage;
@@ -24,12 +24,12 @@ public class SlotInven : MonoBehaviour
     public Sprite usableSprite; // rarity 5
 
     [Header("Set Item Image.")]
-    public GameObject inventoryItemPrefab;  // »ı¼ºÇÒ ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ.
+    public GameObject inventoryItemPrefab;  // ìƒì„±í•  ì•„ì´í…œ í”„ë¦¬íŒ¹.
     private GameObject showingItemObject;
 
 
     /// <summary>
-    /// ÆË¾÷À» ¶ç¿î´Ù.
+    /// íŒì—…ì„ ë„ìš´ë‹¤.
     /// </summary>
     public void showPopup()
     {
@@ -40,7 +40,7 @@ public class SlotInven : MonoBehaviour
     }
 
     /// <summary>
-    /// rarity °ª¿¡ µû¶ó ¹è°æ ÀÌ¹ÌÁö¸¦ ¼³Á¤ÇÕ´Ï´Ù.
+    /// rarity ê°’ì— ë”°ë¼ ë°°ê²½ ì´ë¯¸ì§€ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
     /// </summary>
     private void SetRarity(Rarity rarity)
     {
@@ -72,20 +72,20 @@ public class SlotInven : MonoBehaviour
 
     public void ClearSlot()
     {
-        // ¾ÆÀÌÅÛ µ¥ÀÌÅÍ¸¸ »èÁ¦
+        // ì•„ì´í…œ ë°ì´í„°ë§Œ ì‚­ì œ
         itemData = null;
 
-        // ¹è°æ ÀÌ¹ÌÁö¸¦ ±âº» ½ºÇÁ¶óÀÌÆ®·Î ¼³Á¤ (¿©±â¼­´Â commonSprite¸¦ ±âº»°ªÀ¸·Î »ç¿ë)
+        // ë°°ê²½ ì´ë¯¸ì§€ë¥¼ ê¸°ë³¸ ìŠ¤í”„ë¼ì´íŠ¸ë¡œ ì„¤ì • (ì—¬ê¸°ì„œëŠ” commonSpriteë¥¼ ê¸°ë³¸ê°’ìœ¼ë¡œ ì‚¬ìš©)
         if (backgroundImage != null)
         {
             backgroundImage.sprite = commonSprite;
         }
 
-        // ½½·ÔÀÇ ÀÚ½Ä ¿ÀºêÁ§Æ®µé (¿¹: ¾ÆÀÌÅÛ ÀÌ¹ÌÁö, ¼ö·® ÅØ½ºÆ® µî)À» ±âº» »óÅÂ·Î ÃÊ±âÈ­
-        // ¿©±â¼­´Â ´Ü¼øÈ÷ È°¼ºÈ­¸¦ ²¨¼­ ºó ½½·ÔÃ³·³ º¸ÀÌ°Ô ÇÕ´Ï´Ù.
+        // ìŠ¬ë¡¯ì˜ ìì‹ ì˜¤ë¸Œì íŠ¸ë“¤ (ì˜ˆ: ì•„ì´í…œ ì´ë¯¸ì§€, ìˆ˜ëŸ‰ í…ìŠ¤íŠ¸ ë“±)ì„ ê¸°ë³¸ ìƒíƒœë¡œ ì´ˆê¸°í™”
+        // ì—¬ê¸°ì„œëŠ” ë‹¨ìˆœíˆ í™œì„±í™”ë¥¼ êº¼ì„œ ë¹ˆ ìŠ¬ë¡¯ì²˜ëŸ¼ ë³´ì´ê²Œ í•©ë‹ˆë‹¤.
         foreach (Transform child in transform)
         {
-            // ¸¸¾à »õ ¾ÆÀÌÅÛÀÌ Ãß°¡µÇ¸é, ÇØ´ç ¿ÀºêÁ§Æ®µéÀ» ´Ù½Ã È°¼ºÈ­ÇÏ°í ¾÷µ¥ÀÌÆ®ÇÒ °ÍÀÔ´Ï´Ù.
+            // ë§Œì•½ ìƒˆ ì•„ì´í…œì´ ì¶”ê°€ë˜ë©´, í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ë‹¤ì‹œ í™œì„±í™”í•˜ê³  ì—…ë°ì´íŠ¸í•  ê²ƒì…ë‹ˆë‹¤.
             child.gameObject.SetActive(false);
         }
     }
@@ -98,7 +98,7 @@ public class SlotInven : MonoBehaviour
 
         foreach (Transform child in transform)
         {
-            // ¸¸¾à »õ ¾ÆÀÌÅÛÀÌ Ãß°¡µÇ¸é, ÇØ´ç ¿ÀºêÁ§Æ®µéÀ» ´Ù½Ã È°¼ºÈ­ÇÏ°í ¾÷µ¥ÀÌÆ®ÇÒ °ÍÀÔ´Ï´Ù.
+            // ë§Œì•½ ìƒˆ ì•„ì´í…œì´ ì¶”ê°€ë˜ë©´, í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ë“¤ì„ ë‹¤ì‹œ í™œì„±í™”í•˜ê³  ì—…ë°ì´íŠ¸í•  ê²ƒì…ë‹ˆë‹¤.
             child.gameObject.SetActive(true);
         }
     }
@@ -108,15 +108,15 @@ public class SlotInven : MonoBehaviour
         Item item = itemdata.item;
         int a = itemdata.amount;
 
-        // ¼îÀ×¾ÆÀÌÅÛ Ã³À½ È£ÃâµÇ¸é ÀÎ½ºÅÏ½º »ı¼º
+        // ì‡¼ì‰ì•„ì´í…œ ì²˜ìŒ í˜¸ì¶œë˜ë©´ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
         if (showingItemObject == null)
         {
-            // false ¿É¼ÇÀ¸·Î InstantiateÇÏ¸é, ÇÁ¸®ÆÕÀÇ ·ÎÄÃ RectTransform ¼³Á¤(¾ŞÄ¿, ÇÇ¹ş µî)ÀÌ À¯ÁöµË´Ï´Ù.
+            // false ì˜µì…˜ìœ¼ë¡œ Instantiateí•˜ë©´, í”„ë¦¬íŒ¹ì˜ ë¡œì»¬ RectTransform ì„¤ì •(ì•µì»¤, í”¼ë²— ë“±)ì´ ìœ ì§€ë©ë‹ˆë‹¤.
             showingItemObject = Instantiate(inventoryItemPrefab, this.transform, false);
         }
         else
         {
-            // ÀÌ¹Ì Á¸ÀçÇÏ¸é È°¼ºÈ­
+            // ì´ë¯¸ ì¡´ì¬í•˜ë©´ í™œì„±í™”
             showingItemObject.GetComponent<Image>().sprite = item.Sprite;
         }
         showingItemObject.transform.SetParent(this.transform, false);
@@ -129,14 +129,14 @@ public class SlotInven : MonoBehaviour
         itemImage.sprite = item.Sprite;
         showingItemObject.name = item.ItemName;
 
-        // ÀÚ½Ä ÅØ½ºÆ®¿¡ ¼ö·® Ç¥½Ã (¼ö·® Ç¥½Ã¿ë TextMeshProUGUI´Â inventoryItemPrefabÀÇ Ã¹ ¹øÂ° ÀÚ½ÄÀÌ¶ó°í °¡Á¤)
+        // ìì‹ í…ìŠ¤íŠ¸ì— ìˆ˜ëŸ‰ í‘œì‹œ (ìˆ˜ëŸ‰ í‘œì‹œìš© TextMeshProUGUIëŠ” inventoryItemPrefabì˜ ì²« ë²ˆì§¸ ìì‹ì´ë¼ê³  ê°€ì •)
         TextMeshProUGUI qtyText = showingItemObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         qtyText.text = a.ToString();
     }
 
 
     /// <summary>
-    /// ³ªÀÇ ÀÎº¥Åä¸®¿¡¼­ id¿¡ ÇØ´çÇÏ´Â amount¸¦ ¸®ÅÏÇÕ´Ï´Ù. 
+    /// ë‚˜ì˜ ì¸ë²¤í† ë¦¬ì—ì„œ idì— í•´ë‹¹í•˜ëŠ” amountë¥¼ ë¦¬í„´í•©ë‹ˆë‹¤. 
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>

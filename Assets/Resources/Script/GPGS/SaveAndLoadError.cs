@@ -10,7 +10,7 @@ public class SaveAndLoadError : MonoBehaviour
 
     public static void ShowErrorScreen()
     {   
-        //¿À·ù ÆË¾÷ ¶ç¿ì±â
+        //ì˜¤ë¥˜ íŒì—… ë„ìš°ê¸°
         ErrorScreen.SetActive(true);
         
     }
@@ -22,10 +22,4 @@ public class SaveAndLoadError : MonoBehaviour
         ErrorScreen = GameObject.FindWithTag("ErrorScreen");
         ErrorScreen.SetActive(false);
     }
-
-
-
-
-
-   
 }

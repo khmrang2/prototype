@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyStatus : MonoBehaviour
 {
-    //Àû ½ºÅÈ ¸ñ·Ï, º¸¾È ¹× ¿À·ù»çÇ× °¨Áö¸¦ À§ÇØ ÇÁÆ÷ÆÛÆ¼·Î ±¸¼º, inspector Ã¢¿¡¼­ È®ÀÎ ¹× ¼öÁ¤ÀÌ °¡´ÉÇÏµµ·Ï [SerializeField] »ç¿ë
+    //ì  ìŠ¤íƒ¯ ëª©ë¡, ë³´ì•ˆ ë° ì˜¤ë¥˜ì‚¬í•­ ê°ì§€ë¥¼ ìœ„í•´ í”„í¬í¼í‹°ë¡œ êµ¬ì„±, inspector ì°½ì—ì„œ í™•ì¸ ë° ìˆ˜ì •ì´ ê°€ëŠ¥í•˜ë„ë¡ [SerializeField] ì‚¬ìš©
 
-    [SerializeField] private int enemyHP;   //Àû Ã¼·Â
-    [SerializeField] private int enemyATK;  //Àû °ø°İ·Â
-    [SerializeField] private int enemyDFF;  //Àû ¹æ¾î·Â (¹æ¾î·Â °ü·Ã ³»¿ëÀº ³ë¼ÇÀÇ ÆÀ½ºÆäÀÌ½º È¨/ ±â¼ú °³¹ß ¹®¼­ ÂüÁ¶)
+    [SerializeField] private int enemyHP;   //ì  ì²´ë ¥
+    [SerializeField] private int enemyATK;  //ì  ê³µê²©ë ¥
+    [SerializeField] private int enemyDFF;  //ì  ë°©ì–´ë ¥ (ë°©ì–´ë ¥ ê´€ë ¨ ë‚´ìš©ì€ ë…¸ì…˜ì˜ íŒ€ìŠ¤í˜ì´ìŠ¤ í™ˆ/ ê¸°ìˆ  ê°œë°œ ë¬¸ì„œ ì°¸ì¡°)
 
 
-    //Àû ½ºÅÈ Á¢±ÙÀ» À§ÇÑ ÇÁ·ÎÆÛÆ¼
+    //ì  ìŠ¤íƒ¯ ì ‘ê·¼ì„ ìœ„í•œ í”„ë¡œí¼í‹°
 
     public int EnemyHP {  get { return enemyHP; } set { enemyHP = value; } }
     public int EnemyATK { get { return enemyATK; } set { enemyATK = value; } }
@@ -20,7 +20,7 @@ public class EnemyStatus : MonoBehaviour
 
 
 
-    //È¤½Ã ¸ô¶ó ¸¸µå´Â Àû »ı¼º ½Ã¿¡ ¾µ ¼ö ÀÖÀ» ½ºÅÈ ÀÏ°ıÀû¿ë ¸Ş¼Òµå
+    //í˜¹ì‹œ ëª°ë¼ ë§Œë“œëŠ” ì  ìƒì„± ì‹œì— ì“¸ ìˆ˜ ìˆì„ ìŠ¤íƒ¯ ì¼ê´„ì ìš© ë©”ì†Œë“œ
     public void SetEnemyStat(int HP, int ATK, int DFF) 
     {
         EnemyHP = HP;

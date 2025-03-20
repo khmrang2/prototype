@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionManager : MonoBehaviour
 {
     public static SceneTransitionManager Instance;
-    public static Texture2D lastScreenTexture; // Ä¸Ã³µÈ È­¸é ÀÌ¹ÌÁö ÀúÀå
-    public static string loadSceneName; // ´ÙÀ½ ¾À ÀÌ¸§ ÀúÀå
+    public static Texture2D lastScreenTexture; // ìº¡ì²˜ëœ í™”ë©´ ì´ë¯¸ì§€ ì €ì¥
+    public static string loadSceneName; // ë‹¤ìŒ ì”¬ ì´ë¦„ ì €ì¥
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾ÀÀÌ ¹Ù²î¾îµµ À¯Áö
+            DontDestroyOnLoad(gameObject); // ì”¬ì´ ë°”ë€Œì–´ë„ ìœ ì§€
         }
         else
         {
@@ -22,7 +22,7 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇöÀç È­¸éÀ» Ä¸Ã³ÇÏ°í ·Îµù ¾ÀÀ¸·Î ÀÌµ¿
+    /// í˜„ì¬ í™”ë©´ì„ ìº¡ì²˜í•˜ê³  ë¡œë”© ì”¬ìœ¼ë¡œ ì´ë™
     /// </summary>
     public static void CaptureScreenAndLoad(string nextScene)
     {
@@ -30,32 +30,32 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     /// <summary>
-    /// `RenderTexture`¸¦ »ç¿ëÇÏ¿© ÃÖÀûÈ­µÈ Ä¸Ã³ ¼öÇà (¾Èµå·ÎÀÌµå¿¡¼­µµ ÃÖÀûÈ­µÊ)
+    /// `RenderTexture`ë¥¼ ì‚¬ìš©í•˜ì—¬ ìµœì í™”ëœ ìº¡ì²˜ ìˆ˜í–‰ (ì•ˆë“œë¡œì´ë“œì—ì„œë„ ìµœì í™”ë¨)
     /// </summary>
     private static IEnumerator CaptureScreenCoroutine(string nextScene)
     {
-        yield return new WaitForEndOfFrame(); // GPU ·»´õ¸µ ¿Ï·á ÈÄ ½ÇÇà
+        yield return new WaitForEndOfFrame(); // GPU ë Œë”ë§ ì™„ë£Œ í›„ ì‹¤í–‰
 
-        // 1. RenderTexture »ı¼º
+        // 1. RenderTexture ìƒì„±
         RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 24);
         ScreenCapture.CaptureScreenshotIntoRenderTexture(rt);
 
-        // 2. RenderTexture¸¦ Texture2D·Î º¯È¯
+        // 2. RenderTextureë¥¼ Texture2Dë¡œ ë³€í™˜
         Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         RenderTexture.active = rt;
         screenTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenTexture.Apply();
-        RenderTexture.active = null; // RenderTexture »ç¿ë ÇØÁ¦
+        RenderTexture.active = null; // RenderTexture ì‚¬ìš© í•´ì œ
 
-        // 3. Ä¸Ã³ÇÑ ÀÌ¹ÌÁö ÀúÀå
+        // 3. ìº¡ì²˜í•œ ì´ë¯¸ì§€ ì €ì¥
         lastScreenTexture = screenTexture;
         loadSceneName = nextScene;
 
-        // 4. RenderTexture ¸Ş¸ğ¸® ÇØÁ¦ (¾Èµå·ÎÀÌµå ÃÖÀûÈ­)
+        // 4. RenderTexture ë©”ëª¨ë¦¬ í•´ì œ (ì•ˆë“œë¡œì´ë“œ ìµœì í™”)
         rt.Release();
         Destroy(rt);
 
-        // 5. ·Îµù ¾ÀÀ¸·Î ºñµ¿±â ÀÌµ¿
+        // 5. ë¡œë”© ì”¬ìœ¼ë¡œ ë¹„ë™ê¸° ì´ë™
         SceneManager.LoadSceneAsync("LoadingScreen");
     }
 }
