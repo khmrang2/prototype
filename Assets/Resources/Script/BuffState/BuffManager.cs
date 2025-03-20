@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 public class BuffStruct
 {
     public int ID;
+    public string Name;
     public string Tooltip;
     public string ImagePath;
     public BaseState buffState;
@@ -22,21 +23,22 @@ public class BuffDataList
 
 public class BuffManager : MonoBehaviour
 {
+    public List<BuffSelectUI> buffUIs; // 버프 ui.
+    [SerializeField] public PlayerState playerState; 
+
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
-    [SerializeField] private TextAsset buffDataJSON; // JSON 파일
+    
+    private TextAsset buffDataJSON; // JSON 파일
     private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID로 접근할 수 있는 버프 테이블
+
+    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
     private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
     private int selectedBuffId = -1; // 선택된 Buff ID
-    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
 
     private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
 
-    // 최초의 버프들을 합해서 보여주는 버프 스테이트
-    private BaseState buffSumState;
-
     private void Start()
     {
-        buffSumState = new BaseState();
         LoadBuffDataFromJSON();
         selectPanel.SetActive(false); // 시작 시 UI 패널을 비활성화
     }
@@ -44,18 +46,19 @@ public class BuffManager : MonoBehaviour
     // JSON 파일에서 모든 버프를 로드하고 테이블에 저장
     private void LoadBuffDataFromJSON()
     {
+        buffDataJSON = Resources.Load<TextAsset>("Data/BuffData");
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
         // 데이터를 읽고 각 버프 속성을 출력
         foreach (BuffStruct buff in dataList.buffs)
         {
-            Debug.Log($"ID: {buff.ID}, Tooltip: {buff.Tooltip}");
+            //Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
             buffTable[buff.ID] = buff;
         }
     }
 
-    // UI 패널을 활성화하고, 임의의 3개 버프를 표시
+    // 1. UI 패널을 활성화하고, 임의의 3개 버프를 표시
     public void ShowBuffSelection()
     {
         isBuffSelected = false; // 초기화
@@ -63,53 +66,52 @@ public class BuffManager : MonoBehaviour
         ShowRandomBuffs();
     }
 
-    // 임의의 3개의 버프를 선택하고, UI에 표시
+    // 2. 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
         // 3개의 선택된 버프를 출력해줌.
         List<BuffStruct> selectedBuffs = GetRandomBuffs(3);
-
-        for (int i = 0; i < selectedBuffs.Count; i++)
+        for (int i = 0; i < 3; i++)
         {
-            BuffStruct buff = selectedBuffs[i];
-            GameObject buffSlot = selectPanel.transform.GetChild(i).gameObject;
+            // 각 buffUI에 해당 버프 정보를 갱신
+            buffUIs[i].getBuffState(selectedBuffs[i]);
 
-            Image buffImage = buffSlot.transform.Find("buffImage").GetComponent<Image>();
-            TextMeshProUGUI buffText = buffSlot.transform.Find("buffToolTip").GetComponent<TextMeshProUGUI>();
+            // 해당 UI 오브젝트에 Button 컴포넌트가 있다고 가정하고, 클릭 이벤트에 리스너 추가
+            Button button = buffUIs[i].GetComponent<Button>();
+            if (button != null)
+            {
+                // 클리어 후 새로 등록하기 위해 기존 리스너 제거
+                button.onClick.RemoveAllListeners();
 
-            // [issue] ! !
-            // 버프 이미지 오류로 인한 주석처리..
-            //buffImage.sprite = LoadSpriteFromPath(buff.ImagePath);
-            buffText.text = buff.Tooltip;
-
-            int buffId = buff.ID;
-            buffSlot.GetComponent<Button>().onClick.RemoveAllListeners();
-            buffSlot.GetComponent<Button>().onClick.AddListener(() => OnBuffSelected(buffId));
+                // 지역변수에 할당해야 올바른 버프ID가 캡처됨
+                int buffId = selectedBuffs[i].ID;
+                button.onClick.AddListener(() => { OnBuffSelected(buffId); });
+            }
+            // 버프 UI 구성
         }
     }
-    
 
-    // 임의의 n개의 버프를 선택하는 함수
+    #region 2-1. 임의의 3개의 버프를 선택하는 함수.
+
+    // 2-1. 임의의 n개의 버프를 선택하는 함수
     private List<BuffStruct> GetRandomBuffs(int count)
     {
-        //모든 랜덤 버프들. 최초시행에는 이제 새로 만들자.
         selectedBuffs = new List<BuffStruct>();
         List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
-        HashSet<int> selectedIndices = new HashSet<int>(); // 중복을 방지하기 위한 HashSet
 
-        int index;
-        for (int i = 0; i < count; i++)
+        // Fisher-Yates 알고리즘으로 키 리스트 셔플
+        for (int i = keys.Count - 1; i > 0; i--)
         {
-            // 포함하고 있으면 다시 뽑아라.
-            do
-            {
-                index = UnityEngine.Random.Range(0, keys.Count);
-            }while(selectedIndices.Contains(index));
+            int j = UnityEngine.Random.Range(0, i + 1);
+            int temp = keys[i];
+            keys[i] = keys[j];
+            keys[j] = temp;
+        }
 
-            selectedIndices.Add(index);
-            int key = keys[index]; // 실제 키 값
-
-            // 실제 획득하는 버프 buffTable.TryGetValue(key, out BuffStruct effect)
+        // 셔플된 리스트에서 count개만큼 버프 선택 (리스트 길이보다 count가 클 수 있으므로 조건 확인)
+        for (int i = 0; i < count && i < keys.Count; i++)
+        {
+            int key = keys[i];
             if (buffTable.TryGetValue(key, out BuffStruct effect))
             {
                 selectedBuffs.Add(effect);
@@ -118,7 +120,9 @@ public class BuffManager : MonoBehaviour
 
         return selectedBuffs;
     }
-    // 버프가 선택되었을 때 호출되는 함수
+    #endregion 
+
+    // 3. 버프가 선택되었을 때 호출되는 함수
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;
@@ -152,7 +156,7 @@ public class BuffManager : MonoBehaviour
 
     private void applyBuff(BaseState effect)
     {
-        buffSumState.AddState(effect);
+        playerState.AddState(effect);
     }
 
     public void PrintBuffSumState()
@@ -186,12 +190,6 @@ public class BuffManager : MonoBehaviour
 
         return loadedSprite;
     }
-
-    public BaseState getBuffSumState()
-    {
-        return buffSumState;
-    }
-
     //private void ApplyBuffEffectToPlayer(BuffState buff)
     //{
     //    if (buff.Player_Damage.HasValue)

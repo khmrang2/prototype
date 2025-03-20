@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
+[ExecuteAlways]
 public class DynamicGridLayout : MonoBehaviour
 {
     public GridLayoutGroup gridLayoutGroup; // 조절하고 싶은 동적 Grid Layout Group을 연결
@@ -36,6 +37,12 @@ public class DynamicGridLayout : MonoBehaviour
     private void Start()
     {
         StartCoroutine(WaitForRectTransformAndUpdate());
+    }
+
+    //디버깅용
+    void OnValidate()
+    {
+        UpdateGridLayout();
     }
 
     // 화면전환이 이루어져서 오브젝트가 활성화 되었을 때, Layout의 UI의 크기 조절을 다시 해줌.

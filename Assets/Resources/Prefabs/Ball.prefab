@@ -99,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22737f8787c43e4a9117cbc082b1078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerState: {fileID: 0}
+  ball: {fileID: 4712448355576519548}
+  ball_elacity: {fileID: 6200000, guid: 252224b1424bd9944a532c9dce5bacc1, type: 2}
 --- !u!50 &7252828080718304953
 Rigidbody2D:
   serializedVersion: 4

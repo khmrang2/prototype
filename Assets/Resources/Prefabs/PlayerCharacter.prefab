@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4812235663852726890}
   - component: {fileID: 7428339480622318730}
   - component: {fileID: 882473715906915836}
-  - component: {fileID: -7089963277780937825}
+  - component: {fileID: 4766268303654290669}
+  - component: {fileID: 5392475841383486454}
   m_Layer: 0
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -98,12 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8398e527393b149a42cd14b8247fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefHP_Bar: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
-  canvas: {fileID: 0}
-  height: 0.75
+  hpBar: {fileID: 0}
   playerHP: 3
-  playerStatus: {fileID: -7089963277780937825}
---- !u!114 &-7089963277780937825
+  isAlive: 1
+  gameOver: 0
+  playerState: {fileID: 5392475841383486454}
+  GameOverPopup: {fileID: 0}
+  gameManager: {fileID: 0}
+  pinManager: {fileID: 0}
+--- !u!114 &4766268303654290669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,3 +123,34 @@ MonoBehaviour:
   playerATK: 0
   playerPinHP: 0
   playerBallCnt: 0
+  pinHitCount: 0
+  playerStat: {fileID: 5392475841383486454}
+--- !u!114 &5392475841383486454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4621827187153551225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24dc082bbb06dbf49a40954eda8758b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player_Damage: 0
+  Player_Health: 0
+  Ball_Elasticity: 0
+  Ball_Size: 0
+  Ball_Count: 0
+  Enemy_Health: 0
+  Enemy_Attack: 0
+  Player_Critical_Chance: 0
+  Player_Critical_Damage: 0
+  Player_More_Economy: 0
+  Ball_Pierce_Power: 0
+  Ball_Split: 0
+  Pin_Damage: 0
+  Player_Generation: 0
+  Player_DoubleUpChance: 0
+  playerStatus: {fileID: 0}
+  Pin_Hp: 0

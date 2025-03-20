@@ -30,66 +30,190 @@ struct buffState
 };
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
     public GameObject prefPlayerAtkProjrctile;
     private GameObject plAtkObj;
     public Transform playerTransform;  // ÇÃ·¹ÀÌ¾îÀÇ Transform
     public EnemyListManager enemyListManager;  // EnemyListManager ÂüÁ¶
+    public GameObject clearPopup;
     // Çö¹Î - 
     // °ÔÀÓÇÒ stateµéÀ» ºÒ·¯¿È.
     // ÇÃ·¹ÀÌ¾î°¡ ±âº»ÀûÀ¸·Î ºÒ·¯¿À´Â state. 
     // ¹öÇÁ¸¦ ¹Ş¾Æ¼­ °»½ÅµÉ cur_state.
     [SerializeField]
     public BuffManager buffManager;
+    public PlayerManger playerManger;
     
     BaseState buffState = null;
     BaseState defaultState = null;
     BaseState playerState = null;
 
-    public int damageSum = 0;
+    public int pinHitCount = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
     public PinManager pinManager;
     public InteractionArea interactionArea;
 
+    // °¢ »óÅÂÀÇ µ¿ÀÛÀÌ ½ÃÀÛµÇ¾ú´ÂÁö ¿©ºÎ¸¦ Ã¼Å©ÇÏ´Â ÇÃ·¡±×
+    private bool stateStarted = false;
+
+    //°ÔÀÓ ½Ã½ºÅÛÀÇ ÁøÇàÀ» Á¤Áö½ÃÅ°±â À§ÇÑ º¯¼ö
+    public bool isPlaying = true;
+
     void Start()
     {
+        clearPopup.SetActive(false);
+        isPlaying = true;
         buffState = new BaseState();
         defaultState = new BaseState();
         playerState = new BaseState();
-        // °ÔÀÓÀ» ½ÃÀÛÇÒ ÇÁ·¹ÀÓ ¿öÅ©ÀÇ ½ÃÀÛ.
-        StartCoroutine(GameLoop());
-    }
-
-    private IEnumerator GameLoop()
-    {
         enemyListManager.SpawnInitialEnemies();
-        while (true)
+    }
+    /// <summary>
+    /// stateStarted·Î ½ºÇÉ¶ôÀ» ±¸ÇöÇÏ¿©
+    /// ÅÏÀ» °­Á¦ÇÔ.
+    /// </summary>
+
+    void Update()
+    {
+        switch (currentTurn)
         {
-            switch (currentTurn)
-            {
-                case GameTurn.DropBallState:
-                    yield return StartCoroutine(DropBallTurn());
+            case GameTurn.DropBallState:
+                if (!stateStarted)
+                {
+                    Debug.Log("Dropping ball...");
+                    stateStarted = true;
+                }
+                if (ballHasDropped())
+                {
+                    stateStarted = false;
                     currentTurn = GameTurn.PlayerAtkState;
-                    break;
-                case GameTurn.PlayerAtkState:
-                    yield return StartCoroutine(PlayerAtkTurn());
+                }
+                break;
+
+            case GameTurn.PlayerAtkState:
+                if (!stateStarted)
+                {
+                    plAtkObj = Instantiate(prefPlayerAtkProjrctile);
+                    plAtkObj.transform.position = playerTransform.position;
+                    Debug.Log("Player attacking...");
+                    stateStarted = true;
+                }
+                if (enemyAtkEnded())
+                {
+                    stateStarted = false;
                     currentTurn = GameTurn.EnemyBehaviorState;
-                    break;
-                case GameTurn.EnemyBehaviorState:
-                    yield return StartCoroutine(EnemyBehaviorTurn());
+                }
+                break;
+
+            case GameTurn.EnemyBehaviorState:
+                if (!stateStarted)
+                {
+                    //»ì¾ÆÀÖ´Â ÀûÀÌ ¾ø´Ù¸é °ÔÀÓ Å¬¸®¾î Ã³¸®
+                    if (enemyListManager.isAllEnemyDead())
+                    {
+                        stateStarted = true;    //°ÔÀÓ ÁøÇàÀ» ¸·±â À§ÇØ stateStartedÀÇ °ªÀ» ÂüÀ¸·Î
+                        isPlaying = false;
+
+                        //°ÔÀÓ Å¬¸®¾î ÆË¾÷ ¶ç¿ì±â
+                        clearPopup.SetActive(true);
+
+                    }
+                    else   //»ì¾ÆÀÖ´Â ÀûÀÌ ÀÖ´Ù¸é ÀûÀÇ ÀÌµ¿ ÀÛµ¿
+                    {
+
+                        Debug.Log("Enemies moving...");
+                        // Àû ÀÌµ¿À» ½ÃÀÛ (enemyListManager.MoveEnemies()°¡ ³»ºÎÀûÀ¸·Î ÀÌµ¿À» Ã³¸®ÇÏ°í,
+                        // AllEnemiesMoved()°¡ ÀÌµ¿ ¿Ï·á¸¦ ÆÇ´ÜÇÑ´Ù°í °¡Á¤)
+                        enemyListManager.MoveEnemies();
+                        stateStarted = true;
+                    }
+
+                }
+                if (enemyListManager.AllEnemiesMoved() && isPlaying)
+                {
+                    enemyListManager.SpawnEnemyPerTurn();
+                    stateStarted = false;
                     currentTurn = GameTurn.ChooseBuffState;
-                    break;
-                case GameTurn.ChooseBuffState:
-                    yield return StartCoroutine(ChooseBuffTurn());
-                    currentTurn = GameTurn.EndChkState;
-                    break;
-                case GameTurn.EndChkState:
-                    yield return StartCoroutine(EndChkStage());
+                }
+                    
+                
+                break;
+
+            case GameTurn.ChooseBuffState:
+                if (playerManger.isAlive)
+                {
+                    if (!stateStarted)
+                    {
+                        Debug.Log("Choosing a buff...");
+                        buffManager.ShowBuffSelection();
+                        stateStarted = true;
+                    }
+                    if (buffManager.IsBuffSelected())
+                    {
+                        updateBuffState();
+                        Debug.Log("Buff updated.");
+                        buffState.printAllStates();
+                        stateStarted = false;
+                        currentTurn = GameTurn.EndChkState;
+                    }
+                }
+                break;
+
+            case GameTurn.EndChkState:
+                if (!stateStarted)
+                {
+                    Debug.Log("Checking end conditions...");
+                    pinHitCount = 0;
+                    interactionArea.init_ball();
+                    stateStarted = true;
+                }
+                if (chkStageEnded())
+                {
+                    stateStarted = false;
+                    pinManager.RespawnPins();
                     currentTurn = GameTurn.DropBallState;
-                    break;
-            }
+                }
+                break;
         }
     }
+    public bool ballHasDropped()
+    {
+        //°øÀÌ ´Ù »ç¶óÁ³À» ½Ã¿¡ ½ÇÇà
+        if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
+        {
+            pinHitCount = pinManager.hit_cnt_sum();
+            Debug.Log("Total hit count: " + pinHitCount);
+            pinManager.init_pins_hit_cnt();
+            return true;
+        }
+        return false;
+    }
 
+    private bool enemyAtkEnded()
+    {
+        return plAtkObj == null;
+    }
+
+    private bool chkStageEnded()
+    {
+        // ½ºÅ×ÀÌÁö Á¾·á Á¶°Ç Ã¼Å© ·ÎÁ÷ (ÇÊ¿ä¿¡ µû¶ó ¼öÁ¤)
+        return true;
+    }
+
+    public void updateBuffState()
+    {
+        return;
+    }
+
+    // Åõ»çÃ¼°¡ Á¦°ÅµÉ ¶§ È£ÃâµÇ¾î »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®
+    public void NotifyProjectileDestroyed()
+    {
+        plAtkObj = null;
+    }
+
+}
+
+/**
     private IEnumerator DropBallTurn()
     {
         Debug.Log("Dropping ball...");
@@ -109,9 +233,20 @@ public class GameManager : MonoBehaviour
     private IEnumerator EnemyBehaviorTurn()
     {
         Debug.Log("Enemies moving...");
-        enemyListManager.MoveEnemies(); // ÀûÀÌ ÀÌµ¿ÇÏµµ·Ï È£Ãâ
 
-        yield return new WaitUntil(() => enemyMoveEnded());
+        // ÀûÀ» 5Ä­¾¿ ³ª´©¾î ÀÌµ¿½ÃÅ°±â
+        yield return enemyListManager.MoveEnemies();
+
+        yield return new WaitUntil(() => enemyListManager.AllEnemiesMoved());
+
+        // ÀÌµ¿ÀÌ ³¡³ª¸é ½ºÆù Ã³¸®
+        enemyListManager.SpawnEnemyPerTurn();
+    }
+
+    private IEnumerator MoveEnemiesCoroutine()
+    {
+        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() ½ÇÇà
+        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // ¿Ï·áµÉ ¶§±îÁö ´ë±â
     }
 
     private IEnumerator ChooseBuffTurn()
@@ -133,66 +268,5 @@ public class GameManager : MonoBehaviour
         interactionArea.init_ball();
         yield return new WaitUntil(() => chkStageEnded());
     }
-
-    public bool ballHasDropped()
-    {
-        if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
-        {
-            // pinManager?ì„œ ?©ì‚°??hit countë¥?damageSum???€??
-            damageSum = pinManager.hit_cnt_sum();
-            Debug.Log("Total hit count: " + damageSum);
-
-            pinManager.init_pins_hit_cnt();
-
-            // true ë°˜í™˜
-            return true;
-        }
-        return false;
-    }
-    private bool enemyAtkEnded()
-    {
-        return plAtkObj == null;
-    }
-
-    private bool buffChosen()
-    {
-        return true;
-    }
-
-    private bool enemyMoveEnded()
-    {
-        return enemyListManager.AllEnemiesMoved();
-    }
-
-    private bool spawnEnemyEnded()
-    {
-        return true;
-    }
-
-    private bool chooseBuffEnded()
-    {
-        // ÀÌÇÏµ¿¹® 
-        // À¯Àú°¡ Å¬¸¯ÇÏ´Â ÆĞ³ÎÀÌ »ı¼ºµÇ°í
-        // ÆĞ³Î¿¡¼­ ¼±ÅÃÇÑ ¹öÆ°´ë·Î ¹öÇÁ ¸Å´ÏÀú¿¡¼­ update°¡ µÉ°ÅÀÓ.
-        // ±×·³ ÀÌÁ¦ ¹öÆ®¸Å´ÏÀú¿¡¼­ °¡Á®¿À´Â °ÍÀÌ ÇÊ¿äÇÏ³×?
-        // Áï, ¹öÆ°ÀÌ Å¬¸¯µÇ°í updateBuffState()°¡ ½ÇÇàµÇ¸é return À¸·Î 1 ¾Æ´Ï¸é 0 
-        //curState = buffManager.getBuffState();
-        return true;
-    }
-
-    private bool chkStageEnded()
-    {
-        return true;  // ½ºÅ×ÀÌÁö°¡ ³¡³µ´ÂÁö¸¦ Ã¼Å©ÇÏ´Â ·ÎÁ÷
-    }
-
-    public void updateBuffState()
-    {
-        this.buffState = buffManager.getBuffSumState();
-    }
-
-    // Åõ»çÃ¼°¡ Á¦°ÅµÉ ¶§ GameManager¿¡ ¾Ë¸²
-    public void NotifyProjectileDestroyed()
-    {
-        plAtkObj = null;
-    }
-}
+ 
+ */

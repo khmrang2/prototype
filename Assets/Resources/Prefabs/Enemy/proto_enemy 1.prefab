@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5986027686542665927}
   - component: {fileID: 5791490605727516299}
   - component: {fileID: -1674373607952233300}
+  - component: {fileID: -5915080986462007893}
   m_Layer: 0
   m_Name: proto_enemy 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f742101e0924534991ae3efbe896c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 10
+  moveSpeed: 2
+  isMoving: 0
+  start: {fileID: 0}
+  isDetectedPlayer: 0
+  isSpawned: 0
+  isAlive: 0
+  AttackRange: 1.5
+  status: {fileID: 0}
+  HpBar: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
 --- !u!114 &-1674373607952233300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,3 +123,38 @@ MonoBehaviour:
   enemyHP: 0
   enemyATK: 0
   enemyDFF: 0
+--- !u!58 &-5915080986462007893
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295790378241597538}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3.635

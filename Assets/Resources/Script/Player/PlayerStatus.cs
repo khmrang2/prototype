@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
@@ -11,7 +12,9 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private int playerATK;         //플레이어 케릭터의 공격력
     [SerializeField] private int playerPinHP;       //핀의 체력
     [SerializeField] private int playerBallCnt;     //사용자가 화면 터치 시 떨어질 공의 수
+    [SerializeField] private int pinHitCount;       //공들이 핀에 부딪힌 횟수, 공이 다 떨어질 때마다 값이 자동으로 바뀜
 
+    public PlayerState playerStat;
 
 
     //플레이어 스탯 접근을 위한 프로퍼티
@@ -56,6 +59,4 @@ public class PlayerStatus : MonoBehaviour
         PlayerBallCnt = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT"));
 
     }
-
-
 }

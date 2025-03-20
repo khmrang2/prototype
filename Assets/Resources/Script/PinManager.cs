@@ -18,7 +18,6 @@ public class PinManager : MonoBehaviour
                 totalHits += pin.hit_cnt();
             }
         }
-
         return totalHits;
     }
 
@@ -28,4 +27,18 @@ public class PinManager : MonoBehaviour
             if (pin != null) pin.init_cnt();
         }
     }
+
+    public void RespawnPins()
+    {
+        foreach (var pinObject in pins)
+        {
+            pinObject.SetActive(true); // 핀 다시 활성화
+            Pin pin = pinObject.GetComponent<Pin>();
+            if (pin != null)
+            {
+                pin.init_cnt(); // 핀 체력 초기화
+            }
+        }
+    }
+
 }
