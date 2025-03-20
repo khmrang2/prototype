@@ -34,12 +34,21 @@ public class Pin : MonoBehaviour
             // 충돌 점
             ContactPoint2D contactPoint = collision.contacts[0];
 
+            // 충돌한 공의 스크립트를 불러와서 공을 분열시킴.
+            Ball ballScript = collision.gameObject.GetComponent<Ball>();
+            if (ballScript != null)
+            {
+                ballScript.HandlePinCollision(collision);
+                ballScript.wasSplited = true;
+            }
+
             // 충돌의 힘 등을 계산해야 하기에
             temp(collision);
             makeSteamEffect(contactPoint.point);
 
             // add_cnt 함수 호출
             add_cnt();
+            
             destroy_Pin();
         }
     }

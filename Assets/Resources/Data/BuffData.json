@@ -1,4 +1,4 @@
-﻿{
+{
   "buffs": [
     {
       "ID": 1,
@@ -106,7 +106,7 @@
       "Tooltip": "데미지 적용 방식이\n관통으로 변경됩니다.",
       "ImagePath": "Image/Items/BuffIcon12",
       "buffState": {
-        "Player_Pierce_Power": true
+        "Ball_Pierce_Power": 1
       }
     },
     {
@@ -121,17 +121,17 @@
     {
       "ID": 14,
       "Name": "공의 분열",
-      "Tooltip": "공은 최초의 핀에 닿으면 분열합니다.",
+      "Tooltip": "공은 최초의 핀에 닿으면 +1개씩 분열합니다.",
       "ImagePath": "Image/Items/BuffIcon14",
       "buffState": {
-        "Ball_Split" : true
+        "Ball_Split" : 1
       }
     },
     {
       "ID": 15,
       "Name": "재생 모듈",
-      "Tooltip": "적을 처치하면 피가 1씩 회복됩니다.",
-      "ImagePath": "Image/Items/BuffIcon14",
+      "Tooltip": "적을 처치하면 HP가 +1씩 회복됩니다.",
+      "ImagePath": "Image/Items/BuffIcon15",
       "buffState": {
         "Player_Generation" :  1
       }
