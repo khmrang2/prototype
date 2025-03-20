@@ -11,7 +11,7 @@ using System;
 using System.ComponentModel;
 
 
-public class DataSettings   //����� ������ Ŭ����
+public class DataSettings    //저장될 데이터 클래스
 {
     public int gold = 0;
     public int upgradeStone = 0;
@@ -38,41 +38,41 @@ public class DataControl : MonoBehaviour
     //Ŭ���忡 ����� ������ �̸� ����
 
 
-    // ��ȣȭ Ű (16����Ʈ)
+    // 암호화 키 (16바이트)
     private static readonly byte[] key = Encoding.UTF8.GetBytes("pX9rOL3mC3sEivmz");
 
 
-    // ��ȣȭ IV (16����Ʈ)
+    // 암호화 IV (16바이트)
     private static readonly byte[] iv = Encoding.UTF8.GetBytes("KPlYJeefFqyw7WBe");
 
 
 
-    //�ʱ� �����Ϳ��� �Էµ� �� �����͵��� Ű �̸�
-    private static string PlayerHPName = "PlayerCharacter_HP";                 //�÷��̾� �ɸ����� ü���� Ű �̸�
-    private static string PlayerATKName = "PlayerCharacter_ATK";               //�÷��̾� �ɸ����� ���ݷ��� Ű �̸�
-    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   //�÷��̾� �ɸ����� �� ���� Ű �̸�
-    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           //�÷��̾� �ɸ����� �� ü���� Ű �̸�
+    // 초기 데이터에서 입력될 각 데이터들의 키 이름
+    private static string PlayerHPName = "PlayerCharacter_HP";                 // 플레이어 케릭터의 체력 키 이름
+    private static string PlayerATKName = "PlayerCharacter_ATK";               // 플레이어 케릭터의 공격력 키 이름
+    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   // 플레이어 케릭터의 공 수 키 이름
+    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           // 플레이어 케릭터의 핀 체력 키 이름
 
-    private static string GoldName = "Gold";                                   //��ȭ �� ����� Ű �̸�
-    private static string UpgradeStoneName = "UpgradeStone";                       //��ȭ �� ���׷��̵� Ű �̸�.
+    private static string GoldName = "Gold";                                   // 재화 중 골드의 키 이름
+    private static string UpgradeStoneName = "UpgradeStone";                       // 재화 중 강화석 키 이름
 
-    private static string PlayerInventoryName = "PlayerInventory";                  // �÷��̾� �κ��丮
-    private static string PlayerEquipName = "PlayerEquip";                          // �÷��̾� �κ��丮
+    // 인벤토리 및 장비 데이터 저장을 위한 리스트
+    private static string PlayerInventoryName = "PlayerInventory";                  // 플레이어 인벤토리
+    private static string PlayerEquipName = "PlayerEquip";                          // 플레이어 장비
 
-    private static string UpgradableNumName = "UpgradableNum";                 //���׷��̵� �ر� ������ Ű �̸�
-    
+    private static string UpgradableNumName = "UpgradableNum";                 // 업그레이드 해금 정보의 키 이름
+
     //private string EquipDataName;                                     //��� �ر� ������ Ű �̸�
 
 
-
-    //�ʱ� �����Ϳ��� �Էµ� �� �����͵��� ��
-    private static int PlayerHP = 100;                                         //�÷��̾� �ɸ����� �ʱ� ü�°�
-    private static int PlayerATK = 5;                                          //�÷��̾� �ɸ����� �ʱ� ���ݷ°�
-    private static int PlayerBALLCOUNT = 3;                                    //�÷��̾� �ɸ����� �ʱ� �� ���� ��
-    private static int PlayerPINHP = 3;                                        //�÷��̾� �ɸ����� �ʱ� �� ü�°�
+    // 초기 데이터에서 입력될 값들
+    private static int PlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
+    private static int PlayerATK = 5;                                          // 플레이어 케릭터의 초기 공격력값
+    private static int PlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
+    private static int PlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
     private static int Gold = 7;                                               //�ʱ� ��尪
-    private static int UpgradeStone = 0;                                       //�ʱ� ���׷��̵� ���� ��.
+    private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
     private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();
     private static List<ItemDataForSave> Equip = new List<ItemDataForSave>();

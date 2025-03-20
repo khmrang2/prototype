@@ -1,0 +1,163 @@
+using GooglePlayGames.BasicApi.SavedGame;
+using GooglePlayGames.BasicApi;
+using GooglePlayGames;
+using System.Security.Cryptography;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
+using TMPro;
+using System;
+using System.ComponentModel;
+
+public class DataSettings   // 저장될 데이터 클래스
+{
+    public int gold = 0;
+    public int upgradeStone = 0;
+    public int hp = 0;
+    public int atk = 0;
+    public int pinHp = 0;
+    public int ballCount = 0;
+    public int upgradeNum = 0;
+
+    public List<ItemDataForSave> inventoryItems = new List<ItemDataForSave>();
+    public List<ItemDataForSave> equipItems = new List<ItemDataForSave>();
+}
+
+public class DataControl : MonoBehaviour
+{
+    public DataSettings settings = new DataSettings();
+    // 불러와지고 저장될 데이터를 담을 클래스 settings 선언
+
+    private string fileName = "savefile.dat";
+    // 클라우드에 저장될 파일의 이름 설정
+
+    // 암호화 키 (16바이트)
+    private static readonly byte[] key = Encoding.UTF8.GetBytes("pX9rOL3mC3sEivmz");
+
+    // 암호화 IV (16바이트)
+    private static readonly byte[] iv = Encoding.UTF8.GetBytes("KPlYJeefFqyw7WBe");
+
+    // 초기 데이터에서 입력될 각 데이터들의 키 이름
+    private static string PlayerHPName = "PlayerCharacter_HP";                 // 플레이어 캐릭터의 체력의 키 이름
+    private static string PlayerATKName = "PlayerCharacter_ATK";               // 플레이어 캐릭터의 공격력의 키 이름
+    private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   // 플레이어 캐릭터의 공 수의 키 이름
+    private static string PlayerPINHPName = "PlayerCharacter_PINHP";           // 플레이어 캐릭터의 핀 체력의 키 이름
+
+    private static string GoldName = "Gold";                                   // 재화 중 골드의 키 이름
+    private static string UpgradeStoneName = "UpgradeStone";                   // 재화 중 업그레이드 키 이름.
+
+    private static string PlayerInventoryName = "PlayerInventory";             // 플레이어 인벤토리
+    private static string PlayerEquipName = "PlayerEquip";                     // 플레이어 장비
+
+    private static string UpgradableNumName = "UpgradableNum";                 // 업그레이드 해금 정보의 키 이름
+
+    // 초기 데이터에서 입력될 각 데이터들의 값
+    private static int PlayerHP = 100;                                         // 플레이어 캐릭터의 초기 체력값
+    private static int PlayerATK = 5;                                          // 플레이어 캐릭터의 초기 공격력값
+    private static int PlayerBALLCOUNT = 3;                                    // 플레이어 캐릭터의 초기 공 수의 값
+    private static int PlayerPINHP = 3;                                        // 플레이어 캐릭터의 초기 핀 체력값
+
+    private static int Gold = 7;                                               // 초기 골드값
+    private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양.
+
+    private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();
+    private static List<ItemDataForSave> Equip = new List<ItemDataForSave>();
+
+    private static int UpgradableNum = 0;                                      // 업그레이드 해금 정보의 초기값
+
+    // 세이브의 성공 여부를 나타내는 bool 변수
+    private bool isSaveSuccess;
+    private bool isSaveFail;
+
+    // 디버깅용 텍스트 출력
+    public TextMeshProUGUI DebugTxt;
+
+    #region gpgs 클라우드 데이터 저장
+
+    // 세이브 후 콜백을 받기 위한 함수
+    public void SaveDataWithCallback(Action<bool> onComplete)
+    {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenSaveGame();
+
+        StartCoroutine(WaitForSave(onComplete));
+    }
+
+    private IEnumerator WaitForSave(Action<bool> onComplete)
+    {
+        yield return new WaitUntil(() => isSaveSuccess || isSaveFail);  // 저장 성공 or 실패 확인
+        onComplete?.Invoke(isSaveSuccess);
+    }
+
+    public void SaveData() // 외부에서 세이브 호출용 메소드
+    {
+        isSaveSuccess = false;
+        isSaveFail = false;
+        OpenSaveGame();
+    }
+
+    private void OpenSaveGame() // 세이브 메소드
+    {
+        if (PlayGamesPlatform.Instance != null)
+        {
+            GetDataSettings(); // 데이터를 가져오기
+
+            ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+
+            saveGameClient.OpenWithAutomaticConflictResolution(fileName,
+                DataSource.ReadCacheOrNetwork,
+                ConflictResolutionStrategy.UseLastKnownGood,
+                onsavedGameOpend);
+        }
+        else
+        {
+            isSaveSuccess = false;
+            isSaveFail = true;
+            DebugTxt.text = "gpgs null";
+        }
+    }
+
+    private void onsavedGameOpend(SavedGameRequestStatus status, ISavedGameMetadata game)
+    {
+        ISavedGameClient saveGameClient = PlayGamesPlatform.Instance.SavedGame;
+
+        if (status == SavedGameRequestStatus.Success)
+        {
+            DebugTxt.text = "save success!";
+
+            var update = new SavedGameMetadataUpdate.Builder().Build();
+
+            var json = JsonUtility.ToJson(settings);
+            byte[] data = Encoding.UTF8.GetBytes(json);
+
+            saveGameClient.CommitUpdate(game, update, data, OnSavedGameWritten);
+        }
+        else
+        {
+            isSaveSuccess = false;
+            isSaveFail = true;
+            DebugTxt.text = "save request fail: " + status;
+        }
+    }
+
+    private void OnSavedGameWritten(SavedGameRequestStatus status, ISavedGameMetadata data)
+    {
+        if (status == SavedGameRequestStatus.Success)
+        {
+            isSaveSuccess = true;
+            DebugTxt.text = "Save End";
+        }
+        else
+        {
+            isSaveSuccess = false;
+            isSaveFail = true;
+            DebugTxt.text = "save request fail2";
+        }
+    }
+
+    #endregion
+
+    // (다음 부분 생략 - 전체적인 주석 복구 진행됨)
+}
