@@ -1,12 +1,20 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    public PlayerState playerState;
+
     public GameObject ballPrefab; // ����� �� ������
-    private int numberOfBalls = 5; // ����߸� ���� ����
+    private int numberOfBalls = 3; // ����߸� ���� ����
     public float spawnOffset = 0.1f; // ���� ���ݾ� �ٸ� ��ġ�� �����ǵ��� �ϱ� ���� ������
     //public bool isReadyToDrop = false;
+
+    void Start()
+    {
+        numberOfBalls = playerState.Ball_Count;
+    }
 
     // �հ����� ������ �� ȣ��
     public void OnPointerDown(PointerEventData eventData)
@@ -32,7 +40,7 @@ public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
 
     public void init_ball(){
-        numberOfBalls = 5;
+        numberOfBalls = playerState.Ball_Count;
     }
     public int get_ball_num(){
         return numberOfBalls;

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GiveRewardOnClear : MonoBehaviour
 {
+    public PlayerState playerState;
+
     [Header("Clear reward settings")]
     [SerializeField] private int clearGold;
 
 
     private void OnEnable()
     {
+        clearGold = (int)(clearGold * playerState.Player_More_Economy);
         //게임이 클리어 되어 팝업이 활성화된 경우에 작동
         if (this.gameObject.activeSelf)
         {

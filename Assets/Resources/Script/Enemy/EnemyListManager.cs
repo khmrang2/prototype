@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyListManager : MonoBehaviour
 {
+    public PlayerState playerState;
+
     // 적 프리팹을 담을 변수 (Unity 에디터에서 할당)
     //public GameObject enemyPrefab;
     public Transform playerTransform; //몬스터가 스폰 처리 시 이동 될 위치
@@ -47,7 +49,7 @@ public class EnemyListManager : MonoBehaviour
             enemy.start = enemySpawnTransform;
             EnemyStatus enemyStatus = enemyObject.GetComponent<EnemyStatus>();
             //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여 
-            enemyStatus.SetEnemyStat(enemyDataList.EnemyList[i].hp, enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
+            enemyStatus.SetEnemyStat((int)(1.0-playerState.Enemy_Health) * enemyDataList.EnemyList[i].hp, (int)(1.0 - playerState.Enemy_Attack) * enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
             //enemyObject.SetActive(false);
             //적 체력바 소환
             enemy.canvas = EnemyHpbarCanvas;

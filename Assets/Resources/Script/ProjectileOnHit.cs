@@ -11,7 +11,7 @@ public class ProjectileOnHit : MonoBehaviour
 
     private void Awake()
     {
-        PlayerStatus ps = FindObjectOfType<PlayerStatus>();
+        PlayerManger ps = FindObjectOfType<PlayerManger>();
 
         if (ps != null)
         {

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 public class BuffStruct
 {
     public int ID;
+    public string Name;
     public string Tooltip;
     public string ImagePath;
     public BaseState buffState;
@@ -23,23 +24,21 @@ public class BuffDataList
 public class BuffManager : MonoBehaviour
 {
     public List<BuffSelectUI> buffUIs; // 버프 ui.
+    [SerializeField] public PlayerState playerState; 
 
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
-    [SerializeField] private TextAsset buffDataJSON; // JSON 파일
+    
+    private TextAsset buffDataJSON; // JSON 파일
     private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID로 접근할 수 있는 버프 테이블
+
+    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
     private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
     private int selectedBuffId = -1; // 선택된 Buff ID
-    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
-
 
     private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
 
-    // 최초의 버프들을 합해서 보여주는 버프 스테이트
-    private BaseState buffSumState;
-
     private void Start()
     {
-        buffSumState = new BaseState();
         LoadBuffDataFromJSON();
         selectPanel.SetActive(false); // 시작 시 UI 패널을 비활성화
     }
@@ -47,6 +46,7 @@ public class BuffManager : MonoBehaviour
     // JSON 파일에서 모든 버프를 로드하고 테이블에 저장
     private void LoadBuffDataFromJSON()
     {
+        buffDataJSON = Resources.Load<TextAsset>("Data/BuffData");
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
@@ -87,6 +87,7 @@ public class BuffManager : MonoBehaviour
                 int buffId = selectedBuffs[i].ID;
                 button.onClick.AddListener(() => { OnBuffSelected(buffId); });
             }
+            // 버프 UI 구성
         }
     }
 
@@ -95,24 +96,22 @@ public class BuffManager : MonoBehaviour
     // 2-1. 임의의 n개의 버프를 선택하는 함수
     private List<BuffStruct> GetRandomBuffs(int count)
     {
-        //모든 랜덤 버프들. 최초시행에는 이제 새로 만들자.
         selectedBuffs = new List<BuffStruct>();
         List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
-        HashSet<int> selectedIndices = new HashSet<int>(); // 중복을 방지하기 위한 HashSet
 
-        int index;
-        for (int i = 0; i < count; i++)
+        // Fisher-Yates 알고리즘으로 키 리스트 셔플
+        for (int i = keys.Count - 1; i > 0; i--)
         {
-            // 포함하고 있으면 다시 뽑아라.
-            do
-            {
-                index = UnityEngine.Random.Range(0, keys.Count);
-            }while(selectedIndices.Contains(index));
+            int j = UnityEngine.Random.Range(0, i + 1);
+            int temp = keys[i];
+            keys[i] = keys[j];
+            keys[j] = temp;
+        }
 
-            selectedIndices.Add(index);
-            int key = keys[index]; // 실제 키 값
-
-            // 실제 획득하는 버프 buffTable.TryGetValue(key, out BuffStruct effect)
+        // 셔플된 리스트에서 count개만큼 버프 선택 (리스트 길이보다 count가 클 수 있으므로 조건 확인)
+        for (int i = 0; i < count && i < keys.Count; i++)
+        {
+            int key = keys[i];
             if (buffTable.TryGetValue(key, out BuffStruct effect))
             {
                 selectedBuffs.Add(effect);
@@ -157,7 +156,7 @@ public class BuffManager : MonoBehaviour
 
     private void applyBuff(BaseState effect)
     {
-        buffSumState.AddState(effect);
+        playerState.AddState(effect);
     }
 
     public void PrintBuffSumState()
@@ -191,12 +190,6 @@ public class BuffManager : MonoBehaviour
 
         return loadedSprite;
     }
-
-    public BaseState getBuffSumState()
-    {
-        return buffSumState;
-    }
-
     //private void ApplyBuffEffectToPlayer(BuffState buff)
     //{
     //    if (buff.Player_Damage.HasValue)

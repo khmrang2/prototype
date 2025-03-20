@@ -8,9 +8,10 @@ using UnityEngine.UI;
 public class BuffSelectUI : MonoBehaviour
 {
     private BuffStruct buffstruct;
+
     public TextMeshProUGUI buffname;
+    public TextMeshProUGUI tooltip;
     public Image bufficon;
-    public TextMeshProUGUI tootlip;
 
     public void getBuffState(BuffStruct bs)
     {
@@ -20,7 +21,8 @@ public class BuffSelectUI : MonoBehaviour
 
     void updateUI()
     {
-        tootlip.text = buffstruct.Tooltip;
-        bufficon.sprite = Resources.Load<Sprite>("Image/Items/" + buffstruct.ImagePath);
+        buffname.text = buffstruct.Name;
+        tooltip.text = buffstruct.Tooltip;
+        bufficon.sprite = Resources.Load<Sprite>(buffstruct.ImagePath);
     }
 }

@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     BaseState defaultState = null;
     BaseState playerState = null;
 
-    public int damageSum = 0;
+    public int pinHitCount = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
     public PinManager pinManager;
     public InteractionArea interactionArea;
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
                 if (!stateStarted)
                 {
                     Debug.Log("Checking end conditions...");
-                    damageSum = 0;
+                    pinHitCount = 0;
                     interactionArea.init_ball();
                     stateStarted = true;
                 }
@@ -181,8 +181,8 @@ public class GameManager : MonoBehaviour
         //공이 다 사라졌을 시에 실행
         if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
         {
-            damageSum = pinManager.hit_cnt_sum();
-            Debug.Log("Total hit count: " + damageSum);
+            pinHitCount = pinManager.hit_cnt_sum();
+            Debug.Log("Total hit count: " + pinHitCount);
             pinManager.init_pins_hit_cnt();
             return true;
         }
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
 
     public void updateBuffState()
     {
-        this.buffState = buffManager.getBuffSumState();
+        return;
     }
 
     // 투사체가 제거될 때 호출되어 상태를 업데이트

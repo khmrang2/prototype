@@ -1,3 +1,4 @@
+using GooglePlayGames.BasicApi;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,13 +19,17 @@ public class PlayerManger : MonoBehaviour
     public bool isAlive = true;
     public bool gameOver = false;
 
-    //플레이어 스탯 참조용 스크립트, (Unity 에디터에서 할당)
-    [Header("Player Status Script")]
+    [Header("Player Stat Script")]
+    public PlayerState playerState;
     public PlayerStatus playerStatus;
 
 
     [Header("GameOver Screen")]
     public GameObject GameOverPopup;
+
+    [Header("버프들 적용을 위한 불러올 것들")]
+    public GameManager gameManager;
+    public PinManager pinManager;
 
     void Start()
     {
@@ -42,7 +47,8 @@ public class PlayerManger : MonoBehaviour
         //rt.anchorMin = viewportPos;
         //rt.anchorMax = viewportPos;
         hpSlider = hpBar.GetComponent<Slider>();
-        hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
+        //hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
+        hpSlider.maxValue = playerStatus.PlayerHP;
 
     }
 
@@ -51,9 +57,9 @@ public class PlayerManger : MonoBehaviour
     {
         //체력바 업데이트
         hpSlider.value = playerHP;
-
+        hpSlider.maxValue = playerState.Player_Health;
         //체력이 0 이하가 된다면
-        if(playerHP <= 0 && !gameOver)
+        if (playerHP <= 0 && !gameOver)
         {
             OnDied();
         }
@@ -76,5 +82,21 @@ public class PlayerManger : MonoBehaviour
         //게임 오버 팝업 띄우기
         GameOverPopup.SetActive(true);
 
+    }
+
+    //핀 히트 수와 공격력의 곱인 총 데미지를 계산 후 반환하는 함수, 플레이어가 발사하는 투사체에서 호출
+    public int GetTotalDamage()
+    {
+        // 크리티컬 발생 시에
+        if (playerState.Player_Critical_Chance >= Random.Range(0, 100))
+        {
+            //Debug.LogError("크리티컬!");
+            //Debug.LogError($"{(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage) * (gameManager.pinHitCount)}");
+            return (int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage);
+        }
+        else
+        {
+            return (playerState.Player_Damage) * (gameManager.pinHitCount);
+        }
     }
 }

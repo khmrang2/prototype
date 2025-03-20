@@ -67,7 +67,7 @@ public class Pin : MonoBehaviour
 
         // 충돌 방향에 따라 회전 각도 설정 -> 1 ~ 9
         float rotationAmount = Mathf.Clamp(collisionForce * angleWeight * forceOffset, 0f, 180f); // 0 < n < 180
-        Debug.Log("rotationAmount : " + rotationAmount + "\n");
+        //Debug.Log("rotationAmount : " + rotationAmount + "\n");
 
         if (collisionDirection.x < 0) // 왼쪽 충돌
         {
