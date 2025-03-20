@@ -6,6 +6,8 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class EquipmentUIPanel : MonoBehaviour
 {
+    public GameObject panel;
+
     [Header("Single Equipment UI")]
     //public Image itemIcon;  // 아이콘 이미지 (단일 장비)
     public TMP_Text itemName;   // 장비 이름 (단일 장비)
@@ -170,5 +172,11 @@ public class EquipmentUIPanel : MonoBehaviour
     public int GetEarnedUpgradeStone()
     {
         return earn_upgrade_stone;
+    }
+
+    public void ClosePanel()
+    {
+        this.panel.SetActive(false);
+        return;
     }
 }
