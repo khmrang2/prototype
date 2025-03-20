@@ -7,6 +7,10 @@ public class AfterSceneManager : MonoBehaviour
 
     void Awake()
     {
+        //## 출시전에 키기
+        //leftDoor.setActive();
+        //rightDoor.setActive();
+
         StartCoroutine(OpenDoors());
     }
 

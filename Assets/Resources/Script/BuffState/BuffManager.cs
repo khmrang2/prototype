@@ -12,7 +12,7 @@ public class BuffStruct
     public string Name;
     public string Tooltip;
     public string ImagePath;
-    public BaseState buffState;
+    public Dictionary<string, float> buffState; // í‚¤-ê°’ í˜•íƒœë¡œ ë³€ê²½
 }
 
 [System.Serializable]
@@ -23,34 +23,34 @@ public class BuffDataList
 
 public class BuffManager : MonoBehaviour
 {
-    public List<BuffSelectUI> buffUIs; // ¹öÇÁ ui.
+    public List<BuffSelectUI> buffUIs; // ë²„í”„ ui.
     [SerializeField] public PlayerState playerState; 
 
-    [SerializeField] private GameObject selectPanel; // SelectPanel ¿ÀºêÁ§Æ®
+    [SerializeField] private GameObject selectPanel; // SelectPanel ì˜¤ë¸Œì íŠ¸
     
-    private TextAsset buffDataJSON; // JSON ÆÄÀÏ
-    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID·Î Á¢±ÙÇÒ ¼ö ÀÖ´Â ¹öÇÁ Å×ÀÌºí
+    private TextAsset buffDataJSON; // JSON íŒŒì¼
+    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // IDë¡œ ì ‘ê·¼í•  ìˆ˜ ìˆëŠ” ë²„í”„ í…Œì´ë¸”
 
-    private List<BuffStruct> selectedBuffs; // ¼±ÅÃµÈ ¹öÇÁµé.
-    private bool isBuffSelected = false; // ¹öÇÁ°¡ ¼±ÅÃµÇ¾ú´ÂÁö ¿©ºÎ¸¦ ÀúÀåÇÏ´Â ÇÃ·¡±×
-    private int selectedBuffId = -1; // ¼±ÅÃµÈ Buff ID
+    private List<BuffStruct> selectedBuffs; // ì„ íƒëœ ë²„í”„ë“¤.
+    private bool isBuffSelected = false; // ë²„í”„ê°€ ì„ íƒë˜ì—ˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ì €ì¥í•˜ëŠ” í”Œë˜ê·¸
+    private int selectedBuffId = -1; // ì„ íƒëœ Buff ID
 
-    private BuffDataList dataList; // jsonÆÄÀÏ·Î ÀĞ¾î¿Â ¹öÇÁµéÀÇ ¸®½ºÆ®.
+    private BuffDataList dataList; // jsoníŒŒì¼ë¡œ ì½ì–´ì˜¨ ë²„í”„ë“¤ì˜ ë¦¬ìŠ¤íŠ¸.
 
     private void Start()
     {
         LoadBuffDataFromJSON();
-        selectPanel.SetActive(false); // ½ÃÀÛ ½Ã UI ÆĞ³ÎÀ» ºñÈ°¼ºÈ­
+        selectPanel.SetActive(false); // ì‹œì‘ ì‹œ UI íŒ¨ë„ì„ ë¹„í™œì„±í™”
     }
 
-    // JSON ÆÄÀÏ¿¡¼­ ¸ğµç ¹öÇÁ¸¦ ·ÎµåÇÏ°í Å×ÀÌºí¿¡ ÀúÀå
+    // JSON íŒŒì¼ì—ì„œ ëª¨ë“  ë²„í”„ë¥¼ ë¡œë“œí•˜ê³  í…Œì´ë¸”ì— ì €ì¥
     private void LoadBuffDataFromJSON()
     {
         buffDataJSON = Resources.Load<TextAsset>("Data/BuffData");
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
-        // µ¥ÀÌÅÍ¸¦ ÀĞ°í °¢ ¹öÇÁ ¼Ó¼ºÀ» Ãâ·Â
+        // ë°ì´í„°ë¥¼ ì½ê³  ê° ë²„í”„ ì†ì„±ì„ ì¶œë ¥
         foreach (BuffStruct buff in dataList.buffs)
         {
             //Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
@@ -58,48 +58,48 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    // 1. UI ÆĞ³ÎÀ» È°¼ºÈ­ÇÏ°í, ÀÓÀÇÀÇ 3°³ ¹öÇÁ¸¦ Ç¥½Ã
+    // 1. UI íŒ¨ë„ì„ í™œì„±í™”í•˜ê³ , ì„ì˜ì˜ 3ê°œ ë²„í”„ë¥¼ í‘œì‹œ
     public void ShowBuffSelection()
     {
-        isBuffSelected = false; // ÃÊ±âÈ­
-        selectPanel.SetActive(true); // ÆĞ³Î È°¼ºÈ­
+        isBuffSelected = false; // ì´ˆê¸°í™”
+        selectPanel.SetActive(true); // íŒ¨ë„ í™œì„±í™”
         ShowRandomBuffs();
     }
 
-    // 2. ÀÓÀÇÀÇ 3°³ÀÇ ¹öÇÁ¸¦ ¼±ÅÃÇÏ°í, UI¿¡ Ç¥½Ã
+    // 2. ì„ì˜ì˜ 3ê°œì˜ ë²„í”„ë¥¼ ì„ íƒí•˜ê³ , UIì— í‘œì‹œ
     private void ShowRandomBuffs()
     {
-        // 3°³ÀÇ ¼±ÅÃµÈ ¹öÇÁ¸¦ Ãâ·ÂÇØÁÜ.
+        // 3ê°œì˜ ì„ íƒëœ ë²„í”„ë¥¼ ì¶œë ¥í•´ì¤Œ.
         List<BuffStruct> selectedBuffs = GetRandomBuffs(3);
         for (int i = 0; i < 3; i++)
         {
-            // °¢ buffUI¿¡ ÇØ´ç ¹öÇÁ Á¤º¸¸¦ °»½Å
+            // ê° buffUIì— í•´ë‹¹ ë²„í”„ ì •ë³´ë¥¼ ê°±ì‹ 
             buffUIs[i].getBuffState(selectedBuffs[i]);
 
-            // ÇØ´ç UI ¿ÀºêÁ§Æ®¿¡ Button ÄÄÆ÷³ÍÆ®°¡ ÀÖ´Ù°í °¡Á¤ÇÏ°í, Å¬¸¯ ÀÌº¥Æ®¿¡ ¸®½º³Ê Ãß°¡
+            // í•´ë‹¹ UI ì˜¤ë¸Œì íŠ¸ì— Button ì»´í¬ë„ŒíŠ¸ê°€ ìˆë‹¤ê³  ê°€ì •í•˜ê³ , í´ë¦­ ì´ë²¤íŠ¸ì— ë¦¬ìŠ¤ë„ˆ ì¶”ê°€
             Button button = buffUIs[i].GetComponent<Button>();
             if (button != null)
             {
-                // Å¬¸®¾î ÈÄ »õ·Î µî·ÏÇÏ±â À§ÇØ ±âÁ¸ ¸®½º³Ê Á¦°Å
+                // í´ë¦¬ì–´ í›„ ìƒˆë¡œ ë“±ë¡í•˜ê¸° ìœ„í•´ ê¸°ì¡´ ë¦¬ìŠ¤ë„ˆ ì œê±°
                 button.onClick.RemoveAllListeners();
 
-                // Áö¿ªº¯¼ö¿¡ ÇÒ´çÇØ¾ß ¿Ã¹Ù¸¥ ¹öÇÁID°¡ Ä¸Ã³µÊ
+                // ì§€ì—­ë³€ìˆ˜ì— í• ë‹¹í•´ì•¼ ì˜¬ë°”ë¥¸ ë²„í”„IDê°€ ìº¡ì²˜ë¨
                 int buffId = selectedBuffs[i].ID;
                 button.onClick.AddListener(() => { OnBuffSelected(buffId); });
             }
-            // ¹öÇÁ UI ±¸¼º
+            // ë²„í”„ UI êµ¬ì„±
         }
     }
 
-    #region 2-1. ÀÓÀÇÀÇ 3°³ÀÇ ¹öÇÁ¸¦ ¼±ÅÃÇÏ´Â ÇÔ¼ö.
+    #region 2-1. ì„ì˜ì˜ 3ê°œì˜ ë²„í”„ë¥¼ ì„ íƒí•˜ëŠ” í•¨ìˆ˜.
 
-    // 2-1. ÀÓÀÇÀÇ n°³ÀÇ ¹öÇÁ¸¦ ¼±ÅÃÇÏ´Â ÇÔ¼ö
+    // 2-1. ì„ì˜ì˜ nê°œì˜ ë²„í”„ë¥¼ ì„ íƒí•˜ëŠ” í•¨ìˆ˜
     private List<BuffStruct> GetRandomBuffs(int count)
     {
         selectedBuffs = new List<BuffStruct>();
-        List<int> keys = new List<int>(buffTable.Keys); // ¸ğµç Å° °ªÀ» ¸®½ºÆ®·Î ÀúÀå
+        List<int> keys = new List<int>(buffTable.Keys); // ëª¨ë“  í‚¤ ê°’ì„ ë¦¬ìŠ¤íŠ¸ë¡œ ì €ì¥
 
-        // Fisher-Yates ¾Ë°í¸®ÁòÀ¸·Î Å° ¸®½ºÆ® ¼ÅÇÃ
+        // Fisher-Yates ì•Œê³ ë¦¬ì¦˜ìœ¼ë¡œ í‚¤ ë¦¬ìŠ¤íŠ¸ ì…”í”Œ
         for (int i = keys.Count - 1; i > 0; i--)
         {
             int j = UnityEngine.Random.Range(0, i + 1);
@@ -108,7 +108,7 @@ public class BuffManager : MonoBehaviour
             keys[j] = temp;
         }
 
-        // ¼ÅÇÃµÈ ¸®½ºÆ®¿¡¼­ count°³¸¸Å­ ¹öÇÁ ¼±ÅÃ (¸®½ºÆ® ±æÀÌº¸´Ù count°¡ Å¬ ¼ö ÀÖÀ¸¹Ç·Î Á¶°Ç È®ÀÎ)
+        // ì…”í”Œëœ ë¦¬ìŠ¤íŠ¸ì—ì„œ countê°œë§Œí¼ ë²„í”„ ì„ íƒ (ë¦¬ìŠ¤íŠ¸ ê¸¸ì´ë³´ë‹¤ countê°€ í´ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ì¡°ê±´ í™•ì¸)
         for (int i = 0; i < count && i < keys.Count; i++)
         {
             int key = keys[i];
@@ -122,57 +122,60 @@ public class BuffManager : MonoBehaviour
     }
     #endregion 
 
-    // 3. ¹öÇÁ°¡ ¼±ÅÃµÇ¾úÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö
+    // 3. ë²„í”„ê°€ ì„ íƒë˜ì—ˆì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;
         BuffStruct selectedBuff;
-        // ÀÌÁ¦ ¿©±â¿¡´Ù°¡ ¹öÇÁ¸¦ Àû¿ëÇÏ´Â ½ÃÄö½º¸¦ ³ÖÀÚ.
+        // ì´ì œ ì—¬ê¸°ì—ë‹¤ê°€ ë²„í”„ë¥¼ ì ìš©í•˜ëŠ” ì‹œí€€ìŠ¤ë¥¼ ë„£ì.
         if (buffTable.TryGetValue(buffId, out selectedBuff))
         {
-            // ¼±ÅÃµÈ ¹öÇÁÀÇ buffState¸¦ ApplyBuff¿¡ Àü´Ş
-            applyBuff(selectedBuff.buffState);
+            // ì„ íƒëœ ë²„í”„ì˜ buffStateë¥¼ ApplyBuffì— ì „ë‹¬
+            ApplyBuff(selectedBuff.buffState);
         }
         else
         {
             Debug.LogWarning("Buff with ID " + buffId + " not found.");
         }
-        // ÀÌÁ¦ °ÔÀÓ¸Å´ÏÀúÀÇ ¹öÇÁ½ºÅ×ÀÌÆ®¸¦ ³Ö¾îÁÖÀÚ.
-        isBuffSelected = true; // ¼±ÅÃ ¿Ï·á
-        selectPanel.SetActive(false); // ¼±ÅÃ ¿Ï·á½Ã ¹öÇÁ Ã¢À» ºñÈ°¼ºÈ­.
+        // ì´ì œ ê²Œì„ë§¤ë‹ˆì €ì˜ ë²„í”„ìŠ¤í…Œì´íŠ¸ë¥¼ ë„£ì–´ì£¼ì.
+        isBuffSelected = true; // ì„ íƒ ì™„ë£Œ
+        selectPanel.SetActive(false); // ì„ íƒ ì™„ë£Œì‹œ ë²„í”„ ì°½ì„ ë¹„í™œì„±í™”.
     }
 
-    // ¹öÇÁ ¼±ÅÃ ¿Ï·á ¿©ºÎ È®ÀÎ ¸Ş¼­µå
+    // ë²„í”„ ì„ íƒ ì™„ë£Œ ì—¬ë¶€ í™•ì¸ ë©”ì„œë“œ
     public bool IsBuffSelected()
     {
         return isBuffSelected;
     }
 
-    // ¼±ÅÃµÈ Buff ID ¹İÈ¯
+    // ì„ íƒëœ Buff ID ë°˜í™˜
     public int GetSelectedBuffId()
     {
         return selectedBuffId;
     }
 
-    private void applyBuff(BaseState effect)
+    private void ApplyBuff(Dictionary<string, float> buffs)
     {
-        playerState.AddState(effect);
+        foreach (var buff in buffs)
+        {
+            playerState.ApplyBuff(buff.Key, buff.Value);
+        }
     }
 
     public void PrintBuffSumState()
     {
         //Debug.Log("BuffSumState Fields:");
 
-        //// BuffSumStateÀÇ ¸ğµç public ÀÎ½ºÅÏ½º ÇÊµå¸¦ ¼øÈ¸
+        //// BuffSumStateì˜ ëª¨ë“  public ì¸ìŠ¤í„´ìŠ¤ í•„ë“œë¥¼ ìˆœíšŒ
         //foreach (FieldInfo field in typeof(BaseState).GetFields(BindingFlags.Public | BindingFlags.Instance))
         //{
-        //    // ÇÊµå ÀÌ¸§°ú ÇØ´ç °ªÀ» °¡Á®¿Í Ãâ·Â
+        //    // í•„ë“œ ì´ë¦„ê³¼ í•´ë‹¹ ê°’ì„ ê°€ì ¸ì™€ ì¶œë ¥
         //    var value = field.GetValue(selectedBuffI);
         //    Debug.Log($"{field.Name}: {value}");
         //}
     }
 
-    // ÀÌ¹ÌÁö °æ·Î·ÎºÎÅÍ ½ºÇÁ¶óÀÌÆ® ·Îµå (Resources Æú´õ »ç¿ë ½Ã) -? ¿Ö ¾ÈµÇÁö..¤µ¤²
+    // ì´ë¯¸ì§€ ê²½ë¡œë¡œë¶€í„° ìŠ¤í”„ë¼ì´íŠ¸ ë¡œë“œ (Resources í´ë” ì‚¬ìš© ì‹œ) -? ì™œ ì•ˆë˜ì§€..ã……ã…‚
     private Sprite LoadSpriteFromPath(string path)
     {
         //Debug.Log(path);
@@ -225,45 +228,45 @@ public class BuffManager : MonoBehaviour
 
 }
 
-//// ¹öÇÁ ¸Å´ÏÀú
-//// 1. json ÆÄÀÏÀ» loadÇÏ¿© buffeffect Å×ÀÌºíÀ» °ü¸®ÇÔ.
-//// 2. ui·Î ¹öÇÁ¸¦ º¸¿©ÁÖ°í Àû¿ëÇÏ´Â ±â´É
+//// ë²„í”„ ë§¤ë‹ˆì €
+//// 1. json íŒŒì¼ì„ loadí•˜ì—¬ buffeffect í…Œì´ë¸”ì„ ê´€ë¦¬í•¨.
+//// 2. uië¡œ ë²„í”„ë¥¼ ë³´ì—¬ì£¼ê³  ì ìš©í•˜ëŠ” ê¸°ëŠ¥
 //// 3. 
-//public GameManager gameManager; // °ÔÀÓ ¸Å´ÏÀú ÂüÁ¶
+//public GameManager gameManager; // ê²Œì„ ë§¤ë‹ˆì € ì°¸ì¡°
 
 //PlayerState playerDefaultState = null;
 
-//[SerializeField] private BuffState buffState; // buffState ÂüÁ¶
-//private List<BuffEffect> allBuffs = new List<BuffEffect>(); // ¸ğµç È°¼ºÈ­µÈ ¹öÇÁ
-//private List<BuffEffect> newBuffs = new List<BuffEffect>(); // »õ·Î Ãß°¡µÈ ¹öÇÁ
+//[SerializeField] private BuffState buffState; // buffState ì°¸ì¡°
+//private List<BuffEffect> allBuffs = new List<BuffEffect>(); // ëª¨ë“  í™œì„±í™”ëœ ë²„í”„
+//private List<BuffEffect> newBuffs = new List<BuffEffect>(); // ìƒˆë¡œ ì¶”ê°€ëœ ë²„í”„
 
 //private void Start()
 //{
-//    // ÇÃ·¹ÀÌ¾î ½ºÅ×ÀÌÆ®¸¦ ÃÖÃÊ »ı¼º ÇØ¼­ °¡Á®¿È.
-//    // => jsonÀ¸·Î loadÇØ¼­ ÇÃ·¹ÀÌ¾îÀÇ ¼³Á¤À» °¡Á®¿À´Â Çü½ÄÀ¸·Î ¹Ù²Ü ¼ö ÀÖÀ½.
+//    // í”Œë ˆì´ì–´ ìŠ¤í…Œì´íŠ¸ë¥¼ ìµœì´ˆ ìƒì„± í•´ì„œ ê°€ì ¸ì˜´.
+//    // => jsonìœ¼ë¡œ loadí•´ì„œ í”Œë ˆì´ì–´ì˜ ì„¤ì •ì„ ê°€ì ¸ì˜¤ëŠ” í˜•ì‹ìœ¼ë¡œ ë°”ê¿€ ìˆ˜ ìˆìŒ.
 //    playerDefaultState = new PlayerState();
 //}
 
-//// »õ ¹öÇÁ¸¦ Ãß°¡ÇÏ°í newBuffs¿¡ ÀúÀå
+//// ìƒˆ ë²„í”„ë¥¼ ì¶”ê°€í•˜ê³  newBuffsì— ì €ì¥
 //public void addBuff(BuffEffect buff)
 //{
 //    newBuffs.Add(buff);
 //}
 
-//// »õ ¹öÇÁ¿¡ ´ëÇØ¼­ ¾÷µ¥ÀÌÆ® ÇØÁÖ¾î buffState¸¦ ¾÷µ¥ÀÌÆ®.
+//// ìƒˆ ë²„í”„ì— ëŒ€í•´ì„œ ì—…ë°ì´íŠ¸ í•´ì£¼ì–´ buffStateë¥¼ ì—…ë°ì´íŠ¸.
 //public BuffState updateBuffState()
 //{
 //    foreach (BuffEffect buff in newBuffs)
 //    {
 //        ApplyBuffEffectToPlayer(buff);
-//        allBuffs.Add(buff); // Àû¿ëÇÑ ¹öÇÁ¸¦ allBuffs·Î ÀÌµ¿
+//        allBuffs.Add(buff); // ì ìš©í•œ ë²„í”„ë¥¼ allBuffsë¡œ ì´ë™
 //    }
 
-//    newBuffs.Clear(); // newBuffs ÃÊ±âÈ­
+//    newBuffs.Clear(); // newBuffs ì´ˆê¸°í™”
 //    return buffState;
 //}
 
-//// ÀÎÀÚ·Î µé¾î¿Â ¹öÇÁ¸¦ °è»êÇÏ´Â ¸Ş¼Òµå
+//// ì¸ìë¡œ ë“¤ì–´ì˜¨ ë²„í”„ë¥¼ ê³„ì‚°í•˜ëŠ” ë©”ì†Œë“œ
 //
 
 //public BuffState getBuffState()
@@ -272,41 +275,41 @@ public class BuffManager : MonoBehaviour
 //}
 ////----------------------------------------------------------------------------------
 ////----------------------------------------------------------------------------------
-////                                  ¹öÇÁ ui °ü¸® °ø°£
+////                                  ë²„í”„ ui ê´€ë¦¬ ê³µê°„
 ////----------------------------------------------------------------------------------
 ////----------------------------------------------------------------------------------
-//[SerializeField] private GameObject buffUIPrefab; // UI ÇÁ¸®ÆÕ
-//[SerializeField] private Transform uiParent; // UI°¡ ¹èÄ¡µÉ ºÎ¸ğ °´Ã¼
-//private List<GameObject> uiPool = new List<GameObject>(); // UI ¿ÀºêÁ§Æ® Ç®¸µ ¸®½ºÆ®
+//[SerializeField] private GameObject buffUIPrefab; // UI í”„ë¦¬íŒ¹
+//[SerializeField] private Transform uiParent; // UIê°€ ë°°ì¹˜ë  ë¶€ëª¨ ê°ì²´
+//private List<GameObject> uiPool = new List<GameObject>(); // UI ì˜¤ë¸Œì íŠ¸ í’€ë§ ë¦¬ìŠ¤íŠ¸
 
 ////private void Start()
 ////{
-////    InitializeUIPool(3); // ¿¹½Ã·Î 5°³ÀÇ UI¸¦ Ç®¸µÇØµÒ
+////    InitializeUIPool(3); // ì˜ˆì‹œë¡œ 5ê°œì˜ UIë¥¼ í’€ë§í•´ë‘ 
 ////}
 
-//// UI ¿ÀºêÁ§Æ® Ç®À» ÃÊ±âÈ­
+//// UI ì˜¤ë¸Œì íŠ¸ í’€ì„ ì´ˆê¸°í™”
 //private void InitializeUIPool(int count)
 //{
 //    for (int i = 0; i < count; i++)
 //    {
 //        GameObject ui = Instantiate(buffUIPrefab, uiParent);
-//        ui.SetActive(false); // ÃÊ±â¿¡´Â ºñÈ°¼ºÈ­
+//        ui.SetActive(false); // ì´ˆê¸°ì—ëŠ” ë¹„í™œì„±í™”
 //        uiPool.Add(ui);
 //    }
 //}
 
-//// UI¸¦ È°¼ºÈ­ÇÏ°í µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+//// UIë¥¼ í™œì„±í™”í•˜ê³  ë°ì´í„° ì—…ë°ì´íŠ¸
 //public void ShowBuffUI(BuffEffect buffEffect)
 //{
 //    GameObject ui = GetAvailableUI();
 //    if (ui != null)
 //    {
 //        ui.SetActive(true);
-//        UpdateBuffUI(ui, buffEffect); // UI ¿ä¼Ò¸¦ ¹öÇÁ µ¥ÀÌÅÍ·Î ¾÷µ¥ÀÌÆ®
+//        UpdateBuffUI(ui, buffEffect); // UI ìš”ì†Œë¥¼ ë²„í”„ ë°ì´í„°ë¡œ ì—…ë°ì´íŠ¸
 //    }
 //}
 
-//// »ç¿ë °¡´ÉÇÑ UI¸¦ ¹İÈ¯
+//// ì‚¬ìš© ê°€ëŠ¥í•œ UIë¥¼ ë°˜í™˜
 //private GameObject GetAvailableUI()
 //{
 //    foreach (var ui in uiPool)
@@ -314,27 +317,27 @@ public class BuffManager : MonoBehaviour
 //        if (!ui.activeInHierarchy)
 //            return ui;
 //    }
-//    return null; // »ç¿ë °¡´ÉÇÑ UI°¡ ¾øÀ¸¸é null ¹İÈ¯
+//    return null; // ì‚¬ìš© ê°€ëŠ¥í•œ UIê°€ ì—†ìœ¼ë©´ null ë°˜í™˜
 //}
 
-//// UI ¾÷µ¥ÀÌÆ® (¹öÇÁ ÀÌ¹ÌÁö, ÅøÆÁ µî º¯°æ)
+//// UI ì—…ë°ì´íŠ¸ (ë²„í”„ ì´ë¯¸ì§€, íˆ´íŒ ë“± ë³€ê²½)
 //private void UpdateBuffUI(GameObject ui, BuffEffect buffEffect)
 //{
 //    Image buffImage = ui.transform.Find("BuffImage").GetComponent<Image>();
 //    Text buffTooltip = ui.transform.Find("BuffTooltip").GetComponent<Text>();
 
-//    // ¹öÇÁ ÀÌ¹ÌÁö¿Í ÅøÆÁÀ» ¼³Á¤
+//    // ë²„í”„ ì´ë¯¸ì§€ì™€ íˆ´íŒì„ ì„¤ì •
 //    buffImage.sprite = LoadSpriteFromPath(buffEffect.ImagePath);
 //    buffTooltip.text = buffEffect.Tooltip;
 //}
 
-//// ÀÌ¹ÌÁö °æ·Î·ÎºÎÅÍ ½ºÇÁ¶óÀÌÆ® ·Îµå (Resources Æú´õ »ç¿ë ½Ã)
+//// ì´ë¯¸ì§€ ê²½ë¡œë¡œë¶€í„° ìŠ¤í”„ë¼ì´íŠ¸ ë¡œë“œ (Resources í´ë” ì‚¬ìš© ì‹œ)
 //private Sprite LoadSpriteFromPath(string path)
 //{
 //    return Resources.Load<Sprite>(path);
 //}
 
-//// ¸ğµç UI¸¦ ¼û±è (ÇÊ¿ä½Ã ÀüÃ¼ UI ÃÊ±âÈ­)
+//// ëª¨ë“  UIë¥¼ ìˆ¨ê¹€ (í•„ìš”ì‹œ ì „ì²´ UI ì´ˆê¸°í™”)
 //public void HideAllUI()
 //{
 //    foreach (var ui in uiPool)
@@ -342,7 +345,7 @@ public class BuffManager : MonoBehaviour
 //        ui.SetActive(false);
 //    }
 
-// ¿Ö ¿©±â¼­ null ref error?
+// ì™œ ì—¬ê¸°ì„œ null ref error?
 //Debug.Log(selectedBuffs[buffId].buffState.Player_Damage);
 //ApplyBuff(selectedBuffs[buffId].buffState);
 //}

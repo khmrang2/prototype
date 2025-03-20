@@ -70,3 +70,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# C# 코드와 관련된 파일을 UTF-8로 고정
+*.cs text eol=lf working-tree-encoding=UTF-8
+
+# Unity 관련 바이너리 파일은 변환하지 않음
+*.meta binary
+*.unity binary
+*.asset binary
