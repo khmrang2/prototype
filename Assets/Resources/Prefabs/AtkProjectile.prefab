@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5856560687042679831}
   - component: {fileID: 4395923616720268948}
-  - component: {fileID: 5082705577156903905}
   - component: {fileID: 3793746194436691807}
   - component: {fileID: 2175264921687381360}
   - component: {fileID: 5621761390930595898}
@@ -88,22 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5082705577156903905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7426673575030302359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40d0fa51838d1d40a432f15f8921b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDir: {x: 1, y: 0, z: 0}
-  moveSpeed: 8
-  posLimitMin: {x: -4.5, y: 4.5, z: 0}
-  posLimitMax: {x: 4, y: 8, z: 0}
 --- !u!114 &3793746194436691807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c32c0c0f24f6a4b9bd664546f98fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDestroyed: 0
+  returnTransform: {fileID: 0}
+  InstantiateTransform: {fileID: 0}
+  moveDir: {x: 1, y: 0, z: 0}
+  moveSpeed: 0.5
+  posLimitMin: {x: 0, y: 0, z: 0}
+  posLimitMax: {x: 0, y: 0, z: 0}
+  playerManager: {fileID: 0}
+  pstate: {fileID: 5392475841383486454, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
+  gameManager: {fileID: 0}
 --- !u!61 &2175264921687381360
 BoxCollider2D:
   m_ObjectHideFlags: 0

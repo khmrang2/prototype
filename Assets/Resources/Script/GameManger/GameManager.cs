@@ -31,11 +31,10 @@ struct buffState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public GameObject prefPlayerAtkProjrctile;
-    private GameObject plAtkObj;
+    public ProjectileOnHit plAtkObj;    //플레이어가 공격 시 발사하는 투사체
     public Transform playerTransform;  // 플레이어의 Transform
     public EnemyListManager enemyListManager;  // EnemyListManager 참조
-    public GameObject clearPopup;
+    public GameObject clearPopup;       //게임 클리어시 등장하는 팝업
     // 현민 - 
     // 게임할 state들을 불러옴.
     // 플레이어가 기본적으로 불러오는 state. 
@@ -58,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     //게임 시스템의 진행을 정지시키기 위한 변수
     public bool isPlaying = true;
+    private bool isatkEnded = false;
 
     void Start()
     {
@@ -93,10 +93,11 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
-                    plAtkObj = Instantiate(prefPlayerAtkProjrctile);
-                    plAtkObj.transform.position = playerTransform.position;
-                    Debug.Log("Player attacking...");
                     stateStarted = true;
+                    isatkEnded = false;
+                    //공격 함수 호출
+                    plAtkObj.StartAttack();
+                    Debug.Log("Player attacking...");
                 }
                 if (enemyAtkEnded())
                 {
@@ -191,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     private bool enemyAtkEnded()
     {
-        return plAtkObj == null;
+        return isatkEnded;
     }
 
     private bool chkStageEnded()
@@ -208,7 +209,7 @@ public class GameManager : MonoBehaviour
     // 투사체가 제거될 때 호출되어 상태를 업데이트
     public void NotifyProjectileDestroyed()
     {
-        plAtkObj = null;
+        isatkEnded = true;
     }
 
 }
