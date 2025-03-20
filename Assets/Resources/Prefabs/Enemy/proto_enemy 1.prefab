@@ -106,9 +106,9 @@ MonoBehaviour:
   isSpawned: 0
   isAlive: 0
   AttackRange: 1.5
-  hpb: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
+  hpb: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   status: {fileID: 0}
-  HpBar: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
+  HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   canvas: {fileID: 0}
 --- !u!114 &-1674373607952233300
 MonoBehaviour:
