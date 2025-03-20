@@ -6693,6 +6693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbc8842a99b145a99d9b8c14cf939bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 673772423}
   itemName: {fileID: 1497491723}
   singleItemSlotParent: {fileID: 132365242}
   itemSlotPrefab: {fileID: 3232639693998567242, guid: d919ca00f4822c34db5de7a1675d22d7, type: 3}
@@ -8387,9 +8388,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 673772423}
-        m_TargetAssemblyTypeName: PopupClose, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 673772427}
+        m_TargetAssemblyTypeName: EquipmentUIPanel, Assembly-CSharp
+        m_MethodName: ClosePanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
