@@ -571,8 +571,8 @@
   },
   {
     "id": 31,
-    "itemName": "골드go",
-    "tooltip": "asdasd",
+    "itemName": "골드 주머니",
+    "tooltip": "골드가 들어있는 주머니",
     "imgpath": "Sack Of Coin",
     "rarity": 5,
     "type": "goldpot"
@@ -580,7 +580,7 @@
   {
     "id": 32,
     "itemName": "강화용 기어",
-    "tooltip": "upgrade~ ~",
+    "tooltip": "업그레이드용 아이템",
     "imgpath": "Item_Upgrade",
     "rarity": 5,
     "type": "consumable"

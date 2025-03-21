@@ -74,6 +74,14 @@ public class PlayerStatusInMain : MonoBehaviour
         DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + amount).ToString());
         // TODO: 골드 추가 로직 구현 (예: 플레이어의 골드 데이터 업데이트)
     }
+
+    public void getServerStat(int amount)
+    {
+        int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
+        Debug.Log($"Player received {amount} upgrade stone");
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + amount).ToString());
+        // TODO: 골드 추가 로직 구현 (예: 플레이어의 골드 데이터 업데이트)
+    }
     // player stat : migration with tae yeon.
 
     // gold

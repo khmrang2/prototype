@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TMPro;
@@ -108,7 +108,7 @@ public class Inventory : MonoBehaviour
             if (itemA == null) return 1;
             if (itemB == null) return -1;
 
-            int rarityComparison = itemA.Rarity.CompareTo(itemB.Rarity);
+            int rarityComparison = itemB.Rarity.CompareTo(itemA.Rarity);
             if (rarityComparison != 0) return rarityComparison;
 
             Equipment equipA = itemA as Equipment;

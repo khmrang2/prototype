@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
 using System.IO;
@@ -8,6 +8,7 @@ using Newtonsoft.Json.Converters;
 using static UnityEditor.Progress;
 using System;
 using UnityEditor;
+using Unity.Mathematics;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
@@ -192,6 +193,15 @@ public class ItemDatabase : MonoBehaviour
         Debug.LogWarning($"해당 레어리티({selectedRarity})의 아이템이 없습니다. 기본값을 반환합니다.");
         return database.Count > 0 ? database[0] : null;
     }
+
+    /// <summary>
+    /// 인덱스에 해당하는 랜덤 값을 리턴합니다.
+    /// </summary>
+    /// <returns></returns>
+    public int GetRandomItemId(int range)
+    {
+        return UnityEngine.Random.Range(1, range);
+    }
 }
 
 //public struct ItemStat
@@ -326,9 +336,9 @@ public class Equipment : Item
 // Equipment의 범주를 나타내는 열거형
 public enum EquipmentType
 {
-    Weapon,
-    Heart,
-    Gear
+    Weapon = 0,
+    Heart = 1,
+    Gear = 2
 }
 
 // Goldpot 아이템 클래스

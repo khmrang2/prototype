@@ -9,8 +9,16 @@ public class EquipmentUIManager : MonoBehaviour
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
 
+    private List<ItemDataForSave> item_id_list = null;
+
     void Start()
     {
+        // 내부 변수 아이템 id 리스트 초기화.
+        if (item_id_list == null)
+        {
+            item_id_list = new List<ItemDataForSave>();
+        }
+
         //올바른 UI 패널 비활성화 방식
         if (equipmentPanel != null)
             equipmentPanel.gameObject.SetActive(false);
@@ -35,9 +43,17 @@ public class EquipmentUIManager : MonoBehaviour
         if(!payGold(900, isads)) return;
         //UI 패널 활성화
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
-        
-        equipmentPanel.ShowMultipleEquipments(gacha(10));
-        addEquipmentToInventory();
+
+        // 완벽히 끝나면 인벤토리에 넘겨주도록 순서를 강제. 
+        if (equipmentPanel.ShowMultipleEquipments(gacha(10)))
+        {
+            // 여기에 이제 세이브 코드를 직접 쓰면 될 듯 하다.
+            addEquipmentToInventory();
+        }
+        else
+        {
+            Debug.LogError("? 실패했니?");
+        }
     }
     
     public void DrawRandom1Reward(bool isads)
@@ -45,9 +61,12 @@ public class EquipmentUIManager : MonoBehaviour
         if(!payGold(100, isads)) return;
         // ✅ UI 패널 활성화
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
-        
-        equipmentPanel.ShowSingleEquipment(gacha(1)); // ✅ 1개 UI 표시
-        addEquipmentToInventory();
+
+        if (equipmentPanel.ShowSingleEquipment(gacha(1)))
+        {// ✅ 1개 UI 표시
+            // 여기에 이제 세이브 코드를 직접 쓰면 될 듯 하다.
+            addEquipmentToInventory();
+        }
     }
 
     private bool payGold(int amount, bool isAds=false)
@@ -85,27 +104,36 @@ public class EquipmentUIManager : MonoBehaviour
     /// </summary>
     /// <param name="gacha_count"></param>
     /// <returns></returns>
-    private List<Item> gacha(int gacha_count)
+    private List<ItemDataForSave> gacha(int gacha_count)
     {
-        List<Item> equipmentList = new List<Item>(gacha_count);
+        if(item_id_list != null)
+        {
+            item_id_list.Clear();
+        }
+
         for (int i = 0; i < gacha_count; i++)
         {
+            int id = 0, amount = 0;
             float roll = Random.Range(0f, 100f);
             if (roll < 40)
             {
-                // 40% 장비
-                equipmentList.Add(ItemDatabase.Instance.GetRandomItem());
+                // 40% 장비 수량 결정.
+                id = ItemDatabase.Instance.GetRandomItemId(ItemDatabase.RANGE_EQUIPMENT);
+                amount = Random.Range(1, 3);
             }else if(40 < roll && roll <= 70){
-                // 30% 업그레이드 아이템.
-                equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_UPGRADE_ITEM));
+                // 30% 업그레이드 아이템. 수량 결정.
+                id = ItemDatabase.RANGE_COSUMABLE;
+                amount = Random.Range(1, 5);
             }
             else
             {
-                // 30% 골드.
-                equipmentList.Add(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_GOLD_POT));              
+                // 30% 골드. 수량 결정.
+                id = ItemDatabase.RANGE_GOLD_POT;
+                amount = Random.Range(50, 110);      
             }
+            item_id_list.Add(new ItemDataForSave(id, amount));
         }
 
-        return equipmentList;
+        return item_id_list;
     }
 }
