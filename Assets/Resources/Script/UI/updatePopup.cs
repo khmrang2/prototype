@@ -17,17 +17,18 @@ public class updatePopup : MonoBehaviour
 
     public FontSizeAdjuster fontSizeAdjuster;
 
-    public GameObject popUpUI; // ÆË¾÷ ui
+    public GameObject popUpUI; // ï¿½Ë¾ï¿½ ui
 
-    public Button yesButton; // yes ¹öÆ°
-    public Button noButton;  // no ¹öÆ°
-    // ÀÌ¹Ì ÀÌ ½ÃÁ¡¿¡´Â SlotInven.cs¿¡ itemÀÌ ÀÖÀ½.
-
+    public Button yesButton; // yes ï¿½ï¿½blic 
+    public AudioSource equipSound;
+    public AudioSource unequipSound;
+    public Button noButton;  // no ï¿½ï¿½Æ°
+    // ï¿½Ì¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ SlotInven.csï¿½ï¿½ itemï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     private Equipment equip;
     private int amount;
-    private int popupIdentifier; // Àåºñ(0)¿¡¼­ ¿Â°ÇÁö ½½·Ô(1)¿¡¼­ ¿Â°ÇÁö 
+    private int popupIdentifier; // ï¿½ï¿½ï¿½(0)ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(1)ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ï¿½ï¿½ 
 
-    // ¹ÞÀº ¾ÆÀÌÅÛ ¾ÆÀÌµð·Î ÅøÆÁÀ» °¡Á®¿É´Ï´Ù. 
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½. 
     public void loadItem(int popupid, ItemData itemData)
     {
         popupIdentifier = popupid;
@@ -42,7 +43,7 @@ public class updatePopup : MonoBehaviour
 
     /// <summary>
     /// 
-    /// ¾ÆÀÌÅÛ ÀÌ¸§À» ·¹¾î¸®Æ¼¿¡ µû¶ó »ö±ò º¯°æÇÑ´Ù.
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¸®Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     /// </summary>
     /// <param name="rarity"></param>
     private void updateWithRairity(Rarity rarity)
@@ -65,7 +66,7 @@ public class updatePopup : MonoBehaviour
                 itemName.color = new Color(1f, 0.3f, 0.3f);
                 break;
             default:
-                Debug.LogError("[¾ÆÀÌÅÛÆË¾÷] : ¾ÆÀÌÅÛ ·¹¾î¸®Æ¼ Àß¸ø ºÒ·¯¿È.");
+                Debug.LogError("[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½] : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¸®Æ¼ ï¿½ß¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½.");
                 break;
         }
     }
@@ -76,79 +77,86 @@ public class updatePopup : MonoBehaviour
         itemDescription.text = equip.Tooltip;
         itemPrimaryStat.text = equip.MainStatValue.ToString();
         itemSecondaryStat.text = equip.SubStatValue.ToString();
-        // ¾²·¹±âÄÚµå¶ó°í»ý°¢ÇÔ.. itemdata.json ±¸Á¶ º¯°æÀÌ ÇÊ¿äÇÔ.
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.. itemdata.json ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½.
         switch (equip.EquipType)
         {
             case EquipmentType.Weapon:
-                itemPrimaryStatName.text = "°ø°Ý·Â";
-                itemPrimaryStatName.text = "°ø °³¼ö";
+                itemPrimaryStatName.text = "ï¿½ï¿½ï¿½Ý·ï¿½";
+                itemPrimaryStatName.text = "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
                 break;
             case EquipmentType.Heart:
-                itemPrimaryStatName.text = "Ã¼·Â";
-                itemSecondaryStatName.text = "°ø°Ý·Â";
+                itemPrimaryStatName.text = "Ã¼ï¿½ï¿½";
+                itemSecondaryStatName.text = "ï¿½ï¿½ï¿½Ý·ï¿½";
                 break;
             case EquipmentType.Gear:
-                itemPrimaryStatName.text = "ÇÉ Ã¼·Â";
-                itemSecondaryStatName.text = "°ø °³¼ö";
+                itemPrimaryStatName.text = "ï¿½ï¿½ Ã¼ï¿½ï¿½";
+                itemSecondaryStatName.text = "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
                 break;
             default:
-                Debug.LogError("[¾ÆÀÌÅÛÆË¾÷] : ¾ÆÀÌÅÛ ½ºÅÝ ³×ÀÓ º§·ù Àß¸ø ºÒ·¯¿È.");
+                Debug.LogError("[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½] : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½.");
                 break;
         }
 
         if (popupIdentifier == 1)
         {
-            // Àåºñ ½½·ÔÀÌ ´­·ÈÀ» ¶§
-            //Debug.LogError("Àåºñ - ÇØÁ¦¹Û¿¡ ¾øÀ½.");
-            yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÇØÁ¦";
+            // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            //Debug.LogError("ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½.");
+            yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "ï¿½ï¿½ï¿½ï¿½";
         }
         else if (popupIdentifier == 0)
         {
-            // ÀÎº¥Åä¸®¿¡¼­ È£ÃâµÈ °æ¿ì:
-            // Àåºñ Å¸ÀÔ¿¡ ÇØ´çÇÏ´Â ½½·Ô¿¡ ÀÌ¹Ì ÀåÂøµÇ¾î ÀÖ´Ù¸é "±³Ã¼", ¾Æ´Ï¸é "ÀåÂø"
+            // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½:
+            // ï¿½ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù¸ï¿½ "ï¿½ï¿½Ã¼", ï¿½Æ´Ï¸ï¿½ "ï¿½ï¿½ï¿½ï¿½"
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
-                //Debug.LogError("ÀÎº¥Åä¸® - ÀåÂøµÈ »óÅÂ");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "±³Ã¼";
+                //Debug.LogError("ï¿½Îºï¿½ï¿½ä¸® - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "ï¿½ï¿½Ã¼";
 
             }
             else
             {
-                //Debug.LogError("ÀÎº¥Åä¸® - XÇÑ »óÅÂ");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "ÀåÂø";
+                //Debug.LogError("ï¿½Îºï¿½ï¿½ä¸® - Xï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "ï¿½ï¿½ï¿½ï¿½";
             }
         }
     }
 
     public void yesClicked()
     {
-        popUpUI.SetActive(false);
+        if(popupIdentifier == 1) unequipSound.Play();
+        else equipSound.Play();
+        StartCoroutine(DisablePopupAfterSound());
+        
         if (popupIdentifier == 1)
         {
-            // Àåºñ¿¡¼­ È£Ãâ µÈ °æ¿ì :
-            // ¹Ù·Î ÇØÁ¦
+            // ï¿½ï¿½ñ¿¡¼ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ :
+            // ï¿½Ù·ï¿½ ï¿½ï¿½ï¿½ï¿½
             Equip.Instance.UnEquipItem(equip, true);
         }
         else if(popupIdentifier == 0)
         {
             Equipment currentEquipped = Equip.Instance.GetEquippedItem(equip.EquipType);
-            // ÀÎº¥Åä¸®¿¡¼­ È£ÃâµÈ °æ¿ì:
-            // Àåºñ Å¸ÀÔ¿¡ ÇØ´çÇÏ´Â ½½·Ô¿¡ ÀÌ¹Ì ÀåÂøµÇ¾î ÀÖ´Ù¸é "±³Ã¼", ¾Æ´Ï¸é "ÀåÂø"
+            // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½:
+            // ï¿½ï¿½ï¿½ Å¸ï¿½Ô¿ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´Ù¸ï¿½ "ï¿½ï¿½Ã¼", ï¿½Æ´Ï¸ï¿½ "ï¿½ï¿½ï¿½ï¿½"
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
                 Equip.Instance.UnEquipItem(currentEquipped, false);
             }
-            // Àåºñ ÀåÂø ·ÎÁ÷ ½ÇÇà
+            // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             Equip.Instance.EquipItem(equip, amount,true, true);
         }
     }
+
     public void noClicked()
     {
         if (popUpUI == null) return;
-
-        // ÆË¾÷°ú ¹è°æ ºñÈ°¼ºÈ­
+        // ï¿½Ë¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         popUpUI.SetActive(false);
     }
-
-
+    
+    IEnumerator DisablePopupAfterSound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        popUpUI.SetActive(false);
+    }
 }
