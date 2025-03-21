@@ -14,9 +14,6 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private int playerBallCnt;     //사용자가 화면 터치 시 떨어질 공의 수
     [SerializeField] private int pinHitCount;       //공들이 핀에 부딪힌 횟수, 공이 다 떨어질 때마다 값이 자동으로 바뀜
 
-    public PlayerState playerStat;
-
-
     //플레이어 스탯 접근을 위한 프로퍼티
     public int PlayerHP {  get { return playerHP; } set { playerHP = value; } }
     public int PlayerATK { get { return playerATK; } set { playerATK = value; } }

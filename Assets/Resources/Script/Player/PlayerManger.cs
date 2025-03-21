@@ -18,6 +18,7 @@ public class PlayerManger : MonoBehaviour
     public float playerHP = 3;
     public bool isAlive = true;
     public bool gameOver = false;
+    public float maxHP = 3;
 
     [Header("Player Stat Script")]
     public PlayerState playerState;
@@ -37,7 +38,7 @@ public class PlayerManger : MonoBehaviour
         gameOver = false ;
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
-
+        maxHP = playerStatus.PlayerHP;
         //체력바 소환
         //hpBar = Instantiate(prefHP_Bar, canvas.transform);
         
@@ -58,6 +59,7 @@ public class PlayerManger : MonoBehaviour
         //체력바 업데이트
         hpSlider.value = playerHP;
         hpSlider.maxValue = playerState.Player_Health;
+        maxHP = playerState.Player_Health;
         //체력이 0 이하가 된다면
         if (playerHP <= 0 && !gameOver)
         {
