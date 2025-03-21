@@ -197,6 +197,7 @@ public class Enemy : MonoBehaviour
         if (canvas != null)
         {
             hpb = Instantiate(HpBar, canvas.transform);     //체력바 소환
+            hpb.SetActive(true);
             hpBarPos = hpb.GetComponent<RectTransform>();   //체력바 위치 이동을 위해 RectTransform을 받아옴
             hpBarSlider = hpb.GetComponent<Slider>();       //체력바 값 설정을 위해 slider 컴포넌트를 받아옴
             hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);  //화면 비율에 맞춰 체력바의 크기 조정
