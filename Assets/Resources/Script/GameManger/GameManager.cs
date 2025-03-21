@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     // 각 상태의 동작이 시작되었는지 여부를 체크하는 플래그
     private bool stateStarted = false;
+    private bool player_double_attack_chance = false;
 
     //게임 시스템의 진행을 정지시키기 위한 변수
     public bool isPlaying = true;
@@ -91,6 +92,8 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
+                    int random_value = UnityEngine.Random.Range(0, 99);
+                    if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
                     isatkEnded = false;
                     //공격 함수 호출
@@ -207,7 +210,15 @@ public class GameManager : MonoBehaviour
     // 투사체가 제거될 때 호출되어 상태를 업데이트
     public void NotifyProjectileDestroyed()
     {
-        isatkEnded = true;
+        if (player_double_attack_chance)
+        {
+            player_double_attack_chance = false;  // 더블 어택 기회 소진
+            plAtkObj.StartAttack();  // 다시 발사
+        }
+        else
+        {
+            isatkEnded = true; // 더 이상 공격할 필요 없음 → 공격 턴 종료
+        }
     }
 
 }
