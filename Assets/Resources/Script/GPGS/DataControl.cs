@@ -32,10 +32,10 @@ public class DataControl : MonoBehaviour
 
 
     public DataSettings settings = new DataSettings();
-    //�ҷ������� ����� �����͸� ���� Ŭ���� settings ����
+    //불러와지고 저장될 데이터를 담을 클래스 settings 선언
 
     private string fileName = "savefile.dat";
-    //Ŭ���忡 ����� ������ �̸� ����
+    //클라우드에 저장될 파일의 이름 설정
 
 
     // 암호화 키 (16바이트)
@@ -92,7 +92,7 @@ public class DataControl : MonoBehaviour
     #region gpgs 클라우드 데이터 저장
 
 
-    //���� �� ���� ���θ� ��ȯ�ޱ� ���� ������ �ܺ� ȣ��� ���� �޼ҵ�
+    //세이브 데이터 콜백 함수
     public void SaveDataWithCallback(Action<bool> onComplete)
     {
         isSaveSuccess = false;
@@ -116,7 +116,7 @@ public class DataControl : MonoBehaviour
 
     public void SaveData() // 외부에서 세이브 호출용 메소드
     {
-        //���̺� ���� ���� �Ǵ��� ���� bool ����
+        //세이브 성공 여부 bool 변수 초기화.
         isSaveSuccess = false;
         isSaveFail = false;
 
