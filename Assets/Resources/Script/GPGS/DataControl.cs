@@ -72,8 +72,8 @@ public class DataControl : MonoBehaviour
     private static int Gold = 0;                                               // 초기 골드 양
     private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
-    private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();
-    private static List<ItemDataForSave> Equip = new List<ItemDataForSave>();
+    private static InventoryData Inventory = new InventoryData();
+    private static InventoryData Equip = new InventoryData();
 
 
     private static int UpgradableNum = 0;                                      // 업그레이드 횟수
@@ -211,6 +211,9 @@ public class DataControl : MonoBehaviour
             DebugTxt.text = "Save End";
 
             //세이브 성공 여부 확인용 변수의 값을 참으로 변경
+            //debug용으로 활성화한것
+            //isSaveSuccess = false;
+            //isSaveFail = true;
             isSaveSuccess = true;
 
         }
@@ -441,6 +444,7 @@ public class DataControl : MonoBehaviour
     private void SetDataSettings()
     {
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
+        Debug.Log($"gpgs -> 프렙스로 Gold : {Gold}가 저장됨.");
         SaveEncryptedDataToPrefs(UpgradeStoneName, settings.upgradeStone.ToString());
         SaveEncryptedDataToPrefs(PlayerHPName, settings.hp.ToString());
         SaveEncryptedDataToPrefs(PlayerATKName, settings.atk.ToString());
@@ -448,9 +452,16 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
 
-        //아이템과 인벤토리는 변환한 후 저장.
-        SaveItemDataToPrefs(PlayerInventoryName, settings.inventoryItems);
-        SaveItemDataToPrefs(PlayerEquipName, settings.equipItems);
+        // 로그 찍기
+        foreach (var item in settings.inventoryItems)
+            Debug.Log($"SetDataSettings: 인벤토리 {item.id} {item.amount}");
+
+        foreach (var item in settings.equipItems)
+            Debug.Log($"SetDataSettings: 장비 {item.id} {item.amount}");
+
+        // 리스트를 Wrapper로 감싸서 저장
+        SaveItemDataToPrefs(PlayerInventoryName, new InventoryData { items = settings.inventoryItems });
+        SaveItemDataToPrefs(PlayerEquipName, new InventoryData { items = settings.equipItems });
 
     }
 
@@ -467,8 +478,8 @@ public class DataControl : MonoBehaviour
         settings.pinHp = int.Parse(LoadEncryptedDataFromPrefs(PlayerPINHPName));
         settings.upgradeNum = int.Parse(LoadEncryptedDataFromPrefs(UpgradableNumName));
 
-        settings.inventoryItems = LoadItemDataFromPrefs(PlayerInventoryName);
-        settings.equipItems = LoadItemDataFromPrefs(PlayerEquipName);
+        settings.inventoryItems = LoadItemDataFromPrefs(PlayerInventoryName).items;
+        settings.equipItems = LoadItemDataFromPrefs(PlayerEquipName).items;
     }
 
 
@@ -576,8 +587,8 @@ public class DataControl : MonoBehaviour
         //업그레이드 해금 정보의 초기값 세팅
         SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
         //아이템, 인벤토리 초기값 세팅
-        SaveItemDataToPrefs(PlayerInventoryName, new List<ItemDataForSave>());
-        SaveItemDataToPrefs(PlayerEquipName, new List<ItemDataForSave>());
+        SaveItemDataToPrefs(PlayerInventoryName, new InventoryData());
+        SaveItemDataToPrefs(PlayerEquipName, new InventoryData());
 
         DebugTxt.text = "no saved data, saving initial data";
     }
@@ -590,25 +601,30 @@ public class DataControl : MonoBehaviour
 
     #region 인벤토리와 장비 json에서 string으로 변환 후 저장.
     // 아이템 data를 json -> string으로 변경.
-    public static void SaveItemDataToPrefs(string keyName, List<ItemDataForSave> data)
+    public static void SaveItemDataToPrefs(string keyName, InventoryData data)
     {
-        string json = JsonUtility.ToJson(new InventoryData { items = data });
+        foreach(ItemDataForSave itemdata in data.items)
+        {
+            Debug.Log($"플레이어 프렙스 저장 : {itemdata.id}, {itemdata.amount}");
+        }
+        string json = JsonUtility.ToJson(data);
         SaveEncryptedDataToPrefs(keyName, json);
     }
 
     // 아이템 data를 string -> json으로 변경.
-    public static List<ItemDataForSave> LoadItemDataFromPrefs(string keyName)
+    public static InventoryData LoadItemDataFromPrefs(string keyName)
     {
         string json = LoadEncryptedDataFromPrefs(keyName);
         if (string.IsNullOrEmpty(json))
         {
             //Debug.LogError("�ʱ� ����.");
-            return new List<ItemDataForSave>();
+            return new InventoryData();
         }
 
-        InventoryData data = JsonUtility.FromJson<InventoryData>(json);
-        return data.items;
+        return JsonUtility.FromJson<InventoryData>(json);
     }
+
+
     #endregion
 
 

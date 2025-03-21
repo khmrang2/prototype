@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class EquipmentUIManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class EquipmentUIManager : MonoBehaviour
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
 
     private List<ItemDataForSave> item_id_list = null;
+
+    public TextMeshProUGUI fordebug;
 
     void Start()
     {
@@ -38,56 +41,81 @@ public class EquipmentUIManager : MonoBehaviour
         }
     }
 
-    public void DrawRandom10Rewards(bool isads)
+    public void DrawRandom10Rewards(bool isAds)
     {
-        if(!payGold(900, isads)) return;
-        //UI 패널 활성화
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
+        makepayment(900, isAds, (success) =>
+        {
+            if (!success) return;
 
-        // 완벽히 끝나면 인벤토리에 넘겨주도록 순서를 강제. 
-        if (equipmentPanel.ShowMultipleEquipments(gacha(10)))
-        {
-            // 여기에 이제 세이브 코드를 직접 쓰면 될 듯 하다.
-            addEquipmentToInventory();
-        }
-        else
-        {
-            Debug.LogError("? 실패했니?");
-        }
+            if (equipmentPanel != null)
+            {
+                Debug.Log("패널 활성화 시작");
+                equipmentPanel.gameObject.SetActive(true);
+            }
+
+            Debug.Log("가챠 시작");
+            if (equipmentPanel.ShowMultipleEquipments(gacha(10)))
+            {
+                Debug.Log("가챠에 넣기");
+                addEquipmentToInventory();
+                Debug.Log("인벤토리에 넣기 완료.");
+            }
+            else
+            {
+                Debug.LogWarning("? 실패했니?");
+            }
+        });
     }
-    
+
     public void DrawRandom1Reward(bool isads)
     {
-        if(!payGold(100, isads)) return;
-        // ✅ UI 패널 활성화
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
+        makepayment(100, isads, (success) =>
+        {
+            if (!success) return;
 
-        if (equipmentPanel.ShowSingleEquipment(gacha(1)))
-        {// ✅ 1개 UI 표시
-            // 여기에 이제 세이브 코드를 직접 쓰면 될 듯 하다.
+            if (equipmentPanel != null)
+                equipmentPanel.gameObject.SetActive(true);
+
+            equipmentPanel.ShowSingleEquipment(gacha(1));
             addEquipmentToInventory();
-        }
+        });
     }
 
-    private bool payGold(int amount, bool isAds=false)
+    private void makepayment(int amount, bool isAds, System.Action<bool> onComplete)
     {
         if (PlayerStatusInMain.Instance == null)
         {
-            Debug.LogError("🚨 PlayerStateInMain.Instance가 null입니다! 초기화 확인 필요");
-            return false;
+            Debug.LogError("🚨 PlayerStatusInMain.Instance가 null입니다! 초기화 확인 필요");
+            onComplete?.Invoke(false);
+            return;
         }
-        if (isAds) return true;
-        else
+
+        if (isAds)
         {
-            return PlayerStatusInMain.Instance.payGold(amount);
+            // 광고로 지불하면 바로 성공
+            onComplete?.Invoke(true);
+            return;
         }
+
+        PlayerStatusInMain.Instance.PayGold(amount, (success) =>
+        {
+            if (success)
+            {
+                Debug.Log("💰 가격 지불 성공!");
+            }
+            else
+            {
+                Debug.LogError("❌ 가격 지불 실패!");
+            }
+            onComplete?.Invoke(success);
+        });
     }
 
     public void closePanel()
     {
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
         PlayerStatusInMain.Instance.getGold(equipmentPanel.GetEarnedGold());
         PlayerStatusInMain.Instance.getUpgradeStone(equipmentPanel.GetEarnedUpgradeStone());
+        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
     }
 
     /// <summary>

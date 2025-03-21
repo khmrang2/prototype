@@ -47,8 +47,7 @@ public class AdManager : MonoBehaviour
         {
             { "gold", GiveGold },   // 골드 지급
             { "upgradeStone", GiveUpgradeStone },
-            { "item", GiveItem },   // 아이템 지급
-            { "buff", GiveBuff }    // 버프 지급
+            { "item", GiveItem }
         };
     }
 
@@ -150,12 +149,5 @@ public class AdManager : MonoBehaviour
     {
         EquipmentUIManager equipmentUiManager = FindObjectOfType<EquipmentUIManager>();
         equipmentUiManager.DrawRandom10Rewards(true);
-    }
-
-    // ✅ 버프 지급 함수
-    private void GiveBuff(int amount)
-    {
-        Debug.Log($"Player received a buff with strength: {amount}");
-        // TODO: 버프 적용 로직 구현 (예: 플레이어 공격력 or 방어력 증가)
     }
 }

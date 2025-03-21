@@ -1,14 +1,10 @@
 	using UnityEngine;
 using TMPro; // TextMeshPro 네임스페이스 추가
-using UnityEngine.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using static UnityEditor.Progress;
 
 public class EquipmentUIPanel : MonoBehaviour
 {
     public GameObject panel;
-
     [Header("Single Equipment UI")]
     //public Image itemIcon;  // 아이콘 이미지 (단일 장비)
     public TMP_Text itemName;   // 장비 이름 (단일 장비)
@@ -27,12 +23,12 @@ public class EquipmentUIPanel : MonoBehaviour
     /// <summary>
     /// 단일 장비 UI 표시
     /// </summary>
-    public bool ShowSingleEquipment(List<ItemDataForSave> item_idx_list)
+    public void ShowSingleEquipment(List<ItemDataForSave> item_idx_list)
     {
         // 초기화
         earn_gold = 0;
         earn_upgrade_stone = 0;
-        if (item_idx_list == null || item_idx_list.Count == 0) return false ;
+        if (item_idx_list == null || item_idx_list.Count == 0) return;
 
         // 단일 장비이므로 첫 번째 아이템만 사용
         int ItemId = item_idx_list[0].id;
@@ -40,7 +36,8 @@ public class EquipmentUIPanel : MonoBehaviour
 
         // 기존 슬롯(다중 UI) 클리어 및 인벤토리용 데이터 초기화
         ClearItemSlots();
-        handToInventory.Clear();
+        if(handToInventory != null)
+            handToInventory.Clear();
 
         // 단일 장비 UI 활성화
         singleItemSlotParent.gameObject.SetActive(true);
@@ -71,7 +68,6 @@ public class EquipmentUIPanel : MonoBehaviour
             // 일반 장비는 인벤토리에 넘겨줄 데이터에 추가
             handToInventory.Add(item_idx_list[0]);
         }
-        return true;
     }
 
     
@@ -83,7 +79,7 @@ public class EquipmentUIPanel : MonoBehaviour
 		earn_gold = 0;
         earn_upgrade_stone = 0;
 
-        if (item_idx_list == null || item_idx_list.Count == 0) return false ;
+        if (item_idx_list == null || item_idx_list.Count == 0) return false;
    		if (itemSlotPrefab == null || itemSlotParent == null) return false;
 
         singleItemSlotParent.gameObject.SetActive(false);
@@ -131,6 +127,7 @@ public class EquipmentUIPanel : MonoBehaviour
                 handToInventory.Add(new ItemDataForSave(ItemId, amount));
             }
         }
+
         return true;
 	}
 

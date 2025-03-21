@@ -1,14 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
-using System.IO;
-using System.Runtime.CompilerServices;
-using UnityEngine.Rendering.Universal.Internal;
-using Newtonsoft.Json.Converters;
-using static UnityEditor.Progress;
 using System;
-using UnityEditor;
-using Unity.Mathematics;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
