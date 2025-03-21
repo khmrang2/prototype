@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GiveRewardOnClear : MonoBehaviour
@@ -8,24 +9,28 @@ public class GiveRewardOnClear : MonoBehaviour
 
     [Header("Clear reward settings")]
     [SerializeField] private int clearGold;
+    [SerializeField] private TextMeshProUGUI rewardText;
+
+
 
 
     private void OnEnable()
     {
-        clearGold = (int)(clearGold * playerState.Player_More_Economy);
-        //°ÔÀÓÀÌ Å¬¸®¾î µÇ¾î ÆË¾÷ÀÌ È°¼ºÈ­µÈ °æ¿ì¿¡ ÀÛµ¿
+        clearGold = (int)(clearGold * (1.0f + playerState.Player_More_Economy));
+        //ê²Œì„ì´ í´ë¦¬ì–´ ë˜ì–´ íŒì—…ì´ í™œì„±í™”ëœ ê²½ìš°ì— ì‘ë™
         if (this.gameObject.activeSelf)
         {
-            //¼­¹ö¿¡ µ¥ÀÌÅÍ ÀúÀå °¡´É ¿©ºÎ¿¡ µû¶ó ÀÛµ¿
+            //ì„œë²„ì— ë°ì´í„° ì €ì¥ ê°€ëŠ¥ ì—¬ë¶€ì— ë”°ë¼ ì‘ë™
 
-            //ÀúÀå ¼º°ø½Ã 
+            //ì €ì¥ ì„±ê³µì‹œ 
 
-            //º¸»ó ºÎ¿©
+            //ë³´ìƒ ë¶€ì—¬
             int gold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
             DataControl.SaveEncryptedDataToPrefs("Gold", (gold + clearGold).ToString());
+            rewardText.text = "ë³´ìƒ: " + clearGold + "G";
 
 
-            //½ºÅ×ÀÌÁö Å¬¸®¾î Á¤º¸ ÀúÀå
+            //ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´ ì •ë³´ ì €ì¥
         }
 
     }

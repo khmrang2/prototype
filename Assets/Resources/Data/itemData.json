@@ -579,7 +579,7 @@
   },
   {
     "id": 32,
-    "itemName": "upgrade 소모성 아이템",
+    "itemName": "강화용 기어",
     "tooltip": "upgrade~ ~",
     "imgpath": "Item_Upgrade",
     "rarity": 5,

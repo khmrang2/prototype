@@ -69,7 +69,7 @@ public class DataControl : MonoBehaviour
     private static int PlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
     private static int PlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int Gold = 7;                                               // 초기 골드 양
+    private static int Gold = 0;                                               // 초기 골드 양
     private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
     private static List<ItemDataForSave> Inventory = new List<ItemDataForSave>();

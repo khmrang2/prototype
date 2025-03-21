@@ -17,6 +17,8 @@ public class UpgradePopupManager : MonoBehaviour
   
     [SerializeField] private DataControl datactr;       //���׷��̵� ���� ���� ������ ���� ���� ���� ��ũ��Ʈ
 
+    [SerializeField] private SaveAndLoadError SaveandLoaderror;
+
     private string upgradeName;     //�˾��� ǥ�õ� ���׷��̵� �̸�, ������ ���� ������Ƽ�� ����
     private int upgradeStatName;    //���׷��̵� ���� �� ���� �� ����, ������ ���� ������Ƽ�� ����
     private int upgradeStat;        //���׷��̵� ���� �� ���� �� ���� ��ġ, ������ ���� ������Ƽ�� ����
@@ -128,7 +130,7 @@ public class UpgradePopupManager : MonoBehaviour
                     DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
 
                     //���� �˾� ����
-                    SaveAndLoadError.ShowErrorScreen();
+                    SaveandLoaderror.ShowErrorScreen();
 
                 }
                 else { Debug.Log("upgrade save complete"); }
@@ -162,7 +164,7 @@ public class UpgradePopupManager : MonoBehaviour
     public void SetUpgradePopup()
     {
         popupName.text = upgradeName;
-        popupCost.text = "cost: "+upgradeCost.ToString() + "G";
+        popupCost.text = "비용: "+upgradeCost.ToString() + "G";
     }
 
 

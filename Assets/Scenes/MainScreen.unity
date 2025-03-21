@@ -625,7 +625,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.7
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -778,7 +778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: HP upgrade
+      value: "\uCCB4\uB825 + 10"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -1092,7 +1092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Pin HP upgrade
+      value: "\uD540 \uCCB4\uB825 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -1106,6 +1106,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1616,8 +1620,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 306, y: 306}
-  m_Spacing: {x: 21.42, y: 21.42}
+  m_CellSize: {x: 305.99997, y: 305.99997}
+  m_Spacing: {x: 21.419998, y: 21.419998}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &132365245
@@ -2944,8 +2948,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 317.64706, y: 317.64706}
-  m_Spacing: {x: 15.882354, y: 15.882354}
+  m_CellSize: {x: 317.64703, y: 317.64703}
+  m_Spacing: {x: 15.882352, y: 15.882352}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &293755691
@@ -3045,11 +3049,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: ATK upgrade
+      value: "\uACF5\uACA9\uB825 + 4"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -3059,6 +3063,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3303,6 +3311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d29d13561311a44ad67ee8d64296eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ErrorScreen: {fileID: 1936277347}
 --- !u!1 &310151470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6069337807139934214, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
@@ -3646,7 +3655,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.95
+  m_fontSize: 94.95
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4156,7 +4165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Ball number upgrade
+      value: "\uACF5 \uC218 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -4170,6 +4179,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4721,8 +4734,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 317.64706, y: 317.64706}
-  m_Spacing: {x: 15.882354, y: 15.882354}
+  m_CellSize: {x: 317.64703, y: 317.64703}
+  m_Spacing: {x: 15.882352, y: 15.882352}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &537844128
@@ -4809,7 +4822,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.65
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5240,7 +5253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Pin HP upgrade
+      value: "\uD540 \uCCB4\uB825 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -5254,6 +5267,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -5750,10 +5767,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Please check your internet and try again
+  m_text: "\uC778\uD130\uB137 \uC5F0\uACB0 \uC0C1\uD0DC \uD655\uC778 \uD6C4 \n\uB2E4\uC2DC
+    \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5777,7 +5795,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.55
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6198,7 +6216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Pin HP upgrade
+      value: "\uD540 \uCCB4\uB825 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -6476,6 +6494,7 @@ MonoBehaviour:
   uogradableNum: 0
   UpgradeBtnManager: {fileID: 1970038284}
   datactr: {fileID: 304889501}
+  SaveandLoaderror: {fileID: 304889503}
 --- !u!1 &658997914
 GameObject:
   m_ObjectHideFlags: 0
@@ -6698,7 +6717,6 @@ MonoBehaviour:
   singleItemSlotParent: {fileID: 132365242}
   itemSlotPrefab: {fileID: 3232639693998567242, guid: d919ca00f4822c34db5de7a1675d22d7, type: 3}
   itemSlotParent: {fileID: 24881757}
-  itemPrefab: {fileID: 1117477902857782943, guid: 108168f62363a3240b2d45f204539895, type: 3}
 --- !u!1 &684255697
 GameObject:
   m_ObjectHideFlags: 0
@@ -7787,7 +7805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: no
+  m_text: "\uD655\uC778"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -7814,7 +7832,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.15
+  m_fontSize: 53.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7886,11 +7904,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: HP upgrade
+      value: "\uCCB4\uB825 + 30"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -9137,7 +9155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Ball number upgrade
+      value: "\uACF5 \uC218 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -9652,10 +9670,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ok
+  m_text: "\uD655\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9911,8 +9929,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1339999633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.05}
-  m_AnchorMax: {x: 0.95, y: 0.95}
+  m_AnchorMin: {x: 0.05, y: 0.1}
+  m_AnchorMax: {x: 0.95, y: 0.9}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9963,7 +9981,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.05
+  m_fontSize: 56.35
   m_fontSizeBase: 11
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11129,7 +11147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Pin HP upgrade
+      value: "\uD540 \uCCB4\uB825 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -11143,6 +11161,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11637,11 +11659,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: ATK upgrade
+      value: "\uACF5\uACA9\uB825 + 3"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -11651,6 +11673,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -11844,8 +11870,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 718785802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.1}
-  m_AnchorMax: {x: 0.9, y: 0.9}
+  m_AnchorMin: {x: 0.1, y: 0.2}
+  m_AnchorMax: {x: 0.9, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11896,7 +11922,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 57.15
+  m_fontSize: 78.35
   m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12015,8 +12041,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 270000672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0.2}
-  m_AnchorMax: {x: 0.8, y: 0.8}
+  m_AnchorMin: {x: 0.2, y: 0.3}
+  m_AnchorMax: {x: 0.8, y: 0.7}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12040,7 +12066,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: yes
+  m_text: "\uB124"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -12067,7 +12093,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.8
+  m_fontSize: 48.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12270,7 +12296,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: not enough gold!
+  m_text: "\uACE8\uB4DC\uAC00 \uBD80\uC871\uD569\uB2C8\uB2E4!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -12712,7 +12738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Would you like to purchase this upgrade?
+  m_text: "\uC774 \uC5C5\uADF8\uB808\uC774\uB4DC\uB97C\n\uAD6C\uB9E4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -12739,7 +12765,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.15
+  m_fontSize: 66.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13231,7 +13257,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
+  m_fontSize: 142.95
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13477,10 +13503,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Server Connect Fail!
+  m_text: "\uC11C\uBC84 \uC5F0\uACB0 \uC2E4\uD328"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13510,7 +13536,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -13712,7 +13738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1159338279822288295, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.8500023
+      value: -5.850006
       objectReference: {fileID: 0}
     - target: {fileID: 1159338279822288295, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13848,19 +13874,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 119.999985
+      value: 1011.1253
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 1964369473655974731, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -13944,11 +13970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2484886287204862924, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_text
-      value: "\uACE8 \uB4DC"
+      value: "\uBB34\uB8CC \uACE8\uB4DC \uD68D\uB4DD"
       objectReference: {fileID: 0}
     - target: {fileID: 2484886287204862924, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_fontSize
-      value: 75.8
+      value: 139.15
       objectReference: {fileID: 0}
     - target: {fileID: 2484886287204862924, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_fontAsset
@@ -14036,11 +14062,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 720
+      value: 1079.9999
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 505.352
+      value: 927.9872
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14072,11 +14098,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360
+      value: 539.99994
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -252.67603
+      value: -463.9936
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -14400,19 +14426,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 600
+      value: 68.87454
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 7071068201672414390, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -14440,19 +14466,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7245166248057956362, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147.69229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7245166248057956362, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 44.307693
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7245166248057956362, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 73.846146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7245166248057956362, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -22.153847
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843051626817792503, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -14580,19 +14606,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 8961113367931528065, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_Sprite
@@ -14870,11 +14896,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: HP upgrade
+      value: "\uCCB4\uB825 + 40"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -15230,11 +15256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: ATK upgrade
+      value: "\uACF5\uACA9\uB825 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -15306,11 +15332,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15346,7 +15372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -240
+      value: -540
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16111,8 +16137,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 212.84, y: 212.84}
-  m_Spacing: {x: 42.568, y: 42.568}
+  m_CellSize: {x: 212.83997, y: 212.83997}
+  m_Spacing: {x: 42.567993, y: 42.567993}
   m_Constraint: 1
   m_ConstraintCount: 4
 --- !u!222 &1636349489
@@ -16718,7 +16744,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.45
+  m_fontSize: 12
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17263,11 +17289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: HP upgrade
+      value: "\uCCB4\uB825 + 20"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -17335,11 +17361,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17375,7 +17401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1200
+      value: -2699.9998
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -17460,7 +17486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Ball number upgrade
+      value: "\uACF5 \uC218 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -17474,6 +17500,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -17532,11 +17562,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17812,7 +17842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: Ball number upgrade
+      value: "\uACF5 \uC218 + 1"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
@@ -17826,6 +17856,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -17884,11 +17918,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 359.99997
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17924,7 +17958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1392
+      value: -3131.9998
       objectReference: {fileID: 0}
     - target: {fileID: 4319527619666900075, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -18078,7 +18112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1936277348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18470,7 +18504,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 890.99994}
-  m_SizeDelta: {x: 180, y: 7560}
+  m_SizeDelta: {x: 180, y: 4849.7744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1970038284
 MonoBehaviour:
@@ -18565,8 +18599,8 @@ MonoBehaviour:
   m_ChildAlignment: 7
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 360, y: 360}
-  m_Spacing: {x: 72, y: 72}
+  m_CellSize: {x: 359.99997, y: 359.99997}
+  m_Spacing: {x: 71.99999, y: 71.99999}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1 &1971580939
@@ -19154,7 +19188,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.7
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19626,19 +19660,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 119.999985
+      value: 1011.1253
       objectReference: {fileID: 0}
     - target: {fileID: 1868425886451761784, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 1964369473655974731, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -19838,11 +19872,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 720
+      value: 1079.9999
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 505.352
+      value: 927.9872
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19874,11 +19908,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360
+      value: 539.99994
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -768.02795
+      value: -1401.9807
       objectReference: {fileID: 0}
     - target: {fileID: 3213102007456732727, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20130,19 +20164,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 600
+      value: 68.87454
       objectReference: {fileID: 0}
     - target: {fileID: 7053659706515516037, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 7071068201672414390, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -20194,19 +20228,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7843051626817792503, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 147.69229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843051626817792503, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 44.307693
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843051626817792503, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 73.846146
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7843051626817792503, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -22.153847
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7904371765130887474, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -20314,19 +20348,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 184.61539
+      value: -362.40414
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 369.23077
+      value: -724.8083
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 360
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 8817226814418749110, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -214.7746
+      value: -394.39462
       objectReference: {fileID: 0}
     - target: {fileID: 8961113367931528065, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_Sprite
@@ -20828,11 +20862,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeName
-      value: ATK upgrade
+      value: "\uACF5\uACA9\uB825 + 2"
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: upgradeStat
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: isUpgradable
@@ -20842,6 +20876,10 @@ PrefabInstance:
       propertyPath: upgradePopUp
       value: 
       objectReference: {fileID: 658014069}
+    - target: {fileID: 1037666217748420800, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
+      propertyPath: upgradeStatName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2465944437897782901, guid: be1665bc44b26f64eb1eadcac2e29188, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -21327,7 +21365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: no
+  m_text: "\uC544\uB2C8\uC694"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -21354,7 +21392,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 66.8
+  m_fontSize: 43.9
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
