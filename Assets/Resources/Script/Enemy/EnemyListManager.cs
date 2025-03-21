@@ -25,8 +25,7 @@ public class EnemyListManager : MonoBehaviour
 
     [SerializeField] private EnemyDataList enemyDataList;   //해당 맵에서 등장할 적들의 스탯이 담긴 스크립터블 오브젝스
 
-    
-
+    public GameManager gameManager;
     //초기화 함수
     private void Awake()
     {
@@ -48,12 +47,13 @@ public class EnemyListManager : MonoBehaviour
             enemies.Add(enemy);
             enemy.start = enemySpawnTransform;
             EnemyStatus enemyStatus = enemyObject.GetComponent<EnemyStatus>();
-            //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여 
+            //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여
             enemyStatus.SetEnemyStat((int)(1.0-playerState.Enemy_Health) * enemyDataList.EnemyList[i].hp, (int)(1.0 - playerState.Enemy_Attack) * enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
             //enemyObject.SetActive(false);
             //적 체력바 소환
             enemy.canvas = EnemyHpbarCanvas;
             enemy.SetEnemyHealthBar();
+            enemy.playerState = playerState;
 
         }
         enemiesSpawned = true; // 한 번만 실행되도록 설정
@@ -131,6 +131,7 @@ public class EnemyListManager : MonoBehaviour
             {
                 enemies[i].transform.position = enemySpawnTransform.position;
                 enemies[i].isSpawned = true;
+                gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }
 
             spawnedCount += willSpawnCnt;

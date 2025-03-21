@@ -27,7 +27,7 @@ public class ProjectileOnHit : MonoBehaviour
 
     private void Start()
     {
-        //º¯¼ö ÃÊ±âÈ­
+        //ë³€ìˆ˜ ì´ˆê¸°í™”
         isDestroyed = false;
     }
 
@@ -36,13 +36,13 @@ public class ProjectileOnHit : MonoBehaviour
     {
         if (!isDestroyed) 
         {
-            //»ì¾ÆÀÖ´Â ÆÇÁ¤ÀÏ ¶§¸¸ ÀÛµ¿
-            this.gameObject.transform.position = this.gameObject.transform.position + moveDir * moveSpeed * Time.deltaTime; //ÀÌµ¿
+            //ì‚´ì•„ìˆëŠ” íŒì •ì¼ ë•Œë§Œ ì‘ë™
+            this.gameObject.transform.position = this.gameObject.transform.position + moveDir * moveSpeed * Time.deltaTime; //ì´ë™
 
             if (isPassedLimit())
             {
-                //¸¸¾à È­¸é ¹ÛÀ¸·Î ³ª°¬´Ù¸é
-                RegarndAsDestroyed();   //ÆÄ±«Ã³¸®
+                //ë§Œì•½ í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°”ë‹¤ë©´
+                RegarndAsDestroyed();   //íŒŒê´´ì²˜ë¦¬
             }
         }
     }
@@ -52,20 +52,20 @@ public class ProjectileOnHit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy")) 
         {
-            //Àû°ú Ãæµ¹ ½Ã ÀÛµ¿
+            //ì ê³¼ ì¶©ëŒ ì‹œ ì‘ë™
 
             if (!isDestroyed)
             {
-                //ÆÄ±«µÇÁö ¾Ê¾ÒÀ» ¶§¸¸ µ¥¹ÌÁö Ã³¸®
+                //íŒŒê´´ë˜ì§€ ì•Šì•˜ì„ ë•Œë§Œ ë°ë¯¸ì§€ ì²˜ë¦¬
 
-                Enemy enemy = collision.gameObject.GetComponent<Enemy>();   //Ãæµ¹ÇÑ ÀûÀÇ µ¥ÀÌÅÍ °¡Á®¿À±â
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();   //ì¶©ëŒí•œ ì ì˜ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
 
-                int damage = CalculteDamage();      //µ¥¹ÌÁö °è»ê
-                enemy.status.EnemyHP -= damage;     //°è»êµÈ µ¥¹ÌÁö ¸¸Å­ ¸ÂÀº Àû Ã¼·Â °¨¼Ò
+                int damage = CalculteDamage();      //ë°ë¯¸ì§€ ê³„ì‚°
+                enemy.status.EnemyHP -= damage;     //ê³„ì‚°ëœ ë°ë¯¸ì§€ ë§Œí¼ ë§ì€ ì  ì²´ë ¥ ê°ì†Œ
 
                 if (!pstate.Ball_Pierce_Power)
                 {
-                    //°üÅëÀÌ È°¼ºÈ­ »óÅÂ°¡ ¾Æ´Ï¶ó¸é Àû Á¢ÃË ½Ã ÆÄ±«Ã³¸®
+                    //ê´€í†µì´ í™œì„±í™” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì  ì ‘ì´‰ ì‹œ íŒŒê´´ì²˜ë¦¬
                     RegarndAsDestroyed();
                 }
             }
@@ -74,16 +74,16 @@ public class ProjectileOnHit : MonoBehaviour
     }
 
 
-    //°ø°İ ½ÃÀÛ ÇÔ¼ö
+    //ê³µê²© ì‹œì‘ í•¨ìˆ˜
     public void StartAttack()
     {
-        this.gameObject.transform.position = InstantiateTransform.position; //°ø°İÀÌ ³¯¶ó°¡±â ½ÃÀÛÇÏ´Â À§Ä¡·Î ÀÌµ¿
-        isDestroyed = false;    //¿òÁ÷ÀÌ°Ô ÇÏ±â À§ÇØ ÆÄ±« ÆÇÁ¤À» °ÅÁşÀ¸·Î
+        this.gameObject.transform.position = InstantiateTransform.position; //ê³µê²©ì´ ë‚ ë¼ê°€ê¸° ì‹œì‘í•˜ëŠ” ìœ„ì¹˜ë¡œ ì´ë™
+        isDestroyed = false;    //ì›€ì§ì´ê²Œ í•˜ê¸° ìœ„í•´ íŒŒê´´ íŒì •ì„ ê±°ì§“ìœ¼ë¡œ
     }
 
 
 
-    //µ¥¹ÌÁö °ª ¹Ş±â
+    //ë°ë¯¸ì§€ ê°’ ë°›ê¸°
     private int CalculteDamage()
     {
         if (playerManager != null)
@@ -94,21 +94,21 @@ public class ProjectileOnHit : MonoBehaviour
         }
         else 
         { 
-            Debug.LogError("ÇÃ·¹ÀÌ¾î ½ºÅÈ ÂüÁ¶ ½ÇÆĞ!"); 
+            Debug.LogError("í”Œë ˆì´ì–´ ìŠ¤íƒ¯ ì°¸ì¡° ì‹¤íŒ¨!"); 
             return 0;
         }
     }
 
-    //ÆÄ±«Ã³¸®
+    //íŒŒê´´ì²˜ë¦¬
     private void RegarndAsDestroyed()
     {
-        isDestroyed = true; //¿òÁ÷ÀÌÁö ¾Êµµ·Ï ÆÄ±« º¯¼ö¸¦ ÂüÀ¸·Î
-        this.gameObject.transform.position = returnTransform.position;  //ÃÊ±â À§Ä¡·Î ÀÌµ¿
-        gameManager.NotifyProjectileDestroyed();    //ÁøÇàÀ» À§ÇØ °ÔÀÓ ½Ã½ºÅÛ¿¡ ÆÄ±«µÇ¾ú´Ù°í ¾Ë¸²
+        isDestroyed = true; //ì›€ì§ì´ì§€ ì•Šë„ë¡ íŒŒê´´ ë³€ìˆ˜ë¥¼ ì°¸ìœ¼ë¡œ
+        this.gameObject.transform.position = returnTransform.position;  //ì´ˆê¸° ìœ„ì¹˜ë¡œ ì´ë™
+        gameManager.NotifyProjectileDestroyed();    //ì§„í–‰ì„ ìœ„í•´ ê²Œì„ ì‹œìŠ¤í…œì— íŒŒê´´ë˜ì—ˆë‹¤ê³  ì•Œë¦¼
     }
 
 
-    //È­¸é ¹ÛÀ¸·Î ³ª°¬´ÂÁö Ã³¸®
+    //í™”ë©´ ë°–ìœ¼ë¡œ ë‚˜ê°”ëŠ”ì§€ ì²˜ë¦¬
     private bool isPassedLimit()
     {
         Vector3 temp = this.transform.position;

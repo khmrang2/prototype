@@ -27,5 +27,4 @@ public class EnemyStatus : MonoBehaviour
         EnemyATK = ATK;
         EnemyDFF = DFF;
     }
-
 }

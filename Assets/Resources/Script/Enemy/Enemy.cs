@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,13 +25,13 @@ public class Enemy : MonoBehaviour
     private RectTransform hpBarPos;
     private Slider hpBarSlider;
 
+    [Header("Player Stat Script")]
+    public PlayerState playerState;
 
     [Header("Enemy references")]
     public EnemyStatus status; //이 적 케릭터의 스탯
     public GameObject HpBar;    //체력바
     public GameObject canvas;   //체력바가 소환될 ui 캔버스
-
-
 
     private void Start()
     {
@@ -59,8 +60,6 @@ public class Enemy : MonoBehaviour
         //생존 처리를 true로
         isAlive = true;
         hpBarSlider.maxValue = status.EnemyHP;          //체력바 최대값 설정
-
-
     }
 
     public async Task Move()
@@ -144,11 +143,16 @@ public class Enemy : MonoBehaviour
         //살아 있을때만 실행
         if (isAlive & status != null)
         {
-            if(status.EnemyHP < 0) 
+            if(status.EnemyHP < 0) //만약 체력이 0 이하로 떨어지면 사망처리
             {
-                //만약 체력이 0 이하로 떨어지면 사망처리
                 isAlive = false;
                 OnDie();
+                if (playerState.Player_Generation !=0)
+                {
+                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation * 10, Pmanager.maxHP);
+                    Debug.Log($"현재 체력{Pmanager.playerHP}");
+                }
+               
             }
         }
 
@@ -227,8 +231,14 @@ public class Enemy : MonoBehaviour
     {
         hpb.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+        
     }
 
+    public void Get_Pin_Damage(int Damage)
+    {
+        if (isSpawned) status.EnemyHP -= Damage;
+        Debug.Log("데미지 들어갑니다");
+    }
 }
     //공격 함수에서 에니메이션 길이를 반환받기 위해 쓰이는 힘수
     //private float GetAnimationLength(string animationName)

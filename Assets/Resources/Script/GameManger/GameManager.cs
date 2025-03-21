@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
     public bool isPlaying = true;
     private bool isatkEnded = false;
 
+    public delegate void Pin_Damage(int Damage);
+    public event Pin_Damage? Pin_Damage_Event;
+
     void Start()
     {
         clearPopup.SetActive(false);
@@ -221,6 +224,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Pin_Damage_Event_Func(int Damage)
+    {
+        if (Pin_Damage_Event != null) Pin_Damage_Event(Damage); else Debug.Log("실행됩니다");
+    }
 }
 
 /**
