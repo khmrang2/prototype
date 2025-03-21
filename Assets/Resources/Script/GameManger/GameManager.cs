@@ -7,20 +7,20 @@ using UnityEngine;
 // ï¿½×³ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ enum.
 public enum GameTurn
 {
-    // 13ÀÏ (¼ö) ¸àÅä´Ô ÄÁÆß
-    // ÅÂ¿¬
-    DropBallState,          // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î °øÀ» ¶³¾î¶ß¸®´Â »óÅÂ - ÅÂ¿¬
+    // 13ï¿½ï¿½ (ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½Â¿ï¿½
+    DropBallState,          // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ - ï¿½Â¿ï¿½
 
-    // Á¤ÈÆ´Ô 
-    PlayerAtkState,         // ¶³¾î¶ß¸° °øÀ¸·Î ÀûÀ» °ø°ÝÇÏ´Â »óÅÂ
+    // ï¿½ï¿½ï¿½Æ´ï¿½ 
+    PlayerAtkState,         // ï¿½ï¿½ï¿½ï¿½ß¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    // ½Ã¿ì´Ô
-    EnemyBehaviorState,     // ÀûÀÇ ÅÏÀ¸·Î ÀûÀÌ Çàµ¿(°ø°Ý or ¿òÁ÷ÀÓ)ÇÏ´Â »óÅÂ
-    SpawnEnemyState,        // ÀûÀÌ »ý¼ºµÇ´Â »óÅÂ
+    // ï¿½Ã¿ï¿½ï¿½
+    EnemyBehaviorState,     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½àµ¿(ï¿½ï¿½ï¿½ï¿½ or ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    SpawnEnemyState,        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    // Çö¹Î
-    EndChkState,            // ½ºÅ×ÀÌÁö°¡ ³¡³µ´ÂÁö(¸ðµç ÀûÀÌ Á×¾ú´ÂÁö) Ã¼Å©ÇÏ´Â »óÅÂ
-    ChooseBuffState,        // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î ¹öÇÁ¸¦ ¼±ÅÃÇÏ´Â »óÅÂ->>
+    // ï¿½ï¿½ï¿½ï¿½
+    EndChkState,            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¾ï¿½ï¿½ï¿½ï¿½ï¿½) Ã¼Å©ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    ChooseBuffState,        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½->>
 }
 struct buffState
 {
@@ -31,14 +31,14 @@ struct buffState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public ProjectileOnHit plAtkObj;    //ÇÃ·¹ÀÌ¾î°¡ °ø°Ý ½Ã ¹ß»çÇÏ´Â Åõ»çÃ¼
-    public Transform playerTransform;  // ÇÃ·¹ÀÌ¾îÀÇ Transform
-    public EnemyListManager enemyListManager;  // EnemyListManager ÂüÁ¶
-    public GameObject clearPopup;       //°ÔÀÓ Å¬¸®¾î½Ã µîÀåÇÏ´Â ÆË¾÷
-    // Çö¹Î - 
-    // °ÔÀÓÇÒ stateµéÀ» ºÒ·¯¿È.
-    // ÇÃ·¹ÀÌ¾î°¡ ±âº»ÀûÀ¸·Î ºÒ·¯¿À´Â state. 
-    // ¹öÇÁ¸¦ ¹Þ¾Æ¼­ °»½ÅµÉ cur_state.
+    public ProjectileOnHit plAtkObj;    //ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼
+    public Transform playerTransform;  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ Transform
+    public EnemyListManager enemyListManager;  // EnemyListManager ï¿½ï¿½ï¿½ï¿½
+    public GameObject clearPopup;       //ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ë¾ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ - 
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ stateï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½.
+    // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ state. 
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½Åµï¿½ cur_state.
     [SerializeField]
     public BuffManager buffManager;
     public PlayerManger playerManger;
@@ -52,10 +52,11 @@ public class GameManager : MonoBehaviour
     public PinManager pinManager;
     public InteractionArea interactionArea;
 
-    // °¢ »óÅÂÀÇ µ¿ÀÛÀÌ ½ÃÀÛµÇ¾ú´ÂÁö ¿©ºÎ¸¦ Ã¼Å©ÇÏ´Â ÇÃ·¡±×
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ Ã¼Å©ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
     private bool stateStarted = false;
+    private bool player_double_attack_chance = false;
 
-    //°ÔÀÓ ½Ã½ºÅÛÀÇ ÁøÇàÀ» Á¤Áö½ÃÅ°±â À§ÇÑ º¯¼ö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public bool isPlaying = true;
     private bool isatkEnded = false;
 
@@ -69,8 +70,8 @@ public class GameManager : MonoBehaviour
         enemyListManager.SpawnInitialEnemies();
     }
     /// <summary>
-    /// stateStarted·Î ½ºÇÉ¶ôÀ» ±¸ÇöÇÏ¿©
-    /// ÅÏÀ» °­Á¦ÇÔ.
+    /// stateStartedï¿½ï¿½ ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
     /// </summary>
 
     void Update()
@@ -93,9 +94,11 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
+                    int random_value = UnityEngine.Random.Range(0, 99);
+                    if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
                     isatkEnded = false;
-                    //°ø°Ý ÇÔ¼ö È£Ãâ
+                    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
                     plAtkObj.StartAttack();
                     Debug.Log("Player attacking...");
                 }
@@ -109,22 +112,22 @@ public class GameManager : MonoBehaviour
             case GameTurn.EnemyBehaviorState:
                 if (!stateStarted)
                 {
-                    //»ì¾ÆÀÖ´Â ÀûÀÌ ¾ø´Ù¸é °ÔÀÓ Å¬¸®¾î Ã³¸®
+                    //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
                     if (enemyListManager.isAllEnemyDead())
                     {
-                        stateStarted = true;    //°ÔÀÓ ÁøÇàÀ» ¸·±â À§ÇØ stateStartedÀÇ °ªÀ» ÂüÀ¸·Î
+                        stateStarted = true;    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ stateStartedï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         isPlaying = false;
 
-                        //°ÔÀÓ Å¬¸®¾î ÆË¾÷ ¶ç¿ì±â
+                        //ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾ï¿½ ï¿½ï¿½ï¿½ï¿½
                         clearPopup.SetActive(true);
 
                     }
-                    else   //»ì¾ÆÀÖ´Â ÀûÀÌ ÀÖ´Ù¸é ÀûÀÇ ÀÌµ¿ ÀÛµ¿
+                    else   //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ûµï¿½
                     {
 
                         Debug.Log("Enemies moving...");
-                        // Àû ÀÌµ¿À» ½ÃÀÛ (enemyListManager.MoveEnemies()°¡ ³»ºÎÀûÀ¸·Î ÀÌµ¿À» Ã³¸®ÇÏ°í,
-                        // AllEnemiesMoved()°¡ ÀÌµ¿ ¿Ï·á¸¦ ÆÇ´ÜÇÑ´Ù°í °¡Á¤)
+                        // ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (enemyListManager.MoveEnemies()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ï°ï¿½,
+                        // AllEnemiesMoved()ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ï·á¸¦ ï¿½Ç´ï¿½ï¿½Ñ´Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½)
                         enemyListManager.MoveEnemies();
                         stateStarted = true;
                     }
@@ -179,7 +182,7 @@ public class GameManager : MonoBehaviour
     }
     public bool ballHasDropped()
     {
-        //°øÀÌ ´Ù »ç¶óÁ³À» ½Ã¿¡ ½ÇÇà
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
         {
             pinHitCount = pinManager.hit_cnt_sum();
@@ -197,7 +200,7 @@ public class GameManager : MonoBehaviour
 
     private bool chkStageEnded()
     {
-        // ½ºÅ×ÀÌÁö Á¾·á Á¶°Ç Ã¼Å© ·ÎÁ÷ (ÇÊ¿ä¿¡ µû¶ó ¼öÁ¤)
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å© ï¿½ï¿½ï¿½ï¿½ (ï¿½Ê¿ä¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         return true;
     }
 
@@ -206,10 +209,18 @@ public class GameManager : MonoBehaviour
         return;
     }
 
-    // Åõ»çÃ¼°¡ Á¦°ÅµÉ ¶§ È£ÃâµÇ¾î »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®
+    // ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Åµï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void NotifyProjectileDestroyed()
     {
-        isatkEnded = true;
+        if (player_double_attack_chance)
+        {
+            player_double_attack_chance = false;  // ë”ë¸” ì–´íƒ ê¸°íšŒ ì†Œì§„
+            plAtkObj.StartAttack();  // ë‹¤ì‹œ ë°œì‚¬
+        }
+        else
+        {
+            isatkEnded = true; // ë” ì´ìƒ ê³µê²©í•  í•„ìš” ì—†ìŒ â†’ ê³µê²© í„´ ì¢…ë£Œ
+        }
     }
 
 }
@@ -223,8 +234,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlayerAtkTurn()
     {
-        //ÇÃ·¹ÀÌ¾î °ø°Ý Åõ»çÃ¼ »ý¼º
-        //Åõ»çÃ¼´Â ½º½º·Î ³ª¾Æ°¡¸ç Àû°ú Á¢ÃËÇÏ°Å³ª ÁöÁ¤ÇÑ ¹üÀ§ ¹ÛÀ¸·Î ³ª°¡¸é ½º½º·Î Á¦°Å
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
+        //ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°Å³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         plAtkObj = Instantiate(prefPlayerAtkProjrctile);
         plAtkObj.transform.position = new Vector3(-2.4f, 4.85f, 0);
         Debug.Log("Player attacking...");
@@ -235,30 +246,30 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Enemies moving...");
 
-        // ÀûÀ» 5Ä­¾¿ ³ª´©¾î ÀÌµ¿½ÃÅ°±â
+        // ï¿½ï¿½ï¿½ï¿½ 5Ä­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å°ï¿½ï¿½
         yield return enemyListManager.MoveEnemies();
 
         yield return new WaitUntil(() => enemyListManager.AllEnemiesMoved());
 
-        // ÀÌµ¿ÀÌ ³¡³ª¸é ½ºÆù Ã³¸®
+        // ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         enemyListManager.SpawnEnemyPerTurn();
     }
 
     private IEnumerator MoveEnemiesCoroutine()
     {
-        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() ½ÇÇà
-        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // ¿Ï·áµÉ ¶§±îÁö ´ë±â
+        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() ï¿½ï¿½ï¿½ï¿½
+        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     }
 
     private IEnumerator ChooseBuffTurn()
     {
         Debug.Log("Choosing a buff...");
-        buffManager.ShowBuffSelection(); // ¹öÇÁ ¼±ÅÃ UI Ç¥½Ã
+        buffManager.ShowBuffSelection(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI Ç¥ï¿½ï¿½
 
-        // ¹öÇÁ°¡ ¼±ÅÃµÉ ¶§±îÁö ´ë±â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         yield return new WaitUntil(() => buffManager.IsBuffSelected());
         updateBuffState();
-        Debug.Log("¹öÇÁ ¾÷µ¥ÀÌÆ®µÊ.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½.");
         buffState.printAllStates();
     }
 
