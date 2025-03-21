@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,8 +60,6 @@ public class Enemy : MonoBehaviour
         //생존 처리를 true로
         isAlive = true;
         hpBarSlider.maxValue = status.EnemyHP;          //체력바 최대값 설정
-
-
     }
 
     public async Task Move()
@@ -235,6 +234,11 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public void Get_Pin_Damage(int Damage)
+    {
+        if (isSpawned) status.EnemyHP -= Damage;
+        Debug.Log("데미지 들어갑니다");
+    }
 }
     //공격 함수에서 에니메이션 길이를 반환받기 위해 쓰이는 힘수
     //private float GetAnimationLength(string animationName)

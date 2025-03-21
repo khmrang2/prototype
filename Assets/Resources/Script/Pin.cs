@@ -7,7 +7,7 @@ public class Pin : MonoBehaviour
     // 파티클 생성
     public GameObject particlePrefab; // 파티클 프리팹
     public float particleLifetime = 2f; // 파티클 유지 시간
-
+    public GameManager gameManager;
     private float targetRotation; // 목표 각도
     private float rotationSpeed = 200f; // 기본 회전 속도 (각도/초)
     private float maxRotationSpeed = 20f; // 최소 회전 속도
@@ -18,6 +18,9 @@ public class Pin : MonoBehaviour
     private int cnt = 0;
     private int maxHitCount = 5; // 최대 충돌 횟수
 
+    [Header("Player Stat Script")]
+    public PlayerState playerState;
+
     private void Start()
     {
         // 초기 목표 각도를 현재 각도로 설정
@@ -27,7 +30,6 @@ public class Pin : MonoBehaviour
     // 충돌
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         // 충돌한 오브젝트의 태그가 "ball"인지 확인
         if (collision.gameObject.CompareTag("Ball"))
         {
@@ -42,6 +44,10 @@ public class Pin : MonoBehaviour
                 ballScript.wasSplited = true;
             }
 
+            if (playerState.Pin_Damage != 0)
+            {
+                gameManager.Pin_Damage_Event_Func(playerState.Pin_Damage * 10);
+            }
             // 충돌의 힘 등을 계산해야 하기에
             temp(collision);
             makeSteamEffect(contactPoint.point);

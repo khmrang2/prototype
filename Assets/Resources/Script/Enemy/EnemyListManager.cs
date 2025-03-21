@@ -25,8 +25,7 @@ public class EnemyListManager : MonoBehaviour
 
     [SerializeField] private EnemyDataList enemyDataList;   //해당 맵에서 등장할 적들의 스탯이 담긴 스크립터블 오브젝스
 
-    
-
+    public GameManager gameManager;
     //초기화 함수
     private void Awake()
     {
@@ -132,6 +131,7 @@ public class EnemyListManager : MonoBehaviour
             {
                 enemies[i].transform.position = enemySpawnTransform.position;
                 enemies[i].isSpawned = true;
+                gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }
 
             spawnedCount += willSpawnCnt;
