@@ -16,7 +16,7 @@ public class Pin : MonoBehaviour
     private float forceOffset = 15.0f;
 
     private int cnt = 0;
-    private int maxHitCount = 5; // 최대 충돌 횟수
+    private int maxHitCount = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")); // 최대 충돌 횟수
 
     [Header("Player Stat Script")]
     public PlayerState playerState;
