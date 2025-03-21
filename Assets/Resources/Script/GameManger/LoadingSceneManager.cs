@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 public class LoadingSceneManager : MonoBehaviour
 {
     public Door leftDoor, rightDoor;
-    public RawImage capturedImage; // ÀÌÀü ¾À¿¡¼­ ºÒ·¯¿Â Ã¹ ÇÁ·¹ÀÓ.
+    public RawImage capturedImage; // ì´ì „ ì”¬ì—ì„œ ë¶ˆëŸ¬ì˜¨ ì²« í”„ë ˆì„.
     public float transitionDuration = 1.5f;
 
     private AsyncOperation asyncLoad;
-    private RenderTexture sceneRenderTexture; // ¾À Ã¹ ÇÁ·¹ÀÓÀ» ÀúÀåÇÒ RenderTexture
+    private RenderTexture sceneRenderTexture; // ì”¬ ì²« í”„ë ˆì„ì„ ì €ì¥í•  RenderTexture
 
     void Start()
     {
@@ -19,14 +19,14 @@ public class LoadingSceneManager : MonoBehaviour
         {
             capturedImage.texture = SceneTransitionManager.lastScreenTexture;
             capturedImage.gameObject.SetActive(true);
-            capturedImage.rectTransform.localScale = new Vector3(1, -1, 1); // ÀÌ¹ÌÁö ¹İÀü ÇØ°á
+            capturedImage.rectTransform.localScale = new Vector3(1, -1, 1); // ì´ë¯¸ì§€ ë°˜ì „ í•´ê²°
         }
         StartCoroutine(CloseDoorsAndLoadNextScene());
     }
 
     private IEnumerator CloseDoorsAndLoadNextScene()
     {
-        // ¹® ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯ ¶§±îÁö Á¤È®È÷ ´ë±â
+        // ë¬¸ ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚  ë•Œê¹Œì§€ ì •í™•íˆ ëŒ€ê¸°
         yield return StartCoroutine(activateDoors());
 
         asyncLoad = SceneManager.LoadSceneAsync(SceneTransitionManager.loadSceneName);
@@ -39,7 +39,7 @@ public class LoadingSceneManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯¶§ ±îÁö ´ë±âÇÏ´Â ÄÚ·çÆ¾
+    /// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚ ë•Œ ê¹Œì§€ ëŒ€ê¸°í•˜ëŠ” ì½”ë£¨í‹´
     /// </summary>
     private IEnumerator WaitForDoorsToFinish()
     {
@@ -49,7 +49,7 @@ public class LoadingSceneManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// ¾Ö´Ï¸ŞÀÌ¼Ç ÀÛµ¿.
+    /// ì• ë‹ˆë©”ì´ì…˜ ì‘ë™.
     /// </summary>
     /// <returns></returns>
     private IEnumerator activateDoors()
@@ -57,7 +57,7 @@ public class LoadingSceneManager : MonoBehaviour
         leftDoor.onclicked();
         rightDoor.onclicked();
 
-        // ¹® ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯ ¶§±îÁö Á¤È®È÷ ´ë±â
+        // ë¬¸ ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚  ë•Œê¹Œì§€ ì •í™•íˆ ëŒ€ê¸°
         yield return StartCoroutine(WaitForDoorsToFinish());
 
         capturedImage.gameObject.SetActive(false);

@@ -12,7 +12,7 @@ public class Equip : MonoBehaviour
     public SlotInven heartSlot;
     public SlotInven gearSlot;
 
-    private List<ItemDataForSave> equipItemData = new List<ItemDataForSave>(); // ÀúÀå°ú ·Îµå¸¦ À§ÇÑ ¾ÆÀÌÅÛ ¸®½ºÆ®.
+    private List<ItemDataForSave> equipItemData = new List<ItemDataForSave>(); // ì €ì¥ê³¼ ë¡œë“œë¥¼ ìœ„í•œ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸.
 
     void Awake()
     {
@@ -48,7 +48,7 @@ public class Equip : MonoBehaviour
                 continue;
             }
 
-            // ÀúÀå µ¥ÀÌÅÍ¸¦ UI ¾÷µ¥ÀÌÆ®¸¸ ¼öÇàÇÏµµ·Ï updateData¸¦ false·Î Àü´ŞÇÕ´Ï´Ù.
+            // ì €ì¥ ë°ì´í„°ë¥¼ UI ì—…ë°ì´íŠ¸ë§Œ ìˆ˜í–‰í•˜ë„ë¡ updateDataë¥¼ falseë¡œ ì „ë‹¬í•©ë‹ˆë‹¤.
             EquipItem(equip, equipItemData[i].amount, false, false);
         }
     }
@@ -61,8 +61,8 @@ public class Equip : MonoBehaviour
     }
 
     /// <summary>
-    /// Àåºñ ½½·Ô¿¡¼­ ÇØ´ç Àåºñ¸¦ ÇØÁ¦ÇÏ°í,
-    /// ÇØÁ¦µÈ ÀåºñÀÇ ÀüÃ¼ ¼ö·®À» ÀÎº¥Åä¸®¿¡ ´Ù½Ã Ãß°¡ÇÕ´Ï´Ù.
+    /// ì¥ë¹„ ìŠ¬ë¡¯ì—ì„œ í•´ë‹¹ ì¥ë¹„ë¥¼ í•´ì œí•˜ê³ ,
+    /// í•´ì œëœ ì¥ë¹„ì˜ ì „ì²´ ìˆ˜ëŸ‰ì„ ì¸ë²¤í† ë¦¬ì— ë‹¤ì‹œ ì¶”ê°€í•©ë‹ˆë‹¤.
     /// </summary>
     public void UnEquipItem(Equipment equip, bool save = false)
     {
@@ -80,12 +80,12 @@ public class Equip : MonoBehaviour
                 if (weaponSlot != null && weaponSlot.itemData != null)
                 {
                     quantity = weaponSlot.itemData.amount;
-                    // ½½·ÔÀº À¯ÁöÇÏµÇ, itemData¸¸ ÃÊ±âÈ­
+                    // ìŠ¬ë¡¯ì€ ìœ ì§€í•˜ë˜, itemDataë§Œ ì´ˆê¸°í™”
                     weaponSlot.ClearSlot();
                 }
                 else
                 {
-                    Debug.LogWarning("Weapon slot¿¡ ÀåÂøµÈ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+                    Debug.LogWarning("Weapon slotì— ì¥ì°©ëœ ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
                     return;
                 }
                 break;
@@ -97,7 +97,7 @@ public class Equip : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Heart slot¿¡ ÀåÂøµÈ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+                    Debug.LogWarning("Heart slotì— ì¥ì°©ëœ ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
                     return;
                 }
                 break;
@@ -109,16 +109,16 @@ public class Equip : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Gear slot¿¡ ÀåÂøµÈ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.");
+                    Debug.LogWarning("Gear slotì— ì¥ì°©ëœ ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.");
                     return;
                 }
                 break;
             default:
-                Debug.LogError("¾Ë ¼ö ¾ø´Â Àåºñ Å¸ÀÔ: " + equip.EquipType);
+                Debug.LogError("ì•Œ ìˆ˜ ì—†ëŠ” ì¥ë¹„ íƒ€ì…: " + equip.EquipType);
                 return;
         }
 
-        // ÇØÁ¦µÈ ÀåºñÀÇ ¼ö·®À» ÀÎº¥Åä¸®¿¡ Ãß°¡
+        // í•´ì œëœ ì¥ë¹„ì˜ ìˆ˜ëŸ‰ì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€
         if (quantity > 0)
         {
             Inventory.Instance.AddOrUpdateItems(new List<ItemDataForSave> { new ItemDataForSave(equip.Id, quantity) }, true);
@@ -128,23 +128,23 @@ public class Equip : MonoBehaviour
     }
 
     /// <summary>
-    /// ÆË¾÷ÀÇ Yes ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ È£ÃâµË´Ï´Ù.
-    /// Àü´Ş¹ŞÀº Equipment °´Ã¼¸¦ ÇØ´ç Àåºñ ½½·Ô¿¡ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
-    /// ÀÌ¹Ì ÀåÂøµÈ Àåºñ°¡ ÀÖÀ¸¸é ±³Ã¼ÇÕ´Ï´Ù.
+    /// íŒì—…ì˜ Yes ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.
+    /// ì „ë‹¬ë°›ì€ Equipment ê°ì²´ë¥¼ í•´ë‹¹ ì¥ë¹„ ìŠ¬ë¡¯ì— ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
+    /// ì´ë¯¸ ì¥ì°©ëœ ì¥ë¹„ê°€ ìˆìœ¼ë©´ êµì²´í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="equip">ÀåÂøÇÒ Equipment °´Ã¼ (ItemData.itemÀÌ Equipment Çü½ÄÀÓ)</param>
+    /// <param name="equip">ì¥ì°©í•  Equipment ê°ì²´ (ItemData.itemì´ Equipment í˜•ì‹ì„)</param>
     /// <summary>
-    /// ÆË¾÷ÀÇ Yes ¹öÆ°ÀÌ ´­·ÈÀ» ¶§ È£ÃâµË´Ï´Ù.
-    /// Àü´Ş¹ŞÀº Equipment °´Ã¼¸¦ ÇØ´ç Àåºñ ½½·Ô¿¡ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
-    /// ÀÌ¹Ì ÀåÂøµÈ Àåºñ°¡ ÀÖÀ¸¸é ±³Ã¼ÇÕ´Ï´Ù.
+    /// íŒì—…ì˜ Yes ë²„íŠ¼ì´ ëˆŒë ¸ì„ ë•Œ í˜¸ì¶œë©ë‹ˆë‹¤.
+    /// ì „ë‹¬ë°›ì€ Equipment ê°ì²´ë¥¼ í•´ë‹¹ ì¥ë¹„ ìŠ¬ë¡¯ì— ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
+    /// ì´ë¯¸ ì¥ì°©ëœ ì¥ë¹„ê°€ ìˆìœ¼ë©´ êµì²´í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="equip">ÀåÂøÇÒ Equipment °´Ã¼ (ItemData.itemÀÌ Equipment Çü½ÄÀÓ)</param>
-    /// <param name="amount">ÀåÂøÇÒ ¾ÆÀÌÅÛÀÇ ¼ö·®</param>
-    /// <param name="fromInv">ÀÎº¥Åä¸®¿¡¼­ ÀåÂøÇÏ´Â °æ¿ì true</param>
-    /// <param name="updateData">ÀúÀå µ¥ÀÌÅÍ¸¦ ¾÷µ¥ÀÌÆ®ÇÒÁö ¿©ºÎ (·Îµå ½Ã¿¡´Â false)</param>
+    /// <param name="equip">ì¥ì°©í•  Equipment ê°ì²´ (ItemData.itemì´ Equipment í˜•ì‹ì„)</param>
+    /// <param name="amount">ì¥ì°©í•  ì•„ì´í…œì˜ ìˆ˜ëŸ‰</param>
+    /// <param name="fromInv">ì¸ë²¤í† ë¦¬ì—ì„œ ì¥ì°©í•˜ëŠ” ê²½ìš° true</param>
+    /// <param name="updateData">ì €ì¥ ë°ì´í„°ë¥¼ ì—…ë°ì´íŠ¸í• ì§€ ì—¬ë¶€ (ë¡œë“œ ì‹œì—ëŠ” false)</param>
     public void EquipItem(Equipment equip, int amount, bool fromInv = false, bool updateData = true)
     {
-        // ÀåÂøÇÒ µ¥ÀÌÅÍ »ı¼º (displayData·Î ½½·Ô UI °»½Å)
+        // ì¥ì°©í•  ë°ì´í„° ìƒì„± (displayDataë¡œ ìŠ¬ë¡¯ UI ê°±ì‹ )
         ItemData equipItem = new ItemData(equip, amount);
 
         if (updateData)
@@ -160,7 +160,7 @@ public class Equip : MonoBehaviour
                     weaponSlot.setInit(equipItem);
                 }
                 else
-                    Debug.LogError("weaponSlotÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError("weaponSlotì´ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                 break;
             case EquipmentType.Heart:
                 if (heartSlot != null)
@@ -168,7 +168,7 @@ public class Equip : MonoBehaviour
                     heartSlot.setInit(equipItem);
                 }
                 else
-                    Debug.LogError("heartSlotÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError("heartSlotì´ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                 break;
             case EquipmentType.Gear:
                 if (gearSlot != null)
@@ -176,20 +176,20 @@ public class Equip : MonoBehaviour
                     gearSlot.setInit(equipItem);
                 }
                 else
-                    Debug.LogError("gearSlotÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                    Debug.LogError("gearSlotì´ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
                 break;
             default:
-                Debug.LogError("¾Ë ¼ö ¾ø´Â Àåºñ Å¸ÀÔ: " + equip.EquipType);
+                Debug.LogError("ì•Œ ìˆ˜ ì—†ëŠ” ì¥ë¹„ íƒ€ì…: " + equip.EquipType);
                 return;
         }
 
         if (updateData)
         {
-            DataControl.SaveItemDataToPrefs("PlayerEquip", equipItemData); // µ¥ÀÌÅÍ ÀúÀå
+            DataControl.SaveItemDataToPrefs("PlayerEquip", equipItemData); // ë°ì´í„° ì €ì¥
         }
         if (fromInv)
         {
-            // ÀÎº¥Åä¸®¿¡¼­ ÇØ´ç Àåºñ ¾ÆÀÌÅÛÀÇ ÀüÃ¼ ¼ö·® Á¦°Å
+            // ì¸ë²¤í† ë¦¬ì—ì„œ í•´ë‹¹ ì¥ë¹„ ì•„ì´í…œì˜ ì „ì²´ ìˆ˜ëŸ‰ ì œê±°
             Inventory.Instance.RemoveItem(equip.Id, amount);
             Inventory.Instance.RefreshInventoryUI();
         }
@@ -211,7 +211,7 @@ public class Equip : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇØ´ç Àåºñ Å¸ÀÔ¿¡ ´ëÇØ ½½·Ô¿¡ ÀÌ¹Ì ÀåÂøµÈ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎÇÕ´Ï´Ù.
+    /// í•´ë‹¹ ì¥ë¹„ íƒ€ì…ì— ëŒ€í•´ ìŠ¬ë¡¯ì— ì´ë¯¸ ì¥ì°©ëœ ì•„ì´í…œì´ ìˆëŠ”ì§€ í™•ì¸í•©ë‹ˆë‹¤.
     /// </summary>
     public bool IsEquipped(EquipmentType type)
     {
@@ -221,7 +221,7 @@ public class Equip : MonoBehaviour
                 return (weaponSlot != null &&
                         weaponSlot.itemData != null &&
                         weaponSlot.itemData.item != null &&
-                        weaponSlot.itemData.item.Id > 0);  // Id°¡ 0 ÀÌÇÏ¶ó¸é ¹ÌÀåÂøÀ¸·Î °£ÁÖ
+                        weaponSlot.itemData.item.Id > 0);  // Idê°€ 0 ì´í•˜ë¼ë©´ ë¯¸ì¥ì°©ìœ¼ë¡œ ê°„ì£¼
             case EquipmentType.Heart:
                 return (heartSlot != null &&
                         heartSlot.itemData != null &&

@@ -6,18 +6,18 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
 
-    //ÇÃ·¹ÀÌ¾î ½ºÅÈ ¸ñ·Ï, º¸¾È ¹× ¿À·ù»çÇ× °¨Áö¸¦ À§ÇØ ÇÁÆ÷ÆÛÆ¼·Î ±¸¼º, inspector Ã¢¿¡¼­ È®ÀÎ ¹× ¼öÁ¤ÀÌ °¡´ÉÇÏµµ·Ï [SerializeField] »ç¿ë
+    //í”Œë ˆì´ì–´ ìŠ¤íƒ¯ ëª©ë¡, ë³´ì•ˆ ë° ì˜¤ë¥˜ì‚¬í•­ ê°ì§€ë¥¼ ìœ„í•´ í”„í¬í¼í‹°ë¡œ êµ¬ì„±, inspector ì°½ì—ì„œ í™•ì¸ ë° ìˆ˜ì •ì´ ê°€ëŠ¥í•˜ë„ë¡ [SerializeField] ì‚¬ìš©
 
-    [SerializeField] private int playerHP;          //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ Ã¼·Â
-    [SerializeField] private int playerATK;         //ÇÃ·¹ÀÌ¾î ÄÉ¸¯ÅÍÀÇ °ø°İ·Â
-    [SerializeField] private int playerPinHP;       //ÇÉÀÇ Ã¼·Â
-    [SerializeField] private int playerBallCnt;     //»ç¿ëÀÚ°¡ È­¸é ÅÍÄ¡ ½Ã ¶³¾îÁú °øÀÇ ¼ö
-    [SerializeField] private int pinHitCount;       //°øµéÀÌ ÇÉ¿¡ ºÎµúÈù È½¼ö, °øÀÌ ´Ù ¶³¾îÁú ¶§¸¶´Ù °ªÀÌ ÀÚµ¿À¸·Î ¹Ù²ñ
+    [SerializeField] private int playerHP;          //í”Œë ˆì´ì–´ ì¼€ë¦­í„°ì˜ ì²´ë ¥
+    [SerializeField] private int playerATK;         //í”Œë ˆì´ì–´ ì¼€ë¦­í„°ì˜ ê³µê²©ë ¥
+    [SerializeField] private int playerPinHP;       //í•€ì˜ ì²´ë ¥
+    [SerializeField] private int playerBallCnt;     //ì‚¬ìš©ìê°€ í™”ë©´ í„°ì¹˜ ì‹œ ë–¨ì–´ì§ˆ ê³µì˜ ìˆ˜
+    [SerializeField] private int pinHitCount;       //ê³µë“¤ì´ í•€ì— ë¶€ë”ªíŒ íšŸìˆ˜, ê³µì´ ë‹¤ ë–¨ì–´ì§ˆ ë•Œë§ˆë‹¤ ê°’ì´ ìë™ìœ¼ë¡œ ë°”ë€œ
 
     public PlayerState playerStat;
 
 
-    //ÇÃ·¹ÀÌ¾î ½ºÅÈ Á¢±ÙÀ» À§ÇÑ ÇÁ·ÎÆÛÆ¼
+    //í”Œë ˆì´ì–´ ìŠ¤íƒ¯ ì ‘ê·¼ì„ ìœ„í•œ í”„ë¡œí¼í‹°
     public int PlayerHP {  get { return playerHP; } set { playerHP = value; } }
     public int PlayerATK { get { return playerATK; } set { playerATK = value; } }
     public int PlayerPinHP { get {return playerPinHP; } set {playerPinHP = value; } }
@@ -26,11 +26,11 @@ public class PlayerStatus : MonoBehaviour
 
 
 
-    //°¡Àå ¸ÕÀú ±¸µ¿µÉ ¼ö ÀÖµµ·Ï Awake »ç¿ë
+    //ê°€ì¥ ë¨¼ì € êµ¬ë™ë  ìˆ˜ ìˆë„ë¡ Awake ì‚¬ìš©
     void Awake()
     {
-        //µğ¹ö±×¿ë ¸Ş¼Òµå, playerprefs¿¡ ÇÃ·¹ÀÌ¾î ½ºÅİ°ªÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é ÀÌÇÏÀÇ ¸Ş¼Òµåµé ½ÇÇà(1È¸ ½ÇÇàÇÏ¸é ´Ù½Ã ÁÖ¼® Ã³¸®)
-        //ÀÌ ±â´ÉÀº DataControlÀÇ SetInitialData();·Î ±¸ÇöµÇ¾î ÀÖÀ¸´Ï main°ú merge ÈÄ ÇØ´ç ÄÚµå·Î º¯°æ¹Ù¶÷
+        //ë””ë²„ê·¸ìš© ë©”ì†Œë“œ, playerprefsì— í”Œë ˆì´ì–´ ìŠ¤í…Ÿê°’ì´ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ì´í•˜ì˜ ë©”ì†Œë“œë“¤ ì‹¤í–‰(1íšŒ ì‹¤í–‰í•˜ë©´ ë‹¤ì‹œ ì£¼ì„ ì²˜ë¦¬)
+        //ì´ ê¸°ëŠ¥ì€ DataControlì˜ SetInitialData();ë¡œ êµ¬í˜„ë˜ì–´ ìˆìœ¼ë‹ˆ mainê³¼ merge í›„ í•´ë‹¹ ì½”ë“œë¡œ ë³€ê²½ë°”ëŒ
         //DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP", 100.ToString());
         //DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK", 5.ToString());
         //DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP", 3.ToString());
@@ -38,24 +38,24 @@ public class PlayerStatus : MonoBehaviour
 
 
 
-        //¿ÀºêÁ§Æ® ·Îµå ¿Ï·á ½Ã PlayerPrefs·ÎºÎÅÍ ½ºÅÈ ºÒ·¯¿À±â
+        //ì˜¤ë¸Œì íŠ¸ ë¡œë“œ ì™„ë£Œ ì‹œ PlayerPrefsë¡œë¶€í„° ìŠ¤íƒ¯ ë¶ˆëŸ¬ì˜¤ê¸°
         InitPlayerStatus();
     }
 
 
-    //ÇÃ·¹ÀÌ¾î ½ºÅÈÀ» PLayerPrefs·ÎºÎÅÍ ¹Ş¾Æ¿À´Â ¸Ş¼Òµå
+    //í”Œë ˆì´ì–´ ìŠ¤íƒ¯ì„ PLayerPrefsë¡œë¶€í„° ë°›ì•„ì˜¤ëŠ” ë©”ì†Œë“œ
     private void InitPlayerStatus()
     {
-        //Ã¼·Â ¹Ş¾Æ¿À±â
+        //ì²´ë ¥ ë°›ì•„ì˜¤ê¸°
         PlayerHP = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
 
-        //°ø°İ·Â ¹Ş¾Æ¿À±â
+        //ê³µê²©ë ¥ ë°›ì•„ì˜¤ê¸°
         PlayerATK = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK"));
 
-        //ÇÉ Ã¼·Â ¹Ş¾Æ¿À±â
+        //í•€ ì²´ë ¥ ë°›ì•„ì˜¤ê¸°
         PlayerPinHP = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP"));
 
-        //°ø ¼ö ¹Ş¾Æ¿À±â
+        //ê³µ ìˆ˜ ë°›ì•„ì˜¤ê¸°
         PlayerBallCnt = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT"));
 
     }

@@ -16,7 +16,6 @@ public class EquipmentUIPanel : MonoBehaviour
     [Header("Multiple Equipment UI")]
     public GameObject itemSlotPrefab; // 장비 10개 뽑을 때 사용
     public Transform itemSlotParent;  // 장비 10개 뽑을 때 슬롯을 추가할 부모
-    public GameObject itemPrefab;
 
     private List<ItemDataForSave> handToInventory = new List<ItemDataForSave>(); // 인벤토리에 넘겨줄 아이템들
 
@@ -60,9 +59,9 @@ public class EquipmentUIPanel : MonoBehaviour
         }
         else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
         {
-            itemName.text = $"{item.ItemName}을(를)\n{amount}개 획득했습니다!";
             // 업그레이드 아이템: 예시로 1 ~ 10 사이의 랜덤 수량
             amount = Random.Range(1, 10);
+            itemName.text = $"{item.ItemName}을(를)\n{amount}개 획득했습니다!";
             earn_upgrade_stone += amount;
         }
         else

@@ -8,11 +8,11 @@ public class StartSceneInitializer : MonoBehaviour
     [SerializeField] private GameObject startBtn;
     private DataControl dataControl;
 
-    //ÇØ´ç ¿ÀºêÁ§Æ®°¡ È°¼ºÈ­µÇ¾úÀ» ¶§ ÀÛµ¿
+    //í•´ë‹¹ ì˜¤ë¸Œì íŠ¸ê°€ í™œì„±í™”ë˜ì—ˆì„ ë•Œ ì‘ë™
 
     private void Start()
     {
-        //Å¬¶ó¿ìµå ¼­¹ö¿¡¼­ µ¥ÀÌÅÍ ºÒ·¯¿À±â
+        //í´ë¼ìš°ë“œ ì„œë²„ì—ì„œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°
         dataControl = GPGSObj.GetComponent<DataControl>();
         dataControl.LoadData();
         startBtn.SetActive(true);

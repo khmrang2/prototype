@@ -20,11 +20,12 @@ public class PlayerStatusInMain : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject); // ´Ù¸¥ ¾À¿¡¼­µµ À¯ÁöµÇµµ·Ï ¼³Á¤
+        DontDestroyOnLoad(gameObject); // ë‹¤ë¥¸ ì”¬ì—ì„œë„ ìœ ì§€ë˜ë„ë¡ ì„¤ì •
     }
 
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î°¡ amountÀÇ °ñµå¸¦ ¼ÒºñÇÏ´Â ¸Ş¼Òµå. 
+    /// ì™¸ë¶€í˜¸ì¶œìš©
+    /// í”Œë ˆì´ì–´ê°€ amountì˜ ê³¨ë“œë¥¼ ì†Œë¹„í•˜ëŠ” ë©”ì†Œë“œ. 
     /// </summary>
     /// <param name="amount"></param>
     /// <returns></returns>
@@ -36,28 +37,42 @@ public class PlayerStatusInMain : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// ì™¸ë¶€í˜¸ì¶œìš©
+    /// amountì˜ ê³¨ë“œë¥¼ ì–»ëŠ” ë©”ì†Œë“œ.
+    /// </summary>
+    /// <param name="amount"></param>
     public void getGold(int amount)
     {
         int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
         Debug.Log($"Player received {amount} gold.");
         DataControl.SaveEncryptedDataToPrefs("Gold", (currentGold + amount).ToString());
-        // TODO: °ñµå Ãß°¡ ·ÎÁ÷ ±¸Çö (¿¹: ÇÃ·¹ÀÌ¾îÀÇ °ñµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®)
+        // TODO: ê³¨ë“œ ì¶”ê°€ ë¡œì§ êµ¬í˜„ (ì˜ˆ: í”Œë ˆì´ì–´ì˜ ê³¨ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸)
     }
 
+    /// <summary>
+    /// ì™¸ë¶€í˜¸ì¶œìš©
+    /// amountì˜ ê°•í™”ì„ì„ "ì‚¬ìš©"í•˜ëŠ” ë©”ì†Œë“œ.
+    /// </summary>
+    /// <param name="amount"></param>
     public bool payUpgradeStone(int amount)
     {
         int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
         if (currentUpgradeStone < amount) return false;
-        DataControl.SaveEncryptedDataToPrefs("Gold", (currentUpgradeStone - amount).ToString());
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone - amount).ToString());
         return true;
     }
-
+    /// <summary>
+    /// ì™¸ë¶€í˜¸ì¶œìš©
+    /// amountì˜ ê°•í™”ì„ì„ "ì–»ëŠ”" ë©”ì†Œë“œ
+    /// </summary>
+    /// <param name="amount"></param>
     public void getUpgradeStone(int amount)
     {
         int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
         Debug.Log($"Player received {amount} upgrade stone");
         DataControl.SaveEncryptedDataToPrefs("UpgradeStone", (currentUpgradeStone + amount).ToString());
-        // TODO: °ñµå Ãß°¡ ·ÎÁ÷ ±¸Çö (¿¹: ÇÃ·¹ÀÌ¾îÀÇ °ñµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®)
+        // TODO: ê³¨ë“œ ì¶”ê°€ ë¡œì§ êµ¬í˜„ (ì˜ˆ: í”Œë ˆì´ì–´ì˜ ê³¨ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸)
     }
     // player stat : migration with tae yeon.
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class tempScriptForDebug : MonoBehaviour
 {
-    [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //¹öÆ°µéÀÇ °ü¸®¸¦ À§ÇÑ ¸Ş´ÏÀú ½ºÅ©¸³Æ®
+    [SerializeField] private UpgradeBtnManager UpgradeBtnManager;   //ë²„íŠ¼ë“¤ì˜ ê´€ë¦¬ë¥¼ ìœ„í•œ ë©”ë‹ˆì € ìŠ¤í¬ë¦½íŠ¸
 
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI upgradeStoneText;

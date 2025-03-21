@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
-// ï¿½×³ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ enum.
 public enum GameTurn
 {
-    // 13ÀÏ (¼ö) ¸àÅä´Ô ÄÁÆß
-    // ÅÂ¿¬
-    DropBallState,          // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î °øÀ» ¶³¾î¶ß¸®´Â »óÅÂ - ÅÂ¿¬
+    // 13ì¼ (ìˆ˜) ë©˜í† ë‹˜ ì»¨íŒ
+    // íƒœì—°
+    DropBallState,          // í”Œë ˆì´ì–´ì˜ í„´ìœ¼ë¡œ ê³µì„ ë–¨ì–´ëœ¨ë¦¬ëŠ” ìƒíƒœ - íƒœì—°
 
-    // Á¤ÈÆ´Ô 
-    PlayerAtkState,         // ¶³¾î¶ß¸° °øÀ¸·Î ÀûÀ» °ø°İÇÏ´Â »óÅÂ
+    // ì •í›ˆë‹˜ 
+    PlayerAtkState,         // ë–¨ì–´ëœ¨ë¦° ê³µìœ¼ë¡œ ì ì„ ê³µê²©í•˜ëŠ” ìƒíƒœ
 
-    // ½Ã¿ì´Ô
-    EnemyBehaviorState,     // ÀûÀÇ ÅÏÀ¸·Î ÀûÀÌ Çàµ¿(°ø°İ or ¿òÁ÷ÀÓ)ÇÏ´Â »óÅÂ
-    SpawnEnemyState,        // ÀûÀÌ »ı¼ºµÇ´Â »óÅÂ
+    // ì‹œìš°ë‹˜
+    EnemyBehaviorState,     // ì ì˜ í„´ìœ¼ë¡œ ì ì´ í–‰ë™(ê³µê²© or ì›€ì§ì„)í•˜ëŠ” ìƒíƒœ
+    SpawnEnemyState,        // ì ì´ ìƒì„±ë˜ëŠ” ìƒíƒœ
 
-    // Çö¹Î
-    EndChkState,            // ½ºÅ×ÀÌÁö°¡ ³¡³µ´ÂÁö(¸ğµç ÀûÀÌ Á×¾ú´ÂÁö) Ã¼Å©ÇÏ´Â »óÅÂ
-    ChooseBuffState,        // ÇÃ·¹ÀÌ¾îÀÇ ÅÏÀ¸·Î ¹öÇÁ¸¦ ¼±ÅÃÇÏ´Â »óÅÂ->>
+    // í˜„ë¯¼
+    EndChkState,            // ìŠ¤í…Œì´ì§€ê°€ ëë‚¬ëŠ”ì§€(ëª¨ë“  ì ì´ ì£½ì—ˆëŠ”ì§€) ì²´í¬í•˜ëŠ” ìƒíƒœ
+    ChooseBuffState,        // í”Œë ˆì´ì–´ì˜ í„´ìœ¼ë¡œ ë²„í”„ë¥¼ ì„ íƒí•˜ëŠ” ìƒíƒœ->>
 }
 struct buffState
 {
@@ -31,14 +29,14 @@ struct buffState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public ProjectileOnHit plAtkObj;    //ÇÃ·¹ÀÌ¾î°¡ °ø°İ ½Ã ¹ß»çÇÏ´Â Åõ»çÃ¼
-    public Transform playerTransform;  // ÇÃ·¹ÀÌ¾îÀÇ Transform
-    public EnemyListManager enemyListManager;  // EnemyListManager ÂüÁ¶
-    public GameObject clearPopup;       //°ÔÀÓ Å¬¸®¾î½Ã µîÀåÇÏ´Â ÆË¾÷
-    // Çö¹Î - 
-    // °ÔÀÓÇÒ stateµéÀ» ºÒ·¯¿È.
-    // ÇÃ·¹ÀÌ¾î°¡ ±âº»ÀûÀ¸·Î ºÒ·¯¿À´Â state. 
-    // ¹öÇÁ¸¦ ¹Ş¾Æ¼­ °»½ÅµÉ cur_state.
+    public ProjectileOnHit plAtkObj;    //í”Œë ˆì´ì–´ê°€ ê³µê²© ì‹œ ë°œì‚¬í•˜ëŠ” íˆ¬ì‚¬ì²´
+    public Transform playerTransform;  // í”Œë ˆì´ì–´ì˜ Transform
+    public EnemyListManager enemyListManager;  // EnemyListManager ì°¸ì¡°
+    public GameObject clearPopup;       //ê²Œì„ í´ë¦¬ì–´ì‹œ ë“±ì¥í•˜ëŠ” íŒì—…
+    // í˜„ë¯¼ - 
+    // ê²Œì„í•  stateë“¤ì„ ë¶ˆëŸ¬ì˜´.
+    // í”Œë ˆì´ì–´ê°€ ê¸°ë³¸ì ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¤ëŠ” state. 
+    // ë²„í”„ë¥¼ ë°›ì•„ì„œ ê°±ì‹ ë  cur_state.
     [SerializeField]
     public BuffManager buffManager;
     public PlayerManger playerManger;
@@ -52,10 +50,11 @@ public class GameManager : MonoBehaviour
     public PinManager pinManager;
     public InteractionArea interactionArea;
 
-    // °¢ »óÅÂÀÇ µ¿ÀÛÀÌ ½ÃÀÛµÇ¾ú´ÂÁö ¿©ºÎ¸¦ Ã¼Å©ÇÏ´Â ÇÃ·¡±×
+    // ê° ìƒíƒœì˜ ë™ì‘ì´ ì‹œì‘ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€ë¥¼ ì²´í¬í•˜ëŠ” í”Œë˜ê·¸
     private bool stateStarted = false;
+    private bool player_double_attack_chance = false;
 
-    //°ÔÀÓ ½Ã½ºÅÛÀÇ ÁøÇàÀ» Á¤Áö½ÃÅ°±â À§ÇÑ º¯¼ö
+    //ê²Œì„ ì‹œìŠ¤í…œì˜ ì§„í–‰ì„ ì •ì§€ì‹œí‚¤ê¸° ìœ„í•œ ë³€ìˆ˜
     public bool isPlaying = true;
     private bool isatkEnded = false;
 
@@ -69,8 +68,8 @@ public class GameManager : MonoBehaviour
         enemyListManager.SpawnInitialEnemies();
     }
     /// <summary>
-    /// stateStarted·Î ½ºÇÉ¶ôÀ» ±¸ÇöÇÏ¿©
-    /// ÅÏÀ» °­Á¦ÇÔ.
+    /// stateStartedë¡œ ìŠ¤í•€ë½ì„ êµ¬í˜„í•˜ì—¬
+    /// í„´ì„ ê°•ì œí•¨.
     /// </summary>
 
     void Update()
@@ -93,9 +92,11 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
+                    int random_value = UnityEngine.Random.Range(0, 99);
+                    if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
                     isatkEnded = false;
-                    //°ø°İ ÇÔ¼ö È£Ãâ
+                    //ê³µê²© í•¨ìˆ˜ í˜¸ì¶œ
                     plAtkObj.StartAttack();
                     Debug.Log("Player attacking...");
                 }
@@ -109,22 +110,22 @@ public class GameManager : MonoBehaviour
             case GameTurn.EnemyBehaviorState:
                 if (!stateStarted)
                 {
-                    //»ì¾ÆÀÖ´Â ÀûÀÌ ¾ø´Ù¸é °ÔÀÓ Å¬¸®¾î Ã³¸®
+                    //ì‚´ì•„ìˆëŠ” ì ì´ ì—†ë‹¤ë©´ ê²Œì„ í´ë¦¬ì–´ ì²˜ë¦¬
                     if (enemyListManager.isAllEnemyDead())
                     {
-                        stateStarted = true;    //°ÔÀÓ ÁøÇàÀ» ¸·±â À§ÇØ stateStartedÀÇ °ªÀ» ÂüÀ¸·Î
+                        stateStarted = true;    //ê²Œì„ ì§„í–‰ì„ ë§‰ê¸° ìœ„í•´ stateStartedì˜ ê°’ì„ ì°¸ìœ¼ë¡œ
                         isPlaying = false;
 
-                        //°ÔÀÓ Å¬¸®¾î ÆË¾÷ ¶ç¿ì±â
+                        //ê²Œì„ í´ë¦¬ì–´ íŒì—… ë„ìš°ê¸°
                         clearPopup.SetActive(true);
 
                     }
-                    else   //»ì¾ÆÀÖ´Â ÀûÀÌ ÀÖ´Ù¸é ÀûÀÇ ÀÌµ¿ ÀÛµ¿
+                    else   //ì‚´ì•„ìˆëŠ” ì ì´ ìˆë‹¤ë©´ ì ì˜ ì´ë™ ì‘ë™
                     {
 
                         Debug.Log("Enemies moving...");
-                        // Àû ÀÌµ¿À» ½ÃÀÛ (enemyListManager.MoveEnemies()°¡ ³»ºÎÀûÀ¸·Î ÀÌµ¿À» Ã³¸®ÇÏ°í,
-                        // AllEnemiesMoved()°¡ ÀÌµ¿ ¿Ï·á¸¦ ÆÇ´ÜÇÑ´Ù°í °¡Á¤)
+                        // ì  ì´ë™ì„ ì‹œì‘ (enemyListManager.MoveEnemies()ê°€ ë‚´ë¶€ì ìœ¼ë¡œ ì´ë™ì„ ì²˜ë¦¬í•˜ê³ ,
+                        // AllEnemiesMoved()ê°€ ì´ë™ ì™„ë£Œë¥¼ íŒë‹¨í•œë‹¤ê³  ê°€ì •)
                         enemyListManager.MoveEnemies();
                         stateStarted = true;
                     }
@@ -179,7 +180,7 @@ public class GameManager : MonoBehaviour
     }
     public bool ballHasDropped()
     {
-        //°øÀÌ ´Ù »ç¶óÁ³À» ½Ã¿¡ ½ÇÇà
+        //ê³µì´ ë‹¤ ì‚¬ë¼ì¡Œì„ ì‹œì— ì‹¤í–‰
         if (interactionArea.get_ball_num() == 0 && GameObject.FindWithTag("Ball") == null)
         {
             pinHitCount = pinManager.hit_cnt_sum();
@@ -197,7 +198,7 @@ public class GameManager : MonoBehaviour
 
     private bool chkStageEnded()
     {
-        // ½ºÅ×ÀÌÁö Á¾·á Á¶°Ç Ã¼Å© ·ÎÁ÷ (ÇÊ¿ä¿¡ µû¶ó ¼öÁ¤)
+        // ìŠ¤í…Œì´ì§€ ì¢…ë£Œ ì¡°ê±´ ì²´í¬ ë¡œì§ (í•„ìš”ì— ë”°ë¼ ìˆ˜ì •)
         return true;
     }
 
@@ -206,10 +207,18 @@ public class GameManager : MonoBehaviour
         return;
     }
 
-    // Åõ»çÃ¼°¡ Á¦°ÅµÉ ¶§ È£ÃâµÇ¾î »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®
+    // íˆ¬ì‚¬ì²´ê°€ ì œê±°ë  ë•Œ í˜¸ì¶œë˜ì–´ ìƒíƒœë¥¼ ì—…ë°ì´íŠ¸
     public void NotifyProjectileDestroyed()
     {
-        isatkEnded = true;
+        if (player_double_attack_chance)
+        {
+            player_double_attack_chance = false;  // ë”ë¸” ì–´íƒ ê¸°íšŒ ì†Œì§„
+            plAtkObj.StartAttack();  // ë‹¤ì‹œ ë°œì‚¬
+        }
+        else
+        {
+            isatkEnded = true; // ë” ì´ìƒ ê³µê²©í•  í•„ìš” ì—†ìŒ â†’ ê³µê²© í„´ ì¢…ë£Œ
+        }
     }
 
 }
@@ -223,8 +232,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlayerAtkTurn()
     {
-        //ÇÃ·¹ÀÌ¾î °ø°İ Åõ»çÃ¼ »ı¼º
-        //Åõ»çÃ¼´Â ½º½º·Î ³ª¾Æ°¡¸ç Àû°ú Á¢ÃËÇÏ°Å³ª ÁöÁ¤ÇÑ ¹üÀ§ ¹ÛÀ¸·Î ³ª°¡¸é ½º½º·Î Á¦°Å
+        //í”Œë ˆì´ì–´ ê³µê²© íˆ¬ì‚¬ì²´ ìƒì„±
+        //íˆ¬ì‚¬ì²´ëŠ” ìŠ¤ìŠ¤ë¡œ ë‚˜ì•„ê°€ë©° ì ê³¼ ì ‘ì´‰í•˜ê±°ë‚˜ ì§€ì •í•œ ë²”ìœ„ ë°–ìœ¼ë¡œ ë‚˜ê°€ë©´ ìŠ¤ìŠ¤ë¡œ ì œê±°
         plAtkObj = Instantiate(prefPlayerAtkProjrctile);
         plAtkObj.transform.position = new Vector3(-2.4f, 4.85f, 0);
         Debug.Log("Player attacking...");
@@ -235,30 +244,30 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Enemies moving...");
 
-        // ÀûÀ» 5Ä­¾¿ ³ª´©¾î ÀÌµ¿½ÃÅ°±â
+        // ì ì„ 5ì¹¸ì”© ë‚˜ëˆ„ì–´ ì´ë™ì‹œí‚¤ê¸°
         yield return enemyListManager.MoveEnemies();
 
         yield return new WaitUntil(() => enemyListManager.AllEnemiesMoved());
 
-        // ÀÌµ¿ÀÌ ³¡³ª¸é ½ºÆù Ã³¸®
+        // ì´ë™ì´ ëë‚˜ë©´ ìŠ¤í° ì²˜ë¦¬
         enemyListManager.SpawnEnemyPerTurn();
     }
 
     private IEnumerator MoveEnemiesCoroutine()
     {
-        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() ½ÇÇà
-        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // ¿Ï·áµÉ ¶§±îÁö ´ë±â
+        var moveEnemiesTask = enemyListManager.MoveEnemies(); // MoveEnemies() ì‹¤í–‰
+        yield return new WaitUntil(() => moveEnemiesTask.IsCompleted); // ì™„ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
     }
 
     private IEnumerator ChooseBuffTurn()
     {
         Debug.Log("Choosing a buff...");
-        buffManager.ShowBuffSelection(); // ¹öÇÁ ¼±ÅÃ UI Ç¥½Ã
+        buffManager.ShowBuffSelection(); // ë²„í”„ ì„ íƒ UI í‘œì‹œ
 
-        // ¹öÇÁ°¡ ¼±ÅÃµÉ ¶§±îÁö ´ë±â
+        // ë²„í”„ê°€ ì„ íƒë  ë•Œê¹Œì§€ ëŒ€ê¸°
         yield return new WaitUntil(() => buffManager.IsBuffSelected());
         updateBuffState();
-        Debug.Log("¹öÇÁ ¾÷µ¥ÀÌÆ®µÊ.");
+        Debug.Log("ë²„í”„ ì—…ë°ì´íŠ¸ë¨.");
         buffState.printAllStates();
     }
 

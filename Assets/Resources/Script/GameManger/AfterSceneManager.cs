@@ -7,7 +7,7 @@ public class AfterSceneManager : MonoBehaviour
 
     void Awake()
     {
-        //## Ãâ½ÃÀü¿¡ Å°±â
+        //## ì¶œì‹œì „ì— í‚¤ê¸°
         //leftDoor.setActive();
         //rightDoor.setActive();
 

@@ -13,7 +13,7 @@ public class DestroyOnSceneChange : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Destroy(gameObject); // ¾ÀÀÌ º¯°æµÇ¸é ÀÚµ¿ »èÁ¦
+        Destroy(gameObject); // ì”¬ì´ ë³€ê²½ë˜ë©´ ìë™ ì‚­ì œ
     }
 
 }
