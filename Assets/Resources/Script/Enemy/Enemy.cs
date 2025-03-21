@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     public bool isAlive;
     [SerializeField] private float AttackRange = 0.1f;
 
-    public GameObject hpb;
+    private GameObject hpb;
     private RectTransform hpBarPos;
     private Slider hpBarSlider;
 
@@ -225,7 +225,7 @@ public class Enemy : MonoBehaviour
     //사망 시 작동하는 함수
     public void OnDie()
     {
-        HpBar.gameObject.SetActive(false);
+        hpb.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
     }
 

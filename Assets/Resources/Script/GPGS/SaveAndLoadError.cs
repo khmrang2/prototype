@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SaveAndLoadError : MonoBehaviour
 {
-    private static GameObject ErrorScreen;
+    [SerializeField] private GameObject ErrorScreen;
 
 
 
-    public static void ShowErrorScreen()
+    public void ShowErrorScreen()
     {   
         //오류 팝업 띄우기
         ErrorScreen.SetActive(true);
@@ -19,7 +19,6 @@ public class SaveAndLoadError : MonoBehaviour
 
     void Start()
     {
-        ErrorScreen = GameObject.FindWithTag("ErrorScreen");
         ErrorScreen.SetActive(false);
     }
 }
