@@ -7,11 +7,7 @@ public class AfterSceneManager : MonoBehaviour
 
     void Awake()
     {
-<<<<<<< Updated upstream
         //## 출시전에 키기
-=======
-        //## ������� Ű��
->>>>>>> Stashed changes
         //leftDoor.setActive();
         //rightDoor.setActive();
 
@@ -23,8 +19,6 @@ public class AfterSceneManager : MonoBehaviour
         yield return new WaitForSeconds(0.02f);
         leftDoor.onclicked();
         rightDoor.onclicked();
-        
-        yield return new WaitForSeconds(1f);
 
         while (!leftDoor.isFinished() || !rightDoor.isFinished())
         {

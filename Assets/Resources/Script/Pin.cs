@@ -16,8 +16,9 @@ public class Pin : MonoBehaviour
     private float forceOffset = 15.0f;
 
     private int cnt = 0;
-    private int maxHitCount = 5; // 최대 충돌 횟수
-    public AudioSource gear_turn_Sound;
+    private int maxHitCount;
+    [Header("Player Stat Script")]
+    public PlayerState playerState;
 
     private void Start()
     {
@@ -32,7 +33,6 @@ public class Pin : MonoBehaviour
         // 충돌한 오브젝트의 태그가 "ball"인지 확인
         if (collision.gameObject.CompareTag("Ball"))
         {
-            gear_turn_Sound.Play();
             // 충돌 점
             ContactPoint2D contactPoint = collision.contacts[0];
 
