@@ -1386,7 +1386,7 @@ MonoBehaviour:
   turn: 0
   maxEnemies: 5
   enemyDataList: {fileID: 11400000, guid: c43b4145c8276cc47925abf1eb644988, type: 2}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 966862922}
 --- !u!4 &310291381
 Transform:
   m_ObjectHideFlags: 0
