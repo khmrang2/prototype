@@ -14,6 +14,7 @@ public class UpgradeBtnManager : MonoBehaviour
         {
             UpgradeBtn upgradeBtn = btn.GetComponent<UpgradeBtn>();
             upgradeBtn.CheckUpgradable();
+            Debug.Log("upgrade scene refreshed!");
         }
 
         MoveToFirstUpgradable();

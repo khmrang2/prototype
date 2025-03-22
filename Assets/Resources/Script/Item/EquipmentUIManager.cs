@@ -8,6 +8,8 @@ public class EquipmentUIManager : MonoBehaviour
     public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
+    public DataControl datactr;
+    public SaveAndLoadError SaveandLoaderror;
 
     void Start()
     {
@@ -38,6 +40,21 @@ public class EquipmentUIManager : MonoBehaviour
         
         equipmentPanel.ShowMultipleEquipments(gacha(10));
         addEquipmentToInventory();
+
+        datactr.SaveDataWithCallback((success) =>
+        {
+            if (!success)
+            {
+                SaveandLoaderror.ShowErrorScreen();
+
+            }
+            else
+            {
+                Debug.Log("upgrade save complete");
+
+            }
+
+        });
     }
     
     public void DrawRandom1Reward(bool isads)
@@ -48,6 +65,22 @@ public class EquipmentUIManager : MonoBehaviour
         
         equipmentPanel.ShowSingleEquipment(gacha(1)); // ✅ 1개 UI 표시
         addEquipmentToInventory();
+
+        datactr.SaveDataWithCallback((success) =>
+        {
+            if (!success)
+            {
+                SaveandLoaderror.ShowErrorScreen();
+
+            }
+            else
+            {
+                Debug.Log("upgrade save complete");
+
+            }
+
+        });
+
     }
 
     private bool payGold(int amount, bool isAds=false)
@@ -67,8 +100,8 @@ public class EquipmentUIManager : MonoBehaviour
     public void closePanel()
     {
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
-        PlayerStatusInMain.Instance.getGold(equipmentPanel.GetEarnedGold());
-        PlayerStatusInMain.Instance.getUpgradeStone(equipmentPanel.GetEarnedUpgradeStone());
+        //PlayerStatusInMain.Instance.getGold(equipmentPanel.GetEarnedGold());
+        //PlayerStatusInMain.Instance.getUpgradeStone(equipmentPanel.GetEarnedUpgradeStone());
     }
 
     /// <summary>

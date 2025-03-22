@@ -97,52 +97,24 @@ public class UpgradePopupManager : MonoBehaviour
                 {
                     // ������ ���� �������� ���ߴٸ� ���� ���
                     //������Ų ������ ������
-                    switch (upgradeStatName)
-                    {
-                        case 0:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP")) - upgradeStat).ToString());
-                            break;
-
-                        case 1:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK")) - upgradeStat).ToString());
-                            break;
-
-                        case 2:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_BALLCOUNT",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT")) - upgradeStat).ToString());
-                            break;
-
-                        case 3:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")) - upgradeStat).ToString());
-                            break;
-                    }
-
-                    //���׷��̵� ��ȣ ���� ó��
-                    DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
-                    (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) - 1).ToString());
-
-
-                    //��嵵 �� ���·�
-                    gold += upgradeCost;
-                    DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
 
                     //���� �˾� ����
                     SaveandLoaderror.ShowErrorScreen();
 
                 }
-                else { Debug.Log("upgrade save complete"); }
+                else
+                {
+                    Debug.Log("upgrade save complete");
+                    
+                    UpgradeBtnManager.RefreshUpgradeBtn();
+
+                }
 
             });
 
        
 
-            //���� ���� ������ ���׷��̵��� ��ȣ�� �ٲ������ �̸� ���׷��̵� ���� �����ϱ� ���� ���ΰ�ħ
-            UpgradeBtnManager.RefreshUpgradeBtn();
-
-            Debug.Log("���� ����!");
+ 
 
 
             ClosePopup();

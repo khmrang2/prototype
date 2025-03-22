@@ -73,6 +73,8 @@ public class EquipmentUIPanel : MonoBehaviour
             handToInventory.Add(new ItemDataForSave(item.Id, amount));
         }
 
+        //다 끝나면 prefs에 저장 처리
+        SaveToPrefs();
         slotUI.setInit(new ItemData(item, amount));
     }
 
@@ -114,6 +116,7 @@ public class EquipmentUIPanel : MonoBehaviour
                 amount = Random.Range(50, 110);
                 earn_gold += amount;
                 /* 여기에 골드를 넣어줌. */
+
             }
             else if (item.Id == ItemDatabase.ID_UPGRADE_ITEM)
             {
@@ -131,8 +134,11 @@ public class EquipmentUIPanel : MonoBehaviour
             }
             if (slotUI != null) slotUI.setInit(new ItemData(item, amount));
         }
-        
-	}
+
+        //다 끝나면 prefs에 저장 처리
+        SaveToPrefs();
+
+    }
 
 
     public List<ItemDataForSave> getItemDatas() { return handToInventory; }
@@ -178,4 +184,13 @@ public class EquipmentUIPanel : MonoBehaviour
         this.panel.SetActive(false);
         return;
     }
+
+
+    public void SaveToPrefs()
+    {
+        PlayerStatusInMain.Instance.getGold(GetEarnedGold());
+        PlayerStatusInMain.Instance.getUpgradeStone(GetEarnedUpgradeStone());
+
+    }
+
 }

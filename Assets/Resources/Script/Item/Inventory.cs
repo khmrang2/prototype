@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TMPro;
@@ -22,6 +22,8 @@ public class Inventory : MonoBehaviour
     // UI 슬롯과 아이템 데이터가 인덱스별로 매칭되는 리스트
     private List<GameObject> slots = new List<GameObject>();
     private List<ItemDataForSave> inventoryItemData = new List<ItemDataForSave>(); // 저장과 로드를 위한 아이템 리스트. 
+
+
 
     void Awake()
     {
