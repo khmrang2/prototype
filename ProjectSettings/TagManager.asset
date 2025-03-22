@@ -9,6 +9,7 @@ TagManager:
   - Pin
   - Ball
   - PlayerAttack
+  - ErrorScreen
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: slide_bar
+    uniqueID: 2278882409
+    locked: 0
+  - name: dialouge_bar
+    uniqueID: 1269141083
     locked: 0

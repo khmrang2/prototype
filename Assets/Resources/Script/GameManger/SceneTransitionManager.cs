@@ -5,15 +5,24 @@ using UnityEngine.SceneManagement;
 public class SceneTransitionManager : MonoBehaviour
 {
     public static SceneTransitionManager Instance;
+<<<<<<< Updated upstream
     public static Texture2D lastScreenTexture; // 캡처된 화면 이미지 저장
     public static string loadSceneName; // 다음 씬 이름 저장
+=======
+    public static Texture2D lastScreenTexture; // ĸó�� ȭ�� �̹��� ����
+    public static string loadSceneName; // ���� �� �̸� ����
+>>>>>>> Stashed changes
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+<<<<<<< Updated upstream
             DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 유지
+=======
+            DontDestroyOnLoad(gameObject);
+>>>>>>> Stashed changes
         }
         else
         {
@@ -22,7 +31,11 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     /// <summary>
+<<<<<<< Updated upstream
     /// 현재 화면을 캡처하고 로딩 씬으로 이동
+=======
+    /// ���� ȭ���� ĸó�ϰ� �ε� ������ �̵�
+>>>>>>> Stashed changes
     /// </summary>
     public static void CaptureScreenAndLoad(string nextScene)
     {
@@ -30,6 +43,7 @@ public class SceneTransitionManager : MonoBehaviour
     }
 
     /// <summary>
+<<<<<<< Updated upstream
     /// `RenderTexture`를 사용하여 최적화된 캡처 수행 (안드로이드에서도 최적화됨)
     /// </summary>
     private static IEnumerator CaptureScreenCoroutine(string nextScene)
@@ -41,10 +55,24 @@ public class SceneTransitionManager : MonoBehaviour
         ScreenCapture.CaptureScreenshotIntoRenderTexture(rt);
 
         // 2. RenderTexture를 Texture2D로 변환
+=======
+    /// `RenderTexture`�� ����Ͽ� ����ȭ�� ĸó ���� (�ȵ���̵忡���� ����ȭ��)
+    /// </summary>
+    private static IEnumerator CaptureScreenCoroutine(string nextScene)
+    {
+        yield return new WaitForEndOfFrame(); // GPU ������ �Ϸ� �� ����
+
+        // 1. RenderTexture ����
+        RenderTexture rt = new RenderTexture(Screen.width, Screen.height, 24);
+        ScreenCapture.CaptureScreenshotIntoRenderTexture(rt);
+
+        // 2. RenderTexture�� Texture2D�� ��ȯ
+>>>>>>> Stashed changes
         Texture2D screenTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
         RenderTexture.active = rt;
         screenTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenTexture.Apply();
+<<<<<<< Updated upstream
         RenderTexture.active = null; // RenderTexture 사용 해제
 
         // 3. 캡처한 이미지 저장
@@ -56,6 +84,19 @@ public class SceneTransitionManager : MonoBehaviour
         Destroy(rt);
 
         // 5. 로딩 씬으로 비동기 이동
+=======
+        RenderTexture.active = null; // RenderTexture ��� ����
+
+        // 3. ĸó�� �̹��� ����
+        lastScreenTexture = screenTexture;
+        loadSceneName = nextScene;
+
+        // 4. RenderTexture �޸� ���� (�ȵ���̵� ����ȭ)
+        rt.Release();
+        Destroy(rt);
+        
+        // 5. �ε� ������ �񵿱� �̵�
+>>>>>>> Stashed changes
         SceneManager.LoadSceneAsync("LoadingScreen");
     }
 }
