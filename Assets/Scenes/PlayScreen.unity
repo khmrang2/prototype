@@ -1085,6 +1085,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1327,6 +1335,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1370,6 +1386,7 @@ MonoBehaviour:
   turn: 0
   maxEnemies: 5
   enemyDataList: {fileID: 11400000, guid: c43b4145c8276cc47925abf1eb644988, type: 2}
+  gameManager: {fileID: 966862922}
 --- !u!4 &310291381
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,7 +1725,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
+  m_fontSize: 99.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2010,6 +2027,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2727,6 +2752,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3085,6 +3118,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3959,6 +4000,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4744,6 +4793,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5867,6 +5924,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 966862922}
+    - target: {fileID: 8768239090109920513, guid: b089bc311d671494ab292a0f810b4b09, type: 3}
+      propertyPath: playerState
+      value: 
+      objectReference: {fileID: 1089446171}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
