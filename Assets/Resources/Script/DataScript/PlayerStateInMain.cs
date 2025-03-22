@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
@@ -42,6 +40,9 @@ public class PlayerStatusInMain : MonoBehaviour
     /// 돈을 실제로 사용합니다.
     ///
     /// 그래서 성공하면 true, 실패하면 false를 리턴합니다.
+    ///
+    /// 프렙스에 저장.
+    /// gpgs저장
     /// </summary>
     /// <param name="amount"></param>
     /// <returns> bool </returns>
@@ -51,11 +52,6 @@ public class PlayerStatusInMain : MonoBehaviour
         // 프렙스에서 146골드를 가져옴.
         int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
         Debug.Log($"{currentGold} 1. 골드를 로드해옴.");
-        if (currentGold < amount)
-        {
-            onComplete?.Invoke(false);
-            return;
-        }
 
         int afterGold = currentGold - amount;
         // 1. 바로 일단 사용한 돈 저장. 46골드가 저장.
@@ -130,14 +126,10 @@ public class PlayerStatusInMain : MonoBehaviour
         int afterUpgradeStone = currentUpgradeStone - amount;
 
         Debug.Log($"{currentUpgradeStone} 1. 업그레이드 돌을 로드해옴.");
-        if (currentUpgradeStone < amount)
-        {
-            onComplete?.Invoke(false);
-            return;
-        }
+
         // 1. 바로 일단 사용한 돈 저장. 46골드가 저장.
-        DataControl.SaveEncryptedDataToPrefs("Gold", afterGold.ToString());
-        UpdateGoldUI(afterGold);
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", afterUpgradeStone.ToString());
+        UpdateStoneUI(afterUpgradeStone);
         // 2. 바로 성공 처리해서 UI 반응 허용
         // 어차피 골드랑 그런거는
         // gpgs에 저장이 안되었기 때문에
@@ -150,9 +142,9 @@ public class PlayerStatusInMain : MonoBehaviour
             if (!success)
             {
                 // 이걸 프렙스에 저장할 이유도 없음.
-                // DataControl.SaveEncryptedDataToPrefs("Gold", currentGold.ToString());
-                UpdateGoldUI(currentGold);
-                Debug.Log($"서버 연결 실패! 복구 중 ! {currentGold}");
+                DataControl.SaveEncryptedDataToPrefs("UpgradeStone", currentUpgradeStone.ToString());
+                UpdateStoneUI(currentUpgradeStone);
+                Debug.Log($"서버 연결 실패! 복구 중 ! {currentUpgradeStone}");
                 SaveandLoaderror.ShowErrorScreen();
 
                 AppControl.IsRestoreCompleted = true; // 복구 완료
@@ -174,14 +166,14 @@ public class PlayerStatusInMain : MonoBehaviour
         int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
         int afterUpgradeStone = currentUpgradeStone + amount;
 
-        DataControl.SaveEncryptedDataToPrefs("afterUpgradeStone", afterUpgradeStone.ToString());
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", afterUpgradeStone.ToString());
         UpdateStoneUI(afterUpgradeStone);
 
         datactr.SaveDataWithCallback(success => {
             if (!success)
             {
                 // 실패했으면
-                DataControl.SaveEncryptedDataToPrefs("afterUpgradeStone", afterUpgradeStone.ToString());
+                DataControl.SaveEncryptedDataToPrefs("UpgradeStone", currentUpgradeStone.ToString());
                 UpdateStoneUI(currentUpgradeStone);
                 Debug.LogError("⛔ 서버 저장 실패! 업그레이드 스톤 되돌림.");
                 SaveandLoaderror.ShowErrorScreen();
@@ -205,10 +197,70 @@ public class PlayerStatusInMain : MonoBehaviour
     private void UpdateStoneUI(int amount)
     {
         // goldText 같은 TextMeshProUGUI가 있다면:
-        if (goldText != null)
+        if (upgradestoneText != null)
         {
-            goldText.text = amount.ToString();
+            upgradestoneText.text = amount.ToString();
         }
+    }
+
+    public void TryBuyRewardPack(int goldCost, List<ItemDataForSave> items, int earn_gold, int earn_upgrade_stone, Action<bool> onComplete)
+    {
+
+        // 1. 로드
+        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        int currentStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
+        var currentInventory = DataControl.LoadItemDataFromPrefs("PlayerInventory");
+
+        // 2. 계산 및 저장
+        int usedGold = currentGold - goldCost;
+        int afterGold = usedGold + earn_gold;
+        int afterStone = currentStone + earn_upgrade_stone;
+
+
+        // 3. 프렙스 저장.
+        DataControl.SaveEncryptedDataToPrefs("Gold", afterGold.ToString());
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", afterStone.ToString());
+        Inventory.Instance.AddOrUpdateItems(items, true); // 프렙스에 저장 및 ui 새로고침
+        UpdateGoldUI(afterGold);        // 골드 ui 새로고침.
+        UpdateStoneUI(afterStone);      // 업그레이드 스톤 ui 새로고침.
+
+        //유니티환경 테스트용 모바일에는 디버그용을 풀어야함.
+        //onComplete?.Invoke(true);
+        //return;
+        // 3. 서버 저장 시도
+        datactr.SaveDataWithCallback(success =>
+        {
+            if (!success)
+            {
+                // 롤백 - 근데 할 이유 없음.
+                //DataControl.SaveEncryptedDataToPrefs("Gold", currentGold.ToString());
+                //DataControl.SaveEncryptedDataToPrefs("UpgradeStone", currentStone.ToString());
+                //Inventory.Instance.RestoreBackup(originalInventory);
+
+                UpdateGoldUI(currentGold);
+                UpdateStoneUI(currentStone);
+
+                SaveandLoaderror.ShowErrorScreen();
+                AppControl.IsRestoreCompleted = true;
+                Debug.LogError("❌ 서버 저장 실패! 전체 롤백");
+                onComplete?.Invoke(false);
+            }
+            else
+            {
+                Debug.Log("✅ 서버 저장 성공!");
+                onComplete?.Invoke(true);
+            }
+        });
+    }
+
+    public bool hasEnoughGold(int goldCost)
+    {
+        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold")) > goldCost;
+    }
+
+    public bool hasEnoughStone(int stoneCost)
+    {
+        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone")) > stoneCost;
     }
     // player stat : migration with tae yeon.
 

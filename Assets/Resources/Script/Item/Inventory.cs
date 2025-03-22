@@ -35,6 +35,7 @@ public class Inventory : MonoBehaviour
     
     public void loadInv()
     {
+        // 프렙스에서 저장한 데이터 로드
         inventoryItemData = DataControl.LoadItemDataFromPrefs("PlayerInventory");
         RefreshInventoryUI();
 
@@ -46,6 +47,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        // 스타트할때 gpgs가 프렙스에 저장한 데이터를 로드함.
         loadInv();
         RefreshInventoryUI();
         //foreach(var item in inventoryItemData)

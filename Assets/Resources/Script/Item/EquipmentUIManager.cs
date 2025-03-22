@@ -11,8 +11,12 @@ public class EquipmentUIManager : MonoBehaviour
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
 
     private List<ItemDataForSave> item_id_list = null;
+    private List<ItemDataForSave> show_item_id_list = null;
 
     public TextMeshProUGUI fordebug;
+
+    private int earn_gold = 0;
+    private int earn_upgrade_stone = 0;
 
     void Start()
     {
@@ -20,6 +24,164 @@ public class EquipmentUIManager : MonoBehaviour
         if (item_id_list == null)
         {
             item_id_list = new List<ItemDataForSave>();
+        }
+
+        if (show_item_id_list == null)
+        {
+            show_item_id_list = new List<ItemDataForSave>();
+        }
+
+        //올바른 UI 패널 비활성화 방식
+        if (equipmentPanel != null)
+            equipmentPanel.gameObject.SetActive(false);
+
+        //버튼 이벤트 연결 (람다식 사용하여 매개변수 전달)
+        if (draw_10_rewardsButton != null)
+        {
+            draw_10_rewardsButton.onClick.AddListener(() => PerformDrawReward(900, 10, false));
+        }
+        if (draw_1_rewardButton != null)
+        {
+            draw_1_rewardButton.onClick.AddListener(() => PerformDrawReward(100, 1, false));
+        }
+        if (close_Button != null)
+        {
+            close_Button.onClick.AddListener(() => closePanel());
+        }
+    }
+    public void PerformDrawReward(int goldCost, int count, bool isAds)
+    {
+        if (PlayerStatusInMain.Instance == null) return;
+
+        if (!PlayerStatusInMain.Instance.hasEnoughGold(goldCost))
+        {
+            Debug.Log("골드 부족! UI 표시 안 함");
+            return;
+        }
+
+        gacha(count);
+        var rewards = item_id_list;
+        equipmentPanel.gameObject.SetActive(true);
+
+        if (isAds)
+        {
+            Inventory.Instance.AddOrUpdateItems(item_id_list, true);
+            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+            return;
+        }
+
+        if (count == 1)
+            equipmentPanel.ShowSingleEquipment(show_item_id_list);
+        else
+            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+
+        PlayerStatusInMain.Instance.TryBuyRewardPack(goldCost, rewards, earn_gold, earn_upgrade_stone,  success =>
+        {
+            if (!success)
+            {
+                Debug.LogError("❌ 뽑기 실패! 상태 복구됨.");
+            }
+        });
+    }
+
+    public void closePanel()
+    {
+        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// handItem을 인벤토리에 넘겨줘야함.
+    /// </summary>
+    /// <param name="handItem"></param>
+    public void addEquipmentToInventory()
+    {
+        // 저장해야하기 때문에 플레이어 프렙스에 무조건 저장.
+        Inventory.Instance.AddOrUpdateItems(item_id_list, true);
+    }
+    
+    /// <summary>
+    /// param : gacha_count만큼 랜덤 뽑기를 시행.
+    /// </summary>
+    /// <param name="gacha_count"></param>
+    /// <returns></returns>
+    private List<ItemDataForSave> gacha(int gacha_count)
+    {
+        earn_gold = 0;
+        earn_upgrade_stone = 0;
+
+        if (item_id_list != null)
+        {
+            item_id_list.Clear();
+        }
+
+        if (show_item_id_list != null)
+        {
+            show_item_id_list.Clear();
+        }
+
+        for (int i = 0; i < gacha_count; i++)
+        {
+            int id = 0, amount = 0;
+            float roll = Random.Range(0f, 100f);
+            if (roll < 40)
+            {
+                // 40% 장비 수량 결정.
+                id = ItemDatabase.Instance.GetRandomItemId(ItemDatabase.RANGE_EQUIPMENT);
+                amount = Random.Range(1, 3);
+                item_id_list.Add(new ItemDataForSave(id, amount));
+            }
+            else if(40 < roll && roll <= 70){
+                // 30% 업그레이드 아이템. 수량 결정.
+                id = ItemDatabase.RANGE_COSUMABLE;
+                amount = Random.Range(1, 5);
+                earn_upgrade_stone += amount;
+            }
+            else
+            {
+                // 30% 골드. 수량 결정.
+                id = ItemDatabase.RANGE_GOLD_POT;
+                amount = Random.Range(50, 110);
+                earn_gold = amount;
+            }
+            show_item_id_list.Add(new ItemDataForSave(id, amount));
+        }
+
+        return show_item_id_list;
+    }
+}
+/***
+ * 
+ * using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+using TMPro;
+
+public class EquipmentUIManager : MonoBehaviour
+{
+    public EquipmentUIPanel equipmentPanel; // UI 패널 (Inspector에서 연결)
+    public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
+    public Button draw_1_rewardButton; // 단일 뽑기 버튼
+    public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
+
+    private List<ItemDataForSave> item_id_list = null;
+    private List<ItemDataForSave> show_item_id_list = null;
+
+    public TextMeshProUGUI fordebug;
+
+    private int earn_gold = 0;
+    private int earn_upgrade_stone = 0;
+
+    void Start()
+    {
+        // 내부 변수 아이템 id 리스트 초기화.
+        if (item_id_list == null)
+        {
+            item_id_list = new List<ItemDataForSave>();
+        }
+
+        if (show_item_id_list == null)
+        {
+            show_item_id_list = new List<ItemDataForSave>();
         }
 
         //올바른 UI 패널 비활성화 방식
@@ -45,6 +207,7 @@ public class EquipmentUIManager : MonoBehaviour
     {
         makepayment(900, isAds, (success) =>
         {
+            // 자체가 makepayment가 끝나야 실행이 됨..
             if (!success) return;
 
             if (equipmentPanel != null)
@@ -113,8 +276,6 @@ public class EquipmentUIManager : MonoBehaviour
 
     public void closePanel()
     {
-        PlayerStatusInMain.Instance.getGold(equipmentPanel.GetEarnedGold());
-        PlayerStatusInMain.Instance.getUpgradeStone(equipmentPanel.GetEarnedUpgradeStone());
         if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(false);
     }
 
@@ -124,7 +285,8 @@ public class EquipmentUIManager : MonoBehaviour
     /// <param name="handItem"></param>
     public void addEquipmentToInventory()
     {
-        Inventory.Instance.AddOrUpdateItems(equipmentPanel.getItemDatas());
+        // 저장해야하기 때문에 플레이어 프렙스에 무조건 저장.
+        Inventory.Instance.AddOrUpdateItems(item_id_list, true);
     }
     
     /// <summary>
@@ -134,9 +296,14 @@ public class EquipmentUIManager : MonoBehaviour
     /// <returns></returns>
     private List<ItemDataForSave> gacha(int gacha_count)
     {
-        if(item_id_list != null)
+        if (item_id_list != null)
         {
             item_id_list.Clear();
+        }
+
+        if (show_item_id_list != null)
+        {
+            show_item_id_list.Clear();
         }
 
         for (int i = 0; i < gacha_count; i++)
@@ -148,20 +315,28 @@ public class EquipmentUIManager : MonoBehaviour
                 // 40% 장비 수량 결정.
                 id = ItemDatabase.Instance.GetRandomItemId(ItemDatabase.RANGE_EQUIPMENT);
                 amount = Random.Range(1, 3);
-            }else if(40 < roll && roll <= 70){
+                item_id_list.Add(new ItemDataForSave(id, amount));
+            }
+            else if(40 < roll && roll <= 70){
                 // 30% 업그레이드 아이템. 수량 결정.
                 id = ItemDatabase.RANGE_COSUMABLE;
                 amount = Random.Range(1, 5);
+                earn_upgrade_stone += amount;
             }
             else
             {
                 // 30% 골드. 수량 결정.
                 id = ItemDatabase.RANGE_GOLD_POT;
-                amount = Random.Range(50, 110);      
+                amount = Random.Range(50, 110);
+                earn_gold = amount;
             }
-            item_id_list.Add(new ItemDataForSave(id, amount));
+            show_item_id_list.Add(new ItemDataForSave(id, amount));
         }
 
-        return item_id_list;
+        return show_item_id_list;
     }
 }
+
+ * 
+ * 
+ */

@@ -17,7 +17,6 @@ public class EquipmentUIPanel : MonoBehaviour
     private List<ItemDataForSave> handToInventory = new List<ItemDataForSave>(); // 인벤토리에 넘겨줄 아이템들
 
     private int earn_gold = 0;
-
     private int earn_upgrade_stone = 0;
 
     /// <summary>

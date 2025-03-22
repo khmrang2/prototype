@@ -13208,6 +13208,7 @@ MonoBehaviour:
   datactr: {fileID: 304889501}
   SaveandLoaderror: {fileID: 304889503}
   goldText: {fileID: 39232627}
+  upgradestoneText: {fileID: 2004852299}
 --- !u!1 &1460745370
 GameObject:
   m_ObjectHideFlags: 0
@@ -13604,13 +13605,13 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 304889500}
+  - {fileID: 1446650128}
   - {fileID: 428805857}
   - {fileID: 1252224003}
   - {fileID: 1307112353}
   - {fileID: 944356779}
   - {fileID: 1257179681}
   - {fileID: 1303116285}
-  - {fileID: 1446650128}
   - {fileID: 415719044}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
