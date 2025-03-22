@@ -24,6 +24,7 @@ public class BuffDataList
 public class BuffManager : MonoBehaviour
 {
     public List<BuffSelectUI> buffUIs; // 버프 ui.
+    public AudioSource buff_panel_active_sound;
     [SerializeField] public PlayerState playerState; 
 
     [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
@@ -34,6 +35,7 @@ public class BuffManager : MonoBehaviour
     private List<BuffStruct> selectedBuffs; // 선택된 버프들.
     private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
     private int selectedBuffId = -1; // 선택된 Buff ID
+    public AudioSource buff_click_sound;
 
     private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
 
@@ -62,6 +64,7 @@ public class BuffManager : MonoBehaviour
     public void ShowBuffSelection()
     {
         isBuffSelected = false; // 초기화
+        buff_panel_active_sound.Play();
         selectPanel.SetActive(true); // 패널 활성화
         ShowRandomBuffs();
     }
@@ -139,6 +142,7 @@ public class BuffManager : MonoBehaviour
         }
         // 이제 게임매니저의 버프스테이트를 넣어주자.
         isBuffSelected = true; // 선택 완료
+        buff_click_sound.Play();
         selectPanel.SetActive(false); // 선택 완료시 버프 창을 비활성화.
     }
 
@@ -193,6 +197,23 @@ public class BuffManager : MonoBehaviour
 
         return loadedSprite;
     }
+    
+    private void PlayOneShotSound(AudioSource source)
+    {
+        if (source == null || source.clip == null) return;
+
+        // 임시 오브젝트 생성
+        GameObject tempAudioObj = new GameObject("TempAudio");
+        AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
+        tempAudio.clip = source.clip;
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.volume = source.volume;
+        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.Play();
+
+        Destroy(tempAudioObj, tempAudio.clip.length);
+    }
+    
     //private void ApplyBuffEffectToPlayer(BuffState buff)
     //{
     //    if (buff.Player_Damage.HasValue)

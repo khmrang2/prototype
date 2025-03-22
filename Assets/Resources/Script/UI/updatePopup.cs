@@ -83,16 +83,16 @@ public class updatePopup : MonoBehaviour
         switch (equip.EquipType)
         {
             case EquipmentType.Weapon:
-                itemPrimaryStatName.text = "���ݷ�";
-                itemPrimaryStatName.text = "�� ����";
+                itemPrimaryStatName.text = "공격력";
+                itemPrimaryStatName.text = "공의 수";
                 break;
             case EquipmentType.Heart:
-                itemPrimaryStatName.text = "ü��";
-                itemSecondaryStatName.text = "���ݷ�";
+                itemPrimaryStatName.text = "체력";
+                itemSecondaryStatName.text = "공격력";
                 break;
             case EquipmentType.Gear:
-                itemPrimaryStatName.text = "�� ü��";
-                itemSecondaryStatName.text = "�� ����";
+                itemPrimaryStatName.text = "공의 수";
+                itemSecondaryStatName.text = "핀 체력";
                 break;
             default:
                 Debug.LogError("[�������˾�] : ������ ���� ���� ���� �߸� �ҷ���.");
@@ -103,7 +103,7 @@ public class updatePopup : MonoBehaviour
         {
             // ��� ������ ������ ��
             //Debug.LogError("��� - �����ۿ� ����.");
-            yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "����";
+            yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "해제";
         }
         else if (popupIdentifier == 0)
         {
@@ -112,13 +112,13 @@ public class updatePopup : MonoBehaviour
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
                 //Debug.LogError("�κ��丮 - ������ ����");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "��ü";
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "장착";
 
             }
             else
             {
                 //Debug.LogError("�κ��丮 - X�� ����");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "����";
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "교체";
             }
         }
     }
