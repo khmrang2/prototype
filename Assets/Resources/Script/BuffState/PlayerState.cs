@@ -1,7 +1,3 @@
-using GooglePlayGames.BasicApi;
-using System.Net.NetworkInformation;
-using UnityEditor;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 // 플레이어의 기본 상태를 관리하기 위한 플레이어 스테이트

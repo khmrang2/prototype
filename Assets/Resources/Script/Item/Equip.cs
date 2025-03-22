@@ -12,7 +12,7 @@ public class Equip : MonoBehaviour
     public SlotInven heartSlot;
     public SlotInven gearSlot;
 
-    private List<ItemDataForSave> equipItemData = new List<ItemDataForSave>(); // 저장과 로드를 위한 아이템 리스트.
+    private InventoryData equipItemData = new InventoryData(); // 저장과 로드를 위한 아이템 리스트.
 
     void Awake()
     {
@@ -34,9 +34,9 @@ public class Equip : MonoBehaviour
     {
         equipItemData = DataControl.LoadItemDataFromPrefs("PlayerEquip");
         if (equipItemData == null) return;
-        for (int i = 0; i < equipItemData.Count; i++)
+        for (int i = 0; i < equipItemData.items.Count; i++)
         {
-            Item equipItem = ItemDatabase.Instance.FetchItemById(equipItemData[i].id);
+            Item equipItem = ItemDatabase.Instance.FetchItemById(equipItemData.items[i].id);
             if (equipItem == null)
             {
                 continue;
@@ -49,7 +49,7 @@ public class Equip : MonoBehaviour
             }
 
             // 저장 데이터를 UI 업데이트만 수행하도록 updateData를 false로 전달합니다.
-            EquipItem(equip, equipItemData[i].amount, false, false);
+            EquipItem(equip, equipItemData.items[i].amount, false, false);
         }
     }
 
@@ -71,7 +71,7 @@ public class Equip : MonoBehaviour
             return;
         }
 
-        equipItemData.RemoveAll(item => item.id == equip.Id);
+        equipItemData.items.RemoveAll(item => item.id == equip.Id);
 
         int quantity = 0;
         switch (equip.EquipType)
@@ -149,7 +149,7 @@ public class Equip : MonoBehaviour
 
         if (updateData)
         {
-            equipItemData.Add(new ItemDataForSave(equip.Id, amount));
+            equipItemData.items.Add(new ItemDataForSave(equip.Id, amount));
         }
 
         switch (equip.EquipType)
