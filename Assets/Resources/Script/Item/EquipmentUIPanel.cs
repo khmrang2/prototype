@@ -3,6 +3,7 @@ using TMPro; // TextMeshPro 네임스페이스 추가
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System.Collections;
 
 public class EquipmentUIPanel : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EquipmentUIPanel : MonoBehaviour
     private int earn_gold = 0;
 
     private int earn_upgrade_stone = 0;
+	public AudioSource button_click_sound;
 
     /// <summary>
     /// 단일 장비 UI 표시
@@ -175,7 +177,14 @@ public class EquipmentUIPanel : MonoBehaviour
 
     public void ClosePanel()
     {
-        this.panel.SetActive(false);
+        button_click_sound.Play();
+		StartCoroutine(ActivateAfterDelay(0.5f));
         return;
     }
+
+	IEnumerator ActivateAfterDelay(float delay)
+	{
+    	yield return new WaitForSeconds(delay);
+    	this.panel.SetActive(false);
+	}
 }
