@@ -36,7 +36,7 @@ public class UpgradePopupManager : MonoBehaviour
     private void Start()
     {
         FailPopup.SetActive(false);
-        ClosePopup();
+        this.gameObject.SetActive(false);
     }
 
 

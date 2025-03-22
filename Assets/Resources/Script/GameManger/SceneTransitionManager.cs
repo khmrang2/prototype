@@ -7,7 +7,6 @@ public class SceneTransitionManager : MonoBehaviour
     public static SceneTransitionManager Instance;
     public static Texture2D lastScreenTexture; // 캡처된 화면 이미지 저장
     public static string loadSceneName; // 다음 씬 이름 저장
-	public AudioSource button_click_sound;
 
     private void Awake()
     {
@@ -35,9 +34,6 @@ public class SceneTransitionManager : MonoBehaviour
     /// </summary>
     private static IEnumerator CaptureScreenCoroutine(string nextScene)
     {
-		Instance.button_click_sound.Play();
-		yield return new WaitForSeconds(Instance.button_click_sound.clip.length);
-
         yield return new WaitForEndOfFrame(); // GPU 렌더링 완료 후 실행
 
         // 1. RenderTexture 생성
@@ -62,4 +58,5 @@ public class SceneTransitionManager : MonoBehaviour
         // 5. 로딩 씬으로 비동기 이동
         SceneManager.LoadSceneAsync("LoadingScreen");
     }
+    
 }
