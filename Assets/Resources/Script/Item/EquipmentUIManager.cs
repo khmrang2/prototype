@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections.Generic;
 
 public class EquipmentUIManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class EquipmentUIManager : MonoBehaviour
     public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
+    public AudioSource reward_Sound;
 
     void Start()
     {
@@ -34,7 +36,11 @@ public class EquipmentUIManager : MonoBehaviour
     {
         if(!payGold(900, isads)) return;
         //UI 패널 활성화
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
+        if (equipmentPanel != null)
+        {
+            reward_Sound.Play();
+            equipmentPanel.gameObject.SetActive(true);
+        }
         
         equipmentPanel.ShowMultipleEquipments(gacha(10));
         addEquipmentToInventory();
@@ -44,8 +50,12 @@ public class EquipmentUIManager : MonoBehaviour
     {
         if(!payGold(100, isads)) return;
         // ✅ UI 패널 활성화
-        if (equipmentPanel != null) equipmentPanel.gameObject.SetActive(true);
-        
+        if (equipmentPanel != null)
+        {
+            reward_Sound.Play();
+            equipmentPanel.gameObject.SetActive(true);
+        }
+
         equipmentPanel.ShowSingleEquipment(gacha(1)); // ✅ 1개 UI 표시
         addEquipmentToInventory();
     }

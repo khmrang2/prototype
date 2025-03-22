@@ -133,7 +133,6 @@ public class UpgradePopupManager : MonoBehaviour
 
                     //���� �˾� ����
                     SaveandLoaderror.ShowErrorScreen();
-
                 }
                 else { Debug.Log("upgrade save complete"); }
 
@@ -146,7 +145,6 @@ public class UpgradePopupManager : MonoBehaviour
 
             Debug.Log("���� ����!");
 
-			PlayOneShotSound(upgrade_button_click_sound);
             ClosePopup();
         }
         else 
