@@ -22,7 +22,7 @@ public class Pin : MonoBehaviour
 
     private void Start()
     {
-        int maxHitCount = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")); // 최대 충돌 횟수
+        maxHitCount = playerState.Pin_Hp; // 최대 충돌 횟수
         // 초기 목표 각도를 현재 각도로 설정
         targetRotation = transform.eulerAngles.z;
     }
