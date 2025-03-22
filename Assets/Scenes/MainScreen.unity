@@ -625,7 +625,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.9
+  m_fontSize: 50.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2361,7 +2361,7 @@ RectTransform:
   - {fileID: 1575251518}
   m_Father: {fileID: 199104145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.7, y: 0}
+  m_AnchorMin: {x: 0.7, y: 0.05}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -13648,7 +13648,7 @@ RectTransform:
   - {fileID: 1005193726}
   m_Father: {fileID: 199104145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4, y: 0}
+  m_AnchorMin: {x: 0.4, y: 0.05}
   m_AnchorMax: {x: 0.7, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
@@ -14607,6 +14607,14 @@ PrefabInstance:
     - target: {fileID: 5392220686354342353, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.00001335144
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669489725351843200, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
+      propertyPath: paddingCoefficient
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669489725351843200, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
+      propertyPath: spacingCoefficient
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5849092918288264718, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -17020,7 +17028,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.45
+  m_fontSize: 31.85
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19464,7 +19472,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.9
+  m_fontSize: 50.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -20357,6 +20365,14 @@ PrefabInstance:
     - target: {fileID: 5392220686354342353, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669489725351843200, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
+      propertyPath: paddingCoefficient
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669489725351843200, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
+      propertyPath: spacingCoefficient
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5849092918288264718, guid: 561fcbdc95e1f1c439db747486da780e, type: 3}
       propertyPath: m_AnchorMax.y
