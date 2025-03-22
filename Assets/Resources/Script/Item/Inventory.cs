@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using TMPro;
@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
 
     // UI 슬롯과 아이템 데이터가 인덱스별로 매칭되는 리스트
     private List<GameObject> slots = new List<GameObject>();
-    private List<ItemDataForSave> inventoryItemData = new List<ItemDataForSave>(); // 저장과 로드를 위한 아이템 리스트. 
+    private InventoryData inventoryItemData = new InventoryData(); // 저장과 로드를 위한 아이템 리스트. 
 
     void Awake()
     {
@@ -35,10 +35,11 @@ public class Inventory : MonoBehaviour
     
     public void loadInv()
     {
+        // 프렙스에서 저장한 데이터 로드
         inventoryItemData = DataControl.LoadItemDataFromPrefs("PlayerInventory");
         RefreshInventoryUI();
 
-        foreach(var item in inventoryItemData)
+        foreach(var item in inventoryItemData.items)
         {
             Debug.Log($"{item.id}와 {item.amount}가 로드됨.");
         }
@@ -46,6 +47,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        // 스타트할때 gpgs가 프렙스에 저장한 데이터를 로드함.
         loadInv();
         RefreshInventoryUI();
         //foreach(var item in inventoryItemData)
@@ -64,15 +66,15 @@ public class Inventory : MonoBehaviour
     /// <param name="amount">추가할 수량</param>
     public void AddOrUpdateItem(int id, int amount)
     {
-        int index = inventoryItemData.FindIndex(x => x.id == id);
+        int index = inventoryItemData.items.FindIndex(x => x.id == id);
         if (index >= 0)
         {
             // 이미 아이템을 가지고 있는 경우.
-            inventoryItemData[index].amount += amount;
+            inventoryItemData.items[index].amount += amount;
         }
         else
         {   // 아이템을 새로 획득한 경우.
-            inventoryItemData.Add(new ItemDataForSave(id, amount));
+            inventoryItemData.items.Add(new ItemDataForSave(id, amount));
         }
 
         RefreshInventoryUI(); // 정렬 및 UI 업데이트는 여기에서 수행
@@ -100,7 +102,7 @@ public class Inventory : MonoBehaviour
     public void RefreshInventoryUI()
     {
         // 🔹 inventoryItems 리스트를 정렬: 먼저 레어리티 기준, 그 다음 Equipment 타입 순
-        inventoryItemData.Sort((a, b) =>
+        inventoryItemData.items.Sort((a, b) =>
         {
             Item itemA = ItemDatabase.Instance.FetchItemById(a.id);
             Item itemB = ItemDatabase.Instance.FetchItemById(b.id);
@@ -108,7 +110,7 @@ public class Inventory : MonoBehaviour
             if (itemA == null) return 1;
             if (itemB == null) return -1;
 
-            int rarityComparison = itemA.Rarity.CompareTo(itemB.Rarity);
+            int rarityComparison = itemB.Rarity.CompareTo(itemA.Rarity);
             if (rarityComparison != 0) return rarityComparison;
 
             Equipment equipA = itemA as Equipment;
@@ -125,7 +127,7 @@ public class Inventory : MonoBehaviour
 
         ClearInventoryUI();
 
-        foreach (ItemDataForSave data in inventoryItemData)
+        foreach (ItemDataForSave data in inventoryItemData.items)
         {
             CreateItemUI(data.id, data.amount);
         }
@@ -182,16 +184,16 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public void RemoveItem(int id, int amount)
     {
-        int index = inventoryItemData.FindIndex(x => x.id == id);
+        int index = inventoryItemData.items.FindIndex(x => x.id == id);
         if (index >= 0)
         {
-            if (inventoryItemData[index].amount > amount)
+            if (inventoryItemData.items[index].amount > amount)
             {
-                inventoryItemData[index].amount -= amount;
+                inventoryItemData.items[index].amount -= amount;
             }
             else
             {
-                inventoryItemData.RemoveAt(index);
+                inventoryItemData.items.RemoveAt(index);
             }
             Debug.Log($"{id}의 아이템이 {amount}만큼 삭제됨.");
         }

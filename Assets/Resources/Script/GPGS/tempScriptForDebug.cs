@@ -22,26 +22,23 @@ public class tempScriptForDebug : MonoBehaviour
         HpText.text = "0";
         ATKText.text = "0";
         BcText.text = "0";
-        PPText.text = "0"; 
-    }
+        PPText.text = "0";
 
-    private void Update()
-    {
         goldText.text = DataControl.LoadEncryptedDataFromPrefs("Gold");
+        Debug.Log("첫 시작 " + goldText.text + " 골드 현재량 ");
         upgradeStoneText.text = DataControl.LoadEncryptedDataFromPrefs("UpgradeStone");
         HpText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP");
         ATKText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK");
         BcText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT");
         PPText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP");
-
     }
-
-
 
     public void AddGold()
     {
         int tempGold = int.Parse(goldText.text) + 100;
-        DataControl.SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
+        //DataControl.SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
+        PlayerStatusInMain.Instance.getGold(100);
+        goldText.text = tempGold.ToString(); 
     }
 
 
