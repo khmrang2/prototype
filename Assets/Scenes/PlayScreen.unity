@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 86.85
+  m_fontSize: 24.8
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2389,6 +2389,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4621827187153551225, guid: 3d7ec5e0fd0bc3f4989de0e749d66ade, type: 3}
   m_PrefabInstance: {fileID: 3932902375658422669}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &809994451
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8696032229935862113, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: m_Name
+      value: "\uD50C\uB808\uC774\uC5B4"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
 --- !u!1 &856579239
 GameObject:
   m_ObjectHideFlags: 0
@@ -3987,7 +4044,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 21.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6629,3 +6686,4 @@ SceneRoots:
   - {fileID: 17660048}
   - {fileID: 1613072503}
   - {fileID: 260405521}
+  - {fileID: 809994451}

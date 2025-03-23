@@ -691,7 +691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6536254645945119338}
   - component: {fileID: 5937202793309421231}
-  - component: {fileID: 4458221838885822483}
+  - component: {fileID: 5949589753507462631}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -744,7 +744,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4458221838885822483
+--- !u!114 &5949589753507462631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -753,10 +753,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4637325958623815296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd235505bade29741804713c67b5a5da, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b330bee68727a4c8bb66c7144027b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderers: []
+  spriteRenderers:
+  - {fileID: 7340599555460877041}
+  - {fileID: 8831581310589248565}
+  - {fileID: 8045729701162077399}
+  - {fileID: 8425037950865459}
+  - {fileID: 1026196666269767070}
+  - {fileID: 6796668745998932975}
+  - {fileID: 3309953970856551355}
+  - {fileID: 4191078333936884667}
   flashDuration: 0.2
   onDamageTaken:
     m_PersistentCalls:
