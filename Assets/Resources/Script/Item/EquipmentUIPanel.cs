@@ -174,14 +174,24 @@ public class EquipmentUIPanel : MonoBehaviour
 
     public void ClosePanel()
     {
-        button_click_sound.Play();
-		StartCoroutine(ActivateAfterDelay(0.5f));
+        PlayOneShotSound(button_click_sound);
+		panel.SetActive(false);
         return;
     }
 
-	IEnumerator ActivateAfterDelay(float delay)
-	{
-    	yield return new WaitForSeconds(delay);
-    	this.panel.SetActive(false);
-	}
+	private void PlayOneShotSound(AudioSource source)
+    {
+        if (source == null || source.clip == null) return;
+
+        // 임시 오브젝트 생성
+        GameObject tempAudioObj = new GameObject("TempAudio");
+        AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
+        tempAudio.clip = source.clip;
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.volume = source.volume;
+        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.Play();
+
+        Destroy(tempAudioObj, tempAudio.clip.length);
+    }
 }
