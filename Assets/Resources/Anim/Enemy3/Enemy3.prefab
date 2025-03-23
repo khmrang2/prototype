@@ -1150,7 +1150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2341164273131886471}
   - component: {fileID: 4136639069747794944}
-  - component: {fileID: 4702807465257710438}
+  - component: {fileID: -710005583169115526}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Untagged
@@ -1209,7 +1209,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4702807465257710438
+--- !u!114 &-710005583169115526
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,22 +1218,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 6158343357710918895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd235505bade29741804713c67b5a5da, type: 3}
+  m_Script: {fileID: 11500000, guid: 21b330bee68727a4c8bb66c7144027b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2680061246986815142}
+  - {fileID: 7089142845605935201}
+  - {fileID: 7028200847670011282}
+  - {fileID: 4758507710863454175}
+  - {fileID: 5859750449711725866}
+  - {fileID: 8724891173495354294}
+  - {fileID: 859524995653536062}
+  - {fileID: 4049833302484441803}
+  - {fileID: 1438989892554422480}
+  - {fileID: 5062907923364431193}
+  - {fileID: 4561928438183705799}
+  - {fileID: 636072522759271597}
+  - {fileID: 2456743117453360736}
+  - {fileID: 5005228070746764581}
   flashDuration: 0.2
   onDamageTaken:
     m_PersistentCalls:
