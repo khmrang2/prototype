@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ProjectileOnHit : MonoBehaviour
 {
+    public AudioSource player_attack_sound;
+    public AudioSource enemy_hit_sound;
     [Header("Projrctile Variables")]
     public bool isDestroyed;
     public Transform returnTransform;
@@ -50,8 +52,9 @@ public class ProjectileOnHit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")) 
+        if (collision.gameObject.CompareTag("Enemy"))
         {
+            PlayOneShotSound(enemy_hit_sound);
             //적과 충돌 시 작동
 
             if (!isDestroyed)
@@ -78,6 +81,7 @@ public class ProjectileOnHit : MonoBehaviour
     public void StartAttack()
     {
         this.gameObject.transform.position = InstantiateTransform.position; //공격이 날라가기 시작하는 위치로 이동
+        player_attack_sound.Play();
         isDestroyed = false;    //움직이게 하기 위해 파괴 판정을 거짓으로
     }
 
@@ -121,6 +125,22 @@ public class ProjectileOnHit : MonoBehaviour
             return true;
         }
         else { return false; }
+    }
+    
+    private void PlayOneShotSound(AudioSource source)
+    {
+        if (source == null || source.clip == null) return;
+
+        // 임시 오브젝트 생성
+        GameObject tempAudioObj = new GameObject("TempAudio");
+        AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
+        tempAudio.clip = source.clip;
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.volume = source.volume;
+        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.Play();
+
+        Destroy(tempAudioObj, tempAudio.clip.length);
     }
 
 }

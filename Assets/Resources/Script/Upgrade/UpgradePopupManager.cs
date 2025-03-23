@@ -28,7 +28,8 @@ public class UpgradePopupManager : MonoBehaviour
     public int UpgradeStatName { get { return upgradeStatName; } set { upgradeStatName = value; } }
     public int UpgradeStat { get { return upgradeStat; } set { upgradeStat = value; } }
     public int UpgradeCost { get { return upgradeCost; } set { upgradeCost = value; } }
-
+	public AudioSource upgrade_button_click_sound;
+	public AudioSource close_button_click_sound;
 
 
     //�ʱ�ȭ
@@ -43,6 +44,7 @@ public class UpgradePopupManager : MonoBehaviour
     //�˾� �ݱ�
     public void ClosePopup()
     {
+		PlayOneShotSound(close_button_click_sound);
         this.gameObject.SetActive(false);
     }
 
@@ -131,7 +133,6 @@ public class UpgradePopupManager : MonoBehaviour
 
                     //���� �˾� ����
                     SaveandLoaderror.ShowErrorScreen();
-
                 }
                 else { Debug.Log("upgrade save complete"); }
 
@@ -143,7 +144,6 @@ public class UpgradePopupManager : MonoBehaviour
             UpgradeBtnManager.RefreshUpgradeBtn();
 
             Debug.Log("���� ����!");
-
 
             ClosePopup();
         }
@@ -167,5 +167,19 @@ public class UpgradePopupManager : MonoBehaviour
         popupCost.text = "비용: "+upgradeCost.ToString() + "G";
     }
 
+	private void PlayOneShotSound(AudioSource source)
+    {
+        if (source == null || source.clip == null) return;
 
+        // 임시 오브젝트 생성
+        GameObject tempAudioObj = new GameObject("TempAudio");
+        AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
+        tempAudio.clip = source.clip;
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.volume = source.volume;
+        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.Play();
+
+        Destroy(tempAudioObj, tempAudio.clip.length);
+    }
 }

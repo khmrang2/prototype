@@ -14,9 +14,11 @@ public class Pin : MonoBehaviour
     private float minRotationSpeed = 400f; // 최대 회전 속도 (각도/초)
 
     private float forceOffset = 15.0f;
-
+    
     private int cnt = 0;
     private int maxHitCount;
+    public AudioSource pinSound;
+    
     [Header("Player Stat Script")]
     public PlayerState playerState;
 
@@ -33,6 +35,8 @@ public class Pin : MonoBehaviour
         // 충돌한 오브젝트의 태그가 "ball"인지 확인
         if (collision.gameObject.CompareTag("Ball"))
         {
+            Debug.Log(pinSound.clip.name);
+            PlayOneShotSound(pinSound);
             // 충돌 점
             ContactPoint2D contactPoint = collision.contacts[0];
 
@@ -147,5 +151,21 @@ public class Pin : MonoBehaviour
     }
     public void init_cnt(){
         cnt = 0;
+    }
+    
+    private void PlayOneShotSound(AudioSource source)
+    {
+        if (source == null || source.clip == null) return;
+
+        // 임시 오브젝트 생성
+        GameObject tempAudioObj = new GameObject("TempAudio");
+        AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
+        tempAudio.clip = source.clip;
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.volume = source.volume;
+        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.Play();
+
+        Destroy(tempAudioObj, tempAudio.clip.length);
     }
 }

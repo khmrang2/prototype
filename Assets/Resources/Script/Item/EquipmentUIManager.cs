@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections.Generic;
 using TMPro;
 
@@ -9,6 +10,7 @@ public class EquipmentUIManager : MonoBehaviour
     public Button draw_10_rewardsButton; // 뽑기 버튼 (Inspector에서 연결)
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
+    public AudioSource reward_Sound;
 
     private List<ItemDataForSave> item_id_list = null;
     private List<ItemDataForSave> show_item_id_list = null;
@@ -66,14 +68,19 @@ public class EquipmentUIManager : MonoBehaviour
         if (isAds)
         {
             Inventory.Instance.AddOrUpdateItems(item_id_list, true);
+            reward_Sound.Play();
             equipmentPanel.ShowMultipleEquipments(show_item_id_list);
             return;
         }
 
-        if (count == 1)
+        if (count == 1){
+            reward_Sound.Play();
             equipmentPanel.ShowSingleEquipment(show_item_id_list);
-        else
+        }
+        else{
+            reward_Sound.Play();
             equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+        }
 
         PlayerStatusInMain.Instance.TryBuyRewardPack(goldCost, rewards, earn_gold, earn_upgrade_stone,  success =>
         {
