@@ -691,7 +691,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6536254645945119338}
   - component: {fileID: 5937202793309421231}
-  - component: {fileID: 5949589753507462631}
+  - component: {fileID: 2447825770589084691}
+  - component: {fileID: 524115234611956167}
+  - component: {fileID: -3963720152616073529}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -708,8 +710,8 @@ Transform:
   m_GameObject: {fileID: 4637325958623815296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7653663325193750893}
@@ -744,7 +746,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5949589753507462631
+--- !u!114 &2447825770589084691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -753,7 +755,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4637325958623815296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b330bee68727a4c8bb66c7144027b7, type: 3}
+  m_Script: {fileID: 11500000, guid: aa70b97e4d2305e4d931aacdb04f8a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderers:
@@ -769,6 +771,44 @@ MonoBehaviour:
   onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &524115234611956167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4637325958623815296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f742101e0924534991ae3efbe896c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  isMoving: 0
+  start: {fileID: 0}
+  isDetectedPlayer: 0
+  isSpawned: 0
+  isAlive: 0
+  AttackRange: 1.5
+  playerState: {fileID: 0}
+  status: {fileID: 0}
+  HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
+  canvas: {fileID: 0}
+--- !u!114 &-3963720152616073529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4637325958623815296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62c763138a4e4a4e97f91658acc4fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHP: 0
+  enemyATK: 0
+  enemyDFF: 0
 --- !u!1 &5324243256294170676
 GameObject:
   m_ObjectHideFlags: 0
