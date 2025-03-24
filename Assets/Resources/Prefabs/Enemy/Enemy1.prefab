@@ -245,9 +245,6 @@ MonoBehaviour:
   - {fileID: 2050185091064802135}
   - {fileID: 2833633113570105260}
   flashDuration: 1
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-7032369279139541839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +269,10 @@ MonoBehaviour:
   HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   canvas: {fileID: 0}
   animator: {fileID: 803724414585480972}
+  move_anim: {fileID: 7400000, guid: 7d860403f99cd504cb0cebde3b3422e2, type: 2}
+  attack_anim: {fileID: 7400000, guid: ea20751eb45ae76478bd2211921e0432, type: 2}
+  hitted_anim: {fileID: 7400000, guid: 59d4b9d2a7438af45afa0931ffb8ad40, type: 2}
+  death_anim: {fileID: 7400000, guid: 7e7cf95c472a80a45a57203056730b08, type: 2}
 --- !u!114 &3817383053464552983
 MonoBehaviour:
   m_ObjectHideFlags: 0

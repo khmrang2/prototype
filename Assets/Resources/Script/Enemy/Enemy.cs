@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class Enemy : MonoBehaviour
     [Header("Enemy attack & hit variables")]
     public bool isDetectedPlayer = false;   //플레이어 감지 여부
     private PlayerManger Pmanager;  //플레이어에게 데미지 처리를 위한 PlayerManager
-    
+
     public bool isSpawned = false;
     public bool isAlive;
     [SerializeField] private float AttackRange = 0.1f;
@@ -35,6 +36,11 @@ public class Enemy : MonoBehaviour
 
     [Header("Enemy Animation")]
     public Animator animator;
+    public AnimationClip move_anim;
+    public AnimationClip attack_anim;
+    public AnimationClip hitted_anim;
+    public AnimationClip death_anim;
+
 
     private void Start()
     {
@@ -95,7 +101,7 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    
+
     private float duration = 0.2f; // 이동 시간
     public async Task MoveOneStep()
     {
@@ -103,9 +109,11 @@ public class Enemy : MonoBehaviour
         if (target == null || !isSpawned || !isAlive) return;
 
         //플레이어가 사거리 내에 없을 때만 실행
-        if (!isDetectedPlayer)
+        if (!isDetectedPlayer && isAlive)
         {
             isMoving = true; // 이동 시작
+            duration = move_anim.length;
+            animator.SetTrigger("Enemy_Move");
             float elapsedTime = 0f;
 
             Vector3 startPosition = transform.position;
@@ -139,33 +147,29 @@ public class Enemy : MonoBehaviour
         //체력바 위치 업데이트
         LocateEnemyHealthBar();
         //hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);    //화면 비율에 따라 체력바 크기 조정 확인용 디버그 코드
-        
-        //체력바 값 업데이트
-        hpBarSlider.value = status.EnemyHP;
-
+        /*
         //살아 있을때만 실행
         if (isAlive & status != null)
         {
-            if(status.EnemyHP < 0) //만약 체력이 0 이하로 떨어지면 사망처리
+            if (status.EnemyHP < 0) //만약 체력이 0 이하로 떨어지면 사망처리
             {
                 isAlive = false;
-                OnDie();
-                if (playerState.Player_Generation !=0)
+                //OnDie();를 enemy_death 애니메이션의 끝 트리거에 넣음.
+                animator.SetTrigger("Enemy_Death");
+                if (playerState.Player_Generation != 0)
                 {
                     Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation * 10, Pmanager.maxHP);
                     Debug.Log($"현재 체력{Pmanager.playerHP}");
                 }
-               
+
             }
         }
-
+        */
         if (!isMoving) return; // 이동 중이 아닐 때만 실행
 
         // 사거리 내에 플레이어가 있는지 확인
         DetectPlayer();
     }
-
-
 
     public bool HasMoved()
     {
@@ -189,17 +193,46 @@ public class Enemy : MonoBehaviour
     //공격 함수
     private async Task Attack()
     {
+        if (!isAlive) return;
+        animator.SetTrigger("Enemy_Attack");
+        // 임시 코드 (공격 애니메이션을 위한 대기 시간)
+        await Task.Delay((int)(attack_anim.length * 1000));
         // 플레이어에게 공격력만큼 데미지 부여
         Pmanager.playerHP -= status.EnemyATK;
 
-        // 임시 코드 (공격 애니메이션을 위한 대기 시간)
-        await Task.Delay(500);  // 0.5초 대기
+    }
+
+    // 데미지 함수.
+    public async Task getDamage()
+    {
+        animator.SetTrigger("Enemy_Hitted");
+        //체력바 값 업데이트
+        hpBarSlider.value = status.EnemyHP;
+
+        //살아 있을때만 실행
+        if (isAlive & status != null)
+        {
+            Debug.LogWarning("살아 있는가?");
+            if (status.EnemyHP < 0) //만약 체력이 0 이하로 떨어지면 사망처리
+            {
+                isAlive = false;
+                if (playerState.Player_Generation != 0)
+                {
+                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation * 10, Pmanager.maxHP);
+                    Debug.Log($"현재 체력{Pmanager.playerHP}");
+                }
+                await OnDie();
+            }
+            else
+            {
+                await Task.Delay((int)(hitted_anim.length * 1000));
+            }
+        }
     }
 
 
-
     //체력바 소환 함수
-    public void SetEnemyHealthBar() 
+    public void SetEnemyHealthBar()
     {
         if (canvas != null)
         {
@@ -209,7 +242,7 @@ public class Enemy : MonoBehaviour
             hpBarSlider = hpb.GetComponent<Slider>();       //체력바 값 설정을 위해 slider 컴포넌트를 받아옴
             hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);  //화면 비율에 맞춰 체력바의 크기 조정
         }
-        else 
+        else
         {
             Debug.LogError("Can't find canvas for enemy hpbar!");
         }
@@ -220,7 +253,7 @@ public class Enemy : MonoBehaviour
     //체력바 위치를 적 케릭터 상단으로 조정하는 함수
     private void LocateEnemyHealthBar()
     {
-        if (canvas != null) 
+        if (canvas != null)
         {
             Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * 0.9f);   //체력바가 위치할 좌표
             hpBarPos.anchorMin = viewportPos;
@@ -230,10 +263,12 @@ public class Enemy : MonoBehaviour
 
 
     //사망 시 작동하는 함수
-    public void OnDie()
+    private async Task OnDie()
     {
-        // 작동 시켜라
-        // 그리고 몇초동안 기다려라
+        ResetAllTriggers();
+        animator.SetTrigger("Enemy_Death");
+        await Task.Delay((int)(death_anim.length * 1000));
+
         hpb.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
     }
@@ -243,6 +278,18 @@ public class Enemy : MonoBehaviour
         if (isSpawned) status.EnemyHP -= Damage;
         Debug.Log("데미지 들어갑니다");
     }
+    private void ResetAllTriggers()
+    {
+        animator.ResetTrigger("Enemy_Hitted");
+        animator.ResetTrigger("Enemy_Death");
+        animator.ResetTrigger("Move");
+        animator.ResetTrigger("Attack");
+    }
+}
+
+
+/*
+     }
 
     // 공격 함수에서 에니메이션 길이를 반환받기 위해 쓰이는 힘수
     // 콜링된 애니메이션의 길이를 받아서 어디까지 써라. 
@@ -261,4 +308,6 @@ public class Enemy : MonoBehaviour
         }
         return 1.0f; // 기본 애니메이션 길이 (1초)
     }
-}
+
+ 
+ */
