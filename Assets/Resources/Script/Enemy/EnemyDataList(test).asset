@@ -16,7 +16,7 @@ MonoBehaviour:
   - hp: 500
     attack: 8
     defense: 0
-    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+    enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
   - hp: 500
     attack: 12
     defense: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
   - hp: 500
     attack: 8
     defense: 0
-    enemyType: {fileID: 1295790378241597538, guid: 057bc4d59ca144d459bd9fd121b29fa5, type: 3}
+    enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
   EnemySpawnCountPerTurn: 0100000001000000000000000100000002000000
