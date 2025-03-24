@@ -181,9 +181,10 @@ GameObject:
   - component: {fileID: 1798567940891001398}
   - component: {fileID: -7032369279139541839}
   - component: {fileID: 3817383053464552983}
+  - component: {fileID: 3925426704013199702}
   m_Layer: 0
   m_Name: Enemy1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +199,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2480875676772990144}
@@ -243,7 +244,7 @@ MonoBehaviour:
   - {fileID: 2140723903152023645}
   - {fileID: 2050185091064802135}
   - {fileID: 2833633113570105260}
-  flashDuration: 0.2
+  flashDuration: 1
   onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
@@ -270,6 +271,7 @@ MonoBehaviour:
   status: {fileID: 0}
   HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   canvas: {fileID: 0}
+  animator: {fileID: 803724414585480972}
 --- !u!114 &3817383053464552983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +287,41 @@ MonoBehaviour:
   enemyHP: 0
   enemyATK: 0
   enemyDFF: 0
+--- !u!58 &3925426704013199702
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574950758667052270}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -3, y: 3}
+  serializedVersion: 2
+  m_Radius: 9.5
 --- !u!1 &5536239821071506360
 GameObject:
   m_ObjectHideFlags: 0
