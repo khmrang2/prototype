@@ -10,6 +10,7 @@ public class ParticleTrigger : MonoBehaviour
         {
             var selectedParticle = impactParticles[index];
             selectedParticle.Play();  // 선택한 파티클 실행
+
         }
     }
 }

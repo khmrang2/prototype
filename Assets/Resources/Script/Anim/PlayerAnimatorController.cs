@@ -15,15 +15,23 @@ public class PlayerAnimatorMobile : MonoBehaviour
 
         if (!hasTouch)
         {
-            Debug.Log("터치 감지됨!1");
             idleTimer += Time.deltaTime;
 
             if (idleTimer >= idleThreshold && !isInSpecialIdle)
             {
-                int randomIndex = Random.Range(1, 4); // 1~3
-                animator.SetInteger("SpecialIdleIdx", randomIndex);
-                isInSpecialIdle = true; // Special Idle 진입했음
-                idleTimer = 0f;
+                int randomIndex = Random.Range(1, 10); // 1~3
+                if(randomIndex >= 4)
+                {
+                    animator.SetInteger("SpecialIdleIdx", 0); // 0이면 아무 것도 안 함
+                    isInSpecialIdle = false;
+                    idleTimer = 0f;
+                }
+                else
+                {
+                    animator.SetInteger("SpecialIdleIdx", randomIndex);
+                    isInSpecialIdle = true; // Special Idle 진입했음
+                    idleTimer = 0f;
+                }
             }
         }
         else

@@ -1150,7 +1150,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2341164273131886471}
   - component: {fileID: 4136639069747794944}
-  - component: {fileID: -710005583169115526}
+  - component: {fileID: 483551837507422804}
+  - component: {fileID: -7357200020925529684}
+  - component: {fileID: -3442311113040035013}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Untagged
@@ -1168,7 +1170,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5073016982613785075}
@@ -1209,7 +1211,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-710005583169115526
+--- !u!114 &483551837507422804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1218,7 +1220,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6158343357710918895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b330bee68727a4c8bb66c7144027b7, type: 3}
+  m_Script: {fileID: 11500000, guid: aa70b97e4d2305e4d931aacdb04f8a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderers:
@@ -1240,6 +1242,44 @@ MonoBehaviour:
   onDamageTaken:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-7357200020925529684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158343357710918895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f742101e0924534991ae3efbe896c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  isMoving: 0
+  start: {fileID: 0}
+  isDetectedPlayer: 0
+  isSpawned: 0
+  isAlive: 0
+  AttackRange: 1.5
+  playerState: {fileID: 0}
+  status: {fileID: 0}
+  HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
+  canvas: {fileID: 0}
+--- !u!114 &-3442311113040035013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158343357710918895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62c763138a4e4a4e97f91658acc4fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHP: 0
+  enemyATK: 0
+  enemyDFF: 0
 --- !u!1 &6282249108525858492
 GameObject:
   m_ObjectHideFlags: 0

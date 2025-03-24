@@ -177,8 +177,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 495195250769699264}
-  - component: {fileID: 3453103003422984293}
   - component: {fileID: 803724414585480972}
+  - component: {fileID: 1798567940891001398}
+  - component: {fileID: -7032369279139541839}
+  - component: {fileID: 3817383053464552983}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -195,8 +197,8 @@ Transform:
   m_GameObject: {fileID: 3574950758667052270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40, y: 2.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2480875676772990144}
@@ -204,38 +206,6 @@ Transform:
   - {fileID: 3537985161755440700}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3453103003422984293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3574950758667052270}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b330bee68727a4c8bb66c7144027b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderers:
-  - {fileID: 2140723903152023645}
-  - {fileID: 2833633113570105260}
-  - {fileID: 2050185091064802135}
-  flashDuration: 0.2
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3453103003422984293}
-        m_TargetAssemblyTypeName: EnemyHitted, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!95 &803724414585480972
 Animator:
   serializedVersion: 5
@@ -257,6 +227,64 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1798567940891001398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574950758667052270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa70b97e4d2305e4d931aacdb04f8a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderers:
+  - {fileID: 2140723903152023645}
+  - {fileID: 2050185091064802135}
+  - {fileID: 2833633113570105260}
+  flashDuration: 0.2
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-7032369279139541839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574950758667052270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f742101e0924534991ae3efbe896c10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  isMoving: 0
+  start: {fileID: 0}
+  isDetectedPlayer: 0
+  isSpawned: 0
+  isAlive: 0
+  AttackRange: 3.5
+  playerState: {fileID: 0}
+  status: {fileID: 0}
+  HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
+  canvas: {fileID: 0}
+--- !u!114 &3817383053464552983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3574950758667052270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62c763138a4e4a4e97f91658acc4fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyHP: 0
+  enemyATK: 0
+  enemyDFF: 0
 --- !u!1 &5536239821071506360
 GameObject:
   m_ObjectHideFlags: 0

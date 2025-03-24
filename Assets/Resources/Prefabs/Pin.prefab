@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particlePrefab: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
   particleLifetime: 2
+  gameManager: {fileID: 0}
+  playerState: {fileID: 3331722669986339006, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
 --- !u!50 &6074171299126628106
 Rigidbody2D:
   serializedVersion: 4
