@@ -10,9 +10,6 @@ public class CharacterHitted : MonoBehaviour
     [Header("피격 플래시의 지속 시간")]
     public float flashDuration = 0.2f;
 
-    // 이벤트 생성 (인스펙터에서 연결 가능)
-    public UnityEvent onDamageTaken;
-
     void Start()
     {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -27,7 +24,6 @@ public class CharacterHitted : MonoBehaviour
     public void TakeDamage()
     {
         StartCoroutine(FlashRed());
-        onDamageTaken?.Invoke(); // 이벤트 호출
     }
 
     /// <summary>

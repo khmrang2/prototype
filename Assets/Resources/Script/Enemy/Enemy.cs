@@ -33,6 +33,9 @@ public class Enemy : MonoBehaviour
     public GameObject HpBar;    //체력바
     public GameObject canvas;   //체력바가 소환될 ui 캔버스
 
+    [Header("Enemy Animation")]
+    public Animator animator;
+
     private void Start()
     {
         status = GetComponent<EnemyStatus>();
@@ -229,9 +232,10 @@ public class Enemy : MonoBehaviour
     //사망 시 작동하는 함수
     public void OnDie()
     {
+        // 작동 시켜라
+        // 그리고 몇초동안 기다려라
         hpb.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
-        
     }
 
     public void Get_Pin_Damage(int Damage)
@@ -239,20 +243,22 @@ public class Enemy : MonoBehaviour
         if (isSpawned) status.EnemyHP -= Damage;
         Debug.Log("데미지 들어갑니다");
     }
+
+    // 공격 함수에서 에니메이션 길이를 반환받기 위해 쓰이는 힘수
+    // 콜링된 애니메이션의 길이를 받아서 어디까지 써라. 
+    private float GetAnimationLength(string animationName)
+    {
+        if (animator == null) return 1.0f; // 애니메이터 없을 경우 기본값
+
+        //에니메이션을 이루는 클립들의 길이를 참조하기 위한 RuntimeAnimatorController
+        RuntimeAnimatorController ac = animator.runtimeAnimatorController;
+
+        foreach (AnimationClip clip in ac.animationClips)
+        {
+            //에니메이션을 이루는 각 클립별로
+            if (clip.name == animationName)
+                return clip.length;
+        }
+        return 1.0f; // 기본 애니메이션 길이 (1초)
+    }
 }
-    //공격 함수에서 에니메이션 길이를 반환받기 위해 쓰이는 힘수
-    //private float GetAnimationLength(string animationName)
-    //{
-    //    if (animator == null) return 1.0f; // 애니메이터 없을 경우 기본값
-
-    //    //에니메이션을 이루는 클립들의 길이를 참조하기 위한 RuntimeAnimatorController
-    //    RuntimeAnimatorController ac = animator.runtimeAnimatorController;
-
-    //    foreach (AnimationClip clip in ac.animationClips)
-    //    {
-    //        //에니메이션을 이루는 각 클립별로
-    //        if (clip.name == animationName)
-    //            return clip.length;
-    //    }
-    //    return 1.0f; // 기본 애니메이션 길이 (1초)
-    //}
