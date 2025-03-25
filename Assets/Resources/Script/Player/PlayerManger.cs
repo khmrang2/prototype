@@ -119,5 +119,6 @@ public class PlayerManger : MonoBehaviour
     public async Task attackAnim()
     {
         animator.TriggerAttack();
+        await Task.Delay(1000);
     }
 }

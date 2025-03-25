@@ -112,13 +112,13 @@ public class updatePopup : MonoBehaviour
             if (Equip.Instance.IsEquipped(equip.EquipType))
             {
                 //Debug.LogError("�κ��丮 - ������ ����");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "장착";
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "교체";
 
             }
             else
             {
                 //Debug.LogError("�κ��丮 - X�� ����");
-                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "교체";
+                yesButton.GetComponentInChildren<TextMeshProUGUI>().text = "장착";
             }
         }
     }

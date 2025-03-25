@@ -219,7 +219,8 @@ public class GameManager : MonoBehaviour
     {
         if (player_double_attack_chance)
         {
-            playerAnimation.TriggerAttack(); // 애니메이션에서 키이벤트로 같이 처리.
+            //playerAnimation.TriggerAttack(); // 애니메이션에서 키이벤트로 같이 처리.
+            playerManger.attackAnim();
             player_double_attack_chance = false;  // 더블 어택 기회 소진
             plAtkObj.StartAttack();  // 다시 발사
         }
