@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private GameObject target;  // 추가된 변수, 타겟(플레이어)을 추적
     private float moveDistance; // 한 칸 이동 목표 거리
     public Transform start;
+    public Vector3 spawn_offset;
 
     [Header("Enemy attack & hit variables")]
     public bool isDetectedPlayer = false;   //플레이어 감지 여부
@@ -69,6 +70,7 @@ public class Enemy : MonoBehaviour
         //생존 처리를 true로
         isAlive = true;
         hpBarSlider.maxValue = status.EnemyHP;          //체력바 최대값 설정
+        hpBarSlider.value = status.EnemyHP;
     }
 
     public async Task Move()
@@ -108,10 +110,10 @@ public class Enemy : MonoBehaviour
         //타겟을 발견 했고, 필드에 소환되었으며 살아있는 경우에만 실행
         if (target == null || !isSpawned || !isAlive) return;
 
+        isMoving = true; // 이동 시작
         //플레이어가 사거리 내에 없을 때만 실행
         if (!isDetectedPlayer && isAlive)
         {
-            isMoving = true; // 이동 시작
             duration = move_anim.length;
             animator.SetTrigger("Enemy_Move");
             float elapsedTime = 0f;
@@ -128,17 +130,15 @@ public class Enemy : MonoBehaviour
                 await Task.Yield(); // 프레임마다 갱신
             }
             transform.position = endPosition; // 최종 위치 보정
-            isMoving = false; // 이동 종료
-
             DetectPlayer(); // 이동 후 플레이어 감지
         }
         else
         {
             //플레이어가 사거리 내에 있다면
-
             await Attack(); //이동하지 않고 공격 수행, 공격이 끝날 때까지 대기
-            isMoving = false;   //이동이 불필요하므로 false
         }
+        Debug.Log("isMoving = false");
+        isMoving = false;   //이동이 불필요하므로 false
 
     }
 
@@ -195,11 +195,11 @@ public class Enemy : MonoBehaviour
     {
         if (!isAlive) return;
         animator.SetTrigger("Enemy_Attack");
+        await Task.Delay((int)(attack_anim.length * 500));
+        Pmanager.getHitted(status.EnemyATK);
         // 임시 코드 (공격 애니메이션을 위한 대기 시간)
-        await Task.Delay((int)(attack_anim.length * 1000));
+        await Task.Delay((int)(attack_anim.length * 500));
         // 플레이어에게 공격력만큼 데미지 부여
-        Pmanager.playerHP -= status.EnemyATK;
-
     }
 
     // 데미지 함수.

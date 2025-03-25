@@ -1,12 +1,16 @@
 using GooglePlayGames.BasicApi;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerManger : MonoBehaviour
 {
+    [Header("Player Damage")]
+    public PlayerAnimatorMobile animator;
+
     [Header ("HP Bar variables")]
     public GameObject hpBar;    //플레이어의 체력바 ui
     //public GameObject canvas;   
@@ -49,17 +53,19 @@ public class PlayerManger : MonoBehaviour
         //rt.anchorMax = viewportPos;
         hpSlider = hpBar.GetComponent<Slider>();
         //hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
-        hpSlider.maxValue = playerStatus.PlayerHP;
-
+        hpSlider.maxValue = maxHP;
+        hpSlider.value = playerHP;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //체력바 업데이트
-        hpSlider.value = playerHP;
-        hpSlider.maxValue = playerState.Player_Health;
+        //체력바 업데이트(버프 적용)
         maxHP = playerState.Player_Health;
+        // hp 업데이트.
+        hpSlider.maxValue = maxHP;
+        hpSlider.value = playerHP;
+
         //체력이 0 이하가 된다면
         if (playerHP <= 0 && !gameOver)
         {
@@ -100,5 +106,18 @@ public class PlayerManger : MonoBehaviour
         {
             return (playerState.Player_Damage) * (gameManager.pinHitCount);
         }
+    }
+
+    public void getHitted(int damage)
+    {
+        Debug.Log("플레이어가 데미지를 얼마얼마 얻음.");
+        animator.TriggerDamage();
+        playerHP -= damage;
+        Debug.Log("getHitted탈출..");
+    }
+
+    public async Task attackAnim()
+    {
+        animator.TriggerAttack();
     }
 }

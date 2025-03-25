@@ -23,6 +23,8 @@ public class EnemyListManager : MonoBehaviour
 
     private bool enemiesSpawned = false; // 적이 한 번만 스폰되도록 체크
 
+    private bool allMoved = false;
+
     [SerializeField] private EnemyDataList enemyDataList;   //해당 맵에서 등장할 적들의 스탯이 담긴 스크립터블 오브젝스
 
     public GameManager gameManager;
@@ -64,6 +66,7 @@ public class EnemyListManager : MonoBehaviour
 
     public async Task MoveEnemies()
     {
+        allMoved = false;
         // 각 적마다 5번의 턴을 걸쳐 이동하도록 처리
         foreach (var enemy in enemies)
         {
@@ -77,12 +80,14 @@ public class EnemyListManager : MonoBehaviour
                 {
                     await Task.Yield();  // 비동기적으로 이동이 끝날 때까지 대기
                 }
+                Debug.Log($"{enemy.name} : 의 행동이 끝났따./!");
             }
         }
         turn += 1; // 한 번 호출될 때마다 1턴 증가
         //이동이 끝나고 턴이 지났으니 스폰처리
         //SpawnEnemyPerTurn()
         // 이동이 끝나면, 적 이동 처리 완료
+        allMoved = true;
         Debug.Log("All enemies moved.");
     }
 
@@ -91,16 +96,26 @@ public class EnemyListManager : MonoBehaviour
     // === 3?? 모든 적의 이동이 끝났는지 확인 ===
     public bool AllEnemiesMoved()
     {
+        if (allMoved) return true;
+        else return false;
+        /*
         foreach (var enemy in enemies)
         {
+            Debug.Log($"{enemy.name} 움직임 체크.");
+            // enemy가 존재하고, 움직이는 중이면.
+            // enemy가 존재하지않으면? enemy == null이면?
+            if (enemy == null) {
+                Debug.Log("이 enemy는 존재하지 않음. 넘어감.");
+                continue;
+            }
             if (enemy != null && !enemy.HasMoved())
             {
-                //Debug.Log("still moving");
+                Debug.Log($"{enemy.name}이 움직이는 중임.");
                 return false; // 아직 이동 안 한 적이 있음
             }
         }
-        
-        return true; // 모든 적 이동 완료
+        Debug.Log($"모든 적 이동 완료.");
+        return true; // 모든 적 이동 완료*/
         
     }
 
@@ -125,16 +140,19 @@ public class EnemyListManager : MonoBehaviour
         // 디버그용으로 주석처리한거. 나중에 커밋할때 꼭 
         if (spawnedCount < maxEnemies)
         {
+            Debug.LogWarning($"{spawnedCount} < {maxEnemies}");
             int willSpawnCnt = enemyDataList.EnemySpawnCountPerTurn[turn];
+            Debug.LogWarning($"{spawnedCount} < {willSpawnCnt}");
 
             for (int i = spawnedCount; i < spawnedCount + willSpawnCnt; i++)
             {
-                enemies[i].transform.position = enemySpawnTransform.position;
+                enemies[i].transform.position = enemySpawnTransform.position + enemies[i].spawn_offset;
                 enemies[i].isSpawned = true;
                 gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }
 
             spawnedCount += willSpawnCnt;
+            Debug.LogWarning($"스폰이 잘 이루어짐 : {spawnedCount}");
         }
     }
     public List<Enemy> GetEnemies()

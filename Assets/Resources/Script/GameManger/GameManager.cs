@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
-                    playerAnimation.TriggerAttack();
+                    playerManger.attackAnim();
                     int random_value = UnityEngine.Random.Range(0, 99);
                     if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (enemyListManager.AllEnemiesMoved() && isPlaying)
                 {
+                    Debug.Log($"적이 다 움직임. {enemyListManager.AllEnemiesMoved()}");
                     enemyListManager.SpawnEnemyPerTurn();
                     stateStarted = false;
                     currentTurn = GameTurn.ChooseBuffState;
