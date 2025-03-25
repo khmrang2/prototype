@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Gentleland.meta
 guid: f16af11574b8b3447923408128d58651
+========
+guid: 9e104d858bc96dd4684bdcbed9c9aa14
+>>>>>>>> 6d039fff45e62829feb9ca5b682ed49757c37390:Assets/Resources/Anim/Player.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

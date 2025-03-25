@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Particle.meta
 guid: f4573516963ce6c488ac940d191484ab
+========
+guid: 6c114e8a1f56e1846a49732532ef9aee
+>>>>>>>> 6d039fff45e62829feb9ca5b682ed49757c37390:Assets/Resources/Script/Anim.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

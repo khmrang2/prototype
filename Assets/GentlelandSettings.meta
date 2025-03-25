@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GentlelandSettings.meta
 guid: 7b731e2e7c68843e9b51aa5bd86dc2f2
+========
+guid: f4573516963ce6c488ac940d191484ab
+>>>>>>>> 6d039fff45e62829feb9ca5b682ed49757c37390:Assets/Resources/Particle.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

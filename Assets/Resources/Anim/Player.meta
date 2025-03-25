@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Anim/Player.meta
 guid: 9e104d858bc96dd4684bdcbed9c9aa14
+========
+guid: b0ebef715dc2d5e4c8f93b2ea7a0f337
+>>>>>>>> 6d039fff45e62829feb9ca5b682ed49757c37390:Assets/Resources/Prefabs/Player.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
