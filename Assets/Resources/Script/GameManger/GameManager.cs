@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
     public delegate void Pin_Damage(int Damage);
     public event Pin_Damage? Pin_Damage_Event;
 
+    public PlayerAnimatorMobile playerAnimation;
+
     void Start()
     {
         clearPopup.SetActive(false);
@@ -95,6 +97,7 @@ public class GameManager : MonoBehaviour
             case GameTurn.PlayerAtkState:
                 if (!stateStarted)
                 {
+                    playerManger.attackAnim();
                     int random_value = UnityEngine.Random.Range(0, 99);
                     if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
@@ -136,6 +139,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (enemyListManager.AllEnemiesMoved() && isPlaying)
                 {
+                    Debug.Log($"적이 다 움직임. {enemyListManager.AllEnemiesMoved()}");
                     enemyListManager.SpawnEnemyPerTurn();
                     stateStarted = false;
                     currentTurn = GameTurn.ChooseBuffState;
@@ -215,6 +219,8 @@ public class GameManager : MonoBehaviour
     {
         if (player_double_attack_chance)
         {
+            //playerAnimation.TriggerAttack(); // 애니메이션에서 키이벤트로 같이 처리.
+            playerManger.attackAnim();
             player_double_attack_chance = false;  // 더블 어택 기회 소진
             plAtkObj.StartAttack();  // 다시 발사
         }

@@ -105,8 +105,8 @@ MonoBehaviour:
   isDetectedPlayer: 0
   isSpawned: 0
   isAlive: 0
-  AttackRange: 1.5
-  hpb: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
+  AttackRange: 3.5
+  playerState: {fileID: 0}
   status: {fileID: 0}
   HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   canvas: {fileID: 0}

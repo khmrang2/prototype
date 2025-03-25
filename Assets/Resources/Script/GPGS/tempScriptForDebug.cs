@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class tempScriptForDebug : MonoBehaviour
@@ -27,6 +28,14 @@ public class tempScriptForDebug : MonoBehaviour
         goldText.text = DataControl.LoadEncryptedDataFromPrefs("Gold");
         Debug.Log("첫 시작 " + goldText.text + " 골드 현재량 ");
         upgradeStoneText.text = DataControl.LoadEncryptedDataFromPrefs("UpgradeStone");
+        HpText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP");
+        ATKText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK");
+        BcText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT");
+        PPText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP");
+    }
+
+    private void Update()
+    {
         HpText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP");
         ATKText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK");
         BcText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT");
