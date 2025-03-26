@@ -195,10 +195,9 @@ public class Enemy : MonoBehaviour
     {
         if (!isAlive) return;
         animator.SetTrigger("Enemy_Attack");
-        await Task.Delay((int)(attack_anim.length * 500));
+        await Task.Delay((int)(attack_anim.length * 800));
         Pmanager.getHitted(status.EnemyATK);
         // 임시 코드 (공격 애니메이션을 위한 대기 시간)
-        await Task.Delay((int)(attack_anim.length * 500));
         // 플레이어에게 공격력만큼 데미지 부여
     }
 

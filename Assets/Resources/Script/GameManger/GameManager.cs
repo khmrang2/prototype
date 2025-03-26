@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
                     plAtkObj.StartAttack();
                     Debug.Log("Player attacking...");
                 }
-                if (enemyAtkEnded())
+                if (enemyAtkEnded() && playerManger.doneAtk())
                 {
                     stateStarted = false;
                     currentTurn = GameTurn.EnemyBehaviorState;

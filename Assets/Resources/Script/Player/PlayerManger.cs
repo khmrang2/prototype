@@ -36,6 +36,8 @@ public class PlayerManger : MonoBehaviour
     public GameManager gameManager;
     public PinManager pinManager;
 
+    private bool isAtking = false;
+
     void Start()
     {
         //변수 및 팝업 초기화
@@ -118,7 +120,14 @@ public class PlayerManger : MonoBehaviour
 
     public async Task attackAnim()
     {
+        isAtking = true;
         animator.TriggerAttack();
         await Task.Delay(1000);
+        isAtking = false;
+    }
+
+    public bool doneAtk()
+    {
+        return !isAtking;
     }
 }

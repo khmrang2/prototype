@@ -5,7 +5,7 @@ public class PlayerAnimatorMobile : MonoBehaviour
 {
     public Animator animator;
     public float idleTimer = 0f;
-    public float idleThreshold = 3f;
+    public float idleThreshold = 5f;
     private bool isInSpecialIdle = false;
 
     void Update()
