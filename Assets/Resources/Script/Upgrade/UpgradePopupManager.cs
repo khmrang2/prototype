@@ -9,6 +9,7 @@ public class UpgradePopupManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI popupName;     //�˾��� ���׷��̵� �� �κ� �ؽ�Ʈ     
     [SerializeField] private TextMeshProUGUI popupCost;     //�˾��� ��� �κ� �ؽ�Ʈ
     [SerializeField] private TextMeshProUGUI popupCostGear;
+    [SerializeField] private GameObject popupforgearcost;
 
     [SerializeField] private GameObject FailPopup;      //���� ���� �� �� �˾�
 
@@ -135,9 +136,14 @@ public class UpgradePopupManager : MonoBehaviour
     public void SetUpgradePopup()
     {
         popupName.text = upgradeName;
-        popupCost.text = "골드: "+upgradeCost.ToString() + "G";
-        if(upgradeCostG > 0) popupCostGear.text = "강화기어: " + upgradeCostG.ToString() + "개";
-        else popupCostGear.text = "";
+        popupCost.text = upgradeCost.ToString() + "G";
+        if (upgradeCostG > 0)
+        {
+            popupforgearcost.SetActive(true);
+            popupCostGear.text = upgradeCostG.ToString() + "개";
+        }
+        else popupforgearcost.SetActive(false);
+
         
     }
 
