@@ -38,6 +38,7 @@ public class UpgradeBtn : MonoBehaviour
     [SerializeField] private string upgradeName;  //�ش� ��ư�� ���� �̷���� ���׷��̵��� �̸�  // �˾��� ����
     [SerializeField] private int upgradeStat;     //�ش� ��ư�� ���� �̷���� ���׷��̵��� ��ġ
     [SerializeField] private int upgradeCost;    //�ش� ��ư�� ���� �̷���� ���׷��̵��� ���
+    [SerializeField] private int upgradeCostGear = 0;
 
     [SerializeField] public bool isUpgradable;  //�ش� ���׷��̵尡 ���� �������� ��Ÿ���� ��, ������ ���� ������Ƽ�� ����
     [SerializeField] private int upgradeNum;    //���׷��̵尣�� ������ ���� ������, �ܰ��� �ر� �� ���ű�� ����� ���� ����, ������ ���� ������Ƽ�� ����
@@ -80,6 +81,7 @@ public class UpgradeBtn : MonoBehaviour
         popupManager.UpgradeName = upgradeName;
         popupManager.UpgradeStat = upgradeStat;
         popupManager.UpgradeCost = upgradeCost;
+        popupManager.UpgradeCostGear = upgradeCostGear;
         popupManager.UpgradeStatName = (int)upgradeStatName;
 
 

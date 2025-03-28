@@ -8,6 +8,7 @@ public class UpgradePopupManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI popupName;     //�˾��� ���׷��̵� �� �κ� �ؽ�Ʈ     
     [SerializeField] private TextMeshProUGUI popupCost;     //�˾��� ��� �κ� �ؽ�Ʈ
+    [SerializeField] private TextMeshProUGUI popupCostGear;
 
     [SerializeField] private GameObject FailPopup;      //���� ���� �� �� �˾�
 
@@ -23,11 +24,13 @@ public class UpgradePopupManager : MonoBehaviour
     private int upgradeStatName;    //���׷��̵� ���� �� ���� �� ����, ������ ���� ������Ƽ�� ����
     private int upgradeStat;        //���׷��̵� ���� �� ���� �� ���� ��ġ, ������ ���� ������Ƽ�� ����
     private int upgradeCost;        //�˾��� ǥ�õ� ���׷��̵� ���, ������ ���� ������Ƽ�� ����
+    private int upgradeCostG;
 
     public string UpgradeName {  get { return upgradeName; } set { upgradeName = value; } }
     public int UpgradeStatName { get { return upgradeStatName; } set { upgradeStatName = value; } }
     public int UpgradeStat { get { return upgradeStat; } set { upgradeStat = value; } }
     public int UpgradeCost { get { return upgradeCost; } set { upgradeCost = value; } }
+    public int UpgradeCostGear { get { return upgradeCostG; } set { upgradeCostG = value; } }
 	public AudioSource upgrade_button_click_sound;
 	public AudioSource close_button_click_sound;
 
@@ -53,18 +56,18 @@ public class UpgradePopupManager : MonoBehaviour
     {
         //���� ���� ��� �޾ƿ���
         int gold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        int gear = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
 
-
-        if (gold >= upgradeCost)
+        if (gold >= upgradeCost && gear >= upgradeCostG)
         {
             //���׷��̵� ���Ű� �����ϴٸ�
 
             //��� ���� ó��
-            gold -= upgradeCost;
-            DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
+            PlayerStatusInMain.Instance.PayGold(upgradeCost, (success) => { });
+            PlayerStatusInMain.Instance.payUpgradeStone(upgradeCostG, (success) => { });
 
             //���޹��� ���׷��̵� ������ ���� ���� ���� ó��
-            switch(upgradeStatName)
+            switch (upgradeStatName)
             {
                 case 0:
                     DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
@@ -97,53 +100,21 @@ public class UpgradePopupManager : MonoBehaviour
             {
                 if (!success)
                 {
-                    // ������ ���� �������� ���ߴٸ� ���� ���
-                    //������Ų ������ ������
-                    switch (upgradeStatName)
-                    {
-                        case 0:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_HP",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP")) - upgradeStat).ToString());
-                            break;
-
-                        case 1:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_ATK",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK")) - upgradeStat).ToString());
-                            break;
-
-                        case 2:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_BALLCOUNT",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT")) - upgradeStat).ToString());
-                            break;
-
-                        case 3:
-                            DataControl.SaveEncryptedDataToPrefs("PlayerCharacter_PINHP",
-                                (int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_PINHP")) - upgradeStat).ToString());
-                            break;
-                    }
-
-                    //���׷��̵� ��ȣ ���� ó��
-                    DataControl.SaveEncryptedDataToPrefs("UpgradableNum",
-                    (int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradableNum")) - 1).ToString());
-
-
-                    //��嵵 �� ���·�
-                    gold += upgradeCost;
-                    DataControl.SaveEncryptedDataToPrefs("Gold", gold.ToString());
-
                     //���� �˾� ����
                     SaveandLoaderror.ShowErrorScreen();
                 }
-                else { Debug.Log("upgrade save complete"); }
+                else
+                {
+                    Debug.Log("upgrade save complete");
+
+                    UpgradeBtnManager.RefreshUpgradeBtn();
+
+                    Debug.Log("upgrade complete!");
+                }
 
             });
 
-       
-
-            //���� ���� ������ ���׷��̵��� ��ȣ�� �ٲ������ �̸� ���׷��̵� ���� �����ϱ� ���� ���ΰ�ħ
-            UpgradeBtnManager.RefreshUpgradeBtn();
-
-            Debug.Log("���� ����!");
+      
 
             ClosePopup();
         }
@@ -164,7 +135,10 @@ public class UpgradePopupManager : MonoBehaviour
     public void SetUpgradePopup()
     {
         popupName.text = upgradeName;
-        popupCost.text = "비용: "+upgradeCost.ToString() + "G";
+        popupCost.text = "골드: "+upgradeCost.ToString() + "G";
+        if(upgradeCostG > 0) popupCostGear.text = "강화기어: " + upgradeCostG.ToString() + "개";
+        else popupCostGear.text = "";
+        
     }
 
 	private void PlayOneShotSound(AudioSource source)
