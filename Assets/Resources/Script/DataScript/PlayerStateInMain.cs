@@ -142,7 +142,7 @@ public class PlayerStatusInMain : MonoBehaviour
             if (!success)
             {
                 // 이걸 프렙스에 저장할 이유도 없음.
-                DataControl.SaveEncryptedDataToPrefs("UpgradeStone", currentUpgradeStone.ToString());
+                //DataControl.SaveEncryptedDataToPrefs("UpgradeStone", currentUpgradeStone.ToString());
                 UpdateStoneUI(currentUpgradeStone);
                 Debug.Log($"서버 연결 실패! 복구 중 ! {currentUpgradeStone}");
                 SaveandLoaderror.ShowErrorScreen();
