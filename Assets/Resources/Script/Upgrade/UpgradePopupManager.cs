@@ -37,7 +37,7 @@ public class UpgradePopupManager : MonoBehaviour
 
 
     //�ʱ�ȭ
-    private void Start()
+    private void Awake()
     {
         FailPopup.SetActive(false);
         ClosePopup();
