@@ -11,6 +11,7 @@ public class PlayerManger : MonoBehaviour
     [Header("Player Damage")]
     public PlayerAnimatorMobile animator;
     public ProjectileOnHit plAtkObj;    //플레이어가 공격 시 발사하는 투사체
+    private Color AtkObjColor;
 
     [Header ("HP Bar variables")]
     public GameObject hpBar;    //플레이어의 체력바 ui
@@ -119,14 +120,20 @@ public class PlayerManger : MonoBehaviour
         Debug.Log("getHitted탈출..");
     }
 
-    public async Task attackAnim()
+    public void attackAnim()
     {
         isAtking = true;
-        await Task.Delay(150);
-        plAtkObj.StartAttack();
         animator.TriggerAttack();
-        await Task.Delay(850);
+    }
+
+    public void OnAttackAnimEnd()
+    {
         isAtking = false;
+    }
+
+    public void attackObj()
+    {
+        plAtkObj.StartAttack();
     }
 
     public bool doneAtk()
