@@ -12,6 +12,7 @@ public class ProjectileOnHit : MonoBehaviour
     public bool isDestroyed;
     public Transform returnTransform;
     public Transform InstantiateTransform;
+    public SpriteRenderer sprite;
 
     [Header("Projectile Movement Variables")]
     public Vector3 moveDir = Vector3.right;
@@ -31,6 +32,8 @@ public class ProjectileOnHit : MonoBehaviour
     {
         //변수 초기화
         isDestroyed = false;
+
+        sprite = this.GetComponent<SpriteRenderer>();
     }
 
 
@@ -81,6 +84,14 @@ public class ProjectileOnHit : MonoBehaviour
     //공격 시작 함수
     public void StartAttack()
     {
+        if (pstate.Ball_Pierce_Power)
+        {
+            this.sprite.color = new Color(163f/255f, 1, 0);
+        }
+        else
+        {
+            this.sprite.color = new Color(15f / 255f, 214f / 255f, 255f / 255f);
+        }
         this.gameObject.transform.position = InstantiateTransform.position; //공격이 날라가기 시작하는 위치로 이동
         player_attack_sound.Play();
         isDestroyed = false;    //움직이게 하기 위해 파괴 판정을 거짓으로

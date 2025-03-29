@@ -195,10 +195,9 @@ public class Enemy : MonoBehaviour
     {
         if (!isAlive) return;
         animator.SetTrigger("Enemy_Attack");
-        await Task.Delay((int)(attack_anim.length * 500));
+        await Task.Delay((int)(attack_anim.length * 800));
         Pmanager.getHitted(status.EnemyATK);
         // 임시 코드 (공격 애니메이션을 위한 대기 시간)
-        await Task.Delay((int)(attack_anim.length * 500));
         // 플레이어에게 공격력만큼 데미지 부여
     }
 
@@ -240,7 +239,7 @@ public class Enemy : MonoBehaviour
             hpb.SetActive(true);
             hpBarPos = hpb.GetComponent<RectTransform>();   //체력바 위치 이동을 위해 RectTransform을 받아옴
             hpBarSlider = hpb.GetComponent<Slider>();       //체력바 값 설정을 위해 slider 컴포넌트를 받아옴
-            hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);  //화면 비율에 맞춰 체력바의 크기 조정
+            hpBarPos.localScale = Vector3.one * (Screen.height / 1170.0f);  //화면 비율에 맞춰 체력바의 크기 조정
         }
         else
         {
@@ -255,9 +254,18 @@ public class Enemy : MonoBehaviour
     {
         if (canvas != null)
         {
-            Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * 0.9f);   //체력바가 위치할 좌표
+            Collider2D collider = GetComponent<Collider2D>();
+            float heightOffset = collider.bounds.size.y; // collider의 높이를 기준으로 offset 설정
+
+            Vector3 worldPos = transform.position + Vector3.up * heightOffset;
+            Vector3 viewportPos = Camera.main.WorldToViewportPoint(worldPos);
+
             hpBarPos.anchorMin = viewportPos;
             hpBarPos.anchorMax = viewportPos;
+
+            //Vector3 viewportPos = Camera.main.WorldToViewportPoint(this.gameObject.transform.position + Vector3.up * 0.9f);   //체력바가 위치할 좌표
+            //hpBarPos.anchorMin = viewportPos;
+            //hpBarPos.anchorMax = viewportPos;
         }
     }
 

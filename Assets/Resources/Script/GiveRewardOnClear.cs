@@ -10,8 +10,9 @@ public class GiveRewardOnClear : MonoBehaviour
     [Header("Clear reward settings")]
     [SerializeField] private int clearGold;
     [SerializeField] private TextMeshProUGUI rewardText;
-
-
+    [SerializeField] private GameObject slotParent;
+    [SerializeField] private GameObject itemSlot;
+    
 
 
     private void OnEnable()
@@ -29,6 +30,10 @@ public class GiveRewardOnClear : MonoBehaviour
             DataControl.SaveEncryptedDataToPrefs("Gold", (gold + clearGold).ToString());
             rewardText.text = "보상: " + clearGold + "G";
 
+            // 보상 생성 Instanciate
+            GameObject goldPot = Instantiate(itemSlot, slotParent.transform, false);
+            SlotInven goldPotData = goldPot.GetComponent<SlotInven>();
+            goldPotData.setInit(new ItemData(ItemDatabase.Instance.FetchItemById(ItemDatabase.ID_GOLD_POT), clearGold));
 
             //스테이지 클리어 정보 저장
         }
