@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: a5ee1230bb9a4e14e8d88c065ebf0dbc
+guid: 703ee70d2104716428aa423b975fbf27
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1385886763454076631
-    second: White Cash Bag_0
-  - first:
-      213: -6323744052497959376
-    second: White Cash Bag_1
+      213: 712035800519618848
+    second: Sword_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -116,34 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: White Cash Bag_0
+      name: Sword_0
       rect:
         serializedVersion: 2
-        x: 160
-        y: 374
-        width: 205
-        height: 138
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7d6989a2ba8ab3310800000000000000
-      internalID: 1385886763454076631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: White Cash Bag_1
-      rect:
-        serializedVersion: 2
-        x: 19
+        x: 29
         y: 0
-        width: 474
-        height: 354
+        width: 198
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 036be54f94c8d38a0800000000000000
-      internalID: -6323744052497959376
+      spriteID: 021355db9c8a1e900800000000000000
+      internalID: 712035800519618848
       vertices: []
       indices: 
       edges: []
@@ -160,7 +136,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -168,8 +144,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      White Cash Bag_0: 1385886763454076631
-      White Cash Bag_1: -6323744052497959376
+      Sword_0: 712035800519618848
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

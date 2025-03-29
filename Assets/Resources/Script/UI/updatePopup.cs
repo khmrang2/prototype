@@ -84,7 +84,7 @@ public class updatePopup : MonoBehaviour
         {
             case EquipmentType.Weapon:
                 itemPrimaryStatName.text = "공격력";
-                itemPrimaryStatName.text = "공의 수";
+                itemSecondaryStatName.text = "공의 수";
                 break;
             case EquipmentType.Heart:
                 itemPrimaryStatName.text = "체력";

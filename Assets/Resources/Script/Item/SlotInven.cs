@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class SlotInven : MonoBehaviour
 {
     public ItemData itemData;
-    public int id = 0;
 
     [Header("Popup Comoponent")]
+    public int PopUpId = 0;
     public GameObject popUpPanel; // 활성화할 프리팹
     public updatePopup popUpScript;
 
@@ -27,6 +27,14 @@ public class SlotInven : MonoBehaviour
     public GameObject inventoryItemPrefab;  // 생성할 아이템 프리팹.
     private GameObject showingItemObject;
 
+    [Header("Item Type U.")]
+    public Image TypeBox;           // 아이콘을 담을 박스
+    public Image TypeIcon;          // 아이콘.
+    public Sprite weaponIcon;       // 무기 아이콘 
+    public Sprite heartIcon;        // 심장 아이콘
+    public Sprite gearIcon;         // 기어 아이콘
+    public Sprite consumIcon;       // 다른 아이콘
+
 
     /// <summary>
     /// 팝업을 띄운다.
@@ -35,7 +43,7 @@ public class SlotInven : MonoBehaviour
     {
         if (itemData.item.Rarity != Rarity.Usuable)
         {
-            PopUpManager.Instance.ShowPopup(id, itemData);
+            PopUpManager.Instance.ShowPopup(PopUpId, itemData);
         }
     }
 
@@ -48,24 +56,31 @@ public class SlotInven : MonoBehaviour
         {
             case Rarity.Common:
                 backgroundImage.sprite = commonSprite;
+                TypeBox.sprite = commonSprite;
                 break;
             case Rarity.Uncommon:
                 backgroundImage.sprite = uncommonSprite;
+                TypeBox.sprite = uncommonSprite;
                 break;
             case Rarity.Rare:
                 backgroundImage.sprite = rareSprite;
+                TypeBox.sprite = rareSprite;
                 break;
             case Rarity.Epic:
                 backgroundImage.sprite = epicSprite;
+                TypeBox.sprite = epicSprite;
                 break;
             case Rarity.Legendary:
                 backgroundImage.sprite = legendarySprite;
+                TypeBox.sprite = legendarySprite;
                 break;
             case Rarity.Usuable:
                 backgroundImage.sprite = usableSprite;
+                TypeBox.sprite = usableSprite;
                 break;
             default:
                 backgroundImage.sprite = commonSprite;
+                TypeBox.sprite = commonSprite;
                 break;
         }
     }
@@ -90,12 +105,44 @@ public class SlotInven : MonoBehaviour
         }
     }
 
+    private void setTypeUI(Item item)
+    {
+
+        if (item.Id <= ItemDatabase.RANGE_EQUIPMENT)
+        {
+            Equipment equip = this.itemData.item as Equipment;
+            switch (equip.EquipType)
+            {
+                case EquipmentType.Weapon:
+                    TypeIcon.sprite = weaponIcon;
+                    break;
+                case EquipmentType.Heart:
+                    TypeIcon.sprite = heartIcon;
+                    break;
+                case EquipmentType.Gear:
+                    TypeIcon.sprite = gearIcon;
+                    break;
+                default:
+                    Debug.LogError("장비 코드에 해당하지 않는 아이템...");
+                    break;
+            }
+        }
+        else if(item.Id == ItemDatabase.ID_GOLD_POT || item.Id == ItemDatabase.ID_UPGRADE_ITEM)
+        {
+            TypeIcon.sprite = consumIcon;
+        }
+        else
+        {
+            TypeIcon.sprite = null;
+        }
+    }
+
     public void setInit(ItemData itemdata)
     {
         this.itemData = itemdata;
         setItem(itemdata);
         SetRarity(itemdata.item.Rarity);
-
+        setTypeUI(itemdata.item);
         foreach (Transform child in transform)
         {
             // 만약 새 아이템이 추가되면, 해당 오브젝트들을 다시 활성화하고 업데이트할 것입니다.
