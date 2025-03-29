@@ -784,7 +784,7 @@ MonoBehaviour:
   moveSpeed: 2
   isMoving: 0
   start: {fileID: 0}
-  spawn_offset: {x: 0, y: -0.55, z: 0}
+  spawn_offset: {x: 0, y: -0.6, z: 0}
   isDetectedPlayer: 0
   isSpawned: 0
   isAlive: 0

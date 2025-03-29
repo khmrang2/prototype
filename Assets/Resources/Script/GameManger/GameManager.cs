@@ -29,7 +29,7 @@ struct buffState
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public ProjectileOnHit plAtkObj;    //플레이어가 공격 시 발사하는 투사체
+    
     public Transform playerTransform;  // 플레이어의 Transform
     public EnemyListManager enemyListManager;  // EnemyListManager 참조
     public GameObject clearPopup;       //게임 클리어시 등장하는 팝업
@@ -102,8 +102,6 @@ public class GameManager : MonoBehaviour
                     if (random_value < playerManger.playerState.Player_DoubleUpChance) player_double_attack_chance = true;
                     stateStarted = true;
                     isatkEnded = false;
-                    //공격 함수 호출
-                    plAtkObj.StartAttack();
                     Debug.Log("Player attacking...");
                 }
                 if (enemyAtkEnded() && playerManger.doneAtk())
@@ -222,7 +220,6 @@ public class GameManager : MonoBehaviour
             //playerAnimation.TriggerAttack(); // 애니메이션에서 키이벤트로 같이 처리.
             playerManger.attackAnim();
             player_double_attack_chance = false;  // 더블 어택 기회 소진
-            plAtkObj.StartAttack();  // 다시 발사
         }
         else
         {
