@@ -85,7 +85,7 @@ public class DataControl : MonoBehaviour
 
 
     //디버그용 텍스트
-    public TextMeshProUGUI DebugTxt;
+    //public TextMeshProUGUI DebugTxt;
 
 
 
@@ -155,7 +155,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false ;
             isSaveFail = true;
 
-            DebugTxt.text = "gpgs null";
+            //DebugTxt.text = "gpgs null";
         }
     }
 
@@ -171,7 +171,7 @@ public class DataControl : MonoBehaviour
         {
             //세이브 요청에 성공했다면
 
-            DebugTxt.text = "save success!";
+            //DebugTxt.text = "save success!";
             //로그 출력
 
             var update = new SavedGameMetadataUpdate.Builder().Build();
@@ -197,7 +197,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false;
             isSaveFail = true;
 
-            DebugTxt.text = "save request fail: " + status;
+            //DebugTxt.text = "save request fail: " + status;
         }
     }
 
@@ -209,7 +209,7 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             // 저장완료부분
-            DebugTxt.text = "Save End";
+            //DebugTxt.text = "Save End";
 
             //세이브 성공 여부 확인용 변수의 값을 참으로 변경
             //debug용으로 활성화한것
@@ -225,7 +225,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false;
             isSaveFail = true;
 
-            DebugTxt.text = "save request fail2";
+            //DebugTxt.text = "save request fail2";
         }
     }
 
@@ -298,7 +298,7 @@ public class DataControl : MonoBehaviour
             //gpgs load 실패
             isSaveSuccess = false ;
             isSaveFail = true;
-            DebugTxt.text = "gpgs for load fail";
+            //DebugTxt.text = "gpgs for load fail";
         }
     }
 
@@ -311,7 +311,7 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             //gpgs에 보낸 요청이 성공했다면
-            DebugTxt.text= "Load success";
+            //DebugTxt.text= "Load success";
 
             //gpgs로부터 바이트 형식으로 저장된 데이터를 받아오고 콜백 함수 OnSavedGameDataRead 실행
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
@@ -328,7 +328,7 @@ public class DataControl : MonoBehaviour
             Debug.Log("Load fail...");
             isSaveFail = true ;
             isSaveSuccess = false;
-            DebugTxt.text = "load request fail: " + status;
+           // DebugTxt.text = "load request fail: " + status;
         }
     }
 
@@ -341,7 +341,7 @@ public class DataControl : MonoBehaviour
         if (data == "")
         {
             //받아온 데이터가 공백이라면
-            DebugTxt.text = "no saved data, saving initial data";
+            //DebugTxt.text = "no saved data, saving initial data";
 
             //기존에 저장된 데이터가 없다는 뜻이고 이는 곧 플레이어가 완전 첫 실행이라는 뜻이므로 초기값 세팅
             SetInitialData();
@@ -352,7 +352,7 @@ public class DataControl : MonoBehaviour
         else
         {
             //받아온 데이터가 공백이 아니라면
-            DebugTxt.text = "Loading data";
+            //DebugTxt.text = "Loading data";
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
@@ -419,12 +419,12 @@ public class DataControl : MonoBehaviour
             //gpgs에 저장된 데이터 삭제
             saveGameClient.Delete(data);
 
-            DebugTxt.text = "Delete Complete";
+            //DebugTxt.text = "Delete Complete";
             //logText.text = "Delete complete";
         }
         else
         {
-            DebugTxt.text = "Delete fail";
+            //DebugTxt.text = "Delete fail";
             //logText.text = "Delete failed";
         }
     }
@@ -592,7 +592,7 @@ public class DataControl : MonoBehaviour
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData());
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData());
 
-        DebugTxt.text = "no saved data, saving initial data";
+        //DebugTxt.text = "no saved data, saving initial data";
     }
 
 
