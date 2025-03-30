@@ -36,6 +36,8 @@ public class tempScriptForDebug : MonoBehaviour
 
     private void Update()
     {
+        goldText.text = DataControl.LoadEncryptedDataFromPrefs("Gold");
+        upgradeStoneText.text = DataControl.LoadEncryptedDataFromPrefs("UpgradeStone");
         HpText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP");
         ATKText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_ATK");
         BcText.text = DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_BALLCOUNT");
