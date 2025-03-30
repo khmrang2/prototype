@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScreen.unity
     guid: 15084d859f8498344aa41e9c13aa65c0
   - enabled: 1
-    path: Assets/Scenes/PlayScreen.unity
+    path: Assets/Scenes/Stage1.unity
     guid: 150d8d97cd8af4149b2ea5698dc0cc8d
   - enabled: 1
     path: Assets/Scenes/BugScene.unity
