@@ -499,7 +499,6 @@ public class DataControl : MonoBehaviour
 
     public static void SaveEncryptedDataToPrefs(string keyName, string data)
     {
-        Debug.Log($" || 프렙스 : {keyName}을 프렙스에 저장.");
         using (Aes aesAlg = Aes.Create())
         {
             //저장된 키값과 초기화 벡터값을 받아옴
@@ -532,7 +531,6 @@ public class DataControl : MonoBehaviour
 
     public static string LoadEncryptedDataFromPrefs(string keyName)
     {
-        Debug.Log($" || 프렙스 : {keyName}을 프렙스에서 로드");
         //player prefs로부터 keyName값을 통해 암호화된 데이터를 encryptedString에 저장
         string encryptedString = PlayerPrefs.GetString(keyName);
 

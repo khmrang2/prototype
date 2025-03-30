@@ -1408,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.6377357
       objectReference: {fileID: 0}
+    - target: {fileID: 4395923616720268948, guid: 048c29155cfc39e469287a41f0a30278, type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5856560687042679831, guid: 048c29155cfc39e469287a41f0a30278, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -1641,7 +1645,7 @@ GameObject:
   - component: {fileID: 310291381}
   - component: {fileID: 310291379}
   m_Layer: 0
-  m_Name: EnemyTransform
+  m_Name: EnemySpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1661,7 +1665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: {fileID: 55506781}
   playerTransform: {fileID: 55506788}
-  enemySpawnTransform: {fileID: 310291381}
+  enemySpawnRectTransform: {fileID: 310291381}
   enemyStartTransform: {fileID: 17660048}
   enemies: []
   EnemyHpbarCanvas: {fileID: 100500995}
@@ -1669,21 +1673,25 @@ MonoBehaviour:
   maxEnemies: 5
   enemyDataList: {fileID: 11400000, guid: c43b4145c8276cc47925abf1eb644988, type: 2}
   gameManager: {fileID: 966862922}
---- !u!4 &310291381
-Transform:
+--- !u!224 &310291381
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310291378}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 4.99, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 856579240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.92, y: 0.28}
+  m_AnchorMax: {x: 0.92, y: 0.28}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1 &346632571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,12 +2708,14 @@ RectTransform:
   - {fileID: 1858931349}
   - {fileID: 1632714778}
   - {fileID: 2029641080}
+  - {fileID: 310291381}
+  - {fileID: 1681594386}
   m_Father: {fileID: 355832714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8}
-  m_AnchorMax: {x: 1, y: 0.955}
-  m_AnchoredPosition: {x: 0, y: 43}
-  m_SizeDelta: {x: 0, y: 86}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.000020980835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &856579242
 CanvasRenderer:
@@ -5002,6 +5012,41 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1681594385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681594386}
+  m_Layer: 5
+  m_Name: PlayerSpawnTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1681594386
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681594385}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 856579240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.09, y: 0.1}
+  m_AnchorMax: {x: 0.09, y: 0.1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1684826308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,15 +5931,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 17
-    m_Right: 17
-    m_Top: 17
-    m_Bottom: 17
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 162.90909, y: 162.90909}
-  m_Spacing: {x: 8.145454, y: 8.145454}
+  m_CellSize: {x: 0, y: 0}
+  m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!4 &1915197833 stripped
@@ -6014,6 +6059,10 @@ PrefabInstance:
       propertyPath: GameOverPopup
       value: 
       objectReference: {fileID: 1468730260}
+    - target: {fileID: 4963665569490436688, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: playerSpawnTransform
+      value: 
+      objectReference: {fileID: 1681594386}
     - target: {fileID: 5418545595248150146, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: looping
       value: 0
@@ -6096,11 +6145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.12
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.37
+      value: 4.34
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7876,7 +7925,6 @@ SceneRoots:
   - {fileID: 355832714}
   - {fileID: 731121117}
   - {fileID: 1954740822}
-  - {fileID: 310291381}
   - {fileID: 904451054}
   - {fileID: 1801148189}
   - {fileID: 1468730264}
