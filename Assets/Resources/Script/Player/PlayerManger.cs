@@ -25,6 +25,7 @@ public class PlayerManger : MonoBehaviour
     public bool isAlive = true;
     public bool gameOver = false;
     public float maxHP = 3;
+    public RectTransform playerSpawnTransform;
 
     [Header("Player Stat Script")]
     public PlayerState playerState;
@@ -47,6 +48,8 @@ public class PlayerManger : MonoBehaviour
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
         maxHP = playerStatus.PlayerHP;
+
+        this.gameObject.transform.position = playerSpawnTransform.position;
         //체력바 소환
         //hpBar = Instantiate(prefHP_Bar, canvas.transform);
         

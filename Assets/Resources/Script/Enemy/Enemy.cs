@@ -239,7 +239,11 @@ public class Enemy : MonoBehaviour
             hpb.SetActive(true);
             hpBarPos = hpb.GetComponent<RectTransform>();   //체력바 위치 이동을 위해 RectTransform을 받아옴
             hpBarSlider = hpb.GetComponent<Slider>();       //체력바 값 설정을 위해 slider 컴포넌트를 받아옴
-            hpBarPos.localScale = Vector3.one * (Screen.height / 1170.0f);  //화면 비율에 맞춰 체력바의 크기 조정
+            float minWidth = 480f;
+            float maxWidth = 1440f;
+            float t = Mathf.InverseLerp(minWidth, maxWidth, Screen.width);
+            float scaleValue = Mathf.Lerp(0.4f, 0.8f, t);
+            hpBarPos.localScale = Vector3.one * scaleValue;  //화면 비율에 맞춰 체력바의 크기 조정
         }
         else
         {
