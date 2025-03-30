@@ -1408,6 +1408,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.6377357
       objectReference: {fileID: 0}
+    - target: {fileID: 4395923616720268948, guid: 048c29155cfc39e469287a41f0a30278, type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5856560687042679831, guid: 048c29155cfc39e469287a41f0a30278, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -1641,7 +1645,7 @@ GameObject:
   - component: {fileID: 310291381}
   - component: {fileID: 310291379}
   m_Layer: 0
-  m_Name: EnemyTransform
+  m_Name: EnemySpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1681,10 +1685,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 355832714}
+  m_Father: {fileID: 856579240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.91400003, y: 0.85800004}
-  m_AnchorMax: {x: 0.91400003, y: 0.85800004}
+  m_AnchorMin: {x: 0.92, y: 0.28}
+  m_AnchorMax: {x: 0.92, y: 0.28}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
@@ -1920,8 +1924,6 @@ RectTransform:
   - {fileID: 856579240}
   - {fileID: 105931788}
   - {fileID: 100500996}
-  - {fileID: 310291381}
-  - {fileID: 1681594386}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2706,12 +2708,14 @@ RectTransform:
   - {fileID: 1858931349}
   - {fileID: 1632714778}
   - {fileID: 2029641080}
+  - {fileID: 310291381}
+  - {fileID: 1681594386}
   m_Father: {fileID: 355832714}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8}
-  m_AnchorMax: {x: 1, y: 0.955}
-  m_AnchoredPosition: {x: 0, y: 43}
-  m_SizeDelta: {x: 0, y: 86}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.000020980835}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &856579242
 CanvasRenderer:
@@ -5031,15 +5035,15 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681594385}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 355832714}
+  m_Father: {fileID: 856579240}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.1, y: 0.85800004}
-  m_AnchorMax: {x: 0.1, y: 0.85800004}
+  m_AnchorMin: {x: 0.09, y: 0.1}
+  m_AnchorMax: {x: 0.09, y: 0.1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6055,6 +6059,10 @@ PrefabInstance:
       propertyPath: GameOverPopup
       value: 
       objectReference: {fileID: 1468730260}
+    - target: {fileID: 4963665569490436688, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
+      propertyPath: playerSpawnTransform
+      value: 
+      objectReference: {fileID: 1681594386}
     - target: {fileID: 5418545595248150146, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: looping
       value: 0
@@ -6137,11 +6145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.12
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.37
+      value: 4.34
       objectReference: {fileID: 0}
     - target: {fileID: 7801728392606826325, guid: ed324f066f632b04abcdb137d7ef29ac, type: 3}
       propertyPath: m_LocalPosition.z
