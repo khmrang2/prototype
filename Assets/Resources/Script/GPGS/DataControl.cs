@@ -20,6 +20,7 @@ public class DataSettings    //저장될 데이터 클래스
     public int pinHp = 0;
     public int ballCount = 0;
     public int upgradeNum = 0;
+    public int stgNum = 0;
 
     public List<ItemDataForSave> inventoryItems = new List<ItemDataForSave>();
     public List<ItemDataForSave> equipItems = new List<ItemDataForSave>();
@@ -53,6 +54,8 @@ public class DataControl : MonoBehaviour
     private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   // 플레이어 케릭터의 공 수 키 이름
     private static string PlayerPINHPName = "PlayerCharacter_PINHP";           // 플레이어 케릭터의 핀 체력 키 이름
 
+    private static string PlayingStageNum = "PlayingStageNum";                 //현재 플레이 중인 스테이지 번호
+
     private static string GoldName = "Gold";                                   // 재화 중 골드의 키 이름
     private static string UpgradeStoneName = "UpgradeStone";                       // 재화 중 강화석 키 이름
 
@@ -64,19 +67,21 @@ public class DataControl : MonoBehaviour
 
 
     // 초기 데이터에서 입력될 값들
-    private static int PlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
-    private static int PlayerATK = 5;                                          // 플레이어 케릭터의 초기 공격력값
-    private static int PlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
-    private static int PlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
+    private static int InitPlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
+    private static int InitPlayerATK = 5;                                          // 플레이어 케릭터의 초기 공격력값
+    private static int InitPlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
+    private static int InitPlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int Gold = 0;                                               // 초기 골드 양
-    private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
+    private static int InitPlayingstgNum = 0;                                       //초기 스테이지 번호
+
+    private static int InitGold = 0;                                               // 초기 골드 양
+    private static int InitUpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
     private static InventoryData Inventory = new InventoryData();
     private static InventoryData Equip = new InventoryData();
 
 
-    private static int UpgradableNum = 0;                                      // 업그레이드 횟수
+    private static int InitUpgradableNum = 0;                                      // 업그레이드 횟수
 
 
     //세이브 성공 여부 확인용 변수 bool
@@ -457,6 +462,7 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerPINHPName, settings.pinHp.ToString());
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
+        SaveEncryptedDataToPrefs(PlayingStageNum, settings.stgNum.ToString());
         // 리스트를 Wrapper로 감싸서 저장
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData { items = settings.inventoryItems });
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData { items = settings.equipItems });
@@ -477,6 +483,7 @@ public class DataControl : MonoBehaviour
         settings.ballCount = int.Parse(LoadEncryptedDataFromPrefs(PlayerBALLCOUNTName));
         settings.pinHp = int.Parse(LoadEncryptedDataFromPrefs(PlayerPINHPName));
         settings.upgradeNum = int.Parse(LoadEncryptedDataFromPrefs(UpgradableNumName));
+        settings.stgNum = int.Parse(LoadEncryptedDataFromPrefs(PlayingStageNum));
 
         settings.inventoryItems = LoadItemDataFromPrefs(PlayerInventoryName).items;
         settings.equipItems = LoadItemDataFromPrefs(PlayerEquipName).items;
@@ -577,17 +584,18 @@ public class DataControl : MonoBehaviour
     public void SetInitialData()
     {
         //플레이어 케릭터의 초기 스탯 세팅
-        SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
-        SaveEncryptedDataToPrefs(PlayerATKName, PlayerATK.ToString());
-        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, PlayerBALLCOUNT.ToString());
-        SaveEncryptedDataToPrefs(PlayerPINHPName, PlayerPINHP.ToString());
+        SaveEncryptedDataToPrefs(PlayerHPName, InitPlayerHP.ToString());
+        SaveEncryptedDataToPrefs(PlayerATKName, InitPlayerATK.ToString());
+        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, InitPlayerBALLCOUNT.ToString());
+        SaveEncryptedDataToPrefs(PlayerPINHPName, InitPlayerPINHP.ToString());
+        SaveEncryptedDataToPrefs(PlayingStageNum, InitPlayingstgNum.ToString());
 
         //초기 골드값 세팅
-        SaveEncryptedDataToPrefs(GoldName, Gold.ToString());
-        SaveEncryptedDataToPrefs(UpgradeStoneName, UpgradeStone.ToString());
+        SaveEncryptedDataToPrefs(GoldName, InitGold.ToString());
+        SaveEncryptedDataToPrefs(UpgradeStoneName, InitUpgradeStone.ToString());
 
         //업그레이드 해금 정보의 초기값 세팅
-        SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
+        SaveEncryptedDataToPrefs(UpgradableNumName, InitUpgradableNum.ToString());
         //아이템, 인벤토리 초기값 세팅
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData());
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData());
