@@ -711,7 +711,7 @@ Transform:
   m_GameObject: {fileID: 4637325958623815296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.164, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.06, y: 0.06, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -784,7 +784,7 @@ MonoBehaviour:
   moveSpeed: 2
   isMoving: 0
   start: {fileID: 0}
-  spawn_offset: {x: 0, y: -0.55, z: 0}
+  spawn_offset: {x: 0, y: -0.6, z: 0}
   isDetectedPlayer: 0
   isSpawned: 0
   isAlive: 0
