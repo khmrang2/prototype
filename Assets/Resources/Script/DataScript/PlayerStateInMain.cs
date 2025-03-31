@@ -84,6 +84,9 @@ public class PlayerStatusInMain : MonoBehaviour
         });
     }
 
+
+
+
     /// <summary>
     /// 외부호출용
     /// amount의 골드를 얻는 메소드.
