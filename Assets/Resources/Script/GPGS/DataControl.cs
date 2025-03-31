@@ -143,7 +143,7 @@ public class DataControl : MonoBehaviour
         isSaveFail = false;
 
         //로딩화면 활성화
-        loadingScreen.SetActive(true);
+        //loadingScreen.SetActive(true);
 
         OpenSaveGame();
     }
@@ -159,6 +159,9 @@ public class DataControl : MonoBehaviour
         if (PlayGamesPlatform.Instance != null)
         {
             Debug.Log($"-----프렙스에서 GPGS로의 저장 시작.-----");
+            //로딩화면 활성화
+            loadingScreen.SetActive(true);
+
             //player prefs로부터 저장할 데이터 받아오기
             GetDataSettings();
 
