@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio; // ✅ 이게 꼭 있어야 AudioMixer를 씁니다
+using UnityEngine.Audio; // 이게 꼭 있어야 AudioMixer를 씁니다
 
 public class volume_setting : MonoBehaviour
 {
@@ -19,10 +19,12 @@ public class volume_setting : MonoBehaviour
     public void setbgm(float volume)
     {
         audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+        DataControl.SaveEncryptedDataToPrefs("bgm_volume", (Mathf.Log10(volume) * 20).ToString());
     }
 
     public void seteffect(float volume)
     {
         audioMixer.SetFloat("Effect", Mathf.Log10(volume) * 20);
+        DataControl.SaveEncryptedDataToPrefs("effect_volume", (Mathf.Log10(volume) * 20).ToString());
     }
 }
