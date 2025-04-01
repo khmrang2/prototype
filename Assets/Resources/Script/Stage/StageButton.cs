@@ -6,21 +6,16 @@ using UnityEngine.SceneManagement;
 public class StageButton : MonoBehaviour
 {
     public ScrollSnap stageScroll;      // 현재 선택된 스테이지를 가져오기 위해 가져올 친구
-    public DataControl datactr;         // 내가 어디 스테이지 이상을 못가게 할건지
 
     private int targetStage;            // 현재 플레이할 스테이지 번호
     public void StartStage()
     {
-        int selectedIndex = stageScroll.getCurStage();
+        targetStage = stageScroll.getCurStageUI();
+        //Debug.Log($"{targetStage}를 현재 보고 있고, {int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayingStageNum"))}가 있음.");
 
-        // 현재 선택한 스테이지가 잠금 상태면 무시
-        if (selectedIndex > DataController.Instance.currentStageIndex)
-        {
-            Debug.Log("이 스테이지는 아직 잠겼습니다!");
-            return;
-        }
-
-        string sceneName = $"Stage_{selectedIndex + 1}";
-        SceneManager.LoadScene(sceneName);
+        string sceneName = $"Stage{targetStage}";
+        //Debug.Log($"✅ 스테이지 {targetStage} 진입 시도 → 씬 이름: {sceneName}");
+        Debug.Log($"시작 버튼 눌림 : 씬 전환 : {sceneName}을 불러옴");
+        SceneTransitionManager.CaptureScreenAndLoad(sceneName);
     }
 }
