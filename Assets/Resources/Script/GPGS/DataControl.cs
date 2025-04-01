@@ -89,9 +89,26 @@ public class DataControl : MonoBehaviour
     private bool isSaveFail;
 
 
+    //서버 저장 중 등장할 로딩화면
+    public GameObject loadingScreen;
+
+
     //디버그용 텍스트
     //public TextMeshProUGUI DebugTxt;
 
+
+
+
+    #region 초기화
+
+    private void Start()
+    {
+        //로딩화면 비활성화
+        loadingScreen.SetActive(false);
+    }
+
+
+    #endregion
 
 
     #region gpgs 클라우드 데이터 저장
@@ -125,6 +142,9 @@ public class DataControl : MonoBehaviour
         isSaveSuccess = false;
         isSaveFail = false;
 
+        //로딩화면 활성화
+        //loadingScreen.SetActive(true);
+
         OpenSaveGame();
     }
 
@@ -139,6 +159,9 @@ public class DataControl : MonoBehaviour
         if (PlayGamesPlatform.Instance != null)
         {
             Debug.Log($"-----프렙스에서 GPGS로의 저장 시작.-----");
+            //로딩화면 활성화
+            loadingScreen.SetActive(true);
+
             //player prefs로부터 저장할 데이터 받아오기
             GetDataSettings();
 
@@ -221,6 +244,8 @@ public class DataControl : MonoBehaviour
             Debug.Log($"-----프렙스에서 GPGS로의 저장 종료.-----");
             isSaveSuccess = true;
 
+            //로딩화면 끄기
+            loadingScreen.SetActive(false);
         }
         else
         {

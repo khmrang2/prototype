@@ -62,6 +62,26 @@ public class PlayerStatusInMain : MonoBehaviour
         // gpgs에 저장이 안되었기 때문에
         onComplete?.Invoke(true);
 
+    }
+
+
+
+    public void PayGoldAndSave(int amount, Action<bool> onComplete)
+    {
+        // 예시상황 146골드의 상황에서 만약 amount로 100골드가 들어온다면.
+        // 프렙스에서 146골드를 가져옴.
+        int currentGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+        Debug.Log($"{currentGold} 1. 골드를 로드해옴.");
+
+        int afterGold = currentGold - amount;
+        // 1. 바로 일단 사용한 돈 저장. 46골드가 저장.
+        DataControl.SaveEncryptedDataToPrefs("Gold", afterGold.ToString());
+        UpdateGoldUI(afterGold);
+        // 2. 바로 성공 처리해서 UI 반응 허용
+        // 어차피 골드랑 그런거는
+        // gpgs에 저장이 안되었기 때문에
+        onComplete?.Invoke(true);
+
         // 3. 백그라운드로 gpgs에 프렙스의 모든 정보를 저장함
         // gpgs에는 46골드가 저장됩니다.
         datactr.SaveDataWithCallback(success =>
@@ -83,6 +103,8 @@ public class PlayerStatusInMain : MonoBehaviour
             }
         });
     }
+
+
 
     /// <summary>
     /// 외부호출용
@@ -134,6 +156,25 @@ public class PlayerStatusInMain : MonoBehaviour
         // 어차피 골드랑 그런거는
         // gpgs에 저장이 안되었기 때문에
         onComplete?.Invoke(true);
+        
+    }
+
+    public void payUpgradeStoneAndSave(int amount, Action<bool> onComplete)
+    {
+        // 예시상황 146골드의 상황에서 만약 amount로 100골드가 들어온다면.
+        // 프렙스에서 146골드를 가져옴.
+        int currentUpgradeStone = int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone"));
+        int afterUpgradeStone = currentUpgradeStone - amount;
+
+        Debug.Log($"{currentUpgradeStone} 1. 업그레이드 돌을 로드해옴.");
+
+        // 1. 바로 일단 사용한 돈 저장. 46골드가 저장.
+        DataControl.SaveEncryptedDataToPrefs("UpgradeStone", afterUpgradeStone.ToString());
+        UpdateStoneUI(afterUpgradeStone);
+        // 2. 바로 성공 처리해서 UI 반응 허용
+        // 어차피 골드랑 그런거는
+        // gpgs에 저장이 안되었기 때문에
+        onComplete?.Invoke(true);
 
         // 3. 백그라운드로 gpgs에 프렙스의 모든 정보를 저장함
         // gpgs에는 46골드가 저장됩니다.
@@ -156,6 +197,10 @@ public class PlayerStatusInMain : MonoBehaviour
             }
         });
     }
+
+
+
+
     /// <summary>
     /// 외부호출용
     /// amount의 강화석을 "얻는" 메소드
