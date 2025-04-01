@@ -63,24 +63,6 @@ public class EquipmentUIManager : MonoBehaviour
 
         gacha(count);
         var rewards = item_id_list;
-        equipmentPanel.gameObject.SetActive(true);
-
-        if (isAds)
-        {
-            Inventory.Instance.AddOrUpdateItems(item_id_list, true);
-            reward_Sound.Play();
-            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
-            return;
-        }
-
-        if (count == 1){
-            reward_Sound.Play();
-            equipmentPanel.ShowSingleEquipment(show_item_id_list);
-        }
-        else{
-            reward_Sound.Play();
-            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
-        }
 
         PlayerStatusInMain.Instance.TryBuyRewardPack(goldCost, rewards, earn_gold, earn_upgrade_stone,  success =>
         {
@@ -88,7 +70,35 @@ public class EquipmentUIManager : MonoBehaviour
             {
                 Debug.LogError("❌ 뽑기 실패! 상태 복구됨.");
             }
+            else
+            {
+                //저장이 완료된 이후에 결과화면 출력
+
+                equipmentPanel.gameObject.SetActive(true);
+
+                if (isAds)
+                {
+                    Inventory.Instance.AddOrUpdateItems(item_id_list, true);
+                    reward_Sound.Play();
+                    equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+                    return;
+                }
+
+                if (count == 1)
+                {
+                    reward_Sound.Play();
+                    equipmentPanel.ShowSingleEquipment(show_item_id_list);
+                }
+                else
+                {
+                    reward_Sound.Play();
+                    equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+                }
+
+            }
         });
+
+        
     }
 
     public void closePanel()
