@@ -72,7 +72,7 @@ public class DataControl : MonoBehaviour
     private static int InitPlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
     private static int InitPlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int InitPlayingstgNum = 0;                                       //초기 스테이지 번호
+    private static int InitPlayingstgNum = 1;                                       //초기 스테이지 번호
 
     private static int InitGold = 0;                                               // 초기 골드 양
     private static int InitUpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
