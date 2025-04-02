@@ -307,6 +307,55 @@ public class PlayerStatusInMain : MonoBehaviour
     {
         return int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone")) > stoneCost;
     }
+
+    /// <summary>
+    /// 클리어 시에 골드 지급, 스테이지 idx+를 하기 위한 함수
+    /// GiveRewardOnCLear에 맞게 하드코딩되었음.
+    /// 
+    /// </summary>
+    /// <param name="clearedStageIndex"></param>
+    /// <param name="clearGold"></param>
+    /// <param name="onComplete"></param>
+    public void CompleteStage(int clearedStageIndex, int clearGold, Action<bool> onComplete = null)
+    {
+        int currentStage = GetCurStage();
+
+        if (clearedStageIndex >= currentStage)
+        {
+            int nextStage = clearedStageIndex + 1;
+            DataControl.SaveEncryptedDataToPrefs("PlayingStageNum", nextStage.ToString());
+
+            // 보상 지급
+            int curGold = int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold"));
+            int afterGold = curGold + clearGold;
+            DataControl.SaveEncryptedDataToPrefs("Gold", afterGold.ToString());
+
+            UpdateGoldUI(afterGold);
+
+            // 서버 저장
+            datactr.SaveDataWithCallback(success =>
+            {
+                if (!success)
+                {
+                    DataControl.SaveEncryptedDataToPrefs("Gold", curGold.ToString()); // 롤백
+                    UpdateGoldUI(curGold);
+                    SaveandLoaderror.ShowErrorScreen();
+                    AppControl.IsRestoreCompleted = true;
+                }
+
+                onComplete?.Invoke(success);
+            });
+        }
+        else
+        {
+            onComplete?.Invoke(true);
+        }
+    }
+
+    public int GetCurStage()
+    {
+        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayingStageNum"));
+    }
     // player stat : migration with tae yeon.
 
     // gold

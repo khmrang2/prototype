@@ -72,7 +72,7 @@ public class DataControl : MonoBehaviour
     private static int InitPlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
     private static int InitPlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int InitPlayingstgNum = 0;                                       //초기 스테이지 번호
+    private static int InitPlayingstgNum = 1;                                       //초기 스테이지 번호
 
     private static int InitGold = 0;                                               // 초기 골드 양
     private static int InitUpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
@@ -478,8 +478,6 @@ public class DataControl : MonoBehaviour
     //gpgs로부터 받아온 data settings 데이터로 player prefs의 값들을 변경 
     private void SetDataSettings()
     {
-        Debug.Log("--------------------------------------------");
-        Debug.Log($"| gpgs에서 데이터를 불러오기 전 : {settings}");
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
         SaveEncryptedDataToPrefs(UpgradeStoneName, settings.upgradeStone.ToString());
         SaveEncryptedDataToPrefs(PlayerHPName, settings.hp.ToString());
@@ -491,8 +489,6 @@ public class DataControl : MonoBehaviour
         // 리스트를 Wrapper로 감싸서 저장
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData { items = settings.inventoryItems });
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData { items = settings.equipItems });
-        Debug.Log($"| gpgs에서 데이터를 불러온 후 : {settings}");
-        Debug.Log("--------------------------------------------");
     }
 
 
@@ -500,7 +496,6 @@ public class DataControl : MonoBehaviour
     //player prefs의 값들을 gpgs에 저장하기 위해 data settings로 가져오기
     private void GetDataSettings()
     {
-        Debug.Log($"| 프렙스 값을 gpgs에 저장하기 위해 프렙스 값을 읽습니다. {settings}");
         settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
         settings.upgradeStone = int.Parse(LoadEncryptedDataFromPrefs(UpgradeStoneName));
         settings.hp = int.Parse(LoadEncryptedDataFromPrefs(PlayerHPName));
@@ -639,14 +634,12 @@ public class DataControl : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         SaveEncryptedDataToPrefs(keyName, json);
-        Debug.Log($"  ㄴ 프렙스에 저장할 json 내용 : {json}");
     }
 
     // 아이템 data를 string -> json으로 변경.
     public static InventoryData LoadItemDataFromPrefs(string keyName)
     {
         string json = LoadEncryptedDataFromPrefs(keyName);
-        Debug.Log($"  ㄴ 프렙스에서 {keyName} 을 로드함.] : {json}");
         if (string.IsNullOrEmpty(json))
         {
             //Debug.LogError("�ʱ� ����.");
