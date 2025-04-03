@@ -12,7 +12,18 @@ public class volume_setting : MonoBehaviour
 
     private void Awake()
     {
-        bgmSlider.onValueChanged.AddListener(setbgm);
+        if (DataControl.LoadEncryptedDataFromPrefs("bgm_volume") != null)
+        {
+            float bgmDb = float.Parse(DataControl.LoadEncryptedDataFromPrefs("bgm_volume"));
+            bgmSlider.value = Mathf.Pow(10f, bgmDb / 20f);
+        }
+
+        if (DataControl.LoadEncryptedDataFromPrefs("effect_volume") != null)
+        {
+            float effectDb = float.Parse(DataControl.LoadEncryptedDataFromPrefs("effect_volume"));
+            effectSlider.value = Mathf.Pow(10f, effectDb / 20f);
+        }
+		bgmSlider.onValueChanged.AddListener(setbgm);
         effectSlider.onValueChanged.AddListener(seteffect);
     }
 
