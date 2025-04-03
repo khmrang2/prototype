@@ -148,6 +148,7 @@ public class AdManager : MonoBehaviour
     private void GiveItem(int amount)
     {
         EquipmentUIManager equipmentUiManager = FindObjectOfType<EquipmentUIManager>();
-        equipmentUiManager.PerformDrawReward(0, 10, true);
+        Debug.Log($"이거 뭐야 {amount}");
+        equipmentUiManager.PerformDrawReward(0, amount, true);
     }
 }

@@ -1,16 +1,16 @@
 [
   {
     "id": 1,
-    "itemName": "흔한 고철 무기",
-    "tooltip": "어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "Item_Weapon",
+    "itemName": "흔한 나무 검",
+    "tooltip": "검이라고 부르기도 애매한 나무 검이다.\n사실상 몽둥이다.",
+    "imgpath": "Item_woodsword",
     "rarity": 0,
     "type": "equipment",
-    "category" : "Weapon",
+    "category": "Weapon",
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 10
+        "statValue": 2
       },
       {
         "statName": "NumOfBall",
@@ -20,16 +20,16 @@
   },
   {
     "id": 2,
-    "itemName": "조잡한 총",
-    "tooltip": "일단은 돌아가는 조잡한 총이다.",
-    "imgpath": "Item_Gun",
+    "itemName": "페인트 건",
+    "tooltip": "비살상으로 데미지를 줄 수 있는 총이다.",
+    "imgpath": "Item_paintgun",
     "rarity": 0,
     "type": "equipment",
     "category": "Weapon",
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 10
+        "statValue": 2
       },
       {
         "statName": "NumOfBall",
@@ -41,7 +41,7 @@
     "id": 3,
     "itemName": "흔한 기계 심장",
     "tooltip": "어디에서나 구할 수 있는 흔한 기계 심장이다.",
-    "imgpath": "Item_Heart",
+    "imgpath": "Item_Heart1",
     "rarity": 0,
     "type": "equipment",
     "category": "Heart",
@@ -60,7 +60,7 @@
     "id": 4,
     "itemName": "감자 레몬 서버",
     "tooltip": "어떻게 서버가 돌아가는지 모르겠다.",
-    "imgpath": "Item_Server",
+    "imgpath": "Item_HotPotato",
     "rarity": 0,
     "type": "equipment",
     "category": "Heart",
@@ -86,11 +86,11 @@
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 10
+        "statValue": 0
       },
       {
         "statName": "NumOfBall",
-        "statValue": 0
+        "statValue": 1
       }
     ]
   },
@@ -105,7 +105,26 @@
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 5
+        "statValue": 0
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "itemName": "뾰족한 고철 무기",
+    "tooltip": "공격에 사용되는 무기이다.",
+    "imgpath": "Item_sword",
+    "rarity": 1,
+    "type": "equipment",
+    "category": "Weapon",
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": 4
       },
       {
         "statName": "NumOfBall",
@@ -114,40 +133,21 @@
     ]
   },
   {
-    "id": 7,
-    "itemName": "뾰족한 고철 무기",
-    "tooltip": "공격에 사용되는 무기이다.",
-    "imgpath": "Item_Weapon",
-    "rarity": 1,
-    "type": "equipment",
-    "category": "Weapon",
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": 30
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 1
-      }
-    ]
-  },
-  {
     "id": 8,
-    "itemName": "고철 양날 단검",
+    "itemName": "고철 도끼",
     "tooltip": "날카로워 전선을 잘 자를 수 있다.",
-    "imgpath": "Item_Weapon",
+    "imgpath": "Item_hatchet",
     "rarity": 1,
     "type": "equipment",
     "category": "Weapon",
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 30
+        "statValue": 4
       },
       {
         "statName": "NumOfBall",
-        "statValue": 1
+        "statValue": 0
       }
     ]
   },
@@ -155,7 +155,7 @@
     "id": 9,
     "itemName": "구리 기계 심장",
     "tooltip": "체력을 증가시키는 기계 심장.",
-    "imgpath": "Item_Heart",
+    "imgpath": "Item_Heart1",
     "rarity": 1,
     "type": "equipment",
     "category": "Heart",
@@ -166,7 +166,7 @@
       },
       {
         "statName": "Attack",
-        "statValue": 15
+        "statValue": 0
       }
     ]
   },
@@ -174,7 +174,7 @@
     "id": 10,
     "itemName": "증기 엔진",
     "tooltip": "증기를 이용해 동력을 얻는 엔진이다.",
-    "imgpath": "Item_Engine",
+    "imgpath": "Item_Heart1",
     "rarity": 1,
     "type": "equipment",
     "category": "Heart",
@@ -185,14 +185,14 @@
       },
       {
         "statName": "Attack",
-        "statValue": 15
+        "statValue": 0
       }
     ]
   },
   {
     "id": 11,
     "itemName": "주운 기어 박스",
-    "tooltip": "급한대로 주워 쓰는 기어 박스이다.",
+    "tooltip": "급한대로 주워 쓰는 기어 박스이다.\n동봉된 기어봉으로 기어를 조절한다.",
     "imgpath": "Item_GearBox",
     "rarity": 1,
     "type": "equipment",
@@ -200,7 +200,7 @@
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 15
+        "statValue": 1
       },
       {
         "statName": "NumOfBall",
@@ -212,14 +212,14 @@
     "id": 12,
     "itemName": "1:8기어",
     "tooltip": "비율이 1:8로 8배 빠른 회전을 해주는 기어",
-    "imgpath": "Item_Gear",
+    "imgpath": "Item_1_8gear",
     "rarity": 1,
     "type": "equipment",
     "category": "Gear",
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 15
+        "statValue": 1
       },
       {
         "statName": "NumOfBall",
@@ -238,11 +238,11 @@
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 90
+        "statValue": 6
       },
       {
         "statName": "NumOfBall",
-        "statValue": 2
+        "statValue": 0
       }
     ]
   },
@@ -250,26 +250,26 @@
     "id": 14,
     "itemName": "전기 충격기",
     "tooltip": "전기를 방출하는 충격기.",
-    "imgpath": "Item_Weapon",
+    "imgpath": "Item_electrigun",
     "rarity": 2,
     "type": "equipment",
     "category": "Weapon",
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 90
+        "statValue": 6
       },
       {
         "statName": "NumOfBall",
-        "statValue": 2
+        "statValue": 0
       }
     ]
   },
   {
     "id": 15,
-    "itemName": "불안한 노심",
-    "tooltip": "핵분열로 막대한 증기를 얻는 터빈이다. 다만 불안하다.",
-    "imgpath": "Item_Engine",
+    "itemName": "과학실 모터",
+    "tooltip": "학교 과학실에서 가져온 모터이다.",
+    "imgpath": "Item_motorengine",
     "rarity": 2,
     "type": "equipment",
     "category": "Heart",
@@ -280,14 +280,14 @@
       },
       {
         "statName": "Attack",
-        "statValue": 45
+        "statValue": 1
       }
     ]
   },
   {
     "id": 16,
     "itemName": "뜨거운 감자",
-    "tooltip": "뜨겁다. 김이 모락모락하다.",
+    "tooltip": "뜨겁다.\n김이 모락모락하다...",
     "imgpath": "Item_HotPotato",
     "rarity": 2,
     "type": "equipment",
@@ -299,7 +299,7 @@
       },
       {
         "statName": "Attack",
-        "statValue": 45
+        "statValue": 1
       }
     ]
   },
@@ -314,11 +314,11 @@
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 30
+        "statValue": 2
       },
       {
         "statName": "NumOfBall",
-        "statValue": 2
+        "statValue": 1
       }
     ]
   },
@@ -326,14 +326,147 @@
     "id": 18,
     "itemName": "차동 기어",
     "tooltip": "차에서 떼어낸 기어이다. 서로 다른 회전을 조절할 수 있어 더욱 정밀한 조절이 가능하다.",
-    "imgpath": "Item_Gear",
+    "imgpath": "Item_cargear",
     "rarity": 2,
     "type": "equipment",
     "category": "Gear",
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 30
+        "statValue": 2
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "itemName": "고압 세척기",
+    "tooltip": "물과 강한 압력은 적이 당황하고 부식시키기에 알맞은 무기이다.",
+    "imgpath": "Item_pressuregun",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Weapon",
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": 8
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "itemName": "WD-40",
+    "tooltip": "WD를 뿌려 적이 제어에 혼란을 만들어낸 사이 공격한다.",
+    "imgpath": "Item_wd40",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Weapon",
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": 8
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "itemName": "4기통 엔진",
+    "tooltip": "승합차에서 떼어온 엔진이다. 잘 작동한다.",
+    "imgpath": "Item_carengine",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Heart",
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": 180
+      },
+      {
+        "statName": "Attack",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "itemName": "2중 엔진",
+    "tooltip": "더욱 안전하게 설계된 엔진이다. 2중으로 많은 증기를 만들어 낸다.",
+    "imgpath": "Item_Engine",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Heart",
+    "stats": [
+      {
+        "statName": "Health",
+        "statValue": 180
+      },
+      {
+        "statName": "Attack",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "itemName": "형상 합금 기어",
+    "tooltip": "적절한 온도에서는 반영구적으로 형태를 유지하는 기어이다.",
+    "imgpath": "Item_restoregear",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Gear",
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": 3
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "itemName": "기어 세컨드",
+    "tooltip": "무언가 밀짚모자를 써야할 기어이다.",
+    "imgpath": "Item_gearsecond",
+    "rarity": 3,
+    "type": "equipment",
+    "category": "Gear",
+    "stats": [
+      {
+        "statName": "PinHealth",
+        "statValue": 3
+      },
+      {
+        "statName": "NumOfBall",
+        "statValue": 1
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "itemName": "라이트세이버",
+    "tooltip": "왕위를 계승 중 입니다.",
+    "imgpath": "Item_lightsaber",
+    "rarity": 4,
+    "type": "equipment",
+    "category": "Weapon",
+    "stats": [
+      {
+        "statName": "Attack",
+        "statValue": 10
       },
       {
         "statName": "NumOfBall",
@@ -342,173 +475,40 @@
     ]
   },
   {
-    "id": 19,
-    "itemName": "고압 세척기",
-    "tooltip": "물과 강한 압력은 적이 당황하고 부식시키기에 알맞은 무기이다.",
-    "imgpath": "Item_Gun",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Weapon",
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": 270
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 3
-      }
-    ]
-  },
-  {
-    "id": 20,
-    "itemName": "WD-40",
-    "tooltip": "WD를 뿌려 적이 제어에 혼란을 만들어낸 사이 공격한다.",
-    "imgpath": "Item_WD40",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Weapon",
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": 270
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 3
-      }
-    ]
-  },
-  {
-    "id": 21,
-    "itemName": "v8 엔진",
-    "tooltip": "엔진.",
-    "imgpath": "Item_Engine",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Heart",
-    "stats": [
-      {
-        "statName": "Health",
-        "statValue": 270
-      },
-      {
-        "statName": "Attack",
-        "statValue": 135
-      }
-    ]
-  },
-  {
-    "id": 22,
-    "itemName": "2중 노심",
-    "tooltip": "더욱 안전하게 설계된 노심이다. 2중으로 많은 증기를 만들어 낸다.",
-    "imgpath": "Item_Engine",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Heart",
-    "stats": [
-      {
-        "statName": "Health",
-        "statValue": 270
-      },
-      {
-        "statName": "Attack",
-        "statValue": 135
-      }
-    ]
-  },
-  {
-    "id": 23,
-    "itemName": "형상 합금 기어",
-    "tooltip": "적절한 온도에서는 반영구적으로 형태를 유지하는 기어이다.",
-    "imgpath": "Item_Gear",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Gear",
-    "stats": [
-      {
-        "statName": "PinHealth",
-        "statValue": 50
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 3
-      }
-    ]
-  },
-  {
-    "id": 24,
-    "itemName": "기어 세컨드",
-    "tooltip": "무언가 밀짚모자를 써야할 기어이다.",
-    "imgpath": "Item_Gear",
-    "rarity": 3,
-    "type": "equipment",
-    "category": "Gear",
-    "stats": [
-      {
-        "statName": "PinHealth",
-        "statValue": 50
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 3
-      }
-    ]
-  },
-  {
-    "id": 25,
-    "itemName": "라이트세이버",
-    "tooltip": "왕위를 계승 중 입니다.",
-    "imgpath": "Item_Weapon",
-    "rarity": 4,
-    "type": "equipment",
-    "category": "Weapon",
-    "stats": [
-      {
-        "statName": "Attack",
-        "statValue": 810
-      },
-      {
-        "statName": "NumOfBall",
-        "statValue": 4
-      }
-    ]
-  },
-  {
     "id": 26,
     "itemName": "화염방사기",
     "tooltip": "강력한 화염을 내뿜는 무기.",
-    "imgpath": "Item_Gun",
+    "imgpath": "Item_pressuregun",
     "rarity": 4,
     "type": "equipment",
     "category": "Weapon",
     "stats": [
       {
         "statName": "Attack",
-        "statValue": 810
+        "statValue": 10
       },
       {
         "statName": "NumOfBall",
-        "statValue": 4
+        "statValue": 2
       }
     ]
   },
   {
     "id": 27,
-    "itemName": "V16 엔진",
-    "tooltip": "미쳐 날뛰기 시작한 엔진이다.",
-    "imgpath": "Item_Engine",
+    "itemName": "심장 엔진",
+    "tooltip": "생체 엔진으로 심장과 엔진을 결합해 놀라운 출력을 만든다.",
+    "imgpath": "Item_heartengine",
     "rarity": 4,
     "type": "equipment",
     "category": "Heart",
     "stats": [
       {
         "statName": "Health",
-        "statValue": 810
+        "statValue": 270
       },
       {
         "statName": "Attack",
-        "statValue": 405
+        "statValue": 2
       }
     ]
   },
@@ -516,56 +516,56 @@
     "id": 28,
     "itemName": "아크 원자로",
     "tooltip": "당신에게 따뜻한 마음이 있었다는 증거.",
-    "imgpath": "Item_Heart",
+    "imgpath": "Item_arcreactor",
     "rarity": 4,
     "type": "equipment",
     "category": "Heart",
     "stats": [
       {
         "statName": "Health",
-        "statValue": 810
+        "statValue": 270
       },
       {
         "statName": "Attack",
-        "statValue": 405
+        "statValue": 2
       }
     ]
   },
   {
     "id": 29,
-    "itemName": "눈 깜빡 기어",
-    "tooltip": "로그 나선형 기어로 버티기만 한다면, 광속마저도 넘을 수 있다.",
-    "imgpath": "Item_Gear",
+    "itemName": "인터넷 기어",
+    "tooltip": "기어가 모든 시스템과 연결되어,\n작동,수리를 자동으로 탐색해 수행한다.",
+    "imgpath": "Item_intergear",
     "rarity": 4,
     "type": "equipment",
     "category": "Gear",
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 100
+        "statValue": 4
       },
       {
         "statName": "NumOfBall",
-        "statValue": 4
+        "statValue": 1
       }
     ]
   },
   {
     "id": 30,
     "itemName": "100단 구골 기어",
-    "tooltip": "100개의 톱니가 연결되어 있는 톱니. 1개의 톱니가 돌기 위해선 1년이 필요하고, 다음 톱니의 1칸을 맞물리게 한다. 그래서 구골이라는 단위가 만들어졌다.",
-    "imgpath": "Item_Gear",
+    "tooltip": "100개의 톱니가 연결되어 있는 톱니.\n1개의 톱니가 돌기 위해선 1년이 필요하고, 다음 톱니의 1칸을 맞물리게 한다.\n그래서 구골이라는 단위가 만들어졌다.",
+    "imgpath": "Item_googolgear",
     "rarity": 4,
     "type": "equipment",
     "category": "Gear",
     "stats": [
       {
         "statName": "PinHealth",
-        "statValue": 100
+        "statValue": 4
       },
       {
         "statName": "NumOfBall",
-        "statValue": 4
+        "statValue": 1
       }
     ]
   },
