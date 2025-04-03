@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -165,14 +164,14 @@ public class EquipmentUIManager : MonoBehaviour
             else if(40 < roll && roll <= 70){
                 // 30% 업그레이드 아이템. 수량 결정.
                 id = ItemDatabase.RANGE_COSUMABLE;
-                amount = Random.Range(1, 2);
+                amount = UnityEngine.Random.Range(1, 2);
                 earn_upgrade_stone += amount;
             }
             else
             {
                 // 30% 골드. 수량 결정.
                 id = ItemDatabase.RANGE_GOLD_POT;
-                amount = Random.Range(30, 110);
+                amount = UnityEngine.Random.Range(30, 110);
                 earn_gold += amount;
             }
             show_item_id_list.Add(new ItemDataForSave(id, amount));
