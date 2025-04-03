@@ -46,9 +46,9 @@ public class tempScriptForDebug : MonoBehaviour
 
     public void AddGold()
     {
-        int tempGold = int.Parse(goldText.text) + 100;
+        int tempGold = int.Parse(goldText.text) + 1000;
         //DataControl.SaveEncryptedDataToPrefs("Gold", tempGold.ToString());
-        PlayerStatusInMain.Instance.getGold(100);
+        PlayerStatusInMain.Instance.getGold(1000);
         goldText.text = tempGold.ToString(); 
     }
 

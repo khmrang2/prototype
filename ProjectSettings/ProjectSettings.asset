@@ -140,10 +140,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.0.5
-  preloadedAssets:
-  - {fileID: 2175565609538547037, guid: a1b045de0fbc1104db00f6179374c241, type: 2}
-  - {fileID: 11400000, guid: 5965efff6d9f5f444a318a5079ccf89a, type: 2}
-  - {fileID: 11400000, guid: 00bcf3800fddbf8489659d3f0831b3e7, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -270,7 +267,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{inproject}: user.keystore'
+  AndroidKeystoreName: C:/Users/etget/Desktop/user.keystore
   AndroidKeyaliasName: "\uCF58\uD150\uCE20\uAE4E\uB294\uD558\uB0E5\uC774\uAC1C\uBC1C\uC790"
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0

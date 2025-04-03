@@ -5,16 +5,34 @@ using UnityEngine;
 public class BackButtonHandler : MonoBehaviour
 {
     public GameObject exitPanel;
+    private AudioSource AudioSource;
 
-    private void OnEnable()
+    private void Awake()
     {
-        BackManager.Instance.OnBackButtonPressed += HandleBackButton;
+        exitPanel.SetActive(false);
+        AudioSource = GetComponent<AudioSource>();
     }
 
-    private void OnDisable()
+
+    private void Update()
     {
-        BackManager.Instance.OnBackButtonPressed -= HandleBackButton;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandleBackButton();
+        }
     }
+
+
+
+    //private void OnEnable()
+    //{
+    //    BackManager.Instance.OnBackButtonPressed += HandleBackButton;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    BackManager.Instance.OnBackButtonPressed -= HandleBackButton;
+    //}
 
     private void HandleBackButton()
     {
@@ -31,6 +49,7 @@ public class BackButtonHandler : MonoBehaviour
 
     public void CancelExit()
     {
+        AudioSource.Play();
         exitPanel.SetActive(false);
     }
 }

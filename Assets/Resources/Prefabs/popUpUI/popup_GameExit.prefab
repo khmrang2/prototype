@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uCDE8\uC18C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
-  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
+  m_sharedMaterial: {fileID: 4195557479366796105, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -234,10 +234,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC885\uB8CC\\n\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  m_text: "\uAC8C\uC784\uC744 \uC885\uB8CC\\n\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
-  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
+  m_sharedMaterial: {fileID: 4195557479366796105, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.35
+  m_fontSize: 103.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -450,7 +450,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6432633455175819180}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BackButtonHandler, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
@@ -618,7 +618,6 @@ GameObject:
   - component: {fileID: 2336872531773568600}
   - component: {fileID: 9007405813078224967}
   - component: {fileID: 5586206981697554361}
-  - component: {fileID: 6432633455175819180}
   m_Layer: 5
   m_Name: popup_GameExit
   m_TagString: Untagged
@@ -687,19 +686,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6432633455175819180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7040596104527416655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca44bcdab77d3674f99e8944cda0858d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exitPanel: {fileID: 7040596104527416655}
 --- !u!1 &7167942760124400051
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +908,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6432633455175819180}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BackButtonHandler, Assembly-CSharp
         m_MethodName: CancelExit
         m_Mode: 1
@@ -1109,8 +1095,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD655\uC778"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
-  m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
+  m_sharedMaterial: {fileID: 4195557479366796105, guid: a57ead22e58f5da438057030b1f2cd70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1134,7 +1120,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

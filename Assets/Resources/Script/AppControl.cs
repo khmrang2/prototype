@@ -7,7 +7,8 @@ public class AppControl : MonoBehaviour
 
     public void QuitApp()
     {
-        StartCoroutine(DelayAndExit());
+        Application.Quit();
+        //StartCoroutine(DelayAndExit());
     }
 
     IEnumerator DelayAndExit()
