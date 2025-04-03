@@ -5,11 +5,12 @@ using UnityEngine;
 public class BackButtonHandler : MonoBehaviour
 {
     public GameObject exitPanel;
-
+    private AudioSource AudioSource;
 
     private void Awake()
     {
         exitPanel.SetActive(false);
+        AudioSource = GetComponent<AudioSource>();
     }
 
 
@@ -48,6 +49,7 @@ public class BackButtonHandler : MonoBehaviour
 
     public void CancelExit()
     {
+        AudioSource.Play();
         exitPanel.SetActive(false);
     }
 }
