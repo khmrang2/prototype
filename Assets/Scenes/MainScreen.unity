@@ -4452,9 +4452,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1684353637}
   - {fileID: 1043693700}
   - {fileID: 1936277348}
-  - {fileID: 1684353637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6632,7 +6632,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: + 100 G
+  m_text: + 1000 G
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
   m_sharedMaterial: {fileID: 2545288461764179030, guid: 5723083a0ab745246af3ec83f87b7b0c, type: 2}
@@ -6659,7 +6659,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.25
+  m_fontSize: 30.05
   m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16381,6 +16381,10 @@ PrefabInstance:
     - target: {fileID: 6228271976876295639, guid: 0a663fe8590872141896c09425c12556, type: 3}
       propertyPath: m_Name
       value: popup_GameExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6228271976876295639, guid: 0a663fe8590872141896c09425c12556, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4756187688558497526, guid: 0a663fe8590872141896c09425c12556, type: 3}
@@ -27830,7 +27834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 835558519583162478, guid: ba542cb208dd91347a62b136f9907550, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3789110982681353470, guid: ba542cb208dd91347a62b136f9907550, type: 3}
       propertyPath: m_Color.a
