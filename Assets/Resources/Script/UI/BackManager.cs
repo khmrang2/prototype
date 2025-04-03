@@ -6,7 +6,7 @@ public class BackManager : MonoBehaviour
 {
     public static BackManager Instance { get; private set; }
 
-    public event Action OnBackButtonPressed;
+    //public event Action OnBackButtonPressed;
     [SerializeField] private AudioMixer audioMixer;
 
     private void Awake()
@@ -22,11 +22,11 @@ public class BackManager : MonoBehaviour
         if(DataControl.LoadEncryptedDataFromPrefs("effect_volume") != null) audioMixer.SetFloat("Effect", float.Parse(DataControl.LoadEncryptedDataFromPrefs("bgm_volume")));
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnBackButtonPressed?.Invoke();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Escape))
+    //    {
+    //        OnBackButtonPressed?.Invoke();
+    //    }
+    //}
 }

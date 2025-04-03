@@ -6,15 +6,32 @@ public class BackButtonHandler : MonoBehaviour
 {
     public GameObject exitPanel;
 
-    private void OnEnable()
+
+    private void Awake()
     {
-        BackManager.Instance.OnBackButtonPressed += HandleBackButton;
+        exitPanel.SetActive(false);
     }
 
-    private void OnDisable()
+
+    private void Update()
     {
-        BackManager.Instance.OnBackButtonPressed -= HandleBackButton;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            HandleBackButton();
+        }
     }
+
+
+
+    //private void OnEnable()
+    //{
+    //    BackManager.Instance.OnBackButtonPressed += HandleBackButton;
+    //}
+
+    //private void OnDisable()
+    //{
+    //    BackManager.Instance.OnBackButtonPressed -= HandleBackButton;
+    //}
 
     private void HandleBackButton()
     {
