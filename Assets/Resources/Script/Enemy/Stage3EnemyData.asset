@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: Stage3EnemyData
   m_EditorClassIdentifier: 
   EnemyList:
-  - hp: 500
-    attack: 8
+  - hp: 1000
+    attack: 150
     defense: 0
     enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
-  - hp: 500
-    attack: 12
+  - hp: 1200
+    attack: 200
     defense: 0
     enemyType: {fileID: 4637325958623815296, guid: 13387e836e127a4448df70a964c46b33, type: 3}
-  - hp: 500
-    attack: 5
+  - hp: 2000
+    attack: 250
     defense: 0
     enemyType: {fileID: 6158343357710918895, guid: 04ac9228f6f23a640876c08f973af72e, type: 3}
-  - hp: 500
-    attack: 8
+  - hp: 1000
+    attack: 150
     defense: 0
     enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
-  - hp: 500
-    attack: 8
+  - hp: 1000
+    attack: 150
     defense: 0
     enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
   EnemySpawnCountPerTurn: 0100000001000000000000000100000002000000
