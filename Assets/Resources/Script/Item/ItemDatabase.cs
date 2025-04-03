@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
 using System;
+using System.Linq;
 
 /// <summary>
 /// 레어리티를 표현하기 위한.
@@ -138,7 +139,7 @@ public class ItemDatabase : MonoBehaviour
     /// 랜덤 확률로 아이템을 반환하는 아이템 반환자.
     /// </summary>
     /// <returns>Item 랜덤 아이템</returns>
-    public Item GetRandomItem()
+    public int GetRandomItemId()
     {
         // 레어리티 확률 분배 (합이 100이 되도록 설정)
         int[] rarityProbabilities = { 50, 30, 15, 4, 1 }; // Common, Uncommon, Rare, Epic, Legendary
@@ -174,17 +175,20 @@ public class ItemDatabase : MonoBehaviour
         }
 
         // 선택된 레어리티에 속하는 아이템만 필터링
-        List<Item> filteredItems = database.FindAll(item => item.Rarity == selectedRarity);
+        List<int> filteredIds = database
+            .Where(item => item.Rarity == selectedRarity)
+            .Select(item => item.Id)
+            .ToList();
 
-        if (filteredItems.Count > 0)
+        if (filteredIds.Count > 0)
         {
             // 해당 레어리티의 아이템 중 랜덤으로 하나 반환
-            return filteredItems[UnityEngine.Random.Range(0, filteredItems.Count)];
+            return filteredIds[UnityEngine.Random.Range(0, filteredIds.Count)];
         }
 
         // 만약 해당 레어리티에 아이템이 없으면 기본값 반환 (예외 처리)
         Debug.LogWarning($"해당 레어리티({selectedRarity})의 아이템이 없습니다. 기본값을 반환합니다.");
-        return database.Count > 0 ? database[0] : null;
+        return database.Count > 0 ? database[0].Id : -1;
     }
 
     /// <summary>

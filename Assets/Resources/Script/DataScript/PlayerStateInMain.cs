@@ -300,12 +300,12 @@ public class PlayerStatusInMain : MonoBehaviour
 
     public bool hasEnoughGold(int goldCost)
     {
-        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold")) > goldCost;
+        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("Gold")) >= goldCost;
     }
 
     public bool hasEnoughStone(int stoneCost)
     {
-        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone")) > stoneCost;
+        return int.Parse(DataControl.LoadEncryptedDataFromPrefs("UpgradeStone")) >= stoneCost;
     }
 
     /// <summary>

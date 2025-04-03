@@ -158,22 +158,22 @@ public class EquipmentUIManager : MonoBehaviour
             if (roll < 40)
             {
                 // 40% 장비 수량 결정.
-                id = ItemDatabase.Instance.GetRandomItemId(ItemDatabase.RANGE_EQUIPMENT);
-                amount = UnityEngine.Random.Range(1, 3);
+                id = ItemDatabase.Instance.GetRandomItemId();
+                amount = 1;
                 item_id_list.Add(new ItemDataForSave(id, amount));
             }
             else if(40 < roll && roll <= 70){
                 // 30% 업그레이드 아이템. 수량 결정.
                 id = ItemDatabase.RANGE_COSUMABLE;
-                amount = UnityEngine.Random.Range(1, 5);
+                amount = Random.Range(1, 2);
                 earn_upgrade_stone += amount;
             }
             else
             {
                 // 30% 골드. 수량 결정.
                 id = ItemDatabase.RANGE_GOLD_POT;
-                amount = UnityEngine.Random.Range(50, 110);
-                earn_gold = amount;
+                amount = Random.Range(30, 110);
+                earn_gold += amount;
             }
             show_item_id_list.Add(new ItemDataForSave(id, amount));
         }
