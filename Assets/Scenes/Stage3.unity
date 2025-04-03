@@ -1667,7 +1667,7 @@ MonoBehaviour:
   EnemyHpbarCanvas: {fileID: 100500995}
   turn: 0
   maxEnemies: 5
-  enemyDataList: {fileID: 11400000, guid: b4773d0c6f111c8468db33b1187b157e, type: 2}
+  enemyDataList: {fileID: 11400000, guid: c43b4145c8276cc47925abf1eb644988, type: 2}
   gameManager: {fileID: 966862922}
 --- !u!4 &310291381
 Transform:
@@ -2007,7 +2007,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120
+  m_fontSize: 36.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2895,7 +2895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &975211740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3221,7 +3221,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
+  m_fontSize: 35.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4384,7 +4384,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 20.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5886,15 +5886,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 3
+    m_Right: 3
+    m_Top: 3
+    m_Bottom: 3
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 0, y: 0}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 29.640404, y: 29.640404}
+  m_Spacing: {x: 1.4820203, y: 1.4820203}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!4 &1915197833 stripped
