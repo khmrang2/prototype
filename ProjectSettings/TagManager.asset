@@ -9,6 +9,8 @@ TagManager:
   - Pin
   - Ball
   - PlayerAttack
+  - ErrorScreen
+  - PlayArea
   layers:
   - Default
   - TransparentFX

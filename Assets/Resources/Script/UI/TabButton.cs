@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class TabButton : MonoBehaviour
 {
-    [SerializeField] private RectTransform icon;            // ¾ÆÀÌÄÜ ÀÌ¹ÌÁö
+    [SerializeField] private RectTransform icon;            // ì•„ì´ì½˜ ì´ë¯¸ì§€
 
-    [SerializeField] private Image background;              // ±âº» ¹è°æ ÀÌ¹ÌÁö
-    [SerializeField] private Sprite active_background;       // È°¼ºÈ­ ¹è°æ ÀÌ¹ÌÁö
-    [SerializeField] private Sprite deactive_background;     // ºñÈ°¼ºÈ­ ¹è°æ ÀÌ¹ÌÁö
+    [SerializeField] private Image background;              // ê¸°ë³¸ ë°°ê²½ ì´ë¯¸ì§€
+    [SerializeField] private Sprite active_background;       // í™œì„±í™” ë°°ê²½ ì´ë¯¸ì§€
+    [SerializeField] private Sprite deactive_background;     // ë¹„í™œì„±í™” ë°°ê²½ ì´ë¯¸ì§€
 
-    [SerializeField] private Vector3 activePositionOffset;  // È°¼ºÈ­ À§Ä¡ ÀÌµ¿·®.
-    private Vector3 originalPosition;                       // ÃÊ±â ¾ÆÀÌÄÜ À§Ä¡
+    [SerializeField] private Vector3 activePositionOffset;  // í™œì„±í™” ìœ„ì¹˜ ì´ë™ëŸ‰.
+    private Vector3 originalPosition;                       // ì´ˆê¸° ì•„ì´ì½˜ ìœ„ì¹˜
 
     private void Start()
     {
-        // ÃÊ±â À§Ä¡ ÀúÀå
+        // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
         if (icon != null) {
             //Debug.Log("original is not set. : local position is : " + icon.localPosition);
             originalPosition = icon.anchoredPosition;
@@ -24,30 +24,30 @@ public class TabButton : MonoBehaviour
     }
 
     // Activate() :
-    // ¹öÆ°ÀÌ È°¼ºÈ­ µÇ¾úÀ» ¶§
-    // 1. -> local position Ã£¾Æ°¡±â.
-    // 2. ÅÇ ¹è°æ »ö»ó -> activated°¡±â.
+    // ë²„íŠ¼ì´ í™œì„±í™” ë˜ì—ˆì„ ë•Œ
+    // 1. -> local position ì°¾ì•„ê°€ê¸°.
+    // 2. íƒ­ ë°°ê²½ ìƒ‰ìƒ -> activatedê°€ê¸°.
     public void Activate()
     {
         if (background != null)
         {
-            // »ö»ó º¯°æ
+            // ìƒ‰ìƒ ë³€ê²½
             background.sprite = active_background;
-            // icon À§Ä¡ º¯°æ
+            // icon ìœ„ì¹˜ ë³€ê²½
             icon.anchoredPosition = originalPosition + activePositionOffset;
         }
     }
 
-    // ºñÈ°¼ºÈ­ µÇ¾úÀ»¶§
-    // 1. -> local position Ã£¾Æ°¡±â.
-    // 2. ÅÇ ¹è°æ »ö»ó -> deactivated°¡±â.
+    // ë¹„í™œì„±í™” ë˜ì—ˆì„ë•Œ
+    // 1. -> local position ì°¾ì•„ê°€ê¸°.
+    // 2. íƒ­ ë°°ê²½ ìƒ‰ìƒ -> deactivatedê°€ê¸°.
     public void Deactivate()
     {
         if (background != null)
         {
-            // »ö»ó º¯°æ
+            // ìƒ‰ìƒ ë³€ê²½
             background.sprite = deactive_background;
-            // icon À§Ä¡ º¯°æ
+            // icon ìœ„ì¹˜ ë³€ê²½
             icon.anchoredPosition = originalPosition;
         }
     }
