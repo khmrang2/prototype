@@ -20,6 +20,7 @@ public class DataSettings    //저장될 데이터 클래스
     public int pinHp = 0;
     public int ballCount = 0;
     public int upgradeNum = 0;
+    public int stgNum = 0;
 
     public List<ItemDataForSave> inventoryItems = new List<ItemDataForSave>();
     public List<ItemDataForSave> equipItems = new List<ItemDataForSave>();
@@ -53,6 +54,8 @@ public class DataControl : MonoBehaviour
     private static string PlayerBALLCOUNTName = "PlayerCharacter_BALLCOUNT";   // 플레이어 케릭터의 공 수 키 이름
     private static string PlayerPINHPName = "PlayerCharacter_PINHP";           // 플레이어 케릭터의 핀 체력 키 이름
 
+    private static string PlayingStageNum = "PlayingStageNum";                 //현재 플레이 중인 스테이지 번호
+
     private static string GoldName = "Gold";                                   // 재화 중 골드의 키 이름
     private static string UpgradeStoneName = "UpgradeStone";                       // 재화 중 강화석 키 이름
 
@@ -64,19 +67,21 @@ public class DataControl : MonoBehaviour
 
 
     // 초기 데이터에서 입력될 값들
-    private static int PlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
-    private static int PlayerATK = 5;                                          // 플레이어 케릭터의 초기 공격력값
-    private static int PlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
-    private static int PlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
+    private static int InitPlayerHP = 100;                                         // 플레이어 케릭터의 초기 체력값
+    private static int InitPlayerATK = 5;                                          // 플레이어 케릭터의 초기 공격력값
+    private static int InitPlayerBALLCOUNT = 3;                                    // 플레이어 케릭터의 초기 공 수 값
+    private static int InitPlayerPINHP = 3;                                        // 플레이어 케릭터의 초기 핀 체력값
 
-    private static int Gold = 0;                                               // 초기 골드 양
-    private static int UpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
+    private static int InitPlayingstgNum = 1;                                       //초기 스테이지 번호
+
+    private static int InitGold = 0;                                               // 초기 골드 양
+    private static int InitUpgradeStone = 0;                                       // 초기 업그레이드 스톤 양
 
     private static InventoryData Inventory = new InventoryData();
     private static InventoryData Equip = new InventoryData();
 
 
-    private static int UpgradableNum = 0;                                      // 업그레이드 횟수
+    private static int InitUpgradableNum = 0;                                      // 업그레이드 횟수
 
 
     //세이브 성공 여부 확인용 변수 bool
@@ -84,9 +89,26 @@ public class DataControl : MonoBehaviour
     private bool isSaveFail;
 
 
-    //디버그용 텍스트
-    public TextMeshProUGUI DebugTxt;
+    //서버 저장 중 등장할 로딩화면
+    public GameObject loadingScreen;
 
+
+    //디버그용 텍스트
+    //public TextMeshProUGUI DebugTxt;
+
+
+
+
+    #region 초기화
+
+    private void Start()
+    {
+        //로딩화면 비활성화
+        loadingScreen.SetActive(false);
+    }
+
+
+    #endregion
 
 
     #region gpgs 클라우드 데이터 저장
@@ -120,6 +142,9 @@ public class DataControl : MonoBehaviour
         isSaveSuccess = false;
         isSaveFail = false;
 
+        //로딩화면 활성화
+        //loadingScreen.SetActive(true);
+
         OpenSaveGame();
     }
 
@@ -134,6 +159,9 @@ public class DataControl : MonoBehaviour
         if (PlayGamesPlatform.Instance != null)
         {
             Debug.Log($"-----프렙스에서 GPGS로의 저장 시작.-----");
+            //로딩화면 활성화
+            loadingScreen.SetActive(true);
+
             //player prefs로부터 저장할 데이터 받아오기
             GetDataSettings();
 
@@ -155,7 +183,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false ;
             isSaveFail = true;
 
-            DebugTxt.text = "gpgs null";
+            //DebugTxt.text = "gpgs null";
         }
     }
 
@@ -171,7 +199,7 @@ public class DataControl : MonoBehaviour
         {
             //세이브 요청에 성공했다면
 
-            DebugTxt.text = "save success!";
+            //DebugTxt.text = "save success!";
             //로그 출력
 
             var update = new SavedGameMetadataUpdate.Builder().Build();
@@ -197,7 +225,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false;
             isSaveFail = true;
 
-            DebugTxt.text = "save request fail: " + status;
+            //DebugTxt.text = "save request fail: " + status;
         }
     }
 
@@ -209,13 +237,15 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             // 저장완료부분
-            DebugTxt.text = "Save End";
+            //DebugTxt.text = "Save End";
 
             //세이브 성공 여부 확인용 변수의 값을 참으로 변경
             //debug용으로 활성화한것
             Debug.Log($"-----프렙스에서 GPGS로의 저장 종료.-----");
             isSaveSuccess = true;
 
+            //로딩화면 끄기
+            loadingScreen.SetActive(false);
         }
         else
         {
@@ -225,7 +255,7 @@ public class DataControl : MonoBehaviour
             isSaveSuccess = false;
             isSaveFail = true;
 
-            DebugTxt.text = "save request fail2";
+            //DebugTxt.text = "save request fail2";
         }
     }
 
@@ -298,7 +328,7 @@ public class DataControl : MonoBehaviour
             //gpgs load 실패
             isSaveSuccess = false ;
             isSaveFail = true;
-            DebugTxt.text = "gpgs for load fail";
+            //DebugTxt.text = "gpgs for load fail";
         }
     }
 
@@ -311,7 +341,7 @@ public class DataControl : MonoBehaviour
         if (status == SavedGameRequestStatus.Success)
         {
             //gpgs에 보낸 요청이 성공했다면
-            DebugTxt.text= "Load success";
+            //DebugTxt.text= "Load success";
 
             //gpgs로부터 바이트 형식으로 저장된 데이터를 받아오고 콜백 함수 OnSavedGameDataRead 실행
             savedGameClient.ReadBinaryData(data, OnSavedGameDataRead);
@@ -328,7 +358,7 @@ public class DataControl : MonoBehaviour
             Debug.Log("Load fail...");
             isSaveFail = true ;
             isSaveSuccess = false;
-            DebugTxt.text = "load request fail: " + status;
+           // DebugTxt.text = "load request fail: " + status;
         }
     }
 
@@ -341,7 +371,7 @@ public class DataControl : MonoBehaviour
         if (data == "")
         {
             //받아온 데이터가 공백이라면
-            DebugTxt.text = "no saved data, saving initial data";
+            //DebugTxt.text = "no saved data, saving initial data";
 
             //기존에 저장된 데이터가 없다는 뜻이고 이는 곧 플레이어가 완전 첫 실행이라는 뜻이므로 초기값 세팅
             SetInitialData();
@@ -352,7 +382,7 @@ public class DataControl : MonoBehaviour
         else
         {
             //받아온 데이터가 공백이 아니라면
-            DebugTxt.text = "Loading data";
+            //DebugTxt.text = "Loading data";
 
             //JSON
             settings = JsonUtility.FromJson<DataSettings>(data);
@@ -419,12 +449,12 @@ public class DataControl : MonoBehaviour
             //gpgs에 저장된 데이터 삭제
             saveGameClient.Delete(data);
 
-            DebugTxt.text = "Delete Complete";
+            //DebugTxt.text = "Delete Complete";
             //logText.text = "Delete complete";
         }
         else
         {
-            DebugTxt.text = "Delete fail";
+            //DebugTxt.text = "Delete fail";
             //logText.text = "Delete failed";
         }
     }
@@ -448,8 +478,6 @@ public class DataControl : MonoBehaviour
     //gpgs로부터 받아온 data settings 데이터로 player prefs의 값들을 변경 
     private void SetDataSettings()
     {
-        Debug.Log("--------------------------------------------");
-        Debug.Log($"| gpgs에서 데이터를 불러오기 전 : {settings}");
         SaveEncryptedDataToPrefs(GoldName, settings.gold.ToString());
         SaveEncryptedDataToPrefs(UpgradeStoneName, settings.upgradeStone.ToString());
         SaveEncryptedDataToPrefs(PlayerHPName, settings.hp.ToString());
@@ -457,11 +485,10 @@ public class DataControl : MonoBehaviour
         SaveEncryptedDataToPrefs(PlayerPINHPName, settings.pinHp.ToString());
         SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, settings.ballCount.ToString());
         SaveEncryptedDataToPrefs(UpgradableNumName,settings.upgradeNum.ToString());
+        SaveEncryptedDataToPrefs(PlayingStageNum, settings.stgNum.ToString());
         // 리스트를 Wrapper로 감싸서 저장
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData { items = settings.inventoryItems });
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData { items = settings.equipItems });
-        Debug.Log($"| gpgs에서 데이터를 불러온 후 : {settings}");
-        Debug.Log("--------------------------------------------");
     }
 
 
@@ -469,7 +496,6 @@ public class DataControl : MonoBehaviour
     //player prefs의 값들을 gpgs에 저장하기 위해 data settings로 가져오기
     private void GetDataSettings()
     {
-        Debug.Log($"| 프렙스 값을 gpgs에 저장하기 위해 프렙스 값을 읽습니다. {settings}");
         settings.gold = int.Parse(LoadEncryptedDataFromPrefs(GoldName));
         settings.upgradeStone = int.Parse(LoadEncryptedDataFromPrefs(UpgradeStoneName));
         settings.hp = int.Parse(LoadEncryptedDataFromPrefs(PlayerHPName));
@@ -477,6 +503,7 @@ public class DataControl : MonoBehaviour
         settings.ballCount = int.Parse(LoadEncryptedDataFromPrefs(PlayerBALLCOUNTName));
         settings.pinHp = int.Parse(LoadEncryptedDataFromPrefs(PlayerPINHPName));
         settings.upgradeNum = int.Parse(LoadEncryptedDataFromPrefs(UpgradableNumName));
+        settings.stgNum = int.Parse(LoadEncryptedDataFromPrefs(PlayingStageNum));
 
         settings.inventoryItems = LoadItemDataFromPrefs(PlayerInventoryName).items;
         settings.equipItems = LoadItemDataFromPrefs(PlayerEquipName).items;
@@ -492,7 +519,6 @@ public class DataControl : MonoBehaviour
 
     public static void SaveEncryptedDataToPrefs(string keyName, string data)
     {
-        Debug.Log($" || 프렙스 : {keyName}을 프렙스에 저장.");
         using (Aes aesAlg = Aes.Create())
         {
             //저장된 키값과 초기화 벡터값을 받아옴
@@ -525,7 +551,6 @@ public class DataControl : MonoBehaviour
 
     public static string LoadEncryptedDataFromPrefs(string keyName)
     {
-        Debug.Log($" || 프렙스 : {keyName}을 프렙스에서 로드");
         //player prefs로부터 keyName값을 통해 암호화된 데이터를 encryptedString에 저장
         string encryptedString = PlayerPrefs.GetString(keyName);
 
@@ -577,22 +602,23 @@ public class DataControl : MonoBehaviour
     public void SetInitialData()
     {
         //플레이어 케릭터의 초기 스탯 세팅
-        SaveEncryptedDataToPrefs(PlayerHPName, PlayerHP.ToString());
-        SaveEncryptedDataToPrefs(PlayerATKName, PlayerATK.ToString());
-        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, PlayerBALLCOUNT.ToString());
-        SaveEncryptedDataToPrefs(PlayerPINHPName, PlayerPINHP.ToString());
+        SaveEncryptedDataToPrefs(PlayerHPName, InitPlayerHP.ToString());
+        SaveEncryptedDataToPrefs(PlayerATKName, InitPlayerATK.ToString());
+        SaveEncryptedDataToPrefs(PlayerBALLCOUNTName, InitPlayerBALLCOUNT.ToString());
+        SaveEncryptedDataToPrefs(PlayerPINHPName, InitPlayerPINHP.ToString());
+        SaveEncryptedDataToPrefs(PlayingStageNum, InitPlayingstgNum.ToString());
 
         //초기 골드값 세팅
-        SaveEncryptedDataToPrefs(GoldName, Gold.ToString());
-        SaveEncryptedDataToPrefs(UpgradeStoneName, UpgradeStone.ToString());
+        SaveEncryptedDataToPrefs(GoldName, InitGold.ToString());
+        SaveEncryptedDataToPrefs(UpgradeStoneName, InitUpgradeStone.ToString());
 
         //업그레이드 해금 정보의 초기값 세팅
-        SaveEncryptedDataToPrefs(UpgradableNumName, UpgradableNum.ToString());
+        SaveEncryptedDataToPrefs(UpgradableNumName, InitUpgradableNum.ToString());
         //아이템, 인벤토리 초기값 세팅
         SaveItemDataToPrefs(PlayerInventoryName, new InventoryData());
         SaveItemDataToPrefs(PlayerEquipName, new InventoryData());
 
-        DebugTxt.text = "no saved data, saving initial data";
+        //DebugTxt.text = "no saved data, saving initial data";
     }
 
 
@@ -608,14 +634,12 @@ public class DataControl : MonoBehaviour
         string json = JsonUtility.ToJson(data);
 
         SaveEncryptedDataToPrefs(keyName, json);
-        Debug.Log($"  ㄴ 프렙스에 저장할 json 내용 : {json}");
     }
 
     // 아이템 data를 string -> json으로 변경.
     public static InventoryData LoadItemDataFromPrefs(string keyName)
     {
         string json = LoadEncryptedDataFromPrefs(keyName);
-        Debug.Log($"  ㄴ 프렙스에서 {keyName} 을 로드함.] : {json}");
         if (string.IsNullOrEmpty(json))
         {
             //Debug.LogError("�ʱ� ����.");

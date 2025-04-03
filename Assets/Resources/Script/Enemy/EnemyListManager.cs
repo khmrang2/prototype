@@ -10,7 +10,7 @@ public class EnemyListManager : MonoBehaviour
     // 적 프리팹을 담을 변수 (Unity 에디터에서 할당)
     //public GameObject enemyPrefab;
     public Transform playerTransform; //몬스터가 스폰 처리 시 이동 될 위치
-    public Transform enemySpawnTransform;
+    public RectTransform enemySpawnRectTransform;
     public Transform enemyStartTransform;
     public List<Enemy> enemies = new List<Enemy>();
     public GameObject EnemyHpbarCanvas;
@@ -47,7 +47,7 @@ public class EnemyListManager : MonoBehaviour
             GameObject enemyObject = Instantiate(enemyDataList.EnemyList[i].enemyType, enemyStartTransform.position, Quaternion.identity);
             Enemy enemy = enemyObject.GetComponent<Enemy>();
             enemies.Add(enemy);
-            enemy.start = enemySpawnTransform;
+            enemy.start = enemySpawnRectTransform;
             EnemyStatus enemyStatus = enemyObject.GetComponent<EnemyStatus>();
             //생성된 각 적들에게 스크립터블 오브젝트를 참조하여 각자의 스탯 부여
             enemyStatus.SetEnemyStat((int)(1.0-playerState.Enemy_Health) * enemyDataList.EnemyList[i].hp, (int)(1.0 - playerState.Enemy_Attack) * enemyDataList.EnemyList[i].attack, enemyDataList.EnemyList[i].defense);
@@ -146,7 +146,7 @@ public class EnemyListManager : MonoBehaviour
 
             for (int i = spawnedCount; i < spawnedCount + willSpawnCnt; i++)
             {
-                enemies[i].transform.position = enemySpawnTransform.position + enemies[i].spawn_offset;
+                enemies[i].transform.position = enemySpawnRectTransform.position + enemies[i].spawn_offset;
                 enemies[i].isSpawned = true;
                 gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }

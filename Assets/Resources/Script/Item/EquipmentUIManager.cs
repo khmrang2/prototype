@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using System;
 using System.Collections.Generic;
 using TMPro;
+
 
 public class EquipmentUIManager : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class EquipmentUIManager : MonoBehaviour
     public Button draw_1_rewardButton; // 단일 뽑기 버튼
     public Button close_Button; // 닫기 버튼 (Inspector에서 연결)
     public AudioSource reward_Sound;
+
+	public TMP_Text _500_gold_ad_text;
+	public TMP_Text _1000_gold_ad_text;
+	public TMP_Text _2000_gold_ad_text;
+	public TMP_Text _10_equipments_ad_text;
 
     private List<ItemDataForSave> item_id_list = null;
     private List<ItemDataForSave> show_item_id_list = null;
@@ -51,6 +58,14 @@ public class EquipmentUIManager : MonoBehaviour
             close_Button.onClick.AddListener(() => closePanel());
         }
     }
+
+	public void Update(){
+		_500_gold_ad_text.text = CanClaimReward("gold_500") ? "0/1" : "1/1";
+    	_1000_gold_ad_text.text = CanClaimReward("gold_1000") ? "0/1" : "1/1";
+    	_2000_gold_ad_text.text = CanClaimReward("gold_2000") ? "0/1" : "1/1";
+    	_10_equipments_ad_text.text = CanClaimReward("item_10") ? "0/1" : "1/1";
+	}
+
     public void PerformDrawReward(int goldCost, int count, bool isAds)
     {
         if (PlayerStatusInMain.Instance == null) return;
@@ -63,24 +78,6 @@ public class EquipmentUIManager : MonoBehaviour
 
         gacha(count);
         var rewards = item_id_list;
-        equipmentPanel.gameObject.SetActive(true);
-
-        if (isAds)
-        {
-            Inventory.Instance.AddOrUpdateItems(item_id_list, true);
-            reward_Sound.Play();
-            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
-            return;
-        }
-
-        if (count == 1){
-            reward_Sound.Play();
-            equipmentPanel.ShowSingleEquipment(show_item_id_list);
-        }
-        else{
-            reward_Sound.Play();
-            equipmentPanel.ShowMultipleEquipments(show_item_id_list);
-        }
 
         PlayerStatusInMain.Instance.TryBuyRewardPack(goldCost, rewards, earn_gold, earn_upgrade_stone,  success =>
         {
@@ -88,7 +85,35 @@ public class EquipmentUIManager : MonoBehaviour
             {
                 Debug.LogError("❌ 뽑기 실패! 상태 복구됨.");
             }
+            else
+            {
+                //저장이 완료된 이후에 결과화면 출력
+
+                equipmentPanel.gameObject.SetActive(true);
+
+                if (isAds)
+                {
+                    Inventory.Instance.AddOrUpdateItems(item_id_list, true);
+                    reward_Sound.Play();
+                    equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+                    return;
+                }
+
+                if (count == 1)
+                {
+                    reward_Sound.Play();
+                    equipmentPanel.ShowSingleEquipment(show_item_id_list);
+                }
+                else
+                {
+                    reward_Sound.Play();
+                    equipmentPanel.ShowMultipleEquipments(show_item_id_list);
+                }
+
+            }
         });
+
+        
     }
 
     public void closePanel()
@@ -129,31 +154,38 @@ public class EquipmentUIManager : MonoBehaviour
         for (int i = 0; i < gacha_count; i++)
         {
             int id = 0, amount = 0;
-            float roll = Random.Range(0f, 100f);
+            float roll = UnityEngine.Random.Range(0f, 100f);
             if (roll < 40)
             {
                 // 40% 장비 수량 결정.
                 id = ItemDatabase.Instance.GetRandomItemId(ItemDatabase.RANGE_EQUIPMENT);
-                amount = Random.Range(1, 3);
+                amount = UnityEngine.Random.Range(1, 3);
                 item_id_list.Add(new ItemDataForSave(id, amount));
             }
             else if(40 < roll && roll <= 70){
                 // 30% 업그레이드 아이템. 수량 결정.
                 id = ItemDatabase.RANGE_COSUMABLE;
-                amount = Random.Range(1, 5);
+                amount = UnityEngine.Random.Range(1, 5);
                 earn_upgrade_stone += amount;
             }
             else
             {
                 // 30% 골드. 수량 결정.
                 id = ItemDatabase.RANGE_GOLD_POT;
-                amount = Random.Range(50, 110);
+                amount = UnityEngine.Random.Range(50, 110);
                 earn_gold = amount;
             }
             show_item_id_list.Add(new ItemDataForSave(id, amount));
         }
 
         return show_item_id_list;
+    }
+	
+	private bool CanClaimReward(string key)
+    {
+        string lastDate = DataControl.LoadEncryptedDataFromPrefs(key + "_date");
+        string today = DateTime.Now.ToString("yyyy-MM-dd");
+        return lastDate != today;
     }
 }
 /***
