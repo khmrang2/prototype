@@ -5,42 +5,31 @@ using UnityEngine;
 
 public class RewardManager : MonoBehaviour
 {
-    public void give500Gold()
+    public void give100Gold()
     {
-        if (CanClaimReward("gold_500"))
-        {
-            Debug.Log("Attempting to give 500 gold...");
-            AdManager.Instance.ShowRewardedInterstitialAd("gold", 500);
-            SaveRewardDate("gold_500");
-        }
+        Debug.Log("Attempting to give 100 gold...");
+        AdManager.Instance.ShowRewardedInterstitialAd("gold", 100);
+        
     }
-
-    public void give1000Gold()
+    
+    public void give200Gold()
     {
-        if (CanClaimReward("gold_1000"))
-        {
-            Debug.Log("Attempting to give 1000 gold...");
-            AdManager.Instance.ShowRewardedInterstitialAd("gold", 1000);
-            SaveRewardDate("gold_1000");
-        }
+        Debug.Log("Attempting to give 200 gold...");
+        AdManager.Instance.ShowRewardedInterstitialAd("gold", 200);
     }
-
-    public void give2000Gold()
+    
+    public void give300Gold()
     {
-        if (CanClaimReward("gold_2000"))
-        {
-            Debug.Log("Attempting to give 2000 gold...");
-            AdManager.Instance.ShowRewardedInterstitialAd("gold", 2000);
-            SaveRewardDate("gold_2000");
-        }
+        Debug.Log("Attempting to give 300 gold...");
+        AdManager.Instance.ShowRewardedInterstitialAd("gold", 300);
     }
 
     public void give10equipment()
     {
-        if (CanClaimReward("item_10"))
+        if (CanClaimReward("item_1"))
         {
-            AdManager.Instance.ShowRewardedInterstitialAd("item", 10);
-            SaveRewardDate("item_10");
+            AdManager.Instance.ShowRewardedInterstitialAd("item", 1);
+            SaveRewardDate("item_1");
         }
     }
 
