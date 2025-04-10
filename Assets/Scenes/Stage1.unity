@@ -1534,7 +1534,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.06
+      value: -1.51
       objectReference: {fileID: 0}
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2168,7 +2168,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.05
+      value: -1.55
       objectReference: {fileID: 0}
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2775,7 +2775,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.55
+  m_fontSize: 37.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6856,7 +6856,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.16
+      value: 1.14
       objectReference: {fileID: 0}
     - target: {fileID: 1286163080102271888, guid: 621e60d55b1af433ca2e66978024cefc, type: 3}
       propertyPath: m_LocalPosition.y
