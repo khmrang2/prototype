@@ -242,7 +242,7 @@ public class Enemy : MonoBehaviour
             float minWidth = 480f;
             float maxWidth = 1440f;
             float t = Mathf.InverseLerp(minWidth, maxWidth, Screen.width);
-            float scaleValue = Mathf.Lerp(0.4f, 0.8f, t);
+            float scaleValue = Mathf.Lerp(0.5f, 1.0f, t);
             hpBarPos.localScale = Vector3.one * scaleValue;  //화면 비율에 맞춰 체력바의 크기 조정
         }
         else
