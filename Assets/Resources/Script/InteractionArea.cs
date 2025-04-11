@@ -23,13 +23,16 @@ public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     // 눌렀을때
     public void OnPointerDown(PointerEventData eventData)
     {
-        isReadyToDrop = true;
+        if(numberOfBalls > 0)
+        {
+            isReadyToDrop = true;
 
-        // 파티클 초기 생성 위치 계산
-        float mappedX = GetMappedXFromPointer(eventData);
-        Vector3 particlePos = new Vector3(mappedX, DropArea.position.y, 0f);
+            // 파티클 초기 생성 위치 계산
+            float mappedX = GetMappedXFromPointer(eventData);
+            Vector3 particlePos = new Vector3(mappedX, DropArea.position.y, 0f);
 
-        activeParticle = Instantiate(dropParticle, particlePos, dropParticle.transform.rotation);
+            activeParticle = Instantiate(dropParticle, particlePos, dropParticle.transform.rotation);
+        }
     }
 
     void Update()
@@ -75,6 +78,9 @@ public class InteractionArea : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         numberOfBalls = playerState.Ball_Count;
     }
     public int get_ball_num(){
+        // 이게 해당 스테이지를 끝내주는 함수. numberOfBalls가 0이 되면 다음 상태로 넘어감.
+        // 그렇다면 우리는 numberOfBalls가 0이 되었는가로 지금 판단한다는거임.
+
         return numberOfBalls;
     }
 

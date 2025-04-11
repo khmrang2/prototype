@@ -7,21 +7,34 @@ public class RewardManager : MonoBehaviour
 {
     public void give100Gold()
     {
-        Debug.Log("Attempting to give 100 gold...");
-        AdManager.Instance.ShowRewardedInterstitialAd("gold", 100);
-        
+        string data = "gold_100";
+        if (CanClaimReward(data))
+        {
+            //Debug.Log("Attempting to give 100 gold...");
+            AdManager.Instance.ShowRewardedInterstitialAd("gold", 100);
+            SaveRewardDate(data);
+        }
     }
-    
+
     public void give200Gold()
     {
-        Debug.Log("Attempting to give 200 gold...");
-        AdManager.Instance.ShowRewardedInterstitialAd("gold", 200);
+        string data = "gold_200";
+        if (CanClaimReward(data))
+        {
+            //Debug.Log("Attempting to give 200 gold...");
+            AdManager.Instance.ShowRewardedInterstitialAd("gold", 200);
+            SaveRewardDate(data);
+        }
     }
-    
     public void give300Gold()
     {
-        Debug.Log("Attempting to give 300 gold...");
-        AdManager.Instance.ShowRewardedInterstitialAd("gold", 300);
+        string data = "gold_300";
+        if (CanClaimReward(data))
+        {
+            //Debug.Log("Attempting to give 200 gold...");
+            AdManager.Instance.ShowRewardedInterstitialAd("gold", 300);
+            SaveRewardDate(data);
+        }
     }
 
     public void give10equipment()

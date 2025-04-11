@@ -29,11 +29,11 @@
     },
     {
       "ID": 4,
-      "Name": "커지는 공",
-      "Tooltip": "공이 조금 커집니다.",
+      "Name": "작아지는 공",
+      "Tooltip": "공이 조금 작아집니다.",
       "ImagePath": "Image/Items/BuffIcon04",
       "buffState": {
-        "Ball_Size": 0.05
+        "Ball_Size": -0.05
       }
     },
     {
@@ -69,8 +69,8 @@
       "Tooltip": "체력이 감소하지만,\n공격력이 더욱 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon08",
       "buffState": {
-        "Player_Health": -3,
-        "Player_Damage": 3
+        "Player_Health": -30,
+        "Player_Damage": 2
       }
     },
     {
