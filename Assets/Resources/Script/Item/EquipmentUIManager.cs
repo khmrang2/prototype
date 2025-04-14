@@ -21,8 +21,6 @@ public class EquipmentUIManager : MonoBehaviour
     private List<ItemDataForSave> item_id_list = null;
     private List<ItemDataForSave> show_item_id_list = null;
 
-    public TextMeshProUGUI fordebug;
-
     private int earn_gold = 0;
     private int earn_upgrade_stone = 0;
 
@@ -59,10 +57,10 @@ public class EquipmentUIManager : MonoBehaviour
     }
 
 	public void Update(){
-		_500_gold_ad_text.text = CanClaimReward("gold_500") ? "0/1" : "1/1";
-    	_1000_gold_ad_text.text = CanClaimReward("gold_1000") ? "0/1" : "1/1";
-    	_2000_gold_ad_text.text = CanClaimReward("gold_2000") ? "0/1" : "1/1";
-    	_10_equipments_ad_text.text = CanClaimReward("item_10") ? "0/1" : "1/1";
+		_500_gold_ad_text.text = CanClaimReward("gold_100") ? "0/1" : "1/1";
+    	_1000_gold_ad_text.text = CanClaimReward("gold_200") ? "0/1" : "1/1";
+    	_2000_gold_ad_text.text = CanClaimReward("gold_300") ? "0/1" : "1/1";
+    	_10_equipments_ad_text.text = CanClaimReward("item_1") ? "0/1" : "1/1";
 	}
 
     public void PerformDrawReward(int goldCost, int count, bool isAds)
