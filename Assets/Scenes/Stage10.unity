@@ -756,7 +756,7 @@ MonoBehaviour:
   EnemyHpbarCanvas: {fileID: 100500995}
   turn: 0
   maxEnemies: 5
-  enemyDataList: {fileID: 11400000, guid: b4773d0c6f111c8468db33b1187b157e, type: 2}
+  enemyDataList: {fileID: 11400000, guid: 806ea7d15a42cbc4d885170ba8d30bbd, type: 2}
   gameManager: {fileID: 966862922}
 --- !u!1 &66647095
 GameObject:
@@ -4706,7 +4706,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.55
+  m_fontSize: 37.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

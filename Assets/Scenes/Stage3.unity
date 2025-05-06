@@ -756,7 +756,7 @@ MonoBehaviour:
   EnemyHpbarCanvas: {fileID: 100500995}
   turn: 0
   maxEnemies: 5
-  enemyDataList: {fileID: 11400000, guid: b4773d0c6f111c8468db33b1187b157e, type: 2}
+  enemyDataList: {fileID: 11400000, guid: b21c9c34254b6aa4fa1a77c4b2246c52, type: 2}
   gameManager: {fileID: 966862922}
 --- !u!1 &66647095
 GameObject:
@@ -3677,7 +3677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1187775019
 MonoBehaviour:
   m_ObjectHideFlags: 0
