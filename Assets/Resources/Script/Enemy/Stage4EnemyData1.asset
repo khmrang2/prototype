@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3415be4ee1a83d4e92d01aefc42dfbc, type: 3}
+  m_Name: Stage4EnemyData1
+  m_EditorClassIdentifier: 
+  EnemyList:
+  - hp: 800
+    attack: 60
+    defense: 0
+    enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
+  - hp: 1000
+    attack: 80
+    defense: 0
+    enemyType: {fileID: 4637325958623815296, guid: 13387e836e127a4448df70a964c46b33, type: 3}
+  - hp: 1200
+    attack: 150
+    defense: 0
+    enemyType: {fileID: 6158343357710918895, guid: 04ac9228f6f23a640876c08f973af72e, type: 3}
+  - hp: 800
+    attack: 60
+    defense: 0
+    enemyType: {fileID: 3574950758667052270, guid: 80ad59a80ed7d204a8869cf1b5b66723, type: 3}
+  - hp: 1000
+    attack: 80
+    defense: 0
+    enemyType: {fileID: 4637325958623815296, guid: 13387e836e127a4448df70a964c46b33, type: 3}
+  - hp: 1200
+    attack: 100
+    defense: 0
+    enemyType: {fileID: 4637325958623815296, guid: 13387e836e127a4448df70a964c46b33, type: 3}
+  EnemySpawnCountPerTurn: 010000000000000000000000020000000000000003000000
