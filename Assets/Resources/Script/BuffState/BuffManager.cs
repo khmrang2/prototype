@@ -119,8 +119,6 @@ public class BuffManager : MonoBehaviour
                 selectedBuffs.Add(effect);
             }
         }
-        Debug.LogError($"{buffTable.Count} 버프테이블 크기 확인.");
-        Debug.LogError($"{selectedBuffs.Count} 뽑힌 버프의 크기 확인.");
 
         return selectedBuffs;
     }
