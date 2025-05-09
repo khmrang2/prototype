@@ -23,21 +23,34 @@ public class BuffDataList
 
 public class BuffManager : MonoBehaviour
 {
-    public List<BuffSelectUI> buffUIs; // 버프 ui.
-    public AudioSource buff_panel_active_sound;
-    [SerializeField] public PlayerState playerState; 
+    [Header("UI References")]
+    [SerializeField] private List<BuffSelectUI> buffUIs;
+    [SerializeField] private GameObject selectPanel;
 
-    [SerializeField] private GameObject selectPanel; // SelectPanel 오브젝트
-    
-    private TextAsset buffDataJSON; // JSON 파일
-    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>(); // ID로 접근할 수 있는 버프 테이블
+    [Header("Audio")]
+    [SerializeField] private AudioSource buffPanelActiveSound;
+    [SerializeField] private AudioSource buffClickSound;
 
-    private List<BuffStruct> selectedBuffs; // 선택된 버프들.
-    private bool isBuffSelected = false; // 버프가 선택되었는지 여부를 저장하는 플래그
-    private int selectedBuffId = -1; // 선택된 Buff ID
-    public AudioSource buff_click_sound;
+    [Header("Player Reference")]
+    [SerializeField] private PlayerState playerState;
 
-    private BuffDataList dataList; // json파일로 읽어온 버프들의 리스트.
+    [Header("Buff Data")]
+    private TextAsset buffDataJSON;
+    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>();
+    private BuffDataList dataList;
+
+    [Header("Buff Selection State")]
+    private List<BuffStruct> selectedBuffs;
+    private bool isBuffSelected = false;
+    private int selectedBuffId = -1;
+
+    private List<BuffSelectUI> activeUIs = new List<BuffSelectUI>();
+
+    private void Awake()
+    {
+        // 유지 보수를 편하게 해보자. 
+        if (playerState == null) playerState = FindObjectOfType<PlayerState>();
+    }
 
     private void Start()
     {
@@ -55,7 +68,7 @@ public class BuffManager : MonoBehaviour
         // 데이터를 읽고 각 버프 속성을 출력
         foreach (BuffStruct buff in dataList.buffs)
         {
-            //Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
+            Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
             buffTable[buff.ID] = buff;
         }
     }
@@ -64,7 +77,7 @@ public class BuffManager : MonoBehaviour
     public void ShowBuffSelection()
     {
         isBuffSelected = false; // 초기화
-        buff_panel_active_sound.Play();
+        buffPanelActiveSound.Play();
         selectPanel.SetActive(true); // 패널 활성화
         ShowRandomBuffs();
     }
@@ -72,25 +85,11 @@ public class BuffManager : MonoBehaviour
     // 2. 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
-        // 3개의 선택된 버프를 출력해줌.
-        List<BuffStruct> selectedBuffs = GetRandomBuffs(3);
+        selectedBuffs = GetRandomBuffs(3);
         for (int i = 0; i < 3; i++)
         {
-            // 각 buffUI에 해당 버프 정보를 갱신
             buffUIs[i].getBuffState(selectedBuffs[i]);
-
-            // 해당 UI 오브젝트에 Button 컴포넌트가 있다고 가정하고, 클릭 이벤트에 리스너 추가
-            Button button = buffUIs[i].GetComponent<Button>();
-            if (button != null)
-            {
-                // 클리어 후 새로 등록하기 위해 기존 리스너 제거
-                button.onClick.RemoveAllListeners();
-
-                // 지역변수에 할당해야 올바른 버프ID가 캡처됨
-                int buffId = selectedBuffs[i].ID;
-                button.onClick.AddListener(() => { OnBuffSelected(buffId); });
-            }
-            // 버프 UI 구성
+            buffUIs[i].RegisterBuffSelectionCallback(OnBuffSelected);
         }
     }
 
@@ -120,6 +119,8 @@ public class BuffManager : MonoBehaviour
                 selectedBuffs.Add(effect);
             }
         }
+        Debug.LogError($"{buffTable.Count} 버프테이블 크기 확인.");
+        Debug.LogError($"{selectedBuffs.Count} 뽑힌 버프의 크기 확인.");
 
         return selectedBuffs;
     }
@@ -142,7 +143,7 @@ public class BuffManager : MonoBehaviour
         }
         // 이제 게임매니저의 버프스테이트를 넣어주자.
         isBuffSelected = true; // 선택 완료
-        buff_click_sound.Play();
+        buffClickSound.Play();
         selectPanel.SetActive(false); // 선택 완료시 버프 창을 비활성화.
     }
 
@@ -163,24 +164,19 @@ public class BuffManager : MonoBehaviour
         foreach (var buff in buffs)
         {
             playerState.ApplyBuff(buff.Key, buff.Value);
+
+            if (buff.Key == "Enemy_Health" || buff.Key == "Enemy_Attack")
+            {
+                foreach (var enemy in FindObjectsOfType<EnemyStatus>())
+                {
+                    enemy.ApplyBuffToEnemy(playerState);
+                }
+            }
         }
     }
 
-    public void PrintBuffSumState()
-    {
-        //Debug.Log("BuffSumState Fields:");
-
-        //// BuffSumState의 모든 public 인스턴스 필드를 순회
-        //foreach (FieldInfo field in typeof(BaseState).GetFields(BindingFlags.Public | BindingFlags.Instance))
-        //{
-        //    // 필드 이름과 해당 값을 가져와 출력
-        //    var value = field.GetValue(selectedBuffI);
-        //    Debug.Log($"{field.Name}: {value}");
-        //}
-    }
-
     // 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시) -? 왜 안되지..ㅅㅂ
-    private Sprite LoadSpriteFromPath(string path)
+/*    private Sprite LoadSpriteFromPath(string path)
     {
         //Debug.Log(path);
 
@@ -196,8 +192,8 @@ public class BuffManager : MonoBehaviour
         }
 
         return loadedSprite;
-    }
-    
+    }*/
+
     private void PlayOneShotSound(AudioSource source)
     {
         if (source == null || source.clip == null) return;
@@ -213,160 +209,4 @@ public class BuffManager : MonoBehaviour
 
         Destroy(tempAudioObj, tempAudio.clip.length);
     }
-    
-    //private void ApplyBuffEffectToPlayer(BuffState buff)
-    //{
-    //    if (buff.Player_Damage.HasValue)
-    //        buffState.Player_Damage += buff.Player_Damage.Value;
-
-    //    if (buff.Player_CriticalChance.HasValue)
-    //        buffState.Player_CriticalChance += buff.Player_CriticalChance.Value;
-
-    //    if (buff.Player_HealthIncrease.HasValue)
-    //        buffState.Player_HealthIncrease += buff.Player_HealthIncrease.Value;
-
-    //    if (buff.Player_DoubleUpChance.HasValue)
-    //        buffState.Player_DoubleUpChance += buff.Player_DoubleUpChance.Value;
-
-    //    if (buff.Player_ShieldPower.HasValue)
-    //        buffState.Player_ShieldPower += buff.Player_ShieldPower.Value;
-
-    //    if (buff.Ball_Size.HasValue)
-    //        buffState.Ball_Size += buff.Ball_Size.Value;
-
-    //    if (buff.Ball_Count.HasValue)
-    //        buffState.Ball_Count += buff.Ball_Count.Value;
-
-    //    if (buff.Ball_Elasticity.HasValue)
-    //        buffState.Ball_Elasticity += buff.Ball_Elasticity.Value;
-
-    //    if (buff.Ball_PiercePower.HasValue)
-    //        buffState.Ball_PiercePower += buff.Ball_PiercePower.Value;
-
-    //    if (buff.Ball_BallSplitCount.HasValue)
-    //        buffState.Ball_BallSplitCount += buff.Ball_BallSplitCount.Value;
-    //}
-
 }
-
-//// 버프 매니저
-//// 1. json 파일을 load하여 buffeffect 테이블을 관리함.
-//// 2. ui로 버프를 보여주고 적용하는 기능
-//// 3. 
-//public GameManager gameManager; // 게임 매니저 참조
-
-//PlayerState playerDefaultState = null;
-
-//[SerializeField] private BuffState buffState; // buffState 참조
-//private List<BuffEffect> allBuffs = new List<BuffEffect>(); // 모든 활성화된 버프
-//private List<BuffEffect> newBuffs = new List<BuffEffect>(); // 새로 추가된 버프
-
-//private void Start()
-//{
-//    // 플레이어 스테이트를 최초 생성 해서 가져옴.
-//    // => json으로 load해서 플레이어의 설정을 가져오는 형식으로 바꿀 수 있음.
-//    playerDefaultState = new PlayerState();
-//}
-
-//// 새 버프를 추가하고 newBuffs에 저장
-//public void addBuff(BuffEffect buff)
-//{
-//    newBuffs.Add(buff);
-//}
-
-//// 새 버프에 대해서 업데이트 해주어 buffState를 업데이트.
-//public BuffState updateBuffState()
-//{
-//    foreach (BuffEffect buff in newBuffs)
-//    {
-//        ApplyBuffEffectToPlayer(buff);
-//        allBuffs.Add(buff); // 적용한 버프를 allBuffs로 이동
-//    }
-
-//    newBuffs.Clear(); // newBuffs 초기화
-//    return buffState;
-//}
-
-//// 인자로 들어온 버프를 계산하는 메소드
-//
-
-//public BuffState getBuffState()
-//{
-//    return this.buffState;
-//}
-////----------------------------------------------------------------------------------
-////----------------------------------------------------------------------------------
-////                                  버프 ui 관리 공간
-////----------------------------------------------------------------------------------
-////----------------------------------------------------------------------------------
-//[SerializeField] private GameObject buffUIPrefab; // UI 프리팹
-//[SerializeField] private Transform uiParent; // UI가 배치될 부모 객체
-//private List<GameObject> uiPool = new List<GameObject>(); // UI 오브젝트 풀링 리스트
-
-////private void Start()
-////{
-////    InitializeUIPool(3); // 예시로 5개의 UI를 풀링해둠
-////}
-
-//// UI 오브젝트 풀을 초기화
-//private void InitializeUIPool(int count)
-//{
-//    for (int i = 0; i < count; i++)
-//    {
-//        GameObject ui = Instantiate(buffUIPrefab, uiParent);
-//        ui.SetActive(false); // 초기에는 비활성화
-//        uiPool.Add(ui);
-//    }
-//}
-
-//// UI를 활성화하고 데이터 업데이트
-//public void ShowBuffUI(BuffEffect buffEffect)
-//{
-//    GameObject ui = GetAvailableUI();
-//    if (ui != null)
-//    {
-//        ui.SetActive(true);
-//        UpdateBuffUI(ui, buffEffect); // UI 요소를 버프 데이터로 업데이트
-//    }
-//}
-
-//// 사용 가능한 UI를 반환
-//private GameObject GetAvailableUI()
-//{
-//    foreach (var ui in uiPool)
-//    {
-//        if (!ui.activeInHierarchy)
-//            return ui;
-//    }
-//    return null; // 사용 가능한 UI가 없으면 null 반환
-//}
-
-//// UI 업데이트 (버프 이미지, 툴팁 등 변경)
-//private void UpdateBuffUI(GameObject ui, BuffEffect buffEffect)
-//{
-//    Image buffImage = ui.transform.Find("BuffImage").GetComponent<Image>();
-//    Text buffTooltip = ui.transform.Find("BuffTooltip").GetComponent<Text>();
-
-//    // 버프 이미지와 툴팁을 설정
-//    buffImage.sprite = LoadSpriteFromPath(buffEffect.ImagePath);
-//    buffTooltip.text = buffEffect.Tooltip;
-//}
-
-//// 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시)
-//private Sprite LoadSpriteFromPath(string path)
-//{
-//    return Resources.Load<Sprite>(path);
-//}
-
-//// 모든 UI를 숨김 (필요시 전체 UI 초기화)
-//public void HideAllUI()
-//{
-//    foreach (var ui in uiPool)
-//    {
-//        ui.SetActive(false);
-//    }
-
-// 왜 여기서 null ref error?
-//Debug.Log(selectedBuffs[buffId].buffState.Player_Damage);
-//ApplyBuff(selectedBuffs[buffId].buffState);
-//}

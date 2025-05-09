@@ -50,7 +50,7 @@ public class Pin : MonoBehaviour
 
             if (playerState.Pin_Damage != 0)
             {
-                gameManager.Pin_Damage_Event_Func(playerState.Pin_Damage * 10);
+                gameManager.Pin_Damage_Event_Func(playerState.Pin_Damage);
             }
             // 충돌의 힘 등을 계산해야 하기에
             temp(collision);

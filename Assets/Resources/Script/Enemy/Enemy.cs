@@ -146,25 +146,26 @@ public class Enemy : MonoBehaviour
     {
         //체력바 위치 업데이트
         LocateEnemyHealthBar();
+        hpBarSlider.value = status.EnemyHP;
         //hpBarPos.localScale = Vector3.one * (Screen.height / 2340.0f);    //화면 비율에 따라 체력바 크기 조정 확인용 디버그 코드
-        /*
         //살아 있을때만 실행
         if (isAlive & status != null)
         {
             if (status.EnemyHP < 0) //만약 체력이 0 이하로 떨어지면 사망처리
             {
                 isAlive = false;
-                //OnDie();를 enemy_death 애니메이션의 끝 트리거에 넣음.
-                animator.SetTrigger("Enemy_Death");
+
+                // 동시 진행.
+                OnDie();
+
                 if (playerState.Player_Generation != 0)
                 {
-                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation * 10, Pmanager.maxHP);
+                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation, Pmanager.maxHP);
                     Debug.Log($"현재 체력{Pmanager.playerHP}");
                 }
 
             }
         }
-        */
         if (!isMoving) return; // 이동 중이 아닐 때만 실행
 
         // 사거리 내에 플레이어가 있는지 확인
@@ -217,7 +218,7 @@ public class Enemy : MonoBehaviour
                 isAlive = false;
                 if (playerState.Player_Generation != 0)
                 {
-                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation * 10, Pmanager.maxHP);
+                    Pmanager.playerHP = (int)Mathf.Min(Pmanager.playerHP + playerState.Player_Generation, Pmanager.maxHP);
                     Debug.Log($"현재 체력{Pmanager.playerHP}");
                 }
                 await OnDie();
@@ -287,6 +288,7 @@ public class Enemy : MonoBehaviour
 
     public void Get_Pin_Damage(int Damage)
     {
+        animator.SetTrigger("Enemy_Hitted");
         if (isSpawned) status.EnemyHP -= Damage;
         Debug.Log("데미지 들어갑니다");
     }

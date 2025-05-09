@@ -3,7 +3,7 @@
     {
       "ID": 1,
       "Name": "공격력 증가",
-      "Tooltip": "공격 데미지 1씩 증가합니다.",
+      "Tooltip": "플레이어의 공격력이 +1 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon01",
       "buffState": {
         "Player_Damage": 1
@@ -12,7 +12,7 @@
     {
       "ID": 2,
       "Name": "플레이어 체력 증가",
-      "Tooltip": "플레이어 체력이 10씩 증가합니다.",
+      "Tooltip": "플레이어 현재, 최대 체력이 10씩 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon02",
       "buffState": {
         "Player_Health": 10
@@ -21,16 +21,16 @@
     {
       "ID": 3,
       "Name": "공 탄성 증가",
-      "Tooltip": "공의 탄성이 증가합니다.",
+      "Tooltip": "공의 탄성이 5% 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon03",
       "buffState": {
-        "Ball_Elasticity": 0.01
+        "Ball_Elasticity": 0.02
       }
     },
     {
       "ID": 4,
       "Name": "작아지는 공",
-      "Tooltip": "공이 조금 작아집니다.",
+      "Tooltip": "공이 5% 작아집니다.",
       "ImagePath": "Image/Items/BuffIcon04",
       "buffState": {
         "Ball_Size": -0.05
@@ -39,7 +39,7 @@
     {
       "ID": 5,
       "Name": "더 많은 공!",
-      "Tooltip": "공 개수가 1개씩 증가합니다.",
+      "Tooltip": "공 개수가 1개 늘어납니다.",
       "ImagePath": "Image/Items/BuffIcon05",
       "buffState": {
         "Ball_Count": 1
@@ -48,7 +48,7 @@
     {
       "ID": 6,
       "Name": "역병 모듈",
-      "Tooltip": "적 체력이 5%씩 감소합니다.",
+      "Tooltip": "적 체력이 5% 감소합니다.",
       "ImagePath": "Image/Items/BuffIcon06",
       "buffState": {
         "Enemy_Health": 0.05
@@ -57,7 +57,7 @@
     {
       "ID": 7,
       "Name": "약화 모듈",
-      "Tooltip": "적 공격력이 5%씩 감소합니다.",
+      "Tooltip": "적 공격력이 5% 감소합니다.",
       "ImagePath": "Image/Items/BuffIcon07",
       "buffState": {
         "Enemy_Attack": 0.05
@@ -66,17 +66,17 @@
     {
       "ID": 8,
       "Name": "유리 대포",
-      "Tooltip": "체력이 감소하지만,\n공격력이 더욱 증가합니다.",
+      "Tooltip": "최대 체력이 30 감소하지만,\n공격력이 +3 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon08",
       "buffState": {
         "Player_Health": -30,
-        "Player_Damage": 2
+        "Player_Damage": 3
       }
     },
     {
       "ID": 9,
       "Name": "크리티컬",
-      "Tooltip": "좀 더 치명적으로 적을 공격합니다.",
+      "Tooltip": "크리티컬 확률이 +10% 증가합니다.\n(기본 10%)",
       "ImagePath": "Image/Items/BuffIcon09",
       "buffState": {
         "Player_Critical_Chance": 0.1
@@ -85,16 +85,16 @@
     {
       "ID": 10,
       "Name": "좀 더 뜨겁게",
-      "Tooltip": "크리티컬 데미지가 증가합니다.",
+      "Tooltip": "크리티컬 데미지가 +20% 증가합니다.\n(기본 200%)",
       "ImagePath": "Image/Items/BuffIcon10",
       "buffState": {
-        "Player_Critical_Damage": 0.1
+        "Player_Critical_Damage": 0.2
       }
     },
     {
       "ID": 11,
       "Name": "난 돈이 좋아",
-      "Tooltip": "플레이어의 자원 획득량이 증가합니다.",
+      "Tooltip": "스테이지 클리어 보상이 10% 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon11",
       "buffState": {
         "Player_More_Economy": 0.1
@@ -112,16 +112,16 @@
     {
       "ID": 13,
       "Name": "추가 데미지",
-      "Tooltip": "핀에 튕기는 데미지가 1씩 증가합니다.",
+      "Tooltip": "핀에 튕길때마다 적에게 +5의 데미지를 부여합니다.",
       "ImagePath": "Image/Items/BuffIcon13",
       "buffState": {
-        "Pin_Damage": 1
+        "Pin_Damage": 5
       }
     },
     {
       "ID": 14,
       "Name": "공의 분열",
-      "Tooltip": "공은 최초의 핀에 닿으면 +1개씩 분열합니다.",
+      "Tooltip": "처음 튕긴 공은 +1개로 분열합니다.",
       "ImagePath": "Image/Items/BuffIcon14",
       "buffState": {
         "Ball_Split" : 1
@@ -130,17 +130,17 @@
     {
       "ID": 15,
       "Name": "재생 모듈",
-      "Tooltip": "적을 처치하면 HP가 +1씩 회복됩니다.",
+      "Tooltip": "적을 처치하면 HP가 +10씩 회복됩니다.",
       "ImagePath": "Image/Items/BuffIcon15",
       "buffState": {
-        "Player_Generation" :  1
+        "Player_Generation" : 10
       }
     },
 
     {
       "ID": 16,
       "Name": "한 번 더!",
-      "Tooltip": "10%의 확률로 공을 한번 더 던집니다.",
+      "Tooltip": "+10% 확률로 같은 피해를 한 번 더 입힙니다.",
       "ImagePath": "Image/Items/BuffIcon16",
       "buffState": {
         "Player_DoubleUpChance": 10

@@ -30,8 +30,8 @@ public class BaseState : MonoBehaviour
         Ball_Count = 0;
         Enemy_Health = 0;
         Enemy_Attack = 0;
-        Player_Critical_Chance = 0f;
-        Player_Critical_Damage = 1.5f;
+        Player_Critical_Chance = 0.1f;
+        Player_Critical_Damage = 2.0f;
         Player_More_Economy = 0f;
         Ball_Pierce_Power = false;
         Ball_Split = 0;

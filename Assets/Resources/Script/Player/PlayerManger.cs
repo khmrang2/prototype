@@ -41,6 +41,8 @@ public class PlayerManger : MonoBehaviour
 
     private bool isAtking = false;
 
+    private float prevMaxHP;
+
     void Start()
     {
         //변수 및 팝업 초기화
@@ -48,6 +50,7 @@ public class PlayerManger : MonoBehaviour
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
         maxHP = playerStatus.PlayerHP;
+        prevMaxHP = maxHP;
 
         this.gameObject.transform.position = playerSpawnTransform.position;
         //체력바 소환
@@ -59,7 +62,6 @@ public class PlayerManger : MonoBehaviour
         //rt.anchorMin = viewportPos;
         //rt.anchorMax = viewportPos;
         hpSlider = hpBar.GetComponent<Slider>();
-        //hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
         hpSlider.maxValue = maxHP;
         hpSlider.value = playerHP;
     }
@@ -67,11 +69,25 @@ public class PlayerManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //체력바 업데이트(버프 적용)
-        maxHP = playerState.Player_Health;
-        // hp 업데이트.
+        // maxHP를 PlayerState에서 받아옴
+        float newMaxHP = playerState.Player_Health;
+        if (Mathf.Abs(newMaxHP - prevMaxHP) > 0.01f)
+        {
+            float delta = newMaxHP - prevMaxHP;
+            maxHP = newMaxHP;
+            if (delta > 0)
+            {
+                playerHP += delta;
+            }
+            else if (delta < 0)
+            {
+                playerHP = Mathf.Min(playerHP, maxHP);
+            }
+            prevMaxHP = maxHP;
+        }
+
         hpSlider.maxValue = maxHP;
-        hpSlider.value = playerHP;
+        hpSlider.value = Mathf.Min(playerHP, maxHP);
 
         //체력이 0 이하가 된다면
         if (playerHP <= 0 && !gameOver)
@@ -103,10 +119,10 @@ public class PlayerManger : MonoBehaviour
     public int GetTotalDamage()
     {
         // 크리티컬 발생 시에
-        if (playerState.Player_Critical_Chance >= Random.Range(0, 100))
+        if (playerState.Player_Critical_Chance >= Random.Range(0f, 1f))
         {
             //Debug.LogError("크리티컬!");
-            //Debug.LogError($"{(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage) * (gameManager.pinHitCount)}");
+            //Debug.LogError($"부여 {(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage)} * {(gameManager.pinHitCount)}");
             return (int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage);
         }
         else
