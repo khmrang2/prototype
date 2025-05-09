@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -42,6 +43,14 @@ public class Enemy : MonoBehaviour
     public AnimationClip hitted_anim;
     public AnimationClip death_anim;
 
+    [Header("Enemy Sprite Sorting")]
+    SortingGroup sortingGroup;
+
+    private void Awake()
+    {
+        sortingGroup = GetComponent<SortingGroup>();
+    }
+
 
     private void Start()
     {
@@ -69,6 +78,10 @@ public class Enemy : MonoBehaviour
         isDetectedPlayer = false;
         //생존 처리를 true로
         isAlive = true;
+
+        // sorting layer setting.
+        sortingGroup.sortingOrder = (int)(this.transform.position.y * 100);
+
         hpBarSlider.maxValue = status.EnemyHP;          //체력바 최대값 설정
         hpBarSlider.value = status.EnemyHP;
     }

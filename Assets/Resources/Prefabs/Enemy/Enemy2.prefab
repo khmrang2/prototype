@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 524115234611956167}
   - component: {fileID: -3963720152616073529}
   - component: {fileID: 6680264759012967989}
+  - component: {fileID: 8381793670349953796}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -810,9 +811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62c763138a4e4a4e97f91658acc4fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHP: 0
-  enemyATK: 0
-  enemyDFF: 0
+  baseHP: 0
+  baseATK: 0
+  baseDEF: 0
 --- !u!58 &6680264759012967989
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -848,6 +849,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 10}
   serializedVersion: 2
   m_Radius: 10
+--- !u!210 &8381793670349953796
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4637325958623815296}
+  m_Enabled: 1
+  m_SortingLayerID: 751527683
+  m_SortingLayer: 2
+  m_SortingOrder: 2
+  m_SortAtRoot: 0
 --- !u!1 &5324243256294170676
 GameObject:
   m_ObjectHideFlags: 0
