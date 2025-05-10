@@ -69,7 +69,6 @@ public class ProjectileOnHit : MonoBehaviour
                 int damage = CalculteDamage();      //데미지 계산
                 enemy.status.EnemyHP -= damage;     //계산된 데미지 만큼 맞은 적 체력 감소
                 enemy.getDamage();
-                enemy.ShowDamageText(damage);
 
                 if (!pstate.Ball_Pierce_Power)
                 {

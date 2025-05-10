@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +18,6 @@ public class Enemy : MonoBehaviour
     [Header("Enemy attack & hit variables")]
     public bool isDetectedPlayer = false;   //플레이어 감지 여부
     private PlayerManger Pmanager;  //플레이어에게 데미지 처리를 위한 PlayerManager
-    public GameObject dmgTxt;   //피격시 나올 데미지 텍스트
 
     public bool isSpawned = false;
     public bool isAlive;
@@ -230,28 +228,6 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-
-
-    //피격 시 데미지 텍스트를 띄우는 함수
-    public void ShowDamageText(int damage)
-    {
-        Collider2D collider = GetComponent<Collider2D>();
-
-        // 현재 오브젝트의 위치 가져오기
-        Vector3 pos = transform.position;
-
-        pos.y += collider.bounds.size.y / 2; // 높이의 절반만큼 위로 이동
-        pos.z = 0;
-
-        // dmgTxt 생성
-        GameObject text = Instantiate(dmgTxt, pos, Quaternion.identity);
-
-        // 텍스트 컴포넌트 가져오기
-        TextMeshPro tmp = text.GetComponent<TextMeshPro>();
-        tmp.text = damage.ToString(); // 텍스트 설정
-    }
-
-
 
 
     //체력바 소환 함수

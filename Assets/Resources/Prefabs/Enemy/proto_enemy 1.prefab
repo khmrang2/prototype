@@ -102,9 +102,7 @@ MonoBehaviour:
   moveSpeed: 2
   isMoving: 0
   start: {fileID: 0}
-  spawn_offset: {x: 0, y: 0, z: 0}
   isDetectedPlayer: 0
-  dmgTxt: {fileID: 3782582102017083689, guid: f914713ce2cbb10429384a0f85da40f0, type: 3}
   isSpawned: 0
   isAlive: 0
   AttackRange: 3.5
@@ -112,11 +110,6 @@ MonoBehaviour:
   status: {fileID: 0}
   HpBar: {fileID: 250207955975038258, guid: 0fbba1766c470dc458a706ab56b7e695, type: 3}
   canvas: {fileID: 0}
-  animator: {fileID: 0}
-  move_anim: {fileID: 0}
-  attack_anim: {fileID: 0}
-  hitted_anim: {fileID: 0}
-  death_anim: {fileID: 0}
 --- !u!114 &-1674373607952233300
 MonoBehaviour:
   m_ObjectHideFlags: 0

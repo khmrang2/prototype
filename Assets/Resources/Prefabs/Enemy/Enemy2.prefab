@@ -786,7 +786,6 @@ MonoBehaviour:
   start: {fileID: 0}
   spawn_offset: {x: 0, y: -0.6, z: 0}
   isDetectedPlayer: 0
-  dmgTxt: {fileID: 3782582102017083689, guid: f914713ce2cbb10429384a0f85da40f0, type: 3}
   isSpawned: 0
   isAlive: 0
   AttackRange: 1.5
