@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Collections.AllocatorManager;
 
 public class BuffSelectUI : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class BuffSelectUI : MonoBehaviour
     public TextMeshProUGUI buffname;
     public TextMeshProUGUI tooltip;
     public Image bufficon;
+    [SerializeField] private GameObject _AdLockMask;
 
     [SerializeField] private Color NormalBuff;
     [SerializeField] private Color EpicBuff;
@@ -23,9 +25,10 @@ public class BuffSelectUI : MonoBehaviour
         button = GetComponent<Button>();
     }
 
-    public void getBuffState(BuffStruct bs)
+    public void getBuffState(BuffStruct bs, bool isAd)
     {
         buffstruct = bs;
+        adLock(isAd);
         updateUI();
     }
 
@@ -38,11 +41,17 @@ public class BuffSelectUI : MonoBehaviour
         }
     }
 
+    public void UnlockAdBuff()
+    {
+        adLock(false);
+    }
+
     void updateUI()
     {
         buffname.text = buffstruct.Name;
         tooltip.text = buffstruct.Tooltip;
         bufficon.sprite = Resources.Load<Sprite>(buffstruct.ImagePath);
+
         if (this.buffstruct.Rank == BuffRank.Normal)
         {
             buffname.color = NormalBuff;
@@ -56,6 +65,13 @@ public class BuffSelectUI : MonoBehaviour
         else
         {
             Debug.LogError("buff ui update failed!");
+        }
+    }
+    private void adLock(bool isAd)
+    {
+        if (_AdLockMask != null)
+        {
+            _AdLockMask.SetActive(isAd);
         }
     }
 }

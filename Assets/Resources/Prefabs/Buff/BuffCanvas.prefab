@@ -54,6 +54,12 @@ MonoBehaviour:
   buffPanelActiveSound: {fileID: 115816271989947807}
   buffClickSound: {fileID: 4102031681708979309}
   playerState: {fileID: 0}
+  playerManger: {fileID: 0}
+  buffDataJSON: {fileID: 0}
+  NormalBuff_GetChance: 95
+  EpicBuff_GetChance: 5
+  useAdForEpicBuffs: 1
+  buffSelectThreshold: 5
 --- !u!82 &115816271989947807
 AudioSource:
   m_ObjectHideFlags: 0
@@ -307,7 +313,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 9
   m_TargetDisplay: 0
 --- !u!114 &279151578747745366
 MonoBehaviour:
@@ -417,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Padding.m_Bottom
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1069658549523814596, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1100014900336796973, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -503,6 +513,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2175873775543915938, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201905590334701943, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255361421457579107, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2525185364057857573, guid: db524226669105849a3cc40b183c23d1, type: 3}
@@ -681,6 +699,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4925307531621723583, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014810061657075883, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5383455291880648901, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -747,6 +773,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5772387806824158446, guid: db524226669105849a3cc40b183c23d1, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183058083063048472, guid: db524226669105849a3cc40b183c23d1, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6508299605678050487, guid: db524226669105849a3cc40b183c23d1, type: 3}

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
+using System;
 
 public enum BuffRank
 {
@@ -40,38 +41,93 @@ public class BuffManager : MonoBehaviour
 
     [Header("Player Reference")]
     [SerializeField] private PlayerState playerState;
+    [SerializeField] private PlayerManger playerManger;
 
     [Header("Buff Data")]
     [SerializeField] private TextAsset buffDataJSON;
     [SerializeField] private float NormalBuff_GetChance = 95.0f;
     [SerializeField] private float EpicBuff_GetChance = 5.0f;
-    [SerializeField] private List<Dictionary<int, BuffStruct>> _BuffTable;
+    
+    [Header("Ad Settings")]
+    [SerializeField] private bool useAdForEpicBuffs = true;
+    [SerializeField] private int buffSelectThreshold = 5; // 버프 선택 횟수 임계값
 
-    private Dictionary<int, BuffStruct> NormalBuffTable = new Dictionary<int, BuffStruct>();
-    private Dictionary<int, BuffStruct> EpicBuffTable = new Dictionary<int, BuffStruct>();
     private List<BuffStruct> cachedNormalBuffs = new List<BuffStruct>();
     private List<BuffStruct> cachedEpicBuffs = new List<BuffStruct>();
     private List<BuffStruct> selectedBuffs = new List<BuffStruct>();
-    private List<BuffStruct> tempNormalBuffs = new List<BuffStruct>();
-    private List<BuffStruct> tempEpicBuffs = new List<BuffStruct>();
+    private List<BuffStruct> tempNormalBuffs;
+    private List<BuffStruct> tempEpicBuffs;
     private bool isBuffSelected = false;
     private int selectedBuffId = -1;
+    
+    // 광고 관련 변수
+    private static int buffSelectCount = 0; // 버프 선택 횟수
+    private int adLockedBuffIndex = -1; // 광고로 잠긴 버프 인덱스
+    private bool isLowHealth = false; // 체력이 임계값 이하인지 여부
+    private bool hasTriggeredLowHealthAd = false;
 
     private void Awake()
     {
         if (playerState == null) playerState = FindObjectOfType<PlayerState>();
+        if (playerManger == null) playerManger = FindObjectOfType<PlayerManger>();
+    }
+
+    private void OnEnable()
+    {
+        // PlayerManger의 체력 비율 이벤트 구독
+        PlayerManger.OnHealthRatioChanged += OnHealthRatioChanged;
+    }
+
+    private void OnDisable()
+    {
+        // 이벤트 구독 해제
+        PlayerManger.OnHealthRatioChanged -= OnHealthRatioChanged;
     }
 
     private void Start()
     {
         LoadBuffDataFromJSON();
-        CacheBuffs();
         InitializeTempLists();
         selectPanel.SetActive(false);
+        
+        // AdManager에 버프 광고 보상 처리 함수 등록
+        if (AdManager.Instance != null && !AdManager.Instance.HasRewardAction("epicBuff"))
+        {
+            AdManager.Instance.RegisterRewardAction("epicBuff", OnAdRewardEarned);
+        }
+        
+        // 초기 체력 상태 확인
+        if (playerManger != null)
+        {
+            isLowHealth = playerManger.IsLowHealth();
+        }
+    }
+    
+    // PlayerManger의 체력 비율 변화 이벤트 처리
+    private void OnHealthRatioChanged(float healthRatio)
+    {
+        // PlayerManger의 IsLowHealth() 메서드를 사용하여 체력 상태 가져오기
+        if (playerManger != null)
+        {
+            bool currentLowHealth = playerManger.IsLowHealth();
+            
+            // 체력이 낮고, 아직 한 번도 실행되지 않았을 때만 처리
+            if (currentLowHealth && !hasTriggeredLowHealthAd)
+            {
+                isLowHealth = true;
+                hasTriggeredLowHealthAd = true; // 한 번 실행됨을 표시
+                Debug.Log($"BuffManager: 체력 비율 {healthRatio:F2}, 낮은 체력 상태: {isLowHealth} (최초 1회)");
+            }
+            else
+            {
+                isLowHealth = currentLowHealth;
+            }
+        }
     }
 
     private void InitializeTempLists()
     {
+        // 필요할 때만 초기화하도록 변경
         tempNormalBuffs = new List<BuffStruct>(cachedNormalBuffs.Count);
         tempEpicBuffs = new List<BuffStruct>(cachedEpicBuffs.Count);
     }
@@ -82,36 +138,38 @@ public class BuffManager : MonoBehaviour
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
+        // 데이터를 직접 리스트로 분류
+        cachedNormalBuffs.Clear();
+        cachedEpicBuffs.Clear();
+
         foreach (BuffStruct buff in dataList.buffs)
         {
-            //Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
             if (buff.Rank == BuffRank.Normal)
             {
-                //buffTable[buff.ID] = buff;
-                NormalBuffTable.Add(buff.ID, buff);
+                cachedNormalBuffs.Add(buff);
             }
             else if (buff.Rank == BuffRank.Epic)
             {
-                EpicBuffTable.Add(buff.ID, buff);
+                cachedEpicBuffs.Add(buff);
             }
             else
             {
-                Debug.LogError("? 너가 실행되면 안되는데 ");
+                Debug.LogError("잘못된 버프 랭크입니다");
             }
         }
-    }
-
-    private void CacheBuffs()
-    {
-        cachedNormalBuffs = new List<BuffStruct>(NormalBuffTable.Values);
-        cachedEpicBuffs = new List<BuffStruct>(EpicBuffTable.Values);
     }
 
     // 1. UI 패널을 활성화하고, 임의의 3개 버프를 표시
     public void ShowBuffSelection()
     {
         isBuffSelected = false;
-        selectedBuffs.Clear();
+        if (selectedBuffs == null)
+            selectedBuffs = new List<BuffStruct>();
+        else
+            selectedBuffs.Clear();
+            
+        adLockedBuffIndex = -1; // 광고 잠금 버프 인덱스 초기화
+        
         buffPanelActiveSound.Play();
         selectPanel.SetActive(true);
         ShowRandomBuffs();
@@ -119,10 +177,35 @@ public class BuffManager : MonoBehaviour
 
     private void ShowRandomBuffs()
     {
+        // 기본 버프 선택
         selectedBuffs = GetRandomBuffs(3);
-        for (int i = 0; i < 3; i++)
+        
+        // 조건 충족 시 광고 에픽 버프 추가 (버프 선택 횟수 5회 이상 또는 체력 50% 이하)
+        bool showAdEpicBuff = false;
+        if (useAdForEpicBuffs)
         {
-            buffUIs[i].getBuffState(selectedBuffs[i]);
+            showAdEpicBuff = (buffSelectCount >= buffSelectThreshold) || isLowHealth;
+        }
+        
+        // 광고 에픽 버프 추가 (조건 충족 시)
+        if (showAdEpicBuff && cachedEpicBuffs.Count > 0)
+        {
+            // 랜덤 에픽 버프 선택
+            int randomIndex = UnityEngine.Random.Range(0, cachedEpicBuffs.Count);
+            BuffStruct adEpicBuff = cachedEpicBuffs[randomIndex];
+            
+            // 버프 UI 위치 결정 (랜덤)
+            adLockedBuffIndex = UnityEngine.Random.Range(0, selectedBuffs.Count);
+            
+            // 해당 위치의 버프를 광고 에픽 버프로 교체
+            selectedBuffs[adLockedBuffIndex] = adEpicBuff;
+        }
+        
+        // UI 업데이트
+        for (int i = 0; i < selectedBuffs.Count && i < buffUIs.Count; i++)
+        {
+            bool isAdLocked = (i == adLockedBuffIndex);
+            buffUIs[i].getBuffState(selectedBuffs[i], isAdLocked);
             buffUIs[i].RegisterBuffSelectionCallback(OnBuffSelected);
         }
     }
@@ -150,7 +233,7 @@ public class BuffManager : MonoBehaviour
         int selectedCount = 0;
         while (selectedCount < count && (tempNormalBuffs.Count > 0 || tempEpicBuffs.Count > 0))
         {
-            float chance = Random.Range(0f, 100f);
+            float chance = UnityEngine.Random.Range(0f, 100f);
             
             if (chance < EpicBuff_GetChance && tempEpicBuffs.Count > 0)
             {
@@ -165,11 +248,6 @@ public class BuffManager : MonoBehaviour
             selectedCount++;
         }
 
-        if (selectedCount < count)
-        {
-            Debug.LogWarning($"Could not select {count} buffs. Only selected {selectedCount} buffs.");
-        }
-
         return selectedBuffs;
     }
 
@@ -179,7 +257,7 @@ public class BuffManager : MonoBehaviour
         while (n > 1)
         {
             n--;
-            int k = Random.Range(0, n + 1);
+            int k = UnityEngine.Random.Range(0, n + 1);
             T temp = list[k];
             list[k] = list[n];
             list[n] = temp;
@@ -193,13 +271,51 @@ public class BuffManager : MonoBehaviour
         
         if (selectedBuff != null)
         {
+            // 광고 잠금 버프인지 확인
+            int selectedIndex = selectedBuffs.IndexOf(selectedBuff);
+            if (selectedIndex == adLockedBuffIndex)
+            {
+                // 광고 시청 요청
+                if (AdManager.Instance != null)
+                {
+                    AdManager.Instance.ShowRewardedInterstitialAd("epicBuff", selectedIndex);
+                    // 광고 보상 처리는 OnAdRewardEarned에서 수행
+                    return;
+                }
+                else
+                {
+                    Debug.LogWarning("AdManager 인스턴스를 찾을 수 없습니다. 광고 없이 버프를 적용합니다.");
+                }
+            }
+            
+            // 일반 버프 적용
             ApplyBuff(selectedBuff.buffState);
-        }
-        else
-        {
-            Debug.LogWarning($"Buff with ID {buffId} not found.");
+            buffSelectCount++; // 버프 선택 횟수 증가
         }
 
+        isBuffSelected = true;
+        buffClickSound.Play();
+        selectPanel.SetActive(false);
+    }
+    
+    // 광고 보상 처리 함수 (AdManager에서 호출)
+    public void OnAdRewardEarned(int buffIndex)
+    {
+        if (buffIndex >= 0 && buffIndex < selectedBuffs.Count)
+        {
+            BuffStruct selectedBuff = selectedBuffs[buffIndex];
+            
+            // 버프 적용
+            ApplyBuff(selectedBuff.buffState);
+            buffSelectCount++;
+            
+            // UI 업데이트 (광고 잠금 해제)
+            if (buffIndex < buffUIs.Count)
+            {
+                buffUIs[buffIndex].UnlockAdBuff();
+            }
+        }
+        
         isBuffSelected = true;
         buffClickSound.Play();
         selectPanel.SetActive(false);
@@ -235,13 +351,12 @@ public class BuffManager : MonoBehaviour
     {
         if (source == null || source.clip == null) return;
 
-        // 임시 오브젝트 생성
         GameObject tempAudioObj = new GameObject("TempAudio");
         AudioSource tempAudio = tempAudioObj.AddComponent<AudioSource>();
         tempAudio.clip = source.clip;
-        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup; // 믹서 연결 유지
+        tempAudio.outputAudioMixerGroup = source.outputAudioMixerGroup;
         tempAudio.volume = source.volume;
-        tempAudio.spatialBlend = 0f; // 2D
+        tempAudio.spatialBlend = 0f;
         tempAudio.Play();
 
         Destroy(tempAudioObj, tempAudio.clip.length);
@@ -249,17 +364,17 @@ public class BuffManager : MonoBehaviour
 
     private void _debugPrintBuffData()
     {
-        foreach (BuffStruct buff in NormalBuffTable.Values)
+        foreach (BuffStruct buff in cachedNormalBuffs)
         {
             Debug.Log($"{buff.ID} : {buff.Name}");
         }
-        foreach (BuffStruct buff in EpicBuffTable.Values)
+        foreach (BuffStruct buff in cachedEpicBuffs)
         {
             Debug.Log($"{buff.ID} : {buff.Name}");
         }
 
         // [코드 리팩토링] 최초 실행시 키 값을 저장.
         selectedBuffs = new List<BuffStruct>();
-        Debug.Log($"[BM] : 버프 테이블 로드 완료\n노말 버프: {NormalBuffTable.Count}개\n에픽 버프: {EpicBuffTable.Count}개");
+        Debug.Log($"[BM] : 버프 테이블 로드 완료\n노말 버프: {cachedNormalBuffs.Count}개\n에픽 버프: {cachedEpicBuffs.Count}개");
     }
 }

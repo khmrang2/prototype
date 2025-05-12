@@ -19,6 +19,8 @@ public class AdManager : MonoBehaviour
 #endif
 
     private Dictionary<string, Action<int>> rewardActions;
+    private string currentRewardType;
+    private int currentRewardAmount;
 
     private void Awake()
     {
@@ -47,6 +49,24 @@ public class AdManager : MonoBehaviour
             { "upgradeStone", GiveUpgradeStone },
             { "item", GiveItem }
         };
+    }
+
+    public void RegisterRewardAction(string rewardType, Action<int> rewardAction)
+    {
+        if (rewardActions.ContainsKey(rewardType))
+        {
+            rewardActions[rewardType] = rewardAction;
+        }
+        else
+        {
+            rewardActions.Add(rewardType, rewardAction);
+        }
+        Debug.Log($"보상 액션 등록: {rewardType}");
+    }
+
+    public bool HasRewardAction(string rewardType)
+    {
+        return rewardActions != null && rewardActions.ContainsKey(rewardType);
     }
 
     public void LoadRewardedInterstitialAd()
@@ -90,6 +110,9 @@ public class AdManager : MonoBehaviour
 
     public void ShowRewardedInterstitialAd(string rewardType, int amount)
     {
+        currentRewardType = rewardType;
+        currentRewardAmount = amount;
+        
         if (_rewardedInterstitialAd != null && _rewardedInterstitialAd.CanShowAd())
         {
             _rewardedInterstitialAd.Show(reward =>
@@ -108,6 +131,10 @@ public class AdManager : MonoBehaviour
         {
             Debug.Log("광고가 아직 준비되지 않았습니다. 광고를 다시 로드합니다.");
             LoadRewardedInterstitialAd();
+            
+            #if UNITY_EDITOR
+            StartCoroutine(DelayedReward(rewardType, amount));
+            #endif
         }
     }
 

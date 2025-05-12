@@ -11,6 +11,8 @@ public class PlayerState : BaseState
     [Header("버프 연동")]
     public int Pin_Hp;
 
+    private int maxHealth; // 최대 체력 저장
+
     protected void Awake()
     {
         base.Awake();

@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -120400077
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.059748232, g: 0.8387852, b: 1, a: 1}
@@ -99,9 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c32c0c0f24f6a4b9bd664546f98fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_attack_sound: {fileID: 0}
+  enemy_hit_sound: {fileID: 0}
   isDestroyed: 0
   returnTransform: {fileID: 0}
   InstantiateTransform: {fileID: 0}
+  sprite: {fileID: 0}
   moveDir: {x: 1, y: 0, z: 0}
   moveSpeed: 0.5
   posLimitMin: {x: 0, y: 0, z: 0}
