@@ -14,6 +14,10 @@ public class BuffSelectUI : MonoBehaviour
     public TextMeshProUGUI tooltip;
     public Image bufficon;
 
+    [SerializeField] private Color NormalBuff;
+    [SerializeField] private Color EpicBuff;
+
+
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -39,5 +43,19 @@ public class BuffSelectUI : MonoBehaviour
         buffname.text = buffstruct.Name;
         tooltip.text = buffstruct.Tooltip;
         bufficon.sprite = Resources.Load<Sprite>(buffstruct.ImagePath);
+        if (this.buffstruct.Rank == BuffRank.Normal)
+        {
+            buffname.color = NormalBuff;
+            tooltip.color = NormalBuff;
+        }
+        else if (this.buffstruct.Rank == BuffRank.Epic)
+        {
+            buffname.color = EpicBuff;
+            tooltip.color = EpicBuff;
+        }
+        else
+        {
+            Debug.LogError("buff ui update failed!");
+        }
     }
 }

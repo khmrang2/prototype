@@ -124,7 +124,7 @@
     {
       "ID": 13,
       "Rank": 1,
-      "Name": "추가 데미지",
+      "Name": "짜릿한 핀",
       "Tooltip": "핀에 튕길때마다 적에게 +5의 데미지를 부여합니다.",
       "ImagePath": "Image/Items/BuffIcon13",
       "buffState": {

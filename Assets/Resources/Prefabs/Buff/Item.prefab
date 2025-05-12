@@ -243,7 +243,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1
+  m_fontSize: 67.1
   m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -472,6 +472,8 @@ MonoBehaviour:
   buffname: {fileID: 8067976037521074160}
   tooltip: {fileID: 435939024537004934}
   bufficon: {fileID: 3444602332453989266}
+  NormalBuff: {r: 1, g: 1, b: 1, a: 1}
+  EpicBuff: {r: 0.57254905, g: 0.7411765, b: 1, a: 1}
 --- !u!1 &7065183316997782368
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,7 +566,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 59.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

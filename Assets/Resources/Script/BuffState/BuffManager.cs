@@ -19,7 +19,7 @@ public class BuffStruct
     public string Name;
     public string Tooltip;
     public string ImagePath;
-    public Dictionary<string, float> buffState; // 키-값 형태로 변경
+    public Dictionary<string, float> buffState;
 }
 
 [System.Serializable]
@@ -43,49 +43,52 @@ public class BuffManager : MonoBehaviour
 
     [Header("Buff Data")]
     [SerializeField] private TextAsset buffDataJSON;
-    [SerializeField] private List<Dictionary<int, BuffStruct>> BuffTableList;
     [SerializeField] private float NormalBuff_GetChance = 95.0f;
     [SerializeField] private float EpicBuff_GetChance = 5.0f;
+    [SerializeField] private List<Dictionary<int, BuffStruct>> _BuffTable;
+
     private Dictionary<int, BuffStruct> NormalBuffTable = new Dictionary<int, BuffStruct>();
     private Dictionary<int, BuffStruct> EpicBuffTable = new Dictionary<int, BuffStruct>();
-    private BuffDataList dataList;
-
-    [Header("Buff Selection State")]
-    private List<BuffStruct> selectedBuffs;
+    private List<BuffStruct> cachedNormalBuffs = new List<BuffStruct>();
+    private List<BuffStruct> cachedEpicBuffs = new List<BuffStruct>();
+    private List<BuffStruct> selectedBuffs = new List<BuffStruct>();
+    private List<BuffStruct> tempNormalBuffs = new List<BuffStruct>();
+    private List<BuffStruct> tempEpicBuffs = new List<BuffStruct>();
     private bool isBuffSelected = false;
     private int selectedBuffId = -1;
 
-    private List<BuffSelectUI> activeUIs = new List<BuffSelectUI>();
-    private List<int> keys;
-
     private void Awake()
     {
-        // 유지 보수를 편하게 해보자. 
         if (playerState == null) playerState = FindObjectOfType<PlayerState>();
     }
 
     private void Start()
     {
         LoadBuffDataFromJSON();
-        selectPanel.SetActive(false); // 시작 시 UI 패널을 비활성화
+        CacheBuffs();
+        InitializeTempLists();
+        selectPanel.SetActive(false);
     }
 
-    // JSON 파일에서 모든 버프를 로드하고 테이블에 저장
+    private void InitializeTempLists()
+    {
+        tempNormalBuffs = new List<BuffStruct>(cachedNormalBuffs.Count);
+        tempEpicBuffs = new List<BuffStruct>(cachedEpicBuffs.Count);
+    }
+
     private void LoadBuffDataFromJSON()
     {
         buffDataJSON = Resources.Load<TextAsset>("Data/BuffData");
         string jsonText = buffDataJSON.text;
         BuffDataList dataList = JsonConvert.DeserializeObject<BuffDataList>(jsonText);
 
-        // 데이터를 읽고 각 버프 속성을 출력
         foreach (BuffStruct buff in dataList.buffs)
         {
-            Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
+            //Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
             if (buff.Rank == BuffRank.Normal)
             {
                 //buffTable[buff.ID] = buff;
                 NormalBuffTable.Add(buff.ID, buff);
-
             }
             else if (buff.Rank == BuffRank.Epic)
             {
@@ -96,37 +99,24 @@ public class BuffManager : MonoBehaviour
                 Debug.LogError("? 너가 실행되면 안되는데 ");
             }
         }
-        Debug.Log($"[BM] : 버프 테이블 테스트 : \n노말 버프 테이블 : {NormalBuffTable.Count}, \n에픽 버프 테이블 : {EpicBuffTable.Count}");
+    }
 
-        foreach(BuffStruct buff in NormalBuffTable.Values)
-        {
-            Debug.Log($"{buff.ID} : {buff.Name}");
-        }
-        foreach (BuffStruct buff in EpicBuffTable.Values)
-        {
-            Debug.Log($"{buff.ID} : {buff.Name}");
-        }
-        
-        // [코드 리팩토링] 최초 실행시 키 값을 저장.
-        selectedBuffs = new List<BuffStruct>();
+    private void CacheBuffs()
+    {
+        cachedNormalBuffs = new List<BuffStruct>(NormalBuffTable.Values);
+        cachedEpicBuffs = new List<BuffStruct>(EpicBuffTable.Values);
     }
 
     // 1. UI 패널을 활성화하고, 임의의 3개 버프를 표시
     public void ShowBuffSelection()
     {
-        // 초기화
         isBuffSelected = false;
         selectedBuffs.Clear();
-
-        // 버프 선택 창 활성화.
         buffPanelActiveSound.Play();
-        selectPanel.SetActive(true); // 패널 활성화
-
-        // 실제 로직 실행.
+        selectPanel.SetActive(true);
         ShowRandomBuffs();
     }
 
-    // 2. 임의의 3개의 버프를 선택하고, UI에 표시
     private void ShowRandomBuffs()
     {
         selectedBuffs = GetRandomBuffs(3);
@@ -137,75 +127,82 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    #region 2-1. 임의의 3개의 버프를 선택하는 함수.
-
-    // 2-1. 임의의 n개의 버프를 선택하는 함수
     private List<BuffStruct> GetRandomBuffs(int count)
     {
-        //selectedBuffs = new List<BuffStruct>();
-        //List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
-
-        // Fisher-Yates 알고리즘으로 키 리스트 셔플
-        for (int i = keys.Count - 1; i > 0; i--)
+        if (count <= 0)
         {
-            int j = UnityEngine.Random.Range(0, i + 1);
-            int temp = keys[i];
-            keys[i] = keys[j];
-            keys[j] = temp;
+            Debug.LogWarning("Requested buff count is less than or equal to 0");
+            return new List<BuffStruct>();
         }
-        // 셔플된 리스트에서 count개만큼 버프 선택 (리스트 길이보다 count가 클 수 있으므로 조건 확인)
-        for (int i = 0; i < count && i < keys.Count; i++)
+
+        selectedBuffs.Clear();
+        tempNormalBuffs.Clear();
+        tempEpicBuffs.Clear();
+
+        // 캐시된 리스트 복사
+        tempNormalBuffs.AddRange(cachedNormalBuffs);
+        tempEpicBuffs.AddRange(cachedEpicBuffs);
+
+        // 각 리스트 셔플
+        ShuffleList(tempNormalBuffs);
+        ShuffleList(tempEpicBuffs);
+
+        int selectedCount = 0;
+        while (selectedCount < count && (tempNormalBuffs.Count > 0 || tempEpicBuffs.Count > 0))
         {
-            // 랜덤 테이블 출력 - 매번 새로 뽑는거니까 음음.. 
-            var selectedBuffTable = BuffTableList[Random.Range(0, BuffTableList.Count)];
-            int key = keys[i];
-            if (selectedBuffTable.TryGetValue(key, out BuffStruct effect))
+            float chance = Random.Range(0f, 100f);
+            
+            if (chance < EpicBuff_GetChance && tempEpicBuffs.Count > 0)
             {
-                selectedBuffs.Add(effect);
+                selectedBuffs.Add(tempEpicBuffs[0]);
+                tempEpicBuffs.RemoveAt(0);
             }
+            else if (tempNormalBuffs.Count > 0)
+            {
+                selectedBuffs.Add(tempNormalBuffs[0]);
+                tempNormalBuffs.RemoveAt(0);
+            }
+            selectedCount++;
+        }
+
+        if (selectedCount < count)
+        {
+            Debug.LogWarning($"Could not select {count} buffs. Only selected {selectedCount} buffs.");
         }
 
         return selectedBuffs;
     }
 
-    private int getRandomTable()
+    private void ShuffleList<T>(List<T> list)
     {
-        int chance = Random.Range(0, 100);
-        return Random.Range(0, BuffTableList.Count);
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n + 1);
+            T temp = list[k];
+            list[k] = list[n];
+            list[n] = temp;
+        }
     }
-    #endregion 
 
-    // 3. 버프가 선택되었을 때 호출되는 함수
     public void OnBuffSelected(int buffId)
     {
         selectedBuffId = buffId;
-        BuffStruct selectedBuff;
-        // 이제 여기에다가 버프를 적용하는 시퀀스를 넣자.
-        if (buffTable.TryGetValue(buffId, out selectedBuff))
+        BuffStruct selectedBuff = selectedBuffs.Find(buff => buff.ID == buffId);
+        
+        if (selectedBuff != null)
         {
-            // 선택된 버프의 buffState를 ApplyBuff에 전달
             ApplyBuff(selectedBuff.buffState);
         }
         else
         {
-            Debug.LogWarning("Buff with ID " + buffId + " not found.");
+            Debug.LogWarning($"Buff with ID {buffId} not found.");
         }
-        // 이제 게임매니저의 버프스테이트를 넣어주자.
-        isBuffSelected = true; // 선택 완료
+
+        isBuffSelected = true;
         buffClickSound.Play();
-        selectPanel.SetActive(false); // 선택 완료시 버프 창을 비활성화.
-    }
-
-    // 버프 선택 완료 여부 확인 메서드
-    public bool IsBuffSelected()
-    {
-        return isBuffSelected;
-    }
-
-    // 선택된 Buff ID 반환
-    public int GetSelectedBuffId()
-    {
-        return selectedBuffId;
+        selectPanel.SetActive(false);
     }
 
     private void ApplyBuff(Dictionary<string, float> buffs)
@@ -224,24 +221,15 @@ public class BuffManager : MonoBehaviour
         }
     }
 
-    // 이미지 경로로부터 스프라이트 로드 (Resources 폴더 사용 시) -? 왜 안되지..ㅅㅂ
-/*    private Sprite LoadSpriteFromPath(string path)
+    public bool IsBuffSelected()
     {
-        //Debug.Log(path);
+        return isBuffSelected;
+    }
 
-        Sprite loadedSprite = Resources.Load<Sprite>("Image/BuffImage/swordicon");
-
-        if (loadedSprite != null)
-        {
-            Debug.Log($"Loaded sprite: {loadedSprite.name}, Size: {loadedSprite.rect.size}");
-        }
-        else
-        {
-            Debug.LogError("Failed to load sprite at path: " + "Image/BuffImage/swordicon");
-        }
-
-        return loadedSprite;
-    }*/
+    public int GetSelectedBuffId()
+    {
+        return selectedBuffId;
+    }
 
     private void PlayOneShotSound(AudioSource source)
     {
@@ -257,5 +245,21 @@ public class BuffManager : MonoBehaviour
         tempAudio.Play();
 
         Destroy(tempAudioObj, tempAudio.clip.length);
+    }
+
+    private void _debugPrintBuffData()
+    {
+        foreach (BuffStruct buff in NormalBuffTable.Values)
+        {
+            Debug.Log($"{buff.ID} : {buff.Name}");
+        }
+        foreach (BuffStruct buff in EpicBuffTable.Values)
+        {
+            Debug.Log($"{buff.ID} : {buff.Name}");
+        }
+
+        // [코드 리팩토링] 최초 실행시 키 값을 저장.
+        selectedBuffs = new List<BuffStruct>();
+        Debug.Log($"[BM] : 버프 테이블 로드 완료\n노말 버프: {NormalBuffTable.Count}개\n에픽 버프: {EpicBuffTable.Count}개");
     }
 }
