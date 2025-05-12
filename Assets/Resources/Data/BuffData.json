@@ -2,6 +2,7 @@
   "buffs": [
     {
       "ID": 1,
+      "Rank": 0,
       "Name": "공격력 증가",
       "Tooltip": "플레이어의 공격력이 +1 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon01",
@@ -11,6 +12,7 @@
     },
     {
       "ID": 2,
+      "Rank": 0,
       "Name": "플레이어 체력 증가",
       "Tooltip": "플레이어 현재, 최대 체력이 10씩 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon02",
@@ -20,6 +22,7 @@
     },
     {
       "ID": 3,
+      "Rank": 0,
       "Name": "공 탄성 증가",
       "Tooltip": "공의 탄성이 5% 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon03",
@@ -29,6 +32,7 @@
     },
     {
       "ID": 4,
+      "Rank": 0,
       "Name": "작아지는 공",
       "Tooltip": "공이 5% 작아집니다.",
       "ImagePath": "Image/Items/BuffIcon04",
@@ -38,6 +42,7 @@
     },
     {
       "ID": 5,
+      "Rank": 0,
       "Name": "더 많은 공!",
       "Tooltip": "공 개수가 1개 늘어납니다.",
       "ImagePath": "Image/Items/BuffIcon05",
@@ -47,6 +52,7 @@
     },
     {
       "ID": 6,
+      "Rank": 0,
       "Name": "역병 모듈",
       "Tooltip": "적 체력이 5% 감소합니다.",
       "ImagePath": "Image/Items/BuffIcon06",
@@ -56,6 +62,7 @@
     },
     {
       "ID": 7,
+      "Rank": 0,
       "Name": "약화 모듈",
       "Tooltip": "적 공격력이 5% 감소합니다.",
       "ImagePath": "Image/Items/BuffIcon07",
@@ -65,6 +72,7 @@
     },
     {
       "ID": 8,
+      "Rank": 1,
       "Name": "유리 대포",
       "Tooltip": "최대 체력이 30 감소하지만,\n공격력이 +3 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon08",
@@ -75,6 +83,7 @@
     },
     {
       "ID": 9,
+      "Rank": 0,
       "Name": "크리티컬",
       "Tooltip": "크리티컬 확률이 +10% 증가합니다.\n(기본 10%)",
       "ImagePath": "Image/Items/BuffIcon09",
@@ -84,6 +93,7 @@
     },
     {
       "ID": 10,
+      "Rank": 0,
       "Name": "좀 더 뜨겁게",
       "Tooltip": "크리티컬 데미지가 +20% 증가합니다.\n(기본 200%)",
       "ImagePath": "Image/Items/BuffIcon10",
@@ -93,6 +103,7 @@
     },
     {
       "ID": 11,
+      "Rank": 0,
       "Name": "난 돈이 좋아",
       "Tooltip": "스테이지 클리어 보상이 10% 증가합니다.",
       "ImagePath": "Image/Items/BuffIcon11",
@@ -102,6 +113,7 @@
     },
     {
       "ID": 12,
+      "Rank": 1,
       "Name": "관통 부여",
       "Tooltip": "데미지 적용 방식이\n관통으로 변경됩니다.",
       "ImagePath": "Image/Items/BuffIcon12",
@@ -111,6 +123,7 @@
     },
     {
       "ID": 13,
+      "Rank": 1,
       "Name": "추가 데미지",
       "Tooltip": "핀에 튕길때마다 적에게 +5의 데미지를 부여합니다.",
       "ImagePath": "Image/Items/BuffIcon13",
@@ -120,6 +133,7 @@
     },
     {
       "ID": 14,
+      "Rank": 1,
       "Name": "공의 분열",
       "Tooltip": "처음 튕긴 공은 +1개로 분열합니다.",
       "ImagePath": "Image/Items/BuffIcon14",
@@ -129,6 +143,7 @@
     },
     {
       "ID": 15,
+      "Rank": 0,
       "Name": "재생 모듈",
       "Tooltip": "적을 처치하면 HP가 +10씩 회복됩니다.",
       "ImagePath": "Image/Items/BuffIcon15",
@@ -139,6 +154,7 @@
 
     {
       "ID": 16,
+      "Rank": 1,
       "Name": "한 번 더!",
       "Tooltip": "+10% 확률로 같은 피해를 한 번 더 입힙니다.",
       "ImagePath": "Image/Items/BuffIcon16",

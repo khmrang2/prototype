@@ -5,10 +5,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 
+public enum BuffRank
+{
+    Normal = 0,
+    Epic = 1
+}
+
 [System.Serializable]
 public class BuffStruct
 {
     public int ID;
+    public BuffRank Rank;
     public string Name;
     public string Tooltip;
     public string ImagePath;
@@ -35,8 +42,12 @@ public class BuffManager : MonoBehaviour
     [SerializeField] private PlayerState playerState;
 
     [Header("Buff Data")]
-    private TextAsset buffDataJSON;
-    private Dictionary<int, BuffStruct> buffTable = new Dictionary<int, BuffStruct>();
+    [SerializeField] private TextAsset buffDataJSON;
+    [SerializeField] private List<Dictionary<int, BuffStruct>> BuffTableList;
+    [SerializeField] private float NormalBuff_GetChance = 95.0f;
+    [SerializeField] private float EpicBuff_GetChance = 5.0f;
+    private Dictionary<int, BuffStruct> NormalBuffTable = new Dictionary<int, BuffStruct>();
+    private Dictionary<int, BuffStruct> EpicBuffTable = new Dictionary<int, BuffStruct>();
     private BuffDataList dataList;
 
     [Header("Buff Selection State")]
@@ -45,6 +56,7 @@ public class BuffManager : MonoBehaviour
     private int selectedBuffId = -1;
 
     private List<BuffSelectUI> activeUIs = new List<BuffSelectUI>();
+    private List<int> keys;
 
     private void Awake()
     {
@@ -69,16 +81,48 @@ public class BuffManager : MonoBehaviour
         foreach (BuffStruct buff in dataList.buffs)
         {
             Debug.Log($"ID: {buff.ID}, Name: {buff.Name}");
-            buffTable[buff.ID] = buff;
+            if (buff.Rank == BuffRank.Normal)
+            {
+                //buffTable[buff.ID] = buff;
+                NormalBuffTable.Add(buff.ID, buff);
+
+            }
+            else if (buff.Rank == BuffRank.Epic)
+            {
+                EpicBuffTable.Add(buff.ID, buff);
+            }
+            else
+            {
+                Debug.LogError("? 너가 실행되면 안되는데 ");
+            }
         }
+        Debug.Log($"[BM] : 버프 테이블 테스트 : \n노말 버프 테이블 : {NormalBuffTable.Count}, \n에픽 버프 테이블 : {EpicBuffTable.Count}");
+
+        foreach(BuffStruct buff in NormalBuffTable.Values)
+        {
+            Debug.Log($"{buff.ID} : {buff.Name}");
+        }
+        foreach (BuffStruct buff in EpicBuffTable.Values)
+        {
+            Debug.Log($"{buff.ID} : {buff.Name}");
+        }
+        
+        // [코드 리팩토링] 최초 실행시 키 값을 저장.
+        selectedBuffs = new List<BuffStruct>();
     }
 
     // 1. UI 패널을 활성화하고, 임의의 3개 버프를 표시
     public void ShowBuffSelection()
     {
-        isBuffSelected = false; // 초기화
+        // 초기화
+        isBuffSelected = false;
+        selectedBuffs.Clear();
+
+        // 버프 선택 창 활성화.
         buffPanelActiveSound.Play();
         selectPanel.SetActive(true); // 패널 활성화
+
+        // 실제 로직 실행.
         ShowRandomBuffs();
     }
 
@@ -98,8 +142,8 @@ public class BuffManager : MonoBehaviour
     // 2-1. 임의의 n개의 버프를 선택하는 함수
     private List<BuffStruct> GetRandomBuffs(int count)
     {
-        selectedBuffs = new List<BuffStruct>();
-        List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
+        //selectedBuffs = new List<BuffStruct>();
+        //List<int> keys = new List<int>(buffTable.Keys); // 모든 키 값을 리스트로 저장
 
         // Fisher-Yates 알고리즘으로 키 리스트 셔플
         for (int i = keys.Count - 1; i > 0; i--)
@@ -109,18 +153,25 @@ public class BuffManager : MonoBehaviour
             keys[i] = keys[j];
             keys[j] = temp;
         }
-
         // 셔플된 리스트에서 count개만큼 버프 선택 (리스트 길이보다 count가 클 수 있으므로 조건 확인)
         for (int i = 0; i < count && i < keys.Count; i++)
         {
+            // 랜덤 테이블 출력 - 매번 새로 뽑는거니까 음음.. 
+            var selectedBuffTable = BuffTableList[Random.Range(0, BuffTableList.Count)];
             int key = keys[i];
-            if (buffTable.TryGetValue(key, out BuffStruct effect))
+            if (selectedBuffTable.TryGetValue(key, out BuffStruct effect))
             {
                 selectedBuffs.Add(effect);
             }
         }
 
         return selectedBuffs;
+    }
+
+    private int getRandomTable()
+    {
+        int chance = Random.Range(0, 100);
+        return Random.Range(0, BuffTableList.Count);
     }
     #endregion 
 
