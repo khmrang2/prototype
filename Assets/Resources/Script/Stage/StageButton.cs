@@ -5,16 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class StageButton : MonoBehaviour
 {
-    public ScrollSnap stageScroll;      // 현재 선택된 스테이지를 가져오기 위해 가져올 친구
+    public StageManager stageManager;   // 스테이지 매니저 참조
 
-    private int targetStage;            // 현재 플레이할 스테이지 번호
+    private void Start()
+    {
+        // StageManager 참조가 없으면 자동으로 찾기
+        if (stageManager == null)
+        {
+            stageManager = FindObjectOfType<StageManager>();
+        }
+    }
+    
     public void StartStage()
     {
-        targetStage = stageScroll.getCurStageUI();
-        //Debug.Log($"{targetStage}를 현재 보고 있고, {int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayingStageNum"))}가 있음.");
+        if (stageManager == null)
+        {
+            Debug.LogError("StageManager 참조가 없습니다.");
+            return;
+        }
+        
+        // StageManager에서 현재 선택된 스테이지 정보 가져오기
+        int currentStageIndex = stageManager.GetCurrentStageIndex();
+        int targetStage = stageManager.GetCurrentStageNumber();
+        
+        // 잠긴 스테이지는 진입 불가
+        if (!stageManager.IsStageUnlocked(currentStageIndex))
+        {
+            Debug.Log($"스테이지 {targetStage}는 잠겨있어 진입할 수 없습니다.");
+            return;
+        }
 
         string sceneName = $"Stage{targetStage}";
-        //Debug.Log($"✅ 스테이지 {targetStage} 진입 시도 → 씬 이름: {sceneName}");
         Debug.Log($"시작 버튼 눌림 : 씬 전환 : {sceneName}을 불러옴");
         SceneTransitionManager.CaptureScreenAndLoad(sceneName);
     }
