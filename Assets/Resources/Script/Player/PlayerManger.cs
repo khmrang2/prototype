@@ -5,9 +5,18 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PlayerManger : MonoBehaviour
 {
+    // 체력 비율 관련 delegate 정의
+    public delegate void HealthRatioChangedHandler(float healthRatio);
+    public static event HealthRatioChangedHandler OnHealthRatioChanged;
+    
+    // 체력 임계값 (50%)
+    [SerializeField] private float healthThreshold = 0.5f;
+    private bool isLowHealth = false;
+
     [Header("Player Damage")]
     public PlayerAnimatorMobile animator;
     public ProjectileOnHit plAtkObj;    //플레이어가 공격 시 발사하는 투사체
@@ -41,6 +50,8 @@ public class PlayerManger : MonoBehaviour
 
     private bool isAtking = false;
 
+    private float prevMaxHP;
+
     void Start()
     {
         //변수 및 팝업 초기화
@@ -48,6 +59,7 @@ public class PlayerManger : MonoBehaviour
         GameOverPopup.SetActive(false);
         playerHP = playerStatus.PlayerHP;
         maxHP = playerStatus.PlayerHP;
+        prevMaxHP = maxHP;
 
         this.gameObject.transform.position = playerSpawnTransform.position;
         //체력바 소환
@@ -59,19 +71,38 @@ public class PlayerManger : MonoBehaviour
         //rt.anchorMin = viewportPos;
         //rt.anchorMax = viewportPos;
         hpSlider = hpBar.GetComponent<Slider>();
-        //hpSlider.maxValue = int.Parse(DataControl.LoadEncryptedDataFromPrefs("PlayerCharacter_HP"));
         hpSlider.maxValue = maxHP;
         hpSlider.value = playerHP;
+        
+        // 초기 체력 비율 이벤트 발생
+        CheckAndNotifyHealthRatio();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //체력바 업데이트(버프 적용)
-        maxHP = playerState.Player_Health;
-        // hp 업데이트.
+        // maxHP를 PlayerState에서 받아옴
+        float newMaxHP = playerState.Player_Health;
+        if (Mathf.Abs(newMaxHP - prevMaxHP) > 0.01f)
+        {
+            float delta = newMaxHP - prevMaxHP;
+            maxHP = newMaxHP;
+            if (delta > 0)
+            {
+                playerHP += delta;
+            }
+            else if (delta < 0)
+            {
+                playerHP = Mathf.Min(playerHP, maxHP);
+            }
+            prevMaxHP = maxHP;
+            
+            // 체력 변경 시 체력 비율 체크
+            CheckAndNotifyHealthRatio();
+        }
+
         hpSlider.maxValue = maxHP;
-        hpSlider.value = playerHP;
+        hpSlider.value = Mathf.Min(playerHP, maxHP);
 
         //체력이 0 이하가 된다면
         if (playerHP <= 0 && !gameOver)
@@ -79,7 +110,35 @@ public class PlayerManger : MonoBehaviour
             OnDied();
         }
     }
+    
+    // 체력 비율을 체크하고 변화가 있으면 이벤트 발생
+    private void CheckAndNotifyHealthRatio()
+    {
+        if (maxHP <= 0) return;
+        
+        float currentRatio = playerHP / maxHP;
+        bool currentLowHealth = currentRatio <= healthThreshold;
+        
+        // 체력 비율이 임계값 이하로 내려갔거나 다시 올라갔을 때만 이벤트 발생
+        if (currentLowHealth != isLowHealth)
+        {
+            isLowHealth = currentLowHealth;
+            OnHealthRatioChanged?.Invoke(currentRatio);
+            Debug.Log($"체력 비율 변화: {currentRatio:F2}, 낮은 체력 상태: {isLowHealth}");
+        }
+    }
 
+    // 현재 체력 비율을 반환하는 메서드
+    public float GetCurrentHealthRatio()
+    {
+        return maxHP > 0 ? playerHP / maxHP : 1f;
+    }
+    
+    // 현재 낮은 체력 상태인지 반환하는 메서드
+    public bool IsLowHealth()
+    {
+        return isLowHealth;
+    }
 
     //사망 처리 함수
     void OnDied()
@@ -99,28 +158,32 @@ public class PlayerManger : MonoBehaviour
 
     }
 
+    public void getHitted(int damage)
+    {
+        Debug.Log("플레이어가 데미지를 얼마얼마 얻음.");
+        animator.TriggerDamage();
+        playerHP -= damage;
+        
+        // 체력 변경 시 체력 비율 체크
+        CheckAndNotifyHealthRatio();
+        
+        Debug.Log("getHitted탈출..");
+    }
+
     //핀 히트 수와 공격력의 곱인 총 데미지를 계산 후 반환하는 함수, 플레이어가 발사하는 투사체에서 호출
     public int GetTotalDamage()
     {
         // 크리티컬 발생 시에
-        if (playerState.Player_Critical_Chance >= Random.Range(0, 100))
+        if (playerState.Player_Critical_Chance >= UnityEngine.Random.Range(0f, 1f))
         {
             //Debug.LogError("크리티컬!");
-            //Debug.LogError($"{(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage) * (gameManager.pinHitCount)}");
+            //Debug.LogError($"부여 {(int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage)} <- {(playerState.Player_Damage)} * {(gameManager.pinHitCount)}");
             return (int)((playerState.Player_Damage) * (gameManager.pinHitCount) * playerState.Player_Critical_Damage);
         }
         else
         {
             return (playerState.Player_Damage) * (gameManager.pinHitCount);
         }
-    }
-
-    public void getHitted(int damage)
-    {
-        Debug.Log("플레이어가 데미지를 얼마얼마 얻음.");
-        animator.TriggerDamage();
-        playerHP -= damage;
-        Debug.Log("getHitted탈출..");
     }
 
     public void attackAnim()

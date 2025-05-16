@@ -40,10 +40,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public BuffManager buffManager;
     public PlayerManger playerManger;
-    
-    BaseState buffState = null;
-    BaseState defaultState = null;
-    BaseState playerState = null;
 
     public int pinHitCount = 0;
     public GameTurn currentTurn = GameTurn.DropBallState;
@@ -62,14 +58,20 @@ public class GameManager : MonoBehaviour
     public event Pin_Damage? Pin_Damage_Event;
 
     public PlayerAnimatorMobile playerAnimation;
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start()
     {
         clearPopup.SetActive(false);
         isPlaying = true;
-        buffState = new BaseState();
-        defaultState = new BaseState();
-        playerState = new BaseState();
         enemyListManager.SpawnInitialEnemies();
     }
     /// <summary>
@@ -159,7 +161,7 @@ public class GameManager : MonoBehaviour
                     {
                         updateBuffState();
                         Debug.Log("Buff updated.");
-                        buffState.printAllStates();
+                        //buffState.printAllStates();
                         stateStarted = false;
                         currentTurn = GameTurn.EndChkState;
                     }

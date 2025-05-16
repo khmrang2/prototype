@@ -980,6 +980,7 @@ GameObject:
   - component: {fileID: 3208558673094052597}
   - component: {fileID: 3331722669986339006}
   - component: {fileID: 7538887572635529618}
+  - component: {fileID: 8161616030620681941}
   m_Layer: 0
   m_Name: "\uD50C\uB808\uC774\uC5B4"
   m_TagString: Player
@@ -1085,9 +1086,6 @@ MonoBehaviour:
   - {fileID: 8696723804323369066}
   - {fileID: 665785438714028892}
   flashDuration: 0.2
-  onDamageTaken:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4963665569490436688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,11 +1098,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8398e527393b149a42cd14b8247fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  plAtkObj: {fileID: 0}
   hpBar: {fileID: 250207955975038258, guid: c19eec45e50845142a65edd7614b6c17, type: 3}
   playerHP: 3
   isAlive: 1
   gameOver: 0
   maxHP: 3
+  playerSpawnTransform: {fileID: 0}
   playerState: {fileID: 3331722669986339006}
   playerStatus: {fileID: 3208558673094052597}
   GameOverPopup: {fileID: 0}
@@ -1201,6 +1202,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 18.019226, y: 26.154568}
   m_EdgeRadius: 0
+--- !u!210 &8161616030620681941
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8696032229935862113}
+  m_Enabled: 1
+  m_SortingLayerID: 751527683
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &8924054100878888826
 GameObject:
   m_ObjectHideFlags: 0

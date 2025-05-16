@@ -91,8 +91,8 @@ public class updatePopup : MonoBehaviour
                 itemSecondaryStatName.text = "공격력";
                 break;
             case EquipmentType.Gear:
-                itemPrimaryStatName.text = "공의 수";
-                itemSecondaryStatName.text = "핀 체력";
+                itemPrimaryStatName.text = "핀 체력";
+                itemSecondaryStatName.text = "공의 수";
                 break;
             default:
                 Debug.LogError("[�������˾�] : ������ ���� ���� ���� �߸� �ҷ���.");

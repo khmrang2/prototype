@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScreen.unity
     guid: 15084d859f8498344aa41e9c13aa65c0
   - enabled: 1
+    path: Assets/Scenes/Stage0.unity
+    guid: f953b510eff614e4da270c34dd4851eb
+  - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: 150d8d97cd8af4149b2ea5698dc0cc8d
   - enabled: 1
@@ -23,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage3.unity
     guid: cc36f580241fa214e934d5aa384ba9e0
+  - enabled: 1
+    path: Assets/Scenes/Stage_testTemplate.unity
+    guid: 183768db3debded4591a161ac8e0d37f
   - enabled: 1
     path: Assets/Scenes/BugScene.unity
     guid: 3fc8acdd13e6c734bafef6554d6fdbcd

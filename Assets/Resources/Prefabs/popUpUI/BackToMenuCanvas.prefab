@@ -482,7 +482,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 21
   m_TargetDisplay: 0
 --- !u!114 &2388591168098018220
 MonoBehaviour:
@@ -616,7 +616,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 99
+  m_fontSize: 131.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
