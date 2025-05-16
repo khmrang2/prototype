@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyListManager : MonoBehaviour
 {
@@ -148,6 +149,8 @@ public class EnemyListManager : MonoBehaviour
             {
                 enemies[i].transform.position = enemySpawnRectTransform.position + enemies[i].spawn_offset + GetEnemySpawnYPos();
                 enemies[i].isSpawned = true;
+                // sorting layer setting.
+                enemies[i].GetComponent<SortingGroup>().sortingOrder = -(int)(enemies[i].transform.position.y * 100);
                 gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }
 

@@ -3567,15 +3567,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 11
-    m_Right: 11
-    m_Top: 11
-    m_Bottom: 11
+    m_Left: 17
+    m_Right: 17
+    m_Top: 17
+    m_Bottom: 17
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 212.28502, y: 212.28502}
-  m_Spacing: {x: 10.614251, y: 10.614251}
+  m_CellSize: {x: 327.27274, y: 327.27274}
+  m_Spacing: {x: 16.363638, y: 16.363638}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1 &293755691
@@ -6006,15 +6006,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 11
-    m_Right: 11
-    m_Top: 11
-    m_Bottom: 11
+    m_Left: 17
+    m_Right: 17
+    m_Top: 17
+    m_Bottom: 17
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 212.28502, y: 212.28502}
-  m_Spacing: {x: 10.614251, y: 10.614251}
+  m_CellSize: {x: 327.27274, y: 327.27274}
+  m_Spacing: {x: 16.363638, y: 16.363638}
   m_Constraint: 1
   m_ConstraintCount: 1
 --- !u!1 &537844128
@@ -8929,7 +8929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854beaf099fb80b4d96714d485fb79d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageScroll: {fileID: 1171033551}
   stageManager: {fileID: 1171033552}
 --- !u!1 &727705770
 GameObject:
@@ -13429,7 +13428,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.135
+  m_DecelerationRate: 2
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 695102970}
   m_HorizontalScrollbar: {fileID: 0}
@@ -13481,6 +13480,7 @@ MonoBehaviour:
   scrollRect: {fileID: 1171033550}
   content: {fileID: 263599988}
   snapSpeed: 2.5
+  forcedSnapDuration: 0.2
 --- !u!114 &1171033552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21292,15 +21292,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Left: 15
+    m_Right: 15
+    m_Top: 15
+    m_Bottom: 15
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 186.81082, y: 186.81082}
-  m_Spacing: {x: 37.362164, y: 37.362164}
+  m_CellSize: {x: 288, y: 288}
+  m_Spacing: {x: 57.600002, y: 57.600002}
   m_Constraint: 1
   m_ConstraintCount: 4
 --- !u!222 &1636349489

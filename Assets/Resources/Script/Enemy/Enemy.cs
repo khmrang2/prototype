@@ -81,9 +81,6 @@ public class Enemy : MonoBehaviour
         //생존 처리를 true로
         isAlive = true;
 
-        // sorting layer setting.
-        sortingGroup.sortingOrder = (int)(this.transform.position.y * 100);
-
         hpBarSlider.maxValue = status.EnemyHP;          //체력바 최대값 설정
         hpBarSlider.value = status.EnemyHP;
     }

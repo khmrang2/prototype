@@ -861,7 +861,7 @@ SortingGroup:
   m_SortingLayerID: 751527683
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_SortAtRoot: 0
+  m_SortAtRoot: 1
 --- !u!1 &5324243256294170676
 GameObject:
   m_ObjectHideFlags: 0
