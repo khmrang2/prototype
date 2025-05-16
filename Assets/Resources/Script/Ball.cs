@@ -18,6 +18,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        Destroy(gameObject, 10f);
     }
 
     void Awake()
