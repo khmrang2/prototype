@@ -146,7 +146,7 @@ public class EnemyListManager : MonoBehaviour
 
             for (int i = spawnedCount; i < spawnedCount + willSpawnCnt; i++)
             {
-                enemies[i].transform.position = enemySpawnRectTransform.position + enemies[i].spawn_offset;
+                enemies[i].transform.position = enemySpawnRectTransform.position + enemies[i].spawn_offset + GetEnemySpawnYPos();
                 enemies[i].isSpawned = true;
                 gameManager.Pin_Damage_Event += enemies[i].Get_Pin_Damage;
             }
@@ -170,6 +170,16 @@ public class EnemyListManager : MonoBehaviour
         }
         Debug.Log("다 죽었다");
         return true;    //다 죽었다면 true 반환
+    }
+
+
+
+    private Vector3 GetEnemySpawnYPos()
+    {
+        Vector3 spawn_offsetY = Vector3.up * Random.Range(-0.1f, 0.2f);
+
+        return spawn_offsetY;
+
     }
 
 }
